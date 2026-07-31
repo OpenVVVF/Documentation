@@ -1,0 +1,51 @@
+# OpenVVVF product-line registry.
+#
+# This file maps physical hardware directories to product-line identifiers
+# so the BOM manager and documentation tools can support multiple power
+# stages and application profiles from one shared control module.
+
+product_line: openvvvf
+
+# Roots to scan for physical hardware designs. Paths are relative to the
+# repository root (where this file lives).
+hardware_roots:
+  - ../InverterGen5/Hardware
+
+# Reusable control module documented in docs/platform/.
+control_module:
+  id: openvvvf-control-module
+  short_code: OVCM
+  name: OpenVVVF Control Module
+
+# Power stages / chassis variants. Keys are directory basenames under the
+# hardware roots. 'short_code' is used in internal part numbers.
+chassis:
+  Chassis2:
+    id: chassis-size-2
+    short_code: C2
+    name: Chassis Size 2
+    description: 140 V nominal / 600 A build
+  Chassis3:
+    id: chassis-size-3
+    short_code: C3
+    name: Chassis Size 3
+    description: Up to 1200 V / 1400 A (in development)
+
+# Application profiles documented in docs/platform/safety/.../application-profiles/.
+application_profiles:
+  motorcycle:
+    id: application-profile-motorcycle
+    name: Motorcycle
+    standard: ISO 26262:2018
+  passenger-car:
+    id: application-profile-passenger-car
+    name: Passenger Car
+    standard: ISO 26262:2018
+  industrial:
+    id: application-profile-industrial
+    name: Industrial Drive
+    standard: IEC 61800-5-2
+  rail:
+    id: application-profile-rail
+    name: Rail
+    standard: EN 50126/50128/50129

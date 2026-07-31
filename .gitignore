@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# KiCad / CAD backups (when referenced or cached)
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.kicad_pro-bak
+*-backups/
+*-cache.lib
+fp-info-cache
+
+# Local / personal state (do not commit)
+config.yaml
+inventory.json
+price_cache.json
+*.local
+.env
+
+# Build outputs
+build/
+dist/
+*.pdf
+*.html
+site/

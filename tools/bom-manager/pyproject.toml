@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bom-manager"
+version = "0.2.0"
+description = "Generalized BOM and fabrication package manager for OpenVVVF hardware"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.0",
+    "pyyaml>=6.0",
+    "pandas>=2.0.0",
+    "openpyxl>=3.1.0",
+    "reportlab>=4.0",
+]
+
+[project.optional-dependencies]
+# Optional deps for interactive BOM / 3-D rendering in release packages.
+assembly = [
+    "cadquery>=2.4",
+    "matplotlib>=3.8",
+    "InteractiveHtmlBom>=2.10",
+]
+dev = [
+    "pytest>=7.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+]
+
+[project.scripts]
+bom-manager = "bom_manager.cli:main"
+
+[tool.setuptools]
+packages = ["bom_manager", "bom_manager.importers", "bom_manager.vendors"]
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true

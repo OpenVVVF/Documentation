@@ -1,0 +1,13 @@
+product_id: chassis-size-2
+name: OpenVVVF Chassis Size 2
+short_code: C2
+type: power-stage
+description: >
+  140 V nominal / 600 A power stage built around Mitsubishi CM600DY-24T
+  half-bridge modules and Nichicon UCS2D331MHD capacitors.
+hardware_dir: ../InverterGen5/Hardware/Chassis2
+docs:
+  - docs/power-stages/chassis-size-2/README.md
+  - docs/power-stages/chassis-size-2/user-manual.md
+  - docs/power-stages/chassis-size-2/thermal-analysis.md
+  - docs/power-stages/chassis-size-2/dc-link-thermal.md

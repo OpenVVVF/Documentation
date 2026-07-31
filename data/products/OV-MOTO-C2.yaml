@@ -1,0 +1,16 @@
+product_id: OV-MOTO-C2
+name: OpenVVVF Motorcycle Kit (Chassis Size 2)
+type: assembled-product
+description: >
+  Complete motorcycle traction system based on the OpenVVVF control module,
+  Chassis Size 2 power stage, and the motorcycle application profile.
+components:
+  control_module: openvvvf-control-module
+  power_stage: chassis-size-2
+  application_profile: motorcycle
+  software_target: main-mcu-v5.1
+docs:
+  - docs/platform/safety/hara/core.md
+  - docs/platform/safety/hara/application-profiles/motorcycle.md
+  - docs/power-stages/chassis-size-2/user-manual.md
+  - docs/software/main-mcu/index.md

@@ -1,0 +1,11 @@
+product_id: openvvvf-control-module
+name: OpenVVVF Control Module
+short_code: OVCM
+type: control-module
+description: >
+  Reusable dual-MCU traction inverter / VCU control board. Application-independent
+  safety element documented in docs/platform/.
+docs:
+  - docs/platform/safety/hara/core.md
+  - docs/platform/compliance/iso-26262-mapping.md
+  - docs/platform/compliance/iec-61800-5-2-mapping.md

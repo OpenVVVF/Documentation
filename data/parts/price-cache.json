@@ -1,0 +1,1162 @@
+{
+  "sendcutsend:hw_c2_dclbb_a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW_C2_DCLBB_A",
+    "unit_price": 50.71,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-07-16T03:50:31.983400Z"
+  },
+  "sendcutsend:hw_c2_pbb_a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW_C2_PBB_A",
+    "unit_price": 19.58,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-07-16T03:50:31.983440Z"
+  },
+  "mouser:187-cl32b103kgfnnne": {
+    "vendor": "mouser",
+    "part_number": "187-CL32B103KGFNNNE",
+    "unit_price": 0.143,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775245Z"
+  },
+  "mouser:187-cl32a106kaulnne": {
+    "vendor": "mouser",
+    "part_number": "187-CL32A106KAULNNE",
+    "unit_price": 0.134,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775222Z"
+  },
+  "mouser:187-cl32b105kbhnnne": {
+    "vendor": "mouser",
+    "part_number": "187-CL32B105KBHNNNE",
+    "unit_price": 0.24,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775264Z"
+  },
+  "mouser:80-c1210c225j1rauto": {
+    "vendor": "mouser",
+    "part_number": "80-C1210C225J1RAUTO",
+    "unit_price": 0.52,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776411Z"
+  },
+  "mouser:80-c1210c220j5g": {
+    "vendor": "mouser",
+    "part_number": "80-C1210C220J5G",
+    "unit_price": 0.74,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776371Z"
+  },
+  "mouser:710-830003156b": {
+    "vendor": "mouser",
+    "part_number": "710-830003156B",
+    "unit_price": 0.5,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776171Z"
+  },
+  "sendcutsend:c2_hw_bsp_a": {
+    "vendor": "sendcutsend",
+    "part_number": "C2_HW_BSP_A",
+    "unit_price": 201.61,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-07-16T03:50:33.186982Z"
+  },
+  "mouser:534-5000": {
+    "vendor": "mouser",
+    "part_number": "534-5000",
+    "unit_price": 0.293,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775701Z"
+  },
+  "sendcutsend:hw_c2_chsp_a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW_C2_CHSP_A",
+    "unit_price": 33.31,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-07-16T03:50:33.187051Z"
+  },
+  "mouser:603-ac1210jr-0710kl": {
+    "vendor": "mouser",
+    "part_number": "603-AC1210JR-0710KL",
+    "unit_price": 0.05,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775856Z"
+  },
+  "mouser:603-ac1210fr-07120rl": {
+    "vendor": "mouser",
+    "part_number": "603-AC1210FR-07120RL",
+    "unit_price": 0.1,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775842Z"
+  },
+  "mouser:603-rc1210fr-071kl": {
+    "vendor": "mouser",
+    "part_number": "603-RC1210FR-071KL",
+    "unit_price": 0.049,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775871Z"
+  },
+  "mouser:667-erj-14bqf2r7u": {
+    "vendor": "mouser",
+    "part_number": "667-ERJ-14BQF2R7U",
+    "unit_price": 0.234,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776052Z"
+  },
+  "mouser:603-rc1210fr-07220rl": {
+    "vendor": "mouser",
+    "part_number": "603-RC1210FR-07220RL",
+    "unit_price": 0.1,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775886Z"
+  },
+  "mouser:71-crcw12104k70fkeah": {
+    "vendor": "mouser",
+    "part_number": "71-CRCW12104K70FKEAH",
+    "unit_price": 0.59,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776154Z"
+  },
+  "mouser:667-erj-p14f4993u": {
+    "vendor": "mouser",
+    "part_number": "667-ERJ-P14F4993U",
+    "unit_price": 0.44,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776085Z"
+  },
+  "mouser:667-erj-p14f5600u": {
+    "vendor": "mouser",
+    "part_number": "667-ERJ-P14F5600U",
+    "unit_price": 0.44,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776102Z"
+  },
+  "mouser:71-crcw1210-249k-e3": {
+    "vendor": "mouser",
+    "part_number": "71-CRCW1210-249K-E3",
+    "unit_price": 0.07,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776137Z"
+  },
+  "mouser:667-erj-p14j202u": {
+    "vendor": "mouser",
+    "part_number": "667-ERJ-P14J202U",
+    "unit_price": 0.23,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-16T06:22:47.095194Z"
+  },
+  "sendcutsend:hw-c2-dclbb-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-DCLBB-A",
+    "unit_price": 45.12,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-07-17T22:32:52.197435Z"
+  },
+  "sendcutsend:hw-c2-pbb-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-PBB-A",
+    "unit_price": 17.03,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-07-17T22:32:52.197480Z"
+  },
+  "sendcutsend:hw-c2-bsp-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-BSP-A",
+    "unit_price": 144.46,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-07-17T22:32:52.198100Z"
+  },
+  "sendcutsend:hw-c2-chsp-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-CHSP-A",
+    "unit_price": 24.67,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-07-17T22:32:52.198119Z"
+  },
+  "mouser:80-c1210c104k1rac": {
+    "vendor": "mouser",
+    "part_number": "80-C1210C104K1RAC",
+    "unit_price": 0.161,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776353Z"
+  },
+  "mouser:667-erj-p14f2002u": {
+    "vendor": "mouser",
+    "part_number": "667-ERJ-P14F2002U",
+    "unit_price": 0.245,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776068Z"
+  },
+  "mcmaster:90128a232": {
+    "vendor": "mcmaster",
+    "part_number": "90128A232",
+    "unit_price": 10.55,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481445Z"
+  },
+  "mcmaster:90225a102": {
+    "vendor": "mcmaster",
+    "part_number": "90225A102",
+    "unit_price": 12.8,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481492Z"
+  },
+  "mcmaster:91292a134": {
+    "vendor": "mcmaster",
+    "part_number": "91292A134",
+    "unit_price": 11.72,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481513Z"
+  },
+  "mcmaster:91294a220": {
+    "vendor": "mcmaster",
+    "part_number": "91294A220",
+    "unit_price": 12.74,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481529Z"
+  },
+  "mcmaster:91502a180": {
+    "vendor": "mcmaster",
+    "part_number": "91502A180",
+    "unit_price": 19.65,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481544Z"
+  },
+  "mcmaster:91502a183": {
+    "vendor": "mcmaster",
+    "part_number": "91502A183",
+    "unit_price": 17.27,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481559Z"
+  },
+  "mcmaster:94669a190": {
+    "vendor": "mcmaster",
+    "part_number": "94669A190",
+    "unit_price": 1.39,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481574Z"
+  },
+  "mcmaster:94669a196": {
+    "vendor": "mcmaster",
+    "part_number": "94669A196",
+    "unit_price": 2.96,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481588Z"
+  },
+  "mcmaster:94669a199": {
+    "vendor": "mcmaster",
+    "part_number": "94669A199",
+    "unit_price": 3.1,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481602Z"
+  },
+  "mcmaster:94669a202": {
+    "vendor": "mcmaster",
+    "part_number": "94669A202",
+    "unit_price": 3.22,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481616Z"
+  },
+  "mcmaster:98044a224": {
+    "vendor": "mcmaster",
+    "part_number": "98044A224",
+    "unit_price": 14.88,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T05:31:50.481630Z"
+  },
+  "mcmaster:3m156058-nd": {
+    "vendor": "mcmaster",
+    "part_number": "3M156058-ND",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/3M156058-ND/",
+    "last_updated": "2026-07-16T05:00:02.631381Z"
+  },
+  "mouser:603-rc1210fr-073kl": {
+    "vendor": "mouser",
+    "part_number": "603-RC1210FR-073KL",
+    "unit_price": 0.1,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775904Z"
+  },
+  "pcb:controlboard": {
+    "vendor": "pcb",
+    "part_number": "ControlBoard",
+    "unit_price": 25.240000000000002,
+    "currency": "USD",
+    "stock": "",
+    "source": "jlcpcb_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T06:14:54.764384Z"
+  },
+  "pcb:dcbuscapacitorboard": {
+    "vendor": "pcb",
+    "part_number": "DCBusCapacitorBoard",
+    "unit_price": 7.540000000000001,
+    "currency": "USD",
+    "stock": "",
+    "source": "jlcpcb_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T06:14:54.764409Z"
+  },
+  "pcb:dcbusfilter": {
+    "vendor": "pcb",
+    "part_number": "DCBusFilter",
+    "unit_price": 8.440000000000001,
+    "currency": "USD",
+    "stock": "",
+    "source": "jlcpcb_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T06:14:54.764419Z"
+  },
+  "pcb:gatedriver": {
+    "vendor": "pcb",
+    "part_number": "GateDriver",
+    "unit_price": 11.66,
+    "currency": "USD",
+    "stock": "",
+    "source": "jlcpcb_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T06:14:54.764426Z"
+  },
+  "pcb:ioboard": {
+    "vendor": "pcb",
+    "part_number": "IOBoard",
+    "unit_price": 11.66,
+    "currency": "USD",
+    "stock": "",
+    "source": "jlcpcb_order_import",
+    "url": "",
+    "last_updated": "2026-07-16T06:14:54.764432Z"
+  },
+  "mouser:80-c1210c221j2g": {
+    "vendor": "mouser",
+    "part_number": "80-C1210C221J2G",
+    "unit_price": 0.88,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776390Z"
+  },
+  "digikey:0008500113": {
+    "vendor": "digikey",
+    "part_number": "0008500113",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-07-16T19:16:50.343588Z"
+  },
+  "digikey:3m156058-nd": {
+    "vendor": "digikey",
+    "part_number": "3M156058-ND",
+    "unit_price": 46.98,
+    "currency": "USD",
+    "stock": "",
+    "source": "digikey_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:36:30.869150Z"
+  },
+  "digikey:455-1135-1-nd": {
+    "vendor": "digikey",
+    "part_number": "455-1135-1-ND",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-07-16T19:16:50.343618Z"
+  },
+  "digikey:455-2266-nd": {
+    "vendor": "digikey",
+    "part_number": "455-2266-ND",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-07-16T19:16:50.343624Z"
+  },
+  "digikey:bc5011ct-nd": {
+    "vendor": "digikey",
+    "part_number": "BC5011CT-ND",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-07-16T19:16:50.343640Z"
+  },
+  "mitsubishi:cm600dy-24t": {
+    "vendor": "mitsubishi",
+    "part_number": "CM600DY-24T",
+    "unit_price": 323.5,
+    "currency": "USD",
+    "stock": "",
+    "source": "manual",
+    "url": "",
+    "last_updated": "2026-07-16T23:50:13.613500Z"
+  },
+  "digikey:la37s600s05km": {
+    "vendor": "digikey",
+    "part_number": "LA37S600S05KM",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-07-16T19:16:50.343657Z"
+  },
+  "digikey:rts103c1r2m6l201": {
+    "vendor": "digikey",
+    "part_number": "RTS103C1R2M6L201",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-07-16T19:16:50.343676Z"
+  },
+  "digikey:wm2022-nd": {
+    "vendor": "digikey",
+    "part_number": "WM2022-ND",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-07-16T19:16:50.343700Z"
+  },
+  "sendcutsend:test bracket": {
+    "vendor": "sendcutsend",
+    "part_number": "Test Bracket",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-07-16T19:40:46.538788Z"
+  },
+  "digikey:tsw-110-21-s-d": {
+    "vendor": "digikey",
+    "part_number": "TSW-110-21-S-D",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-07-16T20:06:05.630684Z"
+  },
+  "mouser:cm600dy-24t": {
+    "vendor": "mouser",
+    "part_number": "CM600DY-24T",
+    "unit_price": 323.5,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776589Z"
+  },
+  "mouser:161-fdfnyd1-1105": {
+    "vendor": "mouser",
+    "part_number": "161-FDFNYD1-1105",
+    "unit_price": 0.48,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775120Z"
+  },
+  "mouser:179-ts406650r260s": {
+    "vendor": "mouser",
+    "part_number": "179-TS406650R260S",
+    "unit_price": 0.48,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775169Z"
+  },
+  "mouser:179-uj2-b-hr-g-v": {
+    "vendor": "mouser",
+    "part_number": "179-UJ2-B-HR-G-V",
+    "unit_price": 1.7,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775199Z"
+  },
+  "mouser:200-ssw10301ld": {
+    "vendor": "mouser",
+    "part_number": "200-SSW10301LD",
+    "unit_price": 1.34,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775281Z"
+  },
+  "mouser:200-ssw10401ld": {
+    "vendor": "mouser",
+    "part_number": "200-SSW10401LD",
+    "unit_price": 1.69,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775300Z"
+  },
+  "mouser:200-ssw10801ld": {
+    "vendor": "mouser",
+    "part_number": "200-SSW10801LD",
+    "unit_price": 2.35,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775318Z"
+  },
+  "mouser:200-ssw11001fd": {
+    "vendor": "mouser",
+    "part_number": "200-SSW11001FD",
+    "unit_price": 2.41,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775336Z"
+  },
+  "mouser:200-tsw10318gd": {
+    "vendor": "mouser",
+    "part_number": "200-TSW10318GD",
+    "unit_price": 1.01,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775353Z"
+  },
+  "mouser:200-tsw10818fd": {
+    "vendor": "mouser",
+    "part_number": "200-TSW10818FD",
+    "unit_price": 1.45,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775373Z"
+  },
+  "mouser:200-tsw11018td": {
+    "vendor": "mouser",
+    "part_number": "200-TSW11018TD",
+    "unit_price": 1.58,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775391Z"
+  },
+  "mouser:200-tsw11021ldll": {
+    "vendor": "mouser",
+    "part_number": "200-TSW11021LDLL",
+    "unit_price": 2.27,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775412Z"
+  },
+  "mouser:305-464762": {
+    "vendor": "mouser",
+    "part_number": "305-464762",
+    "unit_price": 0.397,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775431Z"
+  },
+  "mouser:305-524265-e": {
+    "vendor": "mouser",
+    "part_number": "305-524265-E",
+    "unit_price": 7.87,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775450Z"
+  },
+  "mouser:305-544958-e": {
+    "vendor": "mouser",
+    "part_number": "305-544958-E",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:42:39.045413Z"
+  },
+  "mouser:306-b2b-xh-amlfsnp": {
+    "vendor": "mouser",
+    "part_number": "306-B2B-XH-AMLFSNP",
+    "unit_price": 0.1,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775469Z"
+  },
+  "mouser:306-sxh-001t-p0.6": {
+    "vendor": "mouser",
+    "part_number": "306-SXH-001T-P0.6",
+    "unit_price": 0.1,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775509Z"
+  },
+  "mouser:306-xhp-2": {
+    "vendor": "mouser",
+    "part_number": "306-XHP-2",
+    "unit_price": 0.1,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775528Z"
+  },
+  "mouser:403-sts41a-awlb-r3": {
+    "vendor": "mouser",
+    "part_number": "403-STS41A-AWLB-R3",
+    "unit_price": 1.13,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775549Z"
+  },
+  "mouser:418-ec7bw-110s12": {
+    "vendor": "mouser",
+    "part_number": "418-EC7BW-110S12",
+    "unit_price": 48.86,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775567Z"
+  },
+  "mouser:511-stm32g474rct3": {
+    "vendor": "mouser",
+    "part_number": "511-STM32G474RCT3",
+    "unit_price": 8.31,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775586Z"
+  },
+  "mouser:511-stm32h723zgt6": {
+    "vendor": "mouser",
+    "part_number": "511-STM32H723ZGT6",
+    "unit_price": 13.25,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775606Z"
+  },
+  "mouser:511-stth112a": {
+    "vendor": "mouser",
+    "part_number": "511-STTH112A",
+    "unit_price": 0.59,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775625Z"
+  },
+  "mouser:512-s3n": {
+    "vendor": "mouser",
+    "part_number": "512-S3N",
+    "unit_price": 0.67,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775643Z"
+  },
+  "mouser:523-awhsh105d00g": {
+    "vendor": "mouser",
+    "part_number": "523-AWHSH105D00G",
+    "unit_price": 1.11,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775662Z"
+  },
+  "mouser:527-rts103c1r2m6l201": {
+    "vendor": "mouser",
+    "part_number": "527-RTS103C1R2M6L201",
+    "unit_price": 2.27,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775681Z"
+  },
+  "mouser:538-22-04-1041": {
+    "vendor": "mouser",
+    "part_number": "538-22-04-1041",
+    "unit_price": 0.89,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775720Z"
+  },
+  "mouser:571-776231-1": {
+    "vendor": "mouser",
+    "part_number": "571-776231-1",
+    "unit_price": 16.69,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775738Z"
+  },
+  "mouser:580-mgj2d121509mpcr7": {
+    "vendor": "mouser",
+    "part_number": "580-MGJ2D121509MPCR7",
+    "unit_price": 6.77,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775757Z"
+  },
+  "mouser:584-lt3080iq#pbf": {
+    "vendor": "mouser",
+    "part_number": "584-LT3080IQ#PBF",
+    "unit_price": 8.54,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775775Z"
+  },
+  "mouser:595-iso1042bdwvr": {
+    "vendor": "mouser",
+    "part_number": "595-ISO1042BDWVR",
+    "unit_price": 4.44,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775793Z"
+  },
+  "mouser:595-iso1212dbq": {
+    "vendor": "mouser",
+    "part_number": "595-ISO1212DBQ",
+    "unit_price": 1.73,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775811Z"
+  },
+  "mouser:595-tps389006adjrter": {
+    "vendor": "mouser",
+    "part_number": "595-TPS389006ADJRTER",
+    "unit_price": 5.1,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775827Z"
+  },
+  "mouser:621-bat54ws-f": {
+    "vendor": "mouser",
+    "part_number": "621-BAT54WS-F",
+    "unit_price": 0.124,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775921Z"
+  },
+  "mouser:621-drdnb21d-7": {
+    "vendor": "mouser",
+    "part_number": "621-DRDNB21D-7",
+    "unit_price": 0.56,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775961Z"
+  },
+  "mouser:647-ucm1h101mcl1gs": {
+    "vendor": "mouser",
+    "part_number": "647-UCM1H101MCL1GS",
+    "unit_price": 0.325,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.775993Z"
+  },
+  "mouser:647-ucs2d331mhd": {
+    "vendor": "mouser",
+    "part_number": "647-UCS2D331MHD",
+    "unit_price": 2.16,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776016Z"
+  },
+  "mouser:652-mf-rht200/32-2": {
+    "vendor": "mouser",
+    "part_number": "652-MF-RHT200/32-2",
+    "unit_price": 0.61,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776035Z"
+  },
+  "mouser:700-max22530awe+": {
+    "vendor": "mouser",
+    "part_number": "700-MAX22530AWE+",
+    "unit_price": 15.6,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776119Z"
+  },
+  "mouser:710-971150581": {
+    "vendor": "mouser",
+    "part_number": "710-971150581",
+    "unit_price": 0.6,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776189Z"
+  },
+  "mouser:710-971250581": {
+    "vendor": "mouser",
+    "part_number": "710-971250581",
+    "unit_price": 1.1,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776208Z"
+  },
+  "mouser:710-971350581": {
+    "vendor": "mouser",
+    "part_number": "710-971350581",
+    "unit_price": 1.48,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776228Z"
+  },
+  "mouser:710-9774030592r": {
+    "vendor": "mouser",
+    "part_number": "710-9774030592R",
+    "unit_price": 1.57,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776246Z"
+  },
+  "mouser:72-vy1222m47y5uq6tv0": {
+    "vendor": "mouser",
+    "part_number": "72-VY1222M47Y5UQ6TV0",
+    "unit_price": 0.271,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776265Z"
+  },
+  "mouser:726-bts462tatma1": {
+    "vendor": "mouser",
+    "part_number": "726-BTS462TATMA1",
+    "unit_price": 2.66,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776283Z"
+  },
+  "mouser:727-cy15b102q-sxet": {
+    "vendor": "mouser",
+    "part_number": "727-CY15B102Q-SXET",
+    "unit_price": 18.14,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776301Z"
+  },
+  "mouser:737-rd7-12s033r": {
+    "vendor": "mouser",
+    "part_number": "737-RD7-12S033R",
+    "unit_price": 6.77,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776318Z"
+  },
+  "mouser:75-mkp1848s61010jy5b": {
+    "vendor": "mouser",
+    "part_number": "75-MKP1848S61010JY5B",
+    "unit_price": 7.54,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776334Z"
+  },
+  "mouser:81-nxft15xh103feab21": {
+    "vendor": "mouser",
+    "part_number": "81-NXFT15XH103FEAB21",
+    "unit_price": 0.34,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776430Z"
+  },
+  "mouser:810-act45b1012ptl003": {
+    "vendor": "mouser",
+    "part_number": "810-ACT45B1012PTL003",
+    "unit_price": 1.53,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776449Z"
+  },
+  "mouser:838-la37s600s05km": {
+    "vendor": "mouser",
+    "part_number": "838-LA37S600S05KM",
+    "unit_price": 19.96,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776468Z"
+  },
+  "mouser:859-ltst-c230ckt": {
+    "vendor": "mouser",
+    "part_number": "859-LTST-C230CKT",
+    "unit_price": 0.41,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776487Z"
+  },
+  "mouser:859-ltst-c230gkt": {
+    "vendor": "mouser",
+    "part_number": "859-LTST-C230GKT",
+    "unit_price": 0.36,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776506Z"
+  },
+  "mouser:863-mm3z3v0st1g": {
+    "vendor": "mouser",
+    "part_number": "863-MM3Z3V0ST1G",
+    "unit_price": 0.17,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776523Z"
+  },
+  "mouser:863-ncv57100dwr2g": {
+    "vendor": "mouser",
+    "part_number": "863-NCV57100DWR2G",
+    "unit_price": 2.98,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776541Z"
+  },
+  "mouser:863-szmmsz4678t1g": {
+    "vendor": "mouser",
+    "part_number": "863-SZMMSZ4678T1G",
+    "unit_price": 0.43,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776556Z"
+  },
+  "mouser:871-b58031u9254m062": {
+    "vendor": "mouser",
+    "part_number": "871-B58031U9254M062",
+    "unit_price": 4.65,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776567Z"
+  },
+  "mouser:919-rke-1205s/h": {
+    "vendor": "mouser",
+    "part_number": "919-RKE-1205S/H",
+    "unit_price": 5.17,
+    "currency": "USD",
+    "stock": "",
+    "source": "mouser_cart_import",
+    "url": "",
+    "last_updated": "2026-07-17T01:45:29.776578Z"
+  },
+  "digikey:544959-e": {
+    "vendor": "digikey",
+    "part_number": "544959-E",
+    "unit_price": 2.68,
+    "currency": "USD",
+    "stock": "",
+    "source": "manual",
+    "url": "",
+    "last_updated": "2026-07-17T01:57:17.265013Z"
+  }
+}
