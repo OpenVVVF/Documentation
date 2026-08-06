@@ -32,6 +32,7 @@ This guide covers mounting the three Mitsubishi CM600DY-24T IGBT modules onto th
 | M6×12 mm socket-head cap screw | 12 | Per module (4×) |
 | Thermal interface compound | as needed | Even, thin coverage |
 | Thread-locking compound (medium strength) | as needed | Applied to screw threads |
+| M6 Belleville washer (optional) | 12 | Under each screw head to maintain clamp force through thermal cycling |
 | 4 mm hex key / Allen key | 1 | For M6 socket heads |
 | Torque wrench with 4 N·m capability | 1 | Calibrated, if possible |
 | Permanent marker | 1 | For torque-strip marks |
@@ -67,8 +68,11 @@ Align the module with the four M6 mounting holes in the baseplate and lower it i
 ## Step 4 — Install the mounting screws
 
 1. Apply thread-locking compound to the threads of all four M6×12 mm screws.
-2. Insert the screws into the four corners of the module.
-3. Tighten diagonally (opposite corners) until the screws are just hand-tight.
+2. Place a Belleville washer under each screw head, if available. The convex side should face the screw head so the washer flattens as it is tightened.
+3. Insert the screws into the four corners of the module.
+4. Tighten diagonally (opposite corners) until the screws are just hand-tight.
+
+> **Note:** The unit shown in the photos was assembled before Belleville washers were available. Future builds should use them; they help maintain clamp force as the aluminium baseplate and module package expand and contract through thermal cycles.
 
 Repeat Step 1 through Step 4 for the remaining two IGBT modules.
 
@@ -78,7 +82,7 @@ Before final tightening, verify that the gate terminals on all three modules fac
 
 ![All three IGBT modules installed, gate-drive terminals facing the control-board area](IGBTDirectionality.jpg)
 
-Tighten each module's screws in a diagonal pattern to **4 N·m**.
+Tighten each module's screws in a diagonal pattern to **4 N·m**. Wait approximately **2 minutes** to allow the thermal interface compound to settle and squeeze out, then retorque all screws to **4 N·m** again. Some clamp force loss is normal as the paste compresses; the retorque step restores it.
 
 ![Tightening the IGBT mounting screws in a diagonal pattern](IGBTTighten.jpg)
 
