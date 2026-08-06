@@ -39,3 +39,6 @@ dist/
 *.pdf
 *.html
 site/
+
+# DocGen HTML templates are source, not build output
+!Tools/DocGen/src/docgen/templates/*.html
