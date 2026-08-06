@@ -1,6 +1,6 @@
 """Product-line registry loader.
 
-Reads config/products.yaml at the repository root and exposes the hardware
+Reads Config/Products.yaml at the repository root and exposes the hardware
 roots, chassis definitions, and application profiles to the rest of the tool.
 """
 
@@ -13,23 +13,23 @@ import yaml
 def repo_root() -> Path:
     """Return the repository root (Documentation/).
 
-    This module lives at tools/bom-manager/bom_manager/products.py, so the
+    This module lives at Tools/BOMManager/bom_manager/products.py, so the
     repo root is four parents up.
     """
     return Path(__file__).resolve().parent.parent.parent.parent
 
 
 def products_path() -> Path:
-    return repo_root() / "config" / "products.yaml"
+    return repo_root() / "Config" / "Products.yaml"
 
 
 def data_dir() -> Path:
     """Return the shared data directory at the repo root."""
-    return repo_root() / "data" / "parts"
+    return repo_root() / "Data" / "Parts"
 
 
 def load_products() -> Dict[str, Any]:
-    """Load the product registry from config/products.yaml."""
+    """Load the product registry from Config/Products.yaml."""
     path = products_path()
     if not path.exists():
         return {}

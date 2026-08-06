@@ -2,7 +2,7 @@
 
 Paste JLCPCB shopping-cart or order-confirmation text and this will extract
 each PCB prototype item (board name, quantity, total price), update
-price_cache.json under vendor "pcb", and write the per-board price into the
+PriceCache.json under vendor "pcb", and write the per-board price into the
 committed part database (key pcb|<board>) so PCB fab costs are tracked.
 """
 

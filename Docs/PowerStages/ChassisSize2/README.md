@@ -18,7 +18,8 @@ normative_refs:
 
 140 V nominal / 600 A build.
 
-- `user-manual.md` — Assembly and operating manual
-- `thermal-analysis.md` — System thermal analysis
-- `dc-link-thermal.md` — DC link standoff heat-path analysis
-- `fabrication-guide.md` — Fabrication and build notes
+- `UserManual.md` — Assembly and operating manual
+- `Assembly/PowerStage/IGBTMounting.md` — IGBT module mounting procedure
+- `ThermalAnalysis.md` — System thermal analysis
+- `DCLinkThermal.md` — DC link standoff heat-path analysis
+- `FabricationGuide.md` — Fabrication and build notes

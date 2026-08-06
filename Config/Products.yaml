@@ -11,7 +11,7 @@ product_line: openvvvf
 hardware_roots:
   - ../InverterGen5/Hardware
 
-# Reusable control module documented in docs/platform/.
+# Reusable control module documented in Docs/Platform/.
 control_module:
   id: openvvvf-control-module
   short_code: OVCM
@@ -31,7 +31,7 @@ chassis:
     name: Chassis Size 3
     description: Up to 1200 V / 1400 A (in development)
 
-# Application profiles documented in docs/platform/safety/.../application-profiles/.
+# Application profiles documented in Docs/Platform/Safety/.../ApplicationProfiles/.
 application_profiles:
   motorcycle:
     id: application-profile-motorcycle

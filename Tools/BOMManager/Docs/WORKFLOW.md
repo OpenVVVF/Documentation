@@ -87,7 +87,7 @@ database, so cost history survives a fresh clone.
 bom> stock 94669A199 19       # 19 screws left over
 ```
 
-Stock lives in `inventory.json`, which is gitignored — your shelf is not
+Stock lives in `Inventory.json`, which is gitignored — your shelf is not
 project data. Future `generate` runs subtract it: covered parts order 0 packs
 and show up in the report's **Pack Rounding & Stock** section.
 
@@ -104,8 +104,8 @@ links keep working, and internal PNs never change when you edit descriptions.
 
 ## 7. Track cost over time
 
-Commit `FabricationData/Pricing_Report.md`, `part_database.json`, and
-`part_numbers.json`. Rerun `generate` as the design evolves and diff the report.
+Commit `FabricationData/Pricing_Report.md`, `Database.json`, and
+`Numbers.json`. Rerun `generate` as the design evolves and diff the report.
 
 For scripted/CI runs use `--no-prompt` so the tool errors instead of blocking
 when something needs input.

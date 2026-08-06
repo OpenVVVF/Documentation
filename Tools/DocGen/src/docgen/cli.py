@@ -7,12 +7,13 @@ from pathlib import Path
 from .crossref import validate_crossrefs
 from .frontmatter import load_docs
 from .product import assemble_manual, list_products, load_product
+from .site import build_site
 
 
 def repo_root() -> Path:
     """Return the repository root.
 
-    This module lives at tools/docgen/src/docgen/cli.py, so the repo root is
+    This module lives at Tools/DocGen/src/docgen/cli.py, so the repo root is
     five parents up.
     """
     return Path(__file__).resolve().parent.parent.parent.parent.parent
@@ -25,22 +26,31 @@ def main(argv: list[str] | None = None) -> int:
     # index command
     index_parser = subparsers.add_parser("index", help="List all documented doc_ids")
     index_parser.add_argument(
-        "--docs-dir", type=Path, default=repo_root() / "docs"
+        "--docs-dir", type=Path, default=repo_root() / "Docs"
     )
 
     # validate command
     validate_parser = subparsers.add_parser("validate", help="Validate cross-references")
     validate_parser.add_argument(
-        "--docs-dir", type=Path, default=repo_root() / "docs"
+        "--docs-dir", type=Path, default=repo_root() / "Docs"
     )
 
     # build command
     build_parser = subparsers.add_parser("build", help="Assemble a product manual")
     build_parser.add_argument("--product", required=True, help="Product ID or product YAML path")
     build_parser.add_argument(
-        "--docs-dir", type=Path, default=repo_root() / "docs"
+        "--docs-dir", type=Path, default=repo_root() / "Docs"
     )
     build_parser.add_argument("--output", type=Path, help="Output Markdown file")
+
+    # site command
+    site_parser = subparsers.add_parser("site", help="Build a static HTML site")
+    site_parser.add_argument(
+        "--docs-dir", type=Path, default=repo_root() / "Docs"
+    )
+    site_parser.add_argument(
+        "--output-dir", type=Path, default=repo_root() / "site"
+    )
 
     args = parser.parse_args(argv)
 
@@ -64,13 +74,23 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "build":
         product_path = Path(args.product)
         if not product_path.exists():
-            products_dir = repo_root() / "data" / "products"
+            products_dir = repo_root() / "Data" / "Products"
             candidate = products_dir / f"{args.product}.yaml"
             if candidate.exists():
                 product_path = candidate
             else:
-                print(f"Product not found: {args.product}", file=sys.stderr)
-                return 1
+                # Fall back to matching by product_id inside the YAML files.
+                for path in sorted(products_dir.glob("*.yaml")):
+                    try:
+                        prod = load_product(path)
+                    except Exception:  # pragma: no cover
+                        continue
+                    if prod.product_id == args.product:
+                        product_path = path
+                        break
+                if not product_path.exists():
+                    print(f"Product not found: {args.product}", file=sys.stderr)
+                    return 1
 
         product = load_product(product_path)
         output = assemble_manual(product, args.docs_dir)
@@ -80,6 +100,10 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Wrote {args.output}")
         else:
             print(output)
+        return 0
+
+    if args.command == "site":
+        build_site(args.docs_dir, args.output_dir)
         return 0
 
     return 1

@@ -7,7 +7,8 @@ description: >
   half-bridge modules and Nichicon UCS2D331MHD capacitors.
 hardware_dir: ../InverterGen5/Hardware/Chassis2
 docs:
-  - docs/power-stages/chassis-size-2/README.md
-  - docs/power-stages/chassis-size-2/user-manual.md
-  - docs/power-stages/chassis-size-2/thermal-analysis.md
-  - docs/power-stages/chassis-size-2/dc-link-thermal.md
+  - Docs/PowerStages/ChassisSize2/README.md
+  - Docs/PowerStages/ChassisSize2/UserManual.md
+  - Docs/PowerStages/ChassisSize2/Assembly/PowerStage/IGBTMounting.md
+  - Docs/PowerStages/ChassisSize2/ThermalAnalysis.md
+  - Docs/PowerStages/ChassisSize2/DCLinkThermal.md

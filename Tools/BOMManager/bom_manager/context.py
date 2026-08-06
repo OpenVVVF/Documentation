@@ -43,7 +43,7 @@ def build_context(
     hardware_root: Optional[Path] = None,
     allow_prompt: bool = True,
 ) -> Context:
-    # Package root is tools/bom-manager; repo root is the Documentation/ hub.
+    # Package root is Tools/BOMManager; repo root is the Documentation/ hub.
     root = Path(__file__).resolve().parent.parent
     repo = products.repo_root()
 
@@ -55,15 +55,15 @@ def build_context(
         configured = products.hardware_roots()
         hw_root = configured[0] if configured else root.parent
 
-    config = Config(root / "config.yaml")
+    config = Config(root / "Config.yaml")
     data = products.data_dir()
-    db = PartDatabase(data / "database.json")
-    cache = PriceCache(data / "price-cache.json")
-    inventory = Inventory(data / "inventory.json")
+    db = PartDatabase(data / "Database.json")
+    cache = PriceCache(data / "PriceCache.json")
+    inventory = Inventory(data / "Inventory.json")
     pn_format = config.get("part_number.format", PartNumberRegistry.DEFAULT_FORMAT)
-    pn_registry = PartNumberRegistry(data / "numbers.json", format=pn_format)
+    pn_registry = PartNumberRegistry(data / "Numbers.json", format=pn_format)
     descriptor_registry = DescriptorRegistry(
-        data / "descriptors.json", allow_prompt=allow_prompt
+        data / "Descriptors.json", allow_prompt=allow_prompt
     )
 
     mouser = MouserClient(config.get("mouser.api_key"))

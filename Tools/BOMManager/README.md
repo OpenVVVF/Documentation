@@ -32,7 +32,7 @@ bom> release                    # order files + full PDF report (schematics, lay
 ```
 
 Every command also works one-shot for scripting: `python3 bom.py generate --qty 5`.
-Type `help` inside the shell for the full list. **See `docs/GUIDE.md` for the
+Type `help` inside the shell for the full list. **See `Docs/GUIDE.md` for the
 complete usage guide.**
 
 The old scripts (`generate_bom.py`, `manage_parts.py`, `import_*.py`) still run
@@ -74,15 +74,15 @@ Committed (project data, diff-friendly):
 
 | File | Contents |
 |------|----------|
-| `bom_manager/data/part_database.json` | vendor PNs, pack sizes, manual prices, notes |
-| `bom_manager/data/part_numbers.json` | internal PN registry with revision history |
-| `bom_manager/data/part_descriptors.json` | short names used in part numbers |
+| `bom_manager/Data/Database.json` | vendor PNs, pack sizes, manual prices, notes |
+| `bom_manager/Data/Numbers.json` | internal PN registry with revision history |
+| `bom_manager/Data/Descriptors.json` | short names used in part numbers |
 | `Hardware/<Chassis>/Mechanical/MechanicalBOM.txt` | purchased hardware list (edit via `mech` commands) |
 | `Hardware/<Chassis>/Mechanical/Fab/<Part>/` | fabricated parts: STEP + `info.txt` + image |
 | `Hardware/<Chassis>/Wiring/<Name>/` | wiring harnesses: KiCad schematic + BOM CSV export |
 
-Local only (gitignored): `config.yaml` (API keys), `price_cache.json`,
-`inventory.json` (your on-hand stock — your leftover screws are not project data).
+Local only (gitignored): `Config.yaml` (API keys), `PriceCache.json`,
+`Inventory.json` (your on-hand stock — your leftover screws are not project data).
 
 ## Part numbers and revisions
 
@@ -105,7 +105,7 @@ folder and STEP file stay put, so CAD and vendor links keep working.
 pip install -r requirements.txt        # runtime deps
 pip install -r requirements-dev.txt    # + pytest, for the test suite
 python3 -m pytest tests/               # sanity check
-cp config.yaml.example config.yaml     # optional: vendor API keys (docs/API_KEYS.md)
+cp Config.yaml.example Config.yaml     # optional: vendor API keys (Docs/API_KEYS.md)
 ```
 
 API keys are optional — the whole workflow runs on manual prices and pasted
@@ -113,9 +113,9 @@ cart/order imports.
 
 ## Docs
 
-- `docs/GUIDE.md` — **complete usage guide (start here)**
-- `docs/WORKFLOW.md` — end-to-end fab-time walkthrough
-- `docs/CUSTOM_PARTS.md` — fabricated parts and SendCutSend
-- `docs/PART_NUMBERING.md` — internal PN conventions and revisions
-- `docs/API_KEYS.md` — optional vendor API setup
-- `docs/SPARES_AND_REPORTING.md` — spares policies and report format
+- `Docs/GUIDE.md` — **complete usage guide (start here)**
+- `Docs/WORKFLOW.md` — end-to-end fab-time walkthrough
+- `Docs/CUSTOM_PARTS.md` — fabricated parts and SendCutSend
+- `Docs/PART_NUMBERING.md` — internal PN conventions and revisions
+- `Docs/API_KEYS.md` — optional vendor API setup
+- `Docs/SPARES_AND_REPORTING.md` — spares policies and report format

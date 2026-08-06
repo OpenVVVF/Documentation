@@ -27,9 +27,9 @@ venv/
 fp-info-cache
 
 # Local / personal state (do not commit)
-config.yaml
-inventory.json
-price_cache.json
+Config.yaml
+Inventory.json
+PriceCache.json
 *.local
 .env
 

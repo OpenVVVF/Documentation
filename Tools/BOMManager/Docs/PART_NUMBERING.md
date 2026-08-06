@@ -16,7 +16,7 @@ Examples:
 - `HW-C2-RES-10K1210-A` — Chassis2 10k 1210 resistor
 - `HW-C2-IC-STM32H723ZGTX-A` — Chassis2 STM32 microcontroller
 
-The registry lives in `bom_manager/data/part_numbers.json` and is generated automatically. Registry keys are **identity-based** (`chassis|category|footprint|designation`, or `chassis|category|fab:<folder>` for fabricated parts), so editing a description or a friendly `PartName` never renumbers a part. (Registries written by older versions used description-based keys; entries are migrated automatically on first contact, keeping their part numbers.) The tool also keeps a descriptor registry at `bom_manager/data/part_descriptors.json` so you only have to name a part once.
+The registry lives in `bom_manager/Data/Numbers.json` and is generated automatically. Registry keys are **identity-based** (`chassis|category|footprint|designation`, or `chassis|category|fab:<folder>` for fabricated parts), so editing a description or a friendly `PartName` never renumbers a part. (Registries written by older versions used description-based keys; entries are migrated automatically on first contact, keeping their part numbers.) The tool also keeps a descriptor registry at `bom_manager/Data/Descriptors.json` so you only have to name a part once.
 
 ## Category reference
 
@@ -54,7 +54,7 @@ The tool tries to pick a good descriptor automatically and only asks you when it
 | **Mechanical / fasteners** | Auto from the McMaster part number or slugified description. |
 | **Resistors / capacitors / ICs / connectors** | Auto from value, footprint, or manufacturer part number. |
 
-You can edit `bom_manager/data/part_descriptors.json` directly at any time to rename descriptors. After editing, rerun `python3 bom.py generate`.
+You can edit `bom_manager/Data/Descriptors.json` directly at any time to rename descriptors. After editing, rerun `python3 bom.py generate`.
 
 ### Example descriptor registry
 
@@ -143,7 +143,7 @@ bom> rev bump DCLBB --note "widen mounting holes"
 ```
 
 The query is fuzzy — a full IPN, a descriptor, or description text. The bump is
-recorded in the entry's `history` (rev, date, note) inside `part_numbers.json`.
+recorded in the entry's `history` (rev, date, note) inside `Numbers.json`.
 
 Revisions are **decoupled from file and folder names**: bumping writes `Rev=`
 into a fabricated part's `info.txt` and never renames its folder or STEP file,
@@ -183,4 +183,4 @@ If you run the tool in a script and it encounters a part that needs a descriptor
 python3 bom.py generate --no-prompt
 ```
 
-Add the missing descriptors to `bom_manager/data/part_descriptors.json` and rerun.
+Add the missing descriptors to `bom_manager/Data/Descriptors.json` and rerun.

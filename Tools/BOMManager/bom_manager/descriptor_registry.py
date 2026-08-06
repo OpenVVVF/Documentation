@@ -17,13 +17,13 @@ from . import products
 class DescriptorRegistry:
     """Stores and prompts for part-number descriptors.
 
-    Registry file: data/parts/descriptors.json
+    Registry file: Data/Parts/Descriptors.json
     Format: {"chassis|category|description": "DESCRIPTOR", ...}
     """
 
     def __init__(self, registry_path: Optional[Path] = None, allow_prompt: bool = True):
         if registry_path is None:
-            self.registry_path = products.data_dir() / "descriptors.json"
+            self.registry_path = products.data_dir() / "Descriptors.json"
         else:
             self.registry_path = Path(registry_path)
         self.allow_prompt = allow_prompt

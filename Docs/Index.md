@@ -21,22 +21,22 @@ This repository is the single source of truth for OpenVVVF documentation.
 ## Platform documentation
 
 - **Safety**
-  - HARA Core: `platform/safety/hara/core.md` — `OV-HARA-CORE`
-  - HARA Motorcycle Profile: `platform/safety/hara/application-profiles/motorcycle.md` — `OV-HARA-PROF-MOTO`
-- **Compliance**: `platform/compliance/`
+  - HARA Core: `Platform/Safety/HARA/Core.md` — `OV-HARA-CORE`
+  - HARA Motorcycle Profile: `Platform/Safety/HARA/ApplicationProfiles/Motorcycle.md` — `OV-HARA-PROF-MOTO`
+- **Compliance**: `Platform/Compliance/`
 
 ## Power stages
 
-- Chassis Size 2: `power-stages/chassis-size-2/`
-- Chassis Size 3: `power-stages/chassis-size-3/` (future)
+- Chassis Size 2: `PowerStages/ChassisSize2/`
+- Chassis Size 3: `PowerStages/ChassisSize3/` (future)
 
 ## Software targets
 
-- Main MCU: `software/main-mcu/`
-- Safety Coprocessor: `software/safety-coprocessor/`
-- RTE Host: `software/rte-host/`
-- Codegen: `software/codegen/`
+- Main MCU: `Software/MainMCU/`
+- Safety Coprocessor: `Software/SafetyCoprocessor/`
+- RTE Host: `Software/RTEHost/`
+- Codegen: `Software/Codegen/`
 
 ## Product manuals
 
-- OpenVVVF Motorcycle Kit (Chassis Size 2): `manuals/product-manuals/openvvvf-motorcycle-kit-c2.md`
+- OpenVVVF Motorcycle Kit (Chassis Size 2): `Manuals/ProductManuals/OpenVVVFMotorcycleKitC2.md`

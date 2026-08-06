@@ -12,9 +12,9 @@ python -m docgen index
 python -m docgen validate
 
 # Build a product manual
-python -m docgen build --product OV-MOTO-C2 --output docs/manuals/product-manuals/openvvvf-motorcycle-kit-c2.md
+python -m docgen build --product OV-MOTO-C2 --output Docs/Manuals/ProductManuals/OpenVVVFMotorcycleKitC2.md
 ```
 
 ## Product definitions
 
-Products are declared in `data/products/*.yaml`. Each product lists the documents that compose it; `docgen build` concatenates them into a single Markdown manual.
+Products are declared in `Data/Products/*.yaml`. Each product lists the documents that compose it; `docgen build` concatenates them into a single Markdown manual.

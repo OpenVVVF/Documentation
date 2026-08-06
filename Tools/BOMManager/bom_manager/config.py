@@ -8,13 +8,13 @@ import yaml
 
 
 class Config:
-    """Loads config.yaml from the BOMManager root and merges environment variables."""
+    """Loads Config.yaml from the BOMManager root and merges environment variables."""
 
     def __init__(self, config_path: Optional[Path] = None):
         if config_path is None:
             # Package root -> Hardware/BOMManager
             self.root = Path(__file__).resolve().parent.parent
-            self.config_path = self.root / "config.yaml"
+            self.config_path = self.root / "Config.yaml"
         else:
             self.config_path = Path(config_path)
             self.root = self.config_path.parent

@@ -14,7 +14,7 @@ pip install -r requirements-dev.txt   # pytest, for the test suite
 python3 -m pytest tests/              # sanity check
 ```
 
-`config.yaml` (vendor API keys) is optional — everything works on manual
+`Config.yaml` (vendor API keys) is optional — everything works on manual
 prices and pasted cart/order imports.
 
 ## The shell
@@ -162,7 +162,7 @@ rev bump DCLBB --note "widen mounting holes"
 - Internal PNs (`HW-C2-BB-DCLBB-A`) are identity-keyed — editing descriptions
   or friendly names never renumbers anything.
 - Bumping writes `Rev=` into a fab part's `info.txt` and records history
-  (rev, date, note) in `part_numbers.json`. **Folders and files are never
+  (rev, date, note) in `Numbers.json`. **Folders and files are never
   renamed** — CAD and vendor links keep working.
 - For PCBs, the rev on the silkscreen is yours to maintain: bump in the tool
   and update the silk text in the same sitting, so boards say what they are.
@@ -240,11 +240,11 @@ sign-off block (assembled / inspected / signatures) for the assembler.
 
 ## Data files
 
-Committed: `part_database.json` (PNs, pack sizes, prices), `part_numbers.json`
-(IPNs + revision history), `part_descriptors.json`, `MechanicalBOM.txt`,
+Committed: `Database.json` (PNs, pack sizes, prices), `Numbers.json`
+(IPNs + revision history), `Descriptors.json`, `MechanicalBOM.txt`,
 fab part folders, harness folders.
 
-Gitignored (local): `config.yaml`, `price_cache.json`, `inventory.json`
+Gitignored (local): `Config.yaml`, `PriceCache.json`, `Inventory.json`
 (your shelf stock).
 
 ## Command cheat sheet

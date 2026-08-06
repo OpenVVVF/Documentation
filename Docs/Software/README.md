@@ -21,7 +21,7 @@ Firmware and host-software documentation by target.
 
 | Target | Path | Repository |
 |--------|------|------------|
-| Main MCU | `main-mcu/` | OpenVVVF/RTE |
-| Safety Coprocessor | `safety-coprocessor/` | OpenVVVF/RTE |
-| RTE Host | `rte-host/` | OpenVVVF/RTE |
-| Codegen | `codegen/` | OpenVVVF/RTE |
+| Main MCU | `MainMCU/` | OpenVVVF/RTE |
+| Safety Coprocessor | `SafetyCoprocessor/` | OpenVVVF/RTE |
+| RTE Host | `RTEHost/` | OpenVVVF/RTE |
+| Codegen | `Codegen/` | OpenVVVF/RTE |

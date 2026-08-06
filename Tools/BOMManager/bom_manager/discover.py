@@ -34,7 +34,7 @@ def discover_boms(
 ) -> Iterator[BomSource]:
     """Yield BOM sources found under hardware_root/Chassis*/...
 
-    Only directories registered in config/products.yaml (or legacy Chassis* dirs)
+    Only directories registered in Config/Products.yaml (or legacy Chassis* dirs)
     are scanned.
     """
     for chassis, chassis_dir in _iter_chassis_dirs(hardware_root):

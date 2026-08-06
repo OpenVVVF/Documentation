@@ -1876,14 +1876,14 @@
       }
     ]
   },
-  "c2|document|doc:system_thermal_analysis.md": {
+  "c2|document|doc:ThermalAnalysis.md": {
     "part_number": "HW-C2-DOC-SYSTEM-THERMAL-ANALY-A",
     "category": "document",
     "category_prefix": "DOC",
     "descriptor": "SYSTEM-THERMAL-ANALY",
     "revision": "A",
     "description": "System Thermal Analysis",
-    "key": "c2|document|doc:system_thermal_analysis.md",
+    "key": "c2|document|doc:ThermalAnalysis.md",
     "chassis": "C2",
     "history": [
       {

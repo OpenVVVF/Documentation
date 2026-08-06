@@ -88,7 +88,7 @@ class PartNumberRegistry:
     Default descriptive format: HW-<CHASSIS>-<CATEGORY>-<DESCRIPTOR>-<REV>
     Example: HW-C2-PCB-CTRL-A
 
-    Set via config.yaml:
+    Set via Config.yaml:
       part_number:
         format: "HW-{chassis}-{category}-{descriptor}-{rev}"
     """
@@ -97,7 +97,7 @@ class PartNumberRegistry:
 
     def __init__(self, registry_path: Optional[Path] = None, format: Optional[str] = None):
         if registry_path is None:
-            self.registry_path = products.data_dir() / "numbers.json"
+            self.registry_path = products.data_dir() / "Numbers.json"
         else:
             self.registry_path = Path(registry_path)
         self.format = format or self.DEFAULT_FORMAT

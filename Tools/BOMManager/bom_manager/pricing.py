@@ -27,7 +27,7 @@ class PriceInfo:
 class PriceCache:
     def __init__(self, cache_path: Optional[Path] = None):
         if cache_path is None:
-            self.cache_path = products.data_dir() / "price-cache.json"
+            self.cache_path = products.data_dir() / "PriceCache.json"
         else:
             self.cache_path = Path(cache_path)
         self._data: Dict[str, Any] = {}

@@ -1,7 +1,7 @@
 """Import Mouser cart/order prices into the price cache and part database.
 
 Paste Mouser cart, order confirmation, or BOM tool output and this will
-extract Mouser part numbers with prices and update price_cache.json, then
+extract Mouser part numbers with prices and update PriceCache.json, then
 persist matched prices into the committed part database.
 
 If you paste a BOM tool output without prices, the detected part numbers are

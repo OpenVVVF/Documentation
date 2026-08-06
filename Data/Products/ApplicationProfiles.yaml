@@ -10,7 +10,7 @@ profiles:
     name: Motorcycle
     standard: ISO 26262:2018
     docs:
-      - docs/platform/safety/hara/application-profiles/motorcycle.md
+      - Docs/Platform/Safety/HARA/ApplicationProfiles/Motorcycle.md
   passenger-car:
     product_id: application-profile-passenger-car
     name: Passenger Car

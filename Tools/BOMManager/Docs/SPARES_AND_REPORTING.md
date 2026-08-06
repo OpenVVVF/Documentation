@@ -60,5 +60,5 @@ Each line shows where the price came from:
 - `mouser_cart_import`, `mcmaster_order_import`, `jlcpcb_order_import` — pasted cart/order imports.
 - `sendcutsend_folder` — the part's `info.txt`.
 - `manual` — set by hand in the shell (`price`, `pack`, `fab pcb-price`).
-- `cache` — from `price_cache.json`.
+- `cache` — from `PriceCache.json`.
 - `unknown` — no price found; listed in the report for follow-up.

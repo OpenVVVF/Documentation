@@ -16,5 +16,5 @@ status: draft
 
 The main MCU (STM32H723ZG) runs FOC motor control, sensor acquisition, CAN communication, and safe-state management.
 
-- `encoder-offset-calibration.md` — Encoder offset calibration procedure
-- `mpc-multi-rate-sampling.md` — Multi-rate phase-current sampling plan
+- `EncoderOffsetCalibration.md` — Encoder offset calibration procedure
+- `MPCMultiRateSampling.md` — Multi-rate phase-current sampling plan

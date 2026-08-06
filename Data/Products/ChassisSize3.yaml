@@ -6,4 +6,4 @@ description: >
   Up to 1200 V / 1400 A power stage. In development.
 hardware_dir: ../InverterGen5/Hardware/Chassis3
 docs:
-  - docs/power-stages/chassis-size-3/README.md
+  - Docs/PowerStages/ChassisSize3/README.md

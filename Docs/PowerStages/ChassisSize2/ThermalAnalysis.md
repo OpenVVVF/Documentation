@@ -176,7 +176,7 @@ Loss breakdown at the two design currents (140 V, 2 kHz):
 | Semiconductor total | 1397 W | 3449 W |
 | **Total to heatsink (incl. 40 W caps)** | **1437 W** | **3489 W** |
 
-![Heat vs phase current](system_thermal_heat_vs_current.png)
+![Heat vs phase current](SystemThermalHeatVsCurrent.png)
 
 ## 5. Inverter efficiency vs phase current
 
@@ -199,7 +199,7 @@ Loss breakdown at the two design currents (140 V, 2 kHz):
 
 At the 140 V nominal bus the efficiency peaks at ≈96.4 % around 150–200 A and falls to 95.3 % at 600 A, because conduction loss grows faster than output power (the r·I² term). Higher bus voltages are more efficient at the same current because conduction loss is unchanged while output power scales with V_DC.
 
-![Efficiency vs phase current](system_thermal_efficiency.png)
+![Efficiency vs phase current](SystemThermalEfficiency.png)
 
 ## 6. Heatsink sizing
 

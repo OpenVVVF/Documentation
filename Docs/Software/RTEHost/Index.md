@@ -16,4 +16,4 @@ status: draft
 
 Real Time Examiner (RTE) host tools for configuration, telemetry, and node-based codegen.
 
-- `codebase-improvement-plan.md` — Firmware/host codebase improvement plan
+- `CodebaseImprovementPlan.md` — Firmware/host codebase improvement plan

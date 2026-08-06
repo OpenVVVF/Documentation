@@ -2,7 +2,7 @@
 
 Paste McMaster order confirmation, cart, or "Paste part numbers and quantities"
 output and this will extract McMaster part numbers with prices, update
-price_cache.json, and persist matched prices into the committed part database.
+PriceCache.json, and persist matched prices into the committed part database.
 
 If you paste text without prices (e.g. the cart paste format), the detected
 part numbers are listed so you can confirm the upload matched your BOM.

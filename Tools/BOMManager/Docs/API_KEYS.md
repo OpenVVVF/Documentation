@@ -7,7 +7,7 @@ The BOM Manager can query live pricing/stock from Mouser, DigiKey, and Octopart 
 1. Create or log in to your Mouser account.
 2. Go to **Account > API Keys** (or Mouser API Portal).
 3. Generate a new API key for the Search API.
-4. Add to `config.yaml`:
+4. Add to `Config.yaml`:
 
 ```yaml
 mouser:
@@ -18,7 +18,7 @@ mouser:
 
 1. Log in to the DigiKey API Portal: https://developer.digikey.com/
 2. Create an app to get a **Client ID** and **Client Secret**.
-3. Add to `config.yaml`:
+3. Add to `Config.yaml`:
 
 ```yaml
 digikey:
@@ -35,7 +35,7 @@ Octopart is now part of Nexar.
 
 1. Sign up at https://nexar.com/
 2. Create a supply application to get an access token.
-3. Add the token to `config.yaml`:
+3. Add the token to `Config.yaml`:
 
 ```yaml
 octopart:
@@ -49,7 +49,7 @@ McMaster-Carr offers an approved-customer Product Information API. Contact **epr
 - A username and password
 - A client certificate (`.p12` or `.pem`) and its password
 
-Add to `config.yaml`:
+Add to `Config.yaml`:
 
 ```yaml
 mcmaster:

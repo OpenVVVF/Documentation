@@ -14,12 +14,12 @@ Hardware designs remain in [`../InverterGen5`](../InverterGen5). Firmware and ho
 ## Repository layout
 
 ```text
-├── docs/          # All documentation (platform, power stages, software, manuals)
-├── data/          # Shared part database, product definitions, pricing data
-├── tools/         # Documentation and fabrication tooling
+├── Docs/          # All documentation (platform, power stages, software, manuals)
+├── Data/          # Shared part database, product definitions, pricing data
+├── Tools/         # Documentation and fabrication tooling
 │   ├── bom-manager/   # Generalized BOM / fabrication package manager
 │   └── docgen/        # Document assembly and cross-reference validation
-├── config/        # Repo-level configuration (product registry)
+├── Config/        # Repo-level configuration (product registry)
 ├── README.md
 └── pyproject.toml
 ```
@@ -28,11 +28,11 @@ Hardware designs remain in [`../InverterGen5`](../InverterGen5). Firmware and ho
 
 ```bash
 # Install tool dependencies
-pip install -e tools/bom-manager
-pip install -e tools/docgen
+pip install -e Tools/BOMManager
+pip install -e Tools/DocGen
 
 # Run tests
-pytest tools/bom-manager/tests tools/docgen/tests
+pytest Tools/BOMManager/tests Tools/DocGen/tests
 
 # Build a product manual
 python -m docgen build --product OV-MOTO-C2
@@ -42,13 +42,13 @@ python -m docgen build --product OV-MOTO-C2
 
 | Area | Path |
 |------|------|
-| Platform safety (HARA, TARA) | `docs/platform/safety/` |
-| Compliance standards mapping | `docs/platform/compliance/` |
-| Per-chassis docs | `docs/power-stages/` |
-| Software docs by target | `docs/software/` |
-| Assembled product manuals | `docs/manuals/product-manuals/` |
-| Part database | `data/parts/` |
-| Product definitions | `data/products/` |
+| Platform safety (HARA, TARA) | `Docs/Platform/Safety/` |
+| Compliance standards mapping | `Docs/Platform/Compliance/` |
+| Per-chassis docs | `Docs/PowerStages/` |
+| Software docs by target | `Docs/Software/` |
+| Assembled product manuals | `Docs/Manuals/ProductManuals/` |
+| Part database | `Data/Parts/` |
+| Product definitions | `Data/Products/` |
 
 ## Contributing
 

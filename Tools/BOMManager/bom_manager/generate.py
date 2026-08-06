@@ -426,7 +426,7 @@ def run(argv, ctx: Context) -> int:
         print(f"API-enabled vendors: {', '.join(sorted(set(enabled)))}")
     else:
         print("No vendor API keys configured; using cached/manual prices only.")
-        print("See docs/API_KEYS.md for setup instructions.")
+        print("See Docs/API_KEYS.md for setup instructions.")
 
     # Discover and parse
     chassis_filter = args.chassis.split(",") if args.chassis else None

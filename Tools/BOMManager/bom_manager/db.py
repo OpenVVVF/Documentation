@@ -19,7 +19,7 @@ VENDOR_PN_FIELD = {
 class PartDatabase:
     def __init__(self, db_path: Optional[Path] = None):
         if db_path is None:
-            self.db_path = products.data_dir() / "database.json"
+            self.db_path = products.data_dir() / "Database.json"
         else:
             self.db_path = Path(db_path)
         self._data: Dict[str, Any] = {}
@@ -89,14 +89,14 @@ class PartDatabase:
 class Inventory:
     """On-hand part counts (your leftover screws).
 
-    Stored in data/parts/inventory.json, which is gitignored: stock on your
+    Stored in Data/Parts/Inventory.json, which is gitignored: stock on your
     shelf is local state, not project data other builders should inherit.
     Keys use the same PartDatabase.normalize_key(footprint, designation).
     """
 
     def __init__(self, inv_path: Optional[Path] = None):
         if inv_path is None:
-            inv_path = products.data_dir() / "inventory.json"
+            inv_path = products.data_dir() / "Inventory.json"
         self.inv_path = Path(inv_path)
         self._data: Dict[str, int] = {}
         self._load()

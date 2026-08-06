@@ -17,6 +17,6 @@ status: draft
 The control module is the reusable, application-independent part of OpenVVVF.
 Documentation here applies to all power stages and application profiles.
 
-- `safety/` — HARA, TARA, FMEA
-- `compliance/` — Standards mapping (ISO 26262, IEC 61800-5-2, EN 5012x)
-- `architecture.md` — System architecture overview
+- `Safety/` — HARA, TARA, FMEA
+- `Compliance/` — Standards mapping (ISO 26262, IEC 61800-5-2, EN 5012x)
+- `Architecture.md` — System architecture overview

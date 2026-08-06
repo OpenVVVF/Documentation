@@ -17,19 +17,19 @@ from bom_manager.pricing import PriceCache
 
 @pytest.fixture
 def ctx(tmp_path):
-    data = tmp_path / "data"
+    data = tmp_path / "Data"
     data.mkdir()
     hw = tmp_path / "Hardware"
     hw.mkdir()
     return Context(
         root=tmp_path,
         hardware_root=hw,
-        config=Config(tmp_path / "config.yaml"),
-        db=PartDatabase(data / "part_database.json"),
-        cache=PriceCache(data / "price_cache.json"),
-        inventory=Inventory(data / "inventory.json"),
-        pn_registry=PartNumberRegistry(data / "part_numbers.json"),
-        descriptor_registry=DescriptorRegistry(data / "part_descriptors.json"),
+        config=Config(tmp_path / "Config.yaml"),
+        db=PartDatabase(data / "Database.json"),
+        cache=PriceCache(data / "PriceCache.json"),
+        inventory=Inventory(data / "Inventory.json"),
+        pn_registry=PartNumberRegistry(data / "Numbers.json"),
+        descriptor_registry=DescriptorRegistry(data / "Descriptors.json"),
         mouser=None,
         digikey=None,
         octopart=None,
