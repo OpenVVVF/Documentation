@@ -27,6 +27,9 @@ docgen = "docgen.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+docgen = ["templates/*"]
+
 [tool.black]
 line-length = 100
 target-version = ['py310']
