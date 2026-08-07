@@ -6,7 +6,6 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
 version: "0.1"
-prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft

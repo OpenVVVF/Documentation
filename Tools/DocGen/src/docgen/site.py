@@ -1,5 +1,6 @@
 """Static site generator for OpenVVVF documentation."""
 
+import re
 import shutil
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -53,18 +54,79 @@ def rel_root(doc_path: Path, output_dir: Path) -> str:
 def md_to_html(text: str) -> str:
     """Convert Markdown text to HTML."""
     MD.reset()
-    return MD.convert(text)
+    html = MD.convert(text)
+    html = _apply_chapter_attributes(html)
+    html = _apply_callout_classes(html)
+    return html
+
+
+_CHAPTER_RE = re.compile(r"<(h[12])(\b[^>]*)>(\d+)(\.\d+)?\s+(.+?)</\1>", re.S)
+
+
+def _apply_chapter_attributes(html: str) -> str:
+    """Add data-chapter attributes to headings that start with chapter numbers.
+
+    Examples:
+      <h1>1 Preparation</h1> -> <h1 data-chapter="1">1 Preparation</h1>
+      <h2>1.2 Substep</h2> -> <h2 data-chapter="1.2">1.2 Substep</h2>
+    """
+
+    def repl(match: re.Match) -> str:
+        tag = match.group(1)
+        attrs = match.group(2) or ""
+        number = match.group(3)
+        decimal = match.group(4) or ""
+        rest = match.group(5)
+        if 'data-chapter' not in attrs:
+            attrs = f'{attrs} data-chapter="{number}{decimal}"'.strip()
+        return f"<{tag}{attrs}>{number}{decimal} {rest}</{tag}>"
+
+    return _CHAPTER_RE.sub(repl, html)
+
+
+_CALLOUT_CLASSES = {
+    "danger": "callout-danger",
+    "warning": "callout-warning",
+    "caution": "callout-warning",
+    "note": "callout-note",
+    "tip": "callout-tip",
+}
+
+
+def _apply_callout_classes(html: str) -> str:
+    """Add callout classes to blockquotes whose first strong tag is a known label."""
+    for label, cls in _CALLOUT_CLASSES.items():
+        html = re.sub(
+            rf'<blockquote>\s*<p>\s*<strong>{label}</strong>',
+            f'<blockquote class="{cls}"><p><strong>{label.capitalize()}</strong>',
+            html,
+            flags=re.IGNORECASE,
+        )
+    return html
 
 
 def frontmatter_table(doc: Document) -> str:
     """Render document frontmatter as a small HTML table, if present."""
     if not doc.frontmatter:
         return ""
+
+    skip_keys = {"prepared"}
+    skip_values = {"", "N/A", "n/a", "TBD", "tbd", "TODO", "todo", "(not yet reviewed)"}
     rows = []
     for key, value in doc.frontmatter.items():
+        if key in skip_keys:
+            continue
         if isinstance(value, list):
             value = ", ".join(str(v) for v in value)
-        rows.append(f"<tr><th>{key}</th><td>{value}</td></tr>")
+        else:
+            value = str(value)
+        if value in skip_values:
+            continue
+        label = key.replace("_", " ").capitalize()
+        rows.append(f"<tr><th>{label}</th><td>{value}</td></tr>")
+
+    if not rows:
+        return ""
     return (
         '<div class="frontmatter">'
         '<table>'
@@ -359,6 +421,7 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
 
     # Copy CSS.
     shutil.copy2(template_dir() / "style.css", output_dir / "style.css")
+    shutil.copy2(template_dir() / "print.css", output_dir / "print.css")
 
     # Build landing page from Docs/Index.md if available, otherwise synthesize one.
     index_doc = by_id.get("OV-DOCS-INDEX")

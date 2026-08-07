@@ -9,7 +9,6 @@ applies_to:
   - software-target-rte-host
   - software-target-codegen
 version: "0.1"
-prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft

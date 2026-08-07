@@ -6,7 +6,6 @@ product_line: openvvvf
 applies_to:
   - chassis-size-2
 version: "2.4"
-prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-13"
 status: released

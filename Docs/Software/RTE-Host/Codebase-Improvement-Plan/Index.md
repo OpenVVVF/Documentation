@@ -6,7 +6,6 @@ product_line: openvvvf
 applies_to:
   - software-target-rte-host
 version: "1.0"
-prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-13"
 status: draft

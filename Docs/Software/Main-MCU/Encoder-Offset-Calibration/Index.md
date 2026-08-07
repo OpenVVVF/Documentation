@@ -7,7 +7,6 @@ applies_to:
   - openvvvf-control-module
   - software-target-main-mcu
 version: "1.0"
-prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-13"
 status: released

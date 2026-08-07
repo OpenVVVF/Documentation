@@ -11,7 +11,6 @@ profile_for: motorcycle
 standard: ISO 26262:2018
 temp: −40 °C to +85 °C
 version: "1.6"
-prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: elaborated

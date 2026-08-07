@@ -8,7 +8,6 @@ applies_to:
 mcus: STM32H723ZG + STM32G474RCTx
 temp: −40 °C to +85 °C
 version: "5.7"
-prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: elaborated

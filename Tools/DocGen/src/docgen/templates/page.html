@@ -5,24 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} — OpenVVVF Documentation</title>
   <link rel="stylesheet" href="{root}style.css">
+  <link rel="stylesheet" href="{root}print.css" media="print">
 </head>
 <body>
   <header class="site-header">
     <div class="site-header-inner">
-      <a href="{root}index.html" class="site-title">OpenVVVF Docs</a>
-      <nav class="site-nav">
-        <a href="{root}index.html">Index</a>
+      <a href="{root}index.html" class="site-title">OpenVVVF<span class="site-title-docs">Docs</span></a>
+      <nav class="site-nav" aria-label="Top sections">
         <a href="{root}Control-Assembly/index.html">Control Assembly</a>
         <a href="{root}Power-Stages/index.html">Power Stages</a>
         <a href="{root}Safety-and-Compliance/index.html">Safety</a>
         <a href="{root}Software/index.html">Software</a>
         <a href="{root}Testing/index.html">Testing</a>
       </nav>
+      <button class="print-button" type="button" onclick="window.print()" title="Print this page">Print</button>
     </div>
   </header>
 
   <div class="layout">
-    <aside class="sidebar">
+    <aside class="sidebar" aria-label="Table of contents">
       {nav}
     </aside>
 

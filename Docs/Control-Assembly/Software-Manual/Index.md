@@ -8,7 +8,6 @@ applies_to:
   - software-target-main-mcu
   - software-target-safety-coprocessor
 version: "0.1"
-prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-08-07"
 status: draft
