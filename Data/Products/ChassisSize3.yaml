@@ -1,9 +1,0 @@
-product_id: chassis-size-3
-name: OpenVVVF Chassis Size 3
-short_code: C3
-type: power-stage
-description: >
-  Up to 1200 V / 1400 A power stage. In development.
-hardware_dir: ../InverterGen5/Hardware/Chassis3
-docs:
-  - Docs/PowerStages/ChassisSize3/README.md

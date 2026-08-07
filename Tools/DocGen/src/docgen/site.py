@@ -78,6 +78,30 @@ def _doc_sort_key(doc: Document) -> tuple:
     return (doc.nav_order, doc.title or doc.path.stem, doc.path.name)
 
 
+def _display_name(name: str) -> str:
+    """Convert a kebab-case directory/file name to a human-readable title.
+
+    Splits a leading `<N>_` number prefix, replaces dashes with spaces, and
+    title-cases the result while preserving obvious acronyms.
+    """
+    prefix = ""
+    body = name
+    if "_" in body:
+        first, rest = body.split("_", 1)
+        if first.isdigit():
+            prefix = f"{first} "
+            body = rest
+
+    words = body.replace("-", " ").split()
+    formatted = []
+    for word in words:
+        if len(word) > 1 and word.isupper():
+            formatted.append(word)
+        else:
+            formatted.append(word.capitalize())
+    return prefix + " ".join(formatted)
+
+
 def _dir_sort_key(
     rel_dir: Path,
     index_docs: Dict[Path, Document],
@@ -123,10 +147,10 @@ def _nav_tree(
         if index_doc is not None:
             href = index_doc.url_path if hasattr(index_doc, "url_path") else "#"
             active = ' class="active"' if index_doc.doc_id == current_doc_id else ""
-            title = index_doc.title or rel_dir.name
+            title = index_doc.title or _display_name(rel_dir.name)
             items.append(f'{indent}<li><a href="{root}{href}"{active}>{title}</a>')
         else:
-            items.append(f'{indent}<li><span class="group-label">{rel_dir.name}</span>')
+            items.append(f'{indent}<li><span class="group-label">{_display_name(rel_dir.name)}</span>')
 
         dir_docs = [d for d in tree.get(rel_dir, []) if d.path.stem.lower() != "index"]
         child_dirs = sorted(
@@ -139,7 +163,7 @@ def _nav_tree(
             for doc in dir_docs:
                 href = doc.url_path if hasattr(doc, "url_path") else "#"
                 active = ' class="active"' if doc.doc_id == current_doc_id else ""
-                title = doc.title or doc.path.stem
+                title = doc.title or _display_name(doc.path.stem)
                 items.append(
                     f'{indent}    <li><a href="{root}{href}"{active}>{title}</a></li>'
                 )
@@ -182,8 +206,8 @@ def breadcrumbs_html(doc: Document, root: str, docs_dir: Path) -> str:
         if part in ("Docs", "."):
             continue
         current += part + "/"
-        crumbs.append(f'<a href="{root}{current}index.html">{part}</a>')
-    title = doc.title or doc.path.stem
+        crumbs.append(f'<a href="{root}{current}index.html">{_display_name(part)}</a>')
+    title = doc.title or _display_name(doc.path.stem)
     crumbs.append(title)
     return " / ".join(crumbs)
 
@@ -292,7 +316,7 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
             continue
         items = []
         for doc in sorted(dir_docs, key=_doc_sort_key):
-            title = doc.title or doc.path.stem
+            title = doc.title or _display_name(doc.path.stem)
             blurb = doc.description or doc.path.name
             # Link is relative to the directory index page itself.
             href = f"{doc.path.stem}.html"
@@ -300,11 +324,11 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
                 f'<div class="card"><h3><a href="{href}">{title}</a></h3>'
                 f'<p>{blurb}</p></div>'
             )
-        body = f"<h1>{rel_dir.name or 'Documentation'}</h1>\n<div class=\"landing-grid\">\n" + "\n".join(items) + "\n</div>"
+        body = f"<h1>{_display_name(rel_dir.name) or 'Documentation'}</h1>\n<div class=\"landing-grid\">\n" + "\n".join(items) + "\n</div>"
         output_path = output_dir / rel_dir / "index.html"
         output_path.parent.mkdir(parents=True, exist_ok=True)
         html = render_page(
-            title=rel_dir.name or "Documentation",
+            title=_display_name(rel_dir.name) or "Documentation",
             body_html=body,
             doc=None,
             docs=docs,
@@ -377,27 +401,29 @@ def build_landing_body(docs: List[Document]) -> str:
             continue
         parts = doc.path.parent.parts
         section = "General"
-        if "Platform" in parts:
-            section = "Platform"
-        elif "PowerStages" in parts:
+        if "Control-Assembly" in parts:
+            section = "Control Assembly"
+        elif "Power-Stages" in parts:
             section = "Power Stages"
+        elif "Safety-and-Compliance" in parts:
+            section = "Safety and Compliance"
         elif "Software" in parts:
             section = "Software"
-        elif "Manuals" in parts:
-            section = "Manuals"
+        elif "Testing" in parts:
+            section = "Testing"
         sections.setdefault(section, []).append(doc)
 
     out = ['<h1>OpenVVVF Documentation</h1>']
     out.append(
         '<p>Static site for OpenVVVF product documentation, safety analyses, '
-        'power-stage guides, and software targets.</p>'
+        'power-stage guides, software targets, and test evidence.</p>'
     )
     for section in sorted(sections.keys()):
         out.append(f"<h2>{section}</h2>")
         out.append('<div class="landing-grid">')
         for doc in sorted(sections[section], key=_doc_sort_key):
             href = doc.url_path
-            title = doc.title or doc.path.stem
+            title = doc.title or _display_name(doc.path.stem)
             blurb = doc.description or doc.path.name
             out.append(
                 f'<div class="card"><h3><a href="{href}">{title}</a></h3>'

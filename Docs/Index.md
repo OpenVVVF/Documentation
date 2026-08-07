@@ -10,54 +10,65 @@ applies_to:
 version: "0.1"
 prepared: Thomas Liao
 reviewed: (not yet reviewed)
-date: "2026-07-30"
+date: "2026-08-07"
 status: draft
-description: Portal to OpenVVVF product documentation, safety analyses, power-stage guides, and software targets.
+description: Portal to OpenVVVF product documentation, safety analyses, power-stage guides, software targets, and test evidence.
 nav_order: 0
 ---
 
 # OpenVVVF Documentation
 
-This repository is the single source of truth for OpenVVVF product documentation, shared hardware data, and documentation tooling.
+This repository is the single source of truth for OpenVVVF documentation.
 
 <div class="landing-grid">
 
 <div class="card">
-<h3><a href="Platform/Index.html">Platform</a></h3>
-<p>Application-independent control-module documentation: safety analyses, compliance mappings, and architecture. Applies to every power stage and application profile.</p>
+<h3><a href="Control-Assembly/index.html">Control Assembly</a></h3>
+<p>The reusable inverter brain. User hardware manual and software manual.</p>
 <ul>
-<li><a href="Platform/Safety/HARA/Core.html"><code>OV-HARA-CORE</code></a> — Core platform hazard analysis and safety requirements</li>
-<li><a href="Platform/Safety/HARA/ApplicationProfiles/Motorcycle.html"><code>OV-HARA-PROF-MOTO</code></a> — Motorcycle application profile</li>
-<li><a href="Platform/Compliance/ISO26262-Mapping.html"><code>OV-COMP-ISO26262</code></a> — ISO 26262 mapping</li>
-<li><a href="Platform/Compliance/IEC61800-5-2-Mapping.html"><code>OV-COMP-IEC61800</code></a> — IEC 61800-5-2 safe-function mapping</li>
+<li><a href="Control-Assembly/User-Hardware-Manual/index.html"><code>OV-CA-UHW-INDEX</code></a> — User Hardware Manual</li>
+<li><a href="Control-Assembly/Software-Manual/index.html"><code>OV-CA-SWM-INDEX</code></a> — Software Manual</li>
 </ul>
 </div>
 
 <div class="card">
-<h3><a href="PowerStages/ChassisSize2/Index.html">Power Stages</a></h3>
-<p>Physical chassis and inverter variants. Each power stage is a configurable family with its own assembly, thermal, and user documentation.</p>
+<h3><a href="Power-Stages/index.html">Power Stages</a></h3>
+<p>Physical chassis/inverter assemblies. Each chassis has a user manual and an assembly guide.</p>
 <ul>
-<li><a href="PowerStages/ChassisSize2/Index.html"><code>OV-CHASSIS-C2-INDEX</code></a> — Chassis Size 2 family</li>
-<li><a href="PowerStages/ChassisSize3/Index.html"><code>OV-CHASSIS-C3-INDEX</code></a> — Chassis Size 3 family (in development)</li>
+<li><a href="Power-Stages/C1/index.html"><code>OV-C1-INDEX</code></a> — Chassis Size 1</li>
+<li><a href="Power-Stages/C2/index.html"><code>OV-C2-INDEX</code></a> — Chassis Size 2</li>
+<li><a href="Power-Stages/C3/index.html"><code>OV-C3-INDEX</code></a> — Chassis Size 3</li>
 </ul>
 </div>
 
 <div class="card">
-<h3><a href="Software/Index.html">Software</a></h3>
-<p>Firmware and host-software documentation by target MCU or tool.</p>
+<h3><a href="Safety-and-Compliance/index.html">Safety and Compliance</a></h3>
+<p>Hazard analyses and compliance mappings.</p>
 <ul>
-<li><a href="Software/MainMCU/Index.html"><code>OV-SW-MAINMCU-INDEX</code></a> — Main MCU (STM32H723ZG)</li>
-<li><a href="Software/SafetyCoprocessor/Index.html"><code>OV-SW-COPROC-INDEX</code></a> — Safety Coprocessor (STM32G474)</li>
-<li><a href="Software/RTEHost/Index.html"><code>OV-SW-RTE-INDEX</code></a> — RTE Host tools</li>
-<li><a href="Software/Codegen/Index.html"><code>OV-SW-CODEGEN-INDEX</code></a> — Codegen tools</li>
+<li><a href="Safety-and-Compliance/HARA/Core/index.html"><code>OV-SAF-HARA-CORE</code></a> — HARA Core</li>
+<li><a href="Safety-and-Compliance/HARA/Application-Profiles/Motorcycle/index.html"><code>OV-SAF-HARA-PROF-MOTO</code></a> — Motorcycle Application Profile</li>
+<li><a href="Safety-and-Compliance/Compliance/index.html"><code>OV-COMP-INDEX</code></a> — Compliance</li>
 </ul>
 </div>
 
 <div class="card">
-<h3>Product Manuals</h3>
-<p>Assembled product manuals are generated from fragments declared in <code>Data/Products/*.yaml</code> and written to <code>build/manuals/</code>.</p>
+<h3><a href="Software/index.html">Software</a></h3>
+<p>Firmware and host-software documentation by target.</p>
 <ul>
-<li><code>OV-MOTO-C2</code> — OpenVVVF Motorcycle Kit (Chassis Size 2)</li>
+<li><a href="Software/Main-MCU/index.html"><code>OV-SW-MAINMCU-INDEX</code></a> — Main MCU</li>
+<li><a href="Software/Safety-Coprocessor/index.html"><code>OV-SW-COPROC-INDEX</code></a> — Safety Coprocessor</li>
+<li><a href="Software/RTE-Host/index.html"><code>OV-SW-RTE-INDEX</code></a> — RTE Host</li>
+<li><a href="Software/Codegen/index.html"><code>OV-SW-CODEGEN-INDEX</code></a> — Codegen</li>
+</ul>
+</div>
+
+<div class="card">
+<h3><a href="Testing/index.html">Testing and Validation</a></h3>
+<p>Formal test reports and validation evidence.</p>
+<ul>
+<li><a href="Testing/Hardware/index.html"><code>OV-TEST-HW-INDEX</code></a> — Hardware Tests</li>
+<li><a href="Testing/Firmware/index.html"><code>OV-TEST-FW-INDEX</code></a> — Firmware Tests</li>
+<li><a href="Testing/Integration/index.html"><code>OV-TEST-INT-INDEX</code></a> — Integration Tests</li>
 </ul>
 </div>
 

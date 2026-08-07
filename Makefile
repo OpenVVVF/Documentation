@@ -1,4 +1,4 @@
-.PHONY: help install test test-bom test-docgen validate docs site clean check-clean
+.PHONY: help install test test-bom test-docgen validate site clean check-clean
 
 VENV := .venv
 PYTHON := $(VENV)/bin/python
@@ -13,7 +13,6 @@ help:
 	@echo "  test-bom     run BOMManager tests"
 	@echo "  test-docgen  run docgen tests"
 	@echo "  validate     validate documentation cross-references"
-	@echo "  docs         build all product manuals"
 	@echo "  site         build the static HTML documentation site"
 	@echo "  clean        remove build artifacts and venv"
 	@echo "  check-clean  fail if ignored *.egg-info directories are present"
@@ -33,9 +32,6 @@ test-docgen:
 
 validate:
 	$(PYTHON) -m docgen validate
-
-docs:
-	$(PYTHON) -m docgen build --product OV-MOTO-C2 --output build/manuals/OpenVVVFMotorcycleKitC2.md
 
 site:
 	$(PYTHON) -m docgen site --output-dir site

@@ -1,6 +1,6 @@
 # docgen
 
-OpenVVVF documentation assembly and validation.
+OpenVVVF documentation validation and static site generator.
 
 ## Commands
 
@@ -11,10 +11,13 @@ python -m docgen index
 # Validate cross-references
 python -m docgen validate
 
-# Build a product manual
-python -m docgen build --product OV-MOTO-C2 --output build/manuals/OpenVVVFMotorcycleKitC2.md
+# Build the static HTML site
+python -m docgen site --output-dir site
+
+# Assemble a document set into a single Markdown file (legacy product-manual mode)
+python -m docgen build --product <product_id> --output <file.md>
 ```
 
-## Product definitions
+## Document structure
 
-Products are declared in `Data/Products/*.yaml`. Each product lists the documents that compose it; `docgen build` concatenates them into a single Markdown manual.
+Documents live under `Docs/` as `Index.md` files inside kebab-case folders. Ordered assembly chapters/steps use a `<N>_<kebab-case-title>` naming convention; the site generator renders dashes as spaces and title-cases the result.

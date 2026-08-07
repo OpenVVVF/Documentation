@@ -8,9 +8,11 @@ This is the OpenVVVF documentation and hardware-data hub. It does **not** contai
 
 1. **Frontmatter is required** on every Markdown file under `Docs/`. See the schema in the project README or `Tools/DocGen`.
 2. **Unique `doc_id`**: every document must have a stable, kebab-case `doc_id`.
-3. **Core + Profile pattern**: safety analyses (HARA, TARA, FMEA) are split into a platform Core document and Application Profile documents.
-4. **Cross-references**: reference documents by `doc_id`, not by path. Use `docgen` to validate them.
-5. **Product assembly**: product manuals are assembled from fragments declared in `Data/Products/*.yaml` and written to `build/manuals/`.
+3. **One document = one folder**: every document under `Docs/` lives in its own folder and is named `Index.md`. See `Docs/Agents.md` for the full structure.
+4. **Folder naming**: use kebab-case. Ordered assembly chapters/steps are prefixed with `<N>_` (e.g. `3_Main-Assembly`, `1_IGBT-Mounting`). The generator displays dashes as spaces.
+5. **Core + Profile pattern**: safety analyses (HARA, TARA, FMEA) are split into a platform Core document and Application Profile documents.
+6. **Cross-references**: reference documents by `doc_id`, not by path. Use `docgen` to validate them.
+7. **No use-case product manuals**: documentation is organized by hardware (control assembly, power stage) and supporting domains (safety, software, testing). Users receive the documents that apply to the hardware they have.
 
 ## Tool conventions
 
