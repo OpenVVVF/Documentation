@@ -73,6 +73,14 @@
     page-break-inside: avoid;
   }
 
+  .frontmatter summary {
+    display: none;
+  }
+
+  .frontmatter table {
+    display: table;
+  }
+
   .content table {
     page-break-inside: avoid;
   }

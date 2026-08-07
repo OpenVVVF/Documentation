@@ -415,13 +415,43 @@ main {
   background: var(--surface);
   border: 1px solid var(--border-light);
   border-radius: 6px;
-  padding: 1rem 1.25rem;
+  padding: 0.75rem 1rem;
   margin-bottom: 2rem;
+  font-size: 0.85rem;
+}
+
+.frontmatter summary {
+  cursor: pointer;
+  color: var(--text-light);
+  font-weight: 500;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.frontmatter summary::-webkit-details-marker {
+  display: none;
+}
+
+.frontmatter summary::before {
+  content: "▸";
+  color: var(--accent);
   font-size: 0.9rem;
+  transition: transform 0.15s;
+}
+
+.frontmatter[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.frontmatter-summary {
+  color: var(--text-muted);
+  font-size: 0.85rem;
 }
 
 .frontmatter table {
-  margin: 0;
+  margin: 0.75rem 0 0;
   width: auto;
 }
 

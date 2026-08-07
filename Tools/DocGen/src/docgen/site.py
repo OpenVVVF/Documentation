@@ -106,11 +106,11 @@ def _apply_callout_classes(html: str) -> str:
 
 
 def frontmatter_table(doc: Document) -> str:
-    """Render document frontmatter as a small HTML table, if present."""
+    """Render document frontmatter as a collapsible metadata panel."""
     if not doc.frontmatter:
         return ""
 
-    skip_keys = {"prepared"}
+    skip_keys = {"prepared", "title"}
     skip_values = {"", "N/A", "n/a", "TBD", "tbd", "TODO", "todo", "(not yet reviewed)"}
     rows = []
     for key, value in doc.frontmatter.items():
@@ -127,11 +127,23 @@ def frontmatter_table(doc: Document) -> str:
 
     if not rows:
         return ""
+
+    # Compact summary line shown when the panel is collapsed.
+    fm = doc.frontmatter
+    summary_bits = [
+        fm.get("doc_id"),
+        f"v{fm.get('version')}" if fm.get("version") else None,
+        fm.get("status"),
+        fm.get("date"),
+    ]
+    summary = " · ".join(str(b) for b in summary_bits if b)
+
     return (
-        '<div class="frontmatter">'
+        '<details class="frontmatter">'
+        f'<summary><span class="frontmatter-summary">{summary}</span></summary>'
         '<table>'
         + "".join(rows)
-        + "</table></div>"
+        + "</table></details>"
     )
 
 
