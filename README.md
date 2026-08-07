@@ -46,7 +46,7 @@ python -m docgen build --product OV-MOTO-C2
 | Compliance standards mapping | `Docs/Platform/Compliance/` |
 | Per-chassis docs | `Docs/PowerStages/` |
 | Software docs by target | `Docs/Software/` |
-| Assembled product manuals | `Docs/Manuals/ProductManuals/` |
+| Assembled product manuals | `build/manuals/` |
 | Part database | `Data/Parts/` |
 | Product definitions | `Data/Products/` |
 

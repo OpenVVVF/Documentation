@@ -10,6 +10,8 @@ prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-13"
 status: released
+description: Assembly, integration, and operating manual for the Chassis Size 2 power-stage family.
+nav_order: 210
 normative_refs:
   - OV-HARA-CORE
   - OV-HARA-PROF-MOTO

@@ -37,6 +37,18 @@ class Document:
         value = self.frontmatter.get("applies_to", [])
         return list(value) if isinstance(value, list) else []
 
+    @property
+    def description(self) -> Optional[str]:
+        return self.frontmatter.get("description")
+
+    @property
+    def nav_order(self) -> int:
+        value = self.frontmatter.get("nav_order")
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return 9999
+
 
 def parse_document(path: Path) -> Document:
     """Parse a Markdown file, extracting YAML frontmatter if present."""

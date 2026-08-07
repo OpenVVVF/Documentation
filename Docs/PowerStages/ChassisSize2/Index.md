@@ -10,13 +10,15 @@ prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft
+description: Chassis Size 2 power-stage family — user manual, assembly procedures, and thermal analysis for mid-size traction inverters.
+nav_order: 200
 normative_refs:
   - OV-UM-C2
 ---
 
 # Chassis Size 2
 
-140 V nominal / 600 A build.
+Mid-size power-stage family for the OpenVVVF control module. Configurations span a range of DC-link voltages and continuous current ratings; specific ratings and bill of materials are documented per variant in the user manual.
 
 - `UserManual.md` — Assembly and operating manual
 - `Assembly/PowerStage/IGBTMounting.md` — IGBT module mounting procedure

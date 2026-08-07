@@ -1,4 +1,4 @@
-.PHONY: help install test test-bom test-docgen validate docs clean
+.PHONY: help install test test-bom test-docgen validate docs site clean check-clean
 
 VENV := .venv
 PYTHON := $(VENV)/bin/python
@@ -14,7 +14,9 @@ help:
 	@echo "  test-docgen  run docgen tests"
 	@echo "  validate     validate documentation cross-references"
 	@echo "  docs         build all product manuals"
+	@echo "  site         build the static HTML documentation site"
 	@echo "  clean        remove build artifacts and venv"
+	@echo "  check-clean  fail if ignored *.egg-info directories are present"
 
 install:
 	python3 -m venv $(VENV)
@@ -33,9 +35,21 @@ validate:
 	$(PYTHON) -m docgen validate
 
 docs:
-	$(PYTHON) -m docgen build --product OV-MOTO-C2 --output Docs/Manuals/ProductManuals/OpenVVVFMotorcycleKitC2.md
+	$(PYTHON) -m docgen build --product OV-MOTO-C2 --output build/manuals/OpenVVVFMotorcycleKitC2.md
+
+site:
+	$(PYTHON) -m docgen site --output-dir site
 
 clean:
-	rm -rf $(VENV) build dist .pytest_cache
+	rm -rf $(VENV) build dist site .pytest_cache
 	find . -type d -name __pycache__ -exec rm -rf {} +
 	find . -type d -name .pytest_cache -exec rm -rf {} +
+
+check-clean:
+	@bad=$$(git status --ignored --short | grep -E '^!! .*\.egg-info/$$' || true); \
+	if [ -n "$$bad" ]; then \
+		echo "ERROR: ignored *.egg-info directories are present in the working tree:"; \
+		echo "$$bad"; \
+		exit 1; \
+	fi
+	@echo "Working tree is clean of ignored *.egg-info directories."

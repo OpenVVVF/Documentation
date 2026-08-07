@@ -10,6 +10,8 @@ prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-13"
 status: released
+description: DC-link capacitor bank standoff heat-path and thermal resistance analysis for Chassis Size 2.
+nav_order: 240
 normative_refs:
   - OV-THERMAL-SYS-C2
   - OV-UM-C2

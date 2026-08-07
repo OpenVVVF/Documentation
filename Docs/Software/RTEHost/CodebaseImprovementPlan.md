@@ -10,6 +10,8 @@ prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-13"
 status: draft
+description: Readability, reliability, and safety hardening plan for the RTE host and firmware codebase.
+nav_order: 460
 ---
 
 # Codebase Improvement Plan — Readability, Reliability, Safety

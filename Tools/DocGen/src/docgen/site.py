@@ -73,47 +73,112 @@ def frontmatter_table(doc: Document) -> str:
     )
 
 
-def nav_html(docs: List[Document], current_doc_id: Optional[str], root: str) -> str:
-    """Build a sidebar navigation grouped by parent directory."""
-    groups: Dict[str, List[Document]] = {}
+def _doc_sort_key(doc: Document) -> tuple:
+    """Sort key: nav_order first, then title, then filename."""
+    return (doc.nav_order, doc.title or doc.path.stem, doc.path.name)
+
+
+def _dir_sort_key(
+    rel_dir: Path,
+    index_docs: Dict[Path, Document],
+) -> tuple:
+    """Sort key for directories: index nav_order, then directory name."""
+    index_doc = index_docs.get(rel_dir)
+    order = index_doc.nav_order if index_doc else 9999
+    return (order, rel_dir.name)
+
+
+def _nav_tree(
+    docs: List[Document],
+    current_doc_id: Optional[str],
+    root: str,
+    docs_dir: Path,
+) -> str:
+    """Build a nested sidebar tree from the real Docs/ directory structure."""
+    tree: Dict[Path, List[Document]] = {}
+    index_docs: Dict[Path, Document] = {}
+    all_dirs: set[Path] = set()
+
     for doc in docs:
         if doc.doc_id == "OV-DOCS-INDEX":
             continue
-        group = "General"
-        parts = doc.path.parent.parts
-        if "Platform" in parts:
-            group = "Platform"
-        elif "PowerStages" in parts:
-            group = "Power Stages"
-        elif "Software" in parts:
-            group = "Software"
-        elif "Manuals" in parts:
-            group = "Manuals"
-        groups.setdefault(group, []).append(doc)
+        rel_parent = doc.path.parent.relative_to(docs_dir)
+        tree.setdefault(rel_parent, []).append(doc)
+        if doc.path.stem.lower() == "index":
+            index_docs[rel_parent] = doc
+        # Register this directory and all ancestors so the tree is complete.
+        all_dirs.add(rel_parent)
+        for ancestor in rel_parent.parents:
+            if ancestor != Path("."):
+                all_dirs.add(ancestor)
 
-    out = []
-    out.append('<h2 class="sidebar-title">Documents</h2>')
-    out.append("<ul>")
-    out.append(f'<li><a href="{root}index.html">Documentation Index</a></li>')
-    out.append("</ul>")
+    for rel_parent in tree:
+        tree[rel_parent].sort(key=_doc_sort_key)
 
-    for group in sorted(groups.keys()):
-        out.append(f'<div class="group"><div class="group-label">{group}</div><ul>')
-        for doc in sorted(groups[group], key=lambda d: d.title or d.path.name):
-            href = doc.url_path if hasattr(doc, "url_path") else "#"
-            active = ' class="active"' if doc.doc_id == current_doc_id else ""
-            title = doc.title or doc.path.stem
-            out.append(f'<li><a href="{root}{href}"{active}>{title}</a></li>')
-        out.append("</ul></div>")
+    def render_dir(rel_dir: Path, depth: int) -> str:
+        indent = "  " * depth
+        items: List[str] = []
 
+        index_doc = index_docs.get(rel_dir)
+        if index_doc is not None:
+            href = index_doc.url_path if hasattr(index_doc, "url_path") else "#"
+            active = ' class="active"' if index_doc.doc_id == current_doc_id else ""
+            title = index_doc.title or rel_dir.name
+            items.append(f'{indent}<li><a href="{root}{href}"{active}>{title}</a>')
+        else:
+            items.append(f'{indent}<li><span class="group-label">{rel_dir.name}</span>')
+
+        dir_docs = [d for d in tree.get(rel_dir, []) if d.path.stem.lower() != "index"]
+        child_dirs = sorted(
+            [d for d in all_dirs if d != rel_dir and d.parent == rel_dir],
+            key=lambda p: _dir_sort_key(p, index_docs),
+        )
+
+        if dir_docs or child_dirs:
+            items.append(f'{indent}  <ul>')
+            for doc in dir_docs:
+                href = doc.url_path if hasattr(doc, "url_path") else "#"
+                active = ' class="active"' if doc.doc_id == current_doc_id else ""
+                title = doc.title or doc.path.stem
+                items.append(
+                    f'{indent}    <li><a href="{root}{href}"{active}>{title}</a></li>'
+                )
+            for child in child_dirs:
+                items.append(render_dir(child, depth + 2))
+            items.append(f'{indent}  </ul>')
+
+        items.append(f'{indent}</li>')
+        return "\n".join(items)
+
+    top_dirs = sorted(
+        [d for d in all_dirs if len(d.parts) == 1],
+        key=lambda p: _dir_sort_key(p, index_docs),
+    )
+
+    out = ['<h2 class="sidebar-title">Documents</h2>', '<ul class="nav-tree">']
+    out.append(f'  <li><a href="{root}index.html">Documentation Index</a></li>')
+    for top_dir in top_dirs:
+        out.append(render_dir(top_dir, 1))
+    out.append('</ul>')
     return "\n".join(out)
 
 
-def breadcrumbs_html(doc: Document, root: str) -> str:
-    """Build breadcrumb links for a document."""
+def nav_html(
+    docs: List[Document],
+    current_doc_id: Optional[str],
+    root: str,
+    docs_dir: Path,
+) -> str:
+    """Build a sidebar navigation tree from the Docs/ directory structure."""
+    return _nav_tree(docs, current_doc_id, root, docs_dir)
+
+
+def breadcrumbs_html(doc: Document, root: str, docs_dir: Path) -> str:
+    """Build breadcrumb links for a document relative to the docs root."""
     crumbs = [f'<a href="{root}index.html">Index</a>']
     current = ""
-    for part in doc.path.parent.parts:
+    rel_parent = doc.path.parent.relative_to(docs_dir)
+    for part in rel_parent.parts:
         if part in ("Docs", "."):
             continue
         current += part + "/"
@@ -124,9 +189,17 @@ def breadcrumbs_html(doc: Document, root: str) -> str:
 
 
 def url_path(doc_path: Path, docs_dir: Path) -> str:
-    """Return the URL path for a document relative to the site root."""
+    """Return the URL path for a document relative to the site root.
+
+    Section Index.md files become lowercase index.html so they act as directory
+    index pages.
+    """
     rel = doc_path.relative_to(docs_dir)
-    return str(rel.with_suffix(".html"))
+    if rel.stem.lower() == "index":
+        rel = rel.with_name("index.html")
+    else:
+        rel = rel.with_suffix(".html")
+    return str(rel)
 
 
 def copy_assets(doc: Document, docs_dir: Path, output_dir: Path) -> None:
@@ -155,10 +228,10 @@ def render_page(
     """Render a full HTML page from the template."""
     root = rel_root(output_path, output_dir)
     if doc:
-        nav = nav_html(docs, doc.doc_id, root)
-        crumbs = breadcrumbs_html(doc, root)
+        nav = nav_html(docs, doc.doc_id, root, docs_dir)
+        crumbs = breadcrumbs_html(doc, root, docs_dir)
     else:
-        nav = nav_html(docs, None, root)
+        nav = nav_html(docs, None, root, docs_dir)
         crumbs = '<a href="{root}index.html">Index</a>'.format(root=root)
 
     page = load_template("page.html")
@@ -207,19 +280,25 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
         )
         output_path.write_text(html, encoding="utf-8")
 
-    # Build directory index pages.
+    # Build directory index pages for directories that do not have an Index.md.
     directories = {doc.path.parent for doc in docs}
+    index_dirs = {doc.path.parent for doc in docs if doc.path.stem.lower() == "index"}
     for directory in directories:
+        if directory in index_dirs:
+            continue
         rel_dir = directory.relative_to(docs_dir)
         dir_docs = [d for d in docs if d.path.parent == directory]
         if not dir_docs:
             continue
         items = []
-        for doc in sorted(dir_docs, key=lambda d: d.title or d.path.name):
+        for doc in sorted(dir_docs, key=_doc_sort_key):
             title = doc.title or doc.path.stem
+            blurb = doc.description or doc.path.name
+            # Link is relative to the directory index page itself.
+            href = f"{doc.path.stem}.html"
             items.append(
-                f'<div class="card"><h3><a href="{doc.path.stem}.html">{title}</a></h3>'
-                f'<p>{doc.path.name}</p></div>'
+                f'<div class="card"><h3><a href="{href}">{title}</a></h3>'
+                f'<p>{blurb}</p></div>'
             )
         body = f"<h1>{rel_dir.name or 'Documentation'}</h1>\n<div class=\"landing-grid\">\n" + "\n".join(items) + "\n</div>"
         output_path = output_dir / rel_dir / "index.html"
@@ -316,12 +395,13 @@ def build_landing_body(docs: List[Document]) -> str:
     for section in sorted(sections.keys()):
         out.append(f"<h2>{section}</h2>")
         out.append('<div class="landing-grid">')
-        for doc in sorted(sections[section], key=lambda d: d.title or d.path.name):
+        for doc in sorted(sections[section], key=_doc_sort_key):
             href = doc.url_path
             title = doc.title or doc.path.stem
+            blurb = doc.description or doc.path.name
             out.append(
                 f'<div class="card"><h3><a href="{href}">{title}</a></h3>'
-                f'<p>{doc.path.name}</p></div>'
+                f'<p>{blurb}</p></div>'
             )
         out.append("</div>")
     return "\n".join(out)

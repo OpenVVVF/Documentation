@@ -10,6 +10,8 @@ prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-17"
 status: released
+description: System-level heat dissipation and heatsink sizing analysis for the Chassis Size 2 traction inverter.
+nav_order: 230
 normative_refs:
   - OV-UM-C2
 ---

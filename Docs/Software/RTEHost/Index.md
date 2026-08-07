@@ -10,6 +10,8 @@ prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft
+description: Real Time Examiner (RTE) host tools for configuration, telemetry, and node-based code generation.
+nav_order: 450
 ---
 
 # RTE Host Software

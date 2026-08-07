@@ -10,7 +10,7 @@ This is the OpenVVVF documentation and hardware-data hub. It does **not** contai
 2. **Unique `doc_id`**: every document must have a stable, kebab-case `doc_id`.
 3. **Core + Profile pattern**: safety analyses (HARA, TARA, FMEA) are split into a platform Core document and Application Profile documents.
 4. **Cross-references**: reference documents by `doc_id`, not by path. Use `docgen` to validate them.
-5. **Product assembly**: product manuals under `Docs/Manuals/ProductManuals/` are assembled from fragments declared in `Data/Products/*.yaml`.
+5. **Product assembly**: product manuals are assembled from fragments declared in `Data/Products/*.yaml` and written to `build/manuals/`.
 
 ## Tool conventions
 

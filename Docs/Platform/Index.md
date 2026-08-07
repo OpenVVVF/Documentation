@@ -10,6 +10,8 @@ prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft
+description: Application-independent control-module documentation — safety analyses, compliance mappings, and architecture.
+nav_order: 100
 ---
 
 # Platform Documentation

@@ -10,6 +10,8 @@ prepared: Thomas Liao
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft
+description: STM32H723ZG main MCU firmware — FOC motor control, sensor acquisition, CAN, and safe-state management.
+nav_order: 410
 ---
 
 # Main MCU Software
