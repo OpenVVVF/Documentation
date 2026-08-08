@@ -35,6 +35,26 @@ The Telemetry Viewer is a browser-based tool for inspecting RTE JSONL telemetry 
 3. Choose the signals you want to plot from the sidebar.
 4. Use the Plotly toolbar to zoom, pan, or export the figure.
 
+### Right-click menu
+
+Right-click anywhere on the plot to open a context menu for adding markers, annotations, zooming to a time, or fitting the X axis.
+
+### Command markers
+
+Click a row in the **Commands** panel to toggle a vertical marker at that command time. Click the same row again to remove the marker.
+
+### Linked files
+
+You can link directly to a telemetry file so the viewer opens and loads it automatically. Add the `?file=` parameter with a path relative to the viewer, and use the existing `#s=` hash to pre-select signals.
+
+Example:
+
+```text
+telemetry-viewer.html?file=../../Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left
+```
+
+[Open induction calibration log with cg_iu_a plotted](telemetry-viewer.html?file=../../Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left)
+
 ## Data privacy
 
 The viewer parses files locally in your browser. Telemetry data never leaves your machine.

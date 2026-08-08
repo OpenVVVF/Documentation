@@ -70,10 +70,15 @@ def _is_external(url: str) -> bool:
 
 def _resolve_target(url: str, doc_dir: Path, docs_dir: Path, existing: Set[str]) -> Tuple[bool, str]:
     """Return (ok, resolved_or_original_path) for a link target."""
-    if url.startswith("/"):
-        rel = Path(url.lstrip("/"))
+    # Strip query string and hash for validation; the runtime handles them.
+    clean_url = url.split('?')[0].split('#')[0]
+    if not clean_url:
+        return True, url
+
+    if clean_url.startswith("/"):
+        rel = Path(clean_url.lstrip("/"))
     else:
-        rel = Path(os.path.normpath(doc_dir / url)).relative_to(docs_dir)
+        rel = Path(os.path.normpath(doc_dir / clean_url)).relative_to(docs_dir)
 
     rel_posix = rel.as_posix()
     candidates: List[str] = [rel_posix]

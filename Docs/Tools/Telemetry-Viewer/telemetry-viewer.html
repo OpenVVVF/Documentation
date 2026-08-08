@@ -269,6 +269,34 @@
     }
 
     .monospace { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    .context-menu {
+      position: fixed;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 4px 0;
+      min-width: 160px;
+      z-index: 1000;
+      font-size: 12px;
+    }
+
+    .context-menu-item {
+      padding: 7px 12px;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .context-menu-item:hover {
+      background: var(--row-hover);
+    }
+
+    .context-menu-separator {
+      height: 1px;
+      background: var(--border-light);
+      margin: 4px 0;
+    }
   </style>
 </head>
 <body>
@@ -641,7 +669,7 @@
             <td title="${escapeHtml(cmd.text)}">${escapeHtml(truncate(cmd.text, 35))}</td>
             <td>${cmd.sent ? '✓' : '✗'}</td>
           `;
-          tr.addEventListener('click', () => addMarker(cmd.t, `cmd: ${truncate(cmd.text, 30)}`));
+          tr.addEventListener('click', () => toggleCommandMarker(cmd.t, `cmd: ${truncate(cmd.text, 30)}`));
           els.commandTable.appendChild(tr);
         }
       }
@@ -798,6 +826,107 @@
         const update = { 'xaxis.range': [t - range, t + range] };
         Plotly.relayout(els.graph, update);
       }
+
+      function findMarkerIndex(t, label) {
+        return state.markers.findIndex(m => Math.abs(m.t - t) < 1e-9 && m.label === label);
+      }
+
+      function toggleCommandMarker(t, label) {
+        const idx = findMarkerIndex(t, label);
+        if (idx >= 0) {
+          state.markers.splice(idx, 1);
+        } else {
+          state.markers.push({ t: parseFloat(t), label: label, color: '#d64550' });
+        }
+        renderMarkers();
+        renderGraph();
+      }
+
+      // -------------------------------------------------------------------------
+      // Right-click context menu
+      // -------------------------------------------------------------------------
+      function showContextMenu(x, y, t, yval) {
+        hideContextMenu();
+        const menu = document.createElement('div');
+        menu.className = 'context-menu';
+        menu.style.left = x + 'px';
+        menu.style.top = y + 'px';
+        menu.innerHTML = `
+          <div class="context-menu-item" data-action="marker">Add marker at ${fmtTime(t)}</div>
+          <div class="context-menu-item" data-action="annotation">Add annotation at ${fmtTime(t)}</div>
+          <div class="context-menu-separator"></div>
+          <div class="context-menu-item" data-action="zoom">Zoom to ${fmtTime(t)}</div>
+          <div class="context-menu-item" data-action="fit">Fit X axis</div>
+        `;
+        document.body.appendChild(menu);
+
+        function onItemClick(e) {
+          const action = e.target.dataset.action;
+          if (action === 'marker') {
+            const label = prompt('Marker label:', `t=${fmtTime(t)}`);
+            if (label !== null) addMarker(t, label);
+          } else if (action === 'annotation') {
+            const text = prompt('Annotation text:', 'note');
+            if (text !== null) addAnnotation(t, yval, text);
+          } else if (action === 'zoom') {
+            zoomTo(t);
+          } else if (action === 'fit') {
+            Plotly.relayout(els.graph, { 'xaxis.autorange': true });
+          }
+          hideContextMenu();
+        }
+
+        menu.querySelectorAll('.context-menu-item').forEach(item => {
+          item.addEventListener('click', onItemClick);
+        });
+
+        function onOutsideClick(e) {
+          if (!menu.contains(e.target)) hideContextMenu();
+        }
+
+        function onKeyDown(e) {
+          if (e.key === 'Escape') hideContextMenu();
+        }
+
+        menu._outsideClick = onOutsideClick;
+        menu._keyDown = onKeyDown;
+        document.addEventListener('click', onOutsideClick);
+        document.addEventListener('keydown', onKeyDown);
+      }
+
+      function hideContextMenu() {
+        const existing = document.querySelector('.context-menu');
+        if (existing) {
+          document.removeEventListener('click', existing._outsideClick);
+          document.removeEventListener('keydown', existing._keyDown);
+          existing.remove();
+        }
+      }
+
+      els.graph.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        if (!Object.keys(state.signals).length) return;
+        const rect = els.graph.getBoundingClientRect();
+        const x = e.clientX;
+        const y = e.clientY;
+        // Convert pixel position to data coordinates using the axis range and
+        // plot area geometry (Plotly's p2c methods expect plot-area pixels).
+        let t = 0, yval = 0;
+        const fullLayout = els.graph._fullLayout;
+        if (fullLayout && fullLayout.xaxis) {
+          const xa = fullLayout.xaxis;
+          const fracX = (x - rect.left - xa._offset) / xa._length;
+          const xr = xa.range;
+          t = xr[0] + fracX * (xr[1] - xr[0]);
+        }
+        if (fullLayout && fullLayout.yaxis) {
+          const ya = fullLayout.yaxis;
+          const fracY = 1 - (y - rect.top - ya._offset) / ya._length;
+          const yr = ya.range;
+          yval = yr[0] + fracY * (yr[1] - yr[0]);
+        }
+        showContextMenu(x, y, t, yval);
+      });
 
       // -------------------------------------------------------------------------
       // Window controls
@@ -1053,6 +1182,35 @@
       window.addEventListener('resize', () => {
         if (state.selected.size) Plotly.Plots.resize(els.graph);
       });
+
+      // -------------------------------------------------------------------------
+      // Auto-load JSONL from URL ?file=... parameter
+      // -------------------------------------------------------------------------
+      async function loadFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const fileParam = params.get('file');
+        if (!fileParam) return;
+
+        const fileUrl = new URL(fileParam, window.location.href);
+        state.fileName = fileUrl.pathname.split('/').pop() || 'linked.jsonl';
+        els.statusBar.textContent = 'Loading ' + state.fileName + '...';
+
+        try {
+          const response = await fetch(fileUrl);
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          const text = await response.text();
+          parseJsonl(text);
+          restoreSelectionFromHash();
+          updateUI();
+          renderGraph();
+          updateSelectionHash();
+        } catch (err) {
+          alert('Failed to load linked file: ' + err.message);
+          console.error(err);
+        }
+      }
+
+      loadFromUrl();
     })();
   </script>
 </body>
