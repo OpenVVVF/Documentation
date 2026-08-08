@@ -187,13 +187,34 @@ def _dir_sort_key(
     return (order, rel_dir.name)
 
 
+_PLACEHOLDER_HINTS = re.compile(
+    r"(?i)(content to be|placeholder|under revision|to be added|to be migrated|stub|planned content|will be added|coming soon)"
+)
+
+
+def _is_placeholder_doc(doc: Optional[Document]) -> bool:
+    """Return True if a document looks like a placeholder or is marked as one."""
+    if doc is None:
+        return False
+    if doc.frontmatter.get("placeholder"):
+        return True
+    body = doc.body or ""
+    if len(body) < 200:
+        return True
+    return bool(_PLACEHOLDER_HINTS.search(body))
+
+
 def _nav_tree(
     docs: List[Document],
     current_doc_id: Optional[str],
     root: str,
     docs_dir: Path,
 ) -> str:
-    """Build a nested sidebar tree from the real Docs/ directory structure."""
+    """Build a nested sidebar tree from the real Docs/ directory structure.
+
+    Sections with children are rendered as collapsible accordions. Placeholder
+    documents are flagged with a WIP marker so users know which links are empty.
+    """
     tree: Dict[Path, List[Document]] = {}
     index_docs: Dict[Path, Document] = {}
     all_dirs: set[Path] = set()
@@ -214,33 +235,75 @@ def _nav_tree(
     for rel_parent in tree:
         tree[rel_parent].sort(key=_doc_sort_key)
 
+    docs_by_id = {doc.doc_id: doc for doc in docs}
+    current_doc = docs_by_id.get(current_doc_id)
+
+    def _dir_contains_active(rel_dir: Path) -> bool:
+        if current_doc is None:
+            return False
+        current_rel = current_doc.path.parent.relative_to(docs_dir)
+        return current_rel == rel_dir or current_rel.is_relative_to(rel_dir)
+
+    def _link_classes(doc: Optional[Document], is_active: bool) -> str:
+        classes = []
+        if is_active:
+            classes.append("active")
+        if _is_placeholder_doc(doc):
+            classes.append("nav-placeholder")
+        return ' class="' + " ".join(classes) + '"' if classes else ""
+
+    def _wip_marker(doc: Optional[Document]) -> str:
+        return ' <span class="nav-wip">WIP</span>' if _is_placeholder_doc(doc) else ""
+
     def render_dir(rel_dir: Path, depth: int) -> str:
         indent = "  " * depth
         items: List[str] = []
 
         index_doc = index_docs.get(rel_dir)
-        if index_doc is not None:
-            href = index_doc.url_path if hasattr(index_doc, "url_path") else "#"
-            active = ' class="active"' if index_doc.doc_id == current_doc_id else ""
-            title = index_doc.title or _display_name(rel_dir.name)
-            items.append(f'{indent}<li><a href="{root}{href}"{active}>{title}</a>')
-        else:
-            items.append(f'{indent}<li><span class="group-label">{_display_name(rel_dir.name)}</span>')
-
         dir_docs = [d for d in tree.get(rel_dir, []) if d.path.stem.lower() != "index"]
         child_dirs = sorted(
             [d for d in all_dirs if d != rel_dir and d.parent == rel_dir],
             key=lambda p: _dir_sort_key(p, index_docs),
         )
+        has_children = bool(dir_docs or child_dirs)
+        is_open = has_children and _dir_contains_active(rel_dir)
+
+        if has_children:
+            li_class = "nav-section"
+            if not is_open:
+                li_class += " nav-section-collapsed"
+            li_open = f'{indent}<li class="{li_class}">'
+        else:
+            li_open = f'{indent}<li>'
+        items.append(li_open)
+
+        if has_children:
+            items.append(
+                f'{indent}  <button class="nav-section-toggle" '
+                f'aria-expanded="{str(is_open).lower()}" '
+                f'aria-label="Toggle {_display_name(rel_dir.name)}"></button>'
+            )
+
+        if index_doc is not None:
+            href = index_doc.url_path if hasattr(index_doc, "url_path") else "#"
+            active = index_doc.doc_id == current_doc_id
+            cls = _link_classes(index_doc, active)
+            title = index_doc.title or _display_name(rel_dir.name)
+            wip = _wip_marker(index_doc)
+            items.append(f'{indent}<a href="{root}{href}"{cls}>{title}{wip}</a>')
+        else:
+            items.append(f'{indent}<span class="group-label">{_display_name(rel_dir.name)}</span>')
 
         if dir_docs or child_dirs:
             items.append(f'{indent}  <ul>')
             for doc in dir_docs:
                 href = doc.url_path if hasattr(doc, "url_path") else "#"
-                active = ' class="active"' if doc.doc_id == current_doc_id else ""
+                active = doc.doc_id == current_doc_id
+                cls = _link_classes(doc, active)
                 title = doc.title or _display_name(doc.path.stem)
+                wip = _wip_marker(doc)
                 items.append(
-                    f'{indent}    <li><a href="{root}{href}"{active}>{title}</a></li>'
+                    f'{indent}    <li><a href="{root}{href}"{cls}>{title}{wip}</a></li>'
                 )
             for child in child_dirs:
                 items.append(render_dir(child, depth + 2))

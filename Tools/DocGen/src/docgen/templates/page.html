@@ -12,9 +12,11 @@
     <div class="site-header-inner">
       <a href="{root}index.html" class="site-title">OpenVVVF<span class="site-title-docs">Docs</span></a>
       <nav class="site-nav" aria-label="Top sections">
+        <a href="{root}System-Architecture/index.html">Architecture</a>
+        <a href="{root}Glossary/index.html">Glossary</a>
         <a href="{root}Control-Assembly/index.html">Control Assembly</a>
         <a href="{root}Power-Stages/index.html">Power Stages</a>
-        <a href="{root}Safety-and-Compliance/index.html">Safety and Compliance</a>
+        <a href="{root}Safety-and-Compliance/index.html">Safety</a>
         <a href="{root}Software/index.html">Software</a>
         <a href="{root}Testing/index.html">Testing</a>
       </nav>
@@ -85,6 +87,16 @@
         }}
       }}
       initCollapsed();
+
+      // Accordion toggles for nav sections
+      document.querySelectorAll('.nav-section-toggle').forEach(function (btn) {{
+        btn.addEventListener('click', function (e) {{
+          e.preventDefault();
+          var li = btn.closest('.nav-section');
+          var collapsed = li.classList.toggle('nav-section-collapsed');
+          btn.setAttribute('aria-expanded', String(!collapsed));
+        }});
+      }});
     }})();
   </script>
 

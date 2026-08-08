@@ -1,5 +1,6 @@
 """Cross-reference and link validation for documentation."""
 
+import os
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -72,7 +73,7 @@ def _resolve_target(url: str, doc_dir: Path, docs_dir: Path, existing: Set[str])
     if url.startswith("/"):
         rel = Path(url.lstrip("/"))
     else:
-        rel = (doc_dir / url).relative_to(docs_dir)
+        rel = Path(os.path.normpath(doc_dir / url)).relative_to(docs_dir)
 
     rel_posix = rel.as_posix()
     candidates: List[str] = [rel_posix]

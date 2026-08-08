@@ -15,4 +15,4 @@ nav_order: 310
 
 # Chassis Size 1
 
-Small power-stage family. Documentation will be added as the design matures.
+Compact, low-power form factor for the OpenVVVF control module. Targeted at small traction applications where space and weight are constrained. Documentation will be added as the design matures.

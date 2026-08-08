@@ -257,6 +257,58 @@ a:hover {
   letter-spacing: 0.05em;
 }
 
+.nav-section {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.nav-section-toggle {
+  position: absolute;
+  left: -0.15rem;
+  top: 0.45rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.nav-section-toggle::before {
+  content: "▾";
+}
+
+.nav-section-collapsed > .nav-section-toggle::before {
+  content: "▸";
+}
+
+.nav-section-collapsed > ul {
+  display: none;
+}
+
+.sidebar a.nav-placeholder {
+  color: var(--text-light);
+}
+
+.nav-wip {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-light);
+  background: var(--surface-2);
+  border: 1px solid var(--border-light);
+  border-radius: 3px;
+  padding: 0.05rem 0.3rem;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
 .sidebar ul ul {
   margin: 0.25rem 0 0.5rem 0.5rem;
   padding-left: 0.75rem;
@@ -682,7 +734,9 @@ a:hover {
   border-top: 1px solid var(--border-light);
 }
 
-.content .sponsors h2::before {
+.content .sponsors h2::before,
+.content .card h2::before,
+.content .card h3::before {
   content: none;
 }
 
