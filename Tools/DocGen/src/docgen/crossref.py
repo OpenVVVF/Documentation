@@ -83,7 +83,10 @@ def _resolve_target(url: str, doc_dir: Path, docs_dir: Path, existing: Set[str])
         dir_part = rel_posix[: -len("index.html")]
         candidates.append(f"{dir_part}Index.md")
     elif rel_posix.endswith(".html"):
+        # Link may point to a generated Markdown page (foo.html -> foo.md)
+        # or to a standalone HTML asset (e.g. embedded web tool).
         candidates.append(rel_posix[: -len(".html")] + ".md")
+        candidates.append(rel_posix)
     elif rel_posix.endswith("/"):
         candidates.append(rel_posix + "Index.md")
     else:

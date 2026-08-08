@@ -28,4 +28,9 @@ This section documents the support tools and small utilities that go with OpenVV
 <p>Convert RTE JSONL telemetry logs into publication-ready plots for analysis and test reports.</p>
 </div>
 
+<div class="card">
+<h3><a href="Telemetry-Viewer/index.html">Telemetry Viewer</a></h3>
+<p>Browser-based interactive viewer for RTE JSONL telemetry logs.</p>
+</div>
+
 </div>
