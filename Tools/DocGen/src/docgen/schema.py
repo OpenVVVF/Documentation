@@ -44,6 +44,8 @@ ALLOWED_DOCTYPES = {
     "Hazard Analysis & Risk Assessment",
     "Application Profile",
     "Application Profile — Hazard Analysis & Risk Assessment",
+    "Threat Analysis",
+    "Threat Analysis & Risk Assessment",
     "Compliance Mapping",
     "Analysis",
     "Software Manual",

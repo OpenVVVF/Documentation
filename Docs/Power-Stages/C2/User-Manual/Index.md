@@ -37,9 +37,9 @@ normative_refs:
 >
 > This manual covers the electrical interface, integration, and operation of the traction inverter hardware. The following companion documents provide additional detail:
 >
-> - **HARA (v4.1):** Hazard Analysis and Risk Assessment per ISO 26262. 99 fault injection tests, 18 hazards, 15 safety goals, 21 FSRs. Dual-MCU architecture with STM32G474RCTx coprocessor. Six SSO pathways. ASIL D via ASIL B(D) decomposition.
-> - **TARA (v1.2):** Threat Analysis and Risk Assessment per ISO/SAE 21434. 9 cybersecurity tests, 7 CSRs, open-source trust model.
-> - **SWAD (v1.5):** Software Architecture Document. 4-layer architecture, FOC + multi-modulation, 6-state state machine, CAN protocol reference.
+> - **HARA:** `OV-SAF-HARA-CORE` — Hazard Analysis and Risk Assessment per ISO 26262. Platform core plus the `OV-SAF-HARA-PROF-MOTO` motorcycle application profile.
+> - **TARA:** `OV-SAF-TARA-INDEX` — Threat Analysis and Risk Assessment per ISO/SAE 21434. 9 cybersecurity tests, 7 CSRs, open-source trust model.
+> - **SWAD (v1.5):** Software Architecture Document. 4-layer architecture, FOC + multi-modulation, 6-state state machine, CAN protocol reference. (Will be replaced by Control Assembly / Software docs.)
 >
 > The **RTE (Real Time Examiner)** open-source tool connects via CAN bus for live monitoring, parameter configuration, and firmware updates.
 
@@ -448,7 +448,7 @@ Each IGBT is driven by an isolated gate driver channel with the following featur
 
 > **Gate Drive Supply Kill — 1oo2 Architecture**
 >
-> Two independent MCUs can each disable all six gate drive power supplies: GATE_DRIVE_PWR1_ENABLE (main STM32H723) and GATE_DRIVE_PWR2_ENABLE (coprocessor STM32G474). Either enable going low shuts down the Murata supplies, the NCV57100 drivers detect UVLO, and force all IGBT gates to 0V via internal active pull-downs. This is a 1oo2 architecture — either MCU can achieve SSO independently. Independent feedback is provided: GATE_DRIVE_PWR1_FB (main MCU) and GATE_DRIVE_PWR2_FB (coprocessor). The FLT signal additionally confirms UVLO detection. Six total SSO pathways exist; see the HARA (v4.1) Section 2.2 for full details.
+> Two independent MCUs can each disable all six gate drive power supplies: GATE_DRIVE_PWR1_ENABLE (main STM32H723) and GATE_DRIVE_PWR2_ENABLE (coprocessor STM32G474). Either enable going low shuts down the Murata supplies, the NCV57100 drivers detect UVLO, and force all IGBT gates to 0V via internal active pull-downs. This is a 1oo2 architecture — either MCU can achieve SSO independently. Independent feedback is provided: GATE_DRIVE_PWR1_FB (main MCU) and GATE_DRIVE_PWR2_FB (coprocessor). The FLT signal additionally confirms UVLO detection. Six total SSO pathways exist; see `OV-SAF-HARA-CORE` §2.2 for full details.
 
 # 10. Sensing and Acquisition
 
@@ -613,11 +613,11 @@ The USB-B port is galvanically isolated from the traction high-voltage domain. I
 
 > **Open Source**
 >
-> This project is open source. Firmware source code, schematics, and all documentation are available on the project GitHub repository. The STM32H723ZG is shipped with RDP Level 0 (no readout protection) — debugging and firmware modification are always possible. The user is the root of trust. The project explicitly rejects anti-user security mechanisms (OTP fuses, vendor-locked keys, encrypted bootloaders with unreplaceable keys). Physical tampering is an acceptable risk per the open-source trust model documented in the TARA (v1.2).
+> This project is open source. Firmware source code, schematics, and all documentation are available on the project GitHub repository. The STM32H723ZG is shipped with RDP Level 0 (no readout protection) — debugging and firmware modification are always possible. The user is the root of trust. The project explicitly rejects anti-user security mechanisms (OTP fuses, vendor-locked keys, encrypted bootloaders with unreplaceable keys). Physical tampering is an acceptable risk per the open-source trust model documented in `OV-SAF-TARA-INDEX`.
 
 > **CAUTION — Third-Party Firmware**
 >
-> Only firmware obtained from the official project repository or built from audited source code is supported. Third-party firmware may disable safety features, override thermal limits, or introduce software faults. Use of unverified firmware is at the user's own risk. The HARA (v4.1) fault injection test results apply only to the official firmware. No fitness for purpose is guaranteed for any firmware configuration.
+> Only firmware obtained from the official project repository or built from audited source code is supported. Third-party firmware may disable safety features, override thermal limits, or introduce software faults. Use of unverified firmware is at the user's own risk. The `OV-SAF-HARA-CORE` fault injection test results apply only to the official firmware. No fitness for purpose is guaranteed for any firmware configuration.
 
 # 17. Motor Control and Modulation Strategies
 

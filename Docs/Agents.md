@@ -91,6 +91,7 @@ Every `Index.md` must begin with YAML frontmatter. Required and optional fields:
 - `Test Report` — formal test evidence
 - `Hazard Analysis` or `Hazard Analysis & Risk Assessment`
 - `Application Profile` or `Application Profile — Hazard Analysis & Risk Assessment`
+- `Threat Analysis` or `Threat Analysis & Risk Assessment`
 - `Compliance Mapping`
 - `Analysis`
 - `Software Manual`
