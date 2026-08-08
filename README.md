@@ -62,9 +62,9 @@ See [`AGENTS.md`](AGENTS.md) and [`Docs/Agents.md`](Docs/Agents.md) for conventi
 A special thank you to our sponsors for helping make this project possible:
 
 <p>
-  <a href="https://mouser.com"><img src="https://cdn.trustedparts.com/company/dd042a20-7bd6-4e96-92c0-203775acde0d-mouser-logo.svg" height="50" alt="Mouser Electronics"></a>
+  <a href="https://mouser.com"><img src="https://cdn.trustedparts.com/company/dd042a20-7bd6-4e96-92c0-203775acde0d-mouser-logo.svg" height="36" alt="Mouser Electronics"></a>
   &nbsp;&nbsp;
-  <a href="https://www.mitsubishielectric.com/semiconductors/powerdevices/"><img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Mitsubishi_Electric_logo.svg" height="50" alt="Mitsubishi Electric"></a>
+  <a href="https://www.mitsubishielectric.com/semiconductors/powerdevices/"><img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Mitsubishi_Electric_logo.svg" height="36" alt="Mitsubishi Electric"></a>
   &nbsp;&nbsp;
-  <a href="https://sendcutsend.com/"><img src="https://sendcutsend.com/wp-content/uploads/2022/11/scs-logo-text-1-1.svg" height="50" alt="SendCutSend"></a>
+  <a href="https://sendcutsend.com/"><img src="https://sendcutsend.com/wp-content/uploads/2022/11/scs-logo-text-1-1.svg" height="36" alt="SendCutSend"></a>
 </p>

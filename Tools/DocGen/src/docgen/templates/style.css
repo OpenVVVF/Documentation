@@ -602,6 +602,38 @@ main {
   content: none;
 }
 
+/* Sponsors section on the landing page */
+.content .sponsors {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.content .sponsors h2::before {
+  content: none;
+}
+
+.content .sponsor-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.content .sponsor-logos a {
+  display: inline-flex;
+  align-items: center;
+}
+
+.content .sponsor-logos img {
+  max-height: 32px;
+  width: auto;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+}
+
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
