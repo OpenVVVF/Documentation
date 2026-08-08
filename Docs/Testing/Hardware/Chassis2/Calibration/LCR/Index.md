@@ -73,15 +73,27 @@ The inverter's `cal Motor.Resistance` routine was run to estimate the motor resi
 - Run 2 at ~120 V reads lower on UV and UW, pulling the average **-6.5 %** below the LCR reference. The VW pair is consistent with run 1 and the reference.
 - The raw command log is available: [Resistance-Command-Log.txt](Resistance-Command-Log.txt).
 
+### Calibration graph
+
+The plot below shows phase currents, DC bus voltage, and the per-phase resistance estimate for both bus voltages.
+
+![Resistance calibration: 50 V vs 120 V bus](ResistanceCalResult_50v_vs_120v.png)
+
+From the plotted telemetry:
+
+- **50 V run:** R_phase_avg = **7.74 mΩ**
+- **120 V run:** R_phase_avg = **7.15 mΩ**
+- **ΔR between runs:** 0.58 mΩ
+
 ### Observations
 
-- The 50 V result is very close to the bench LCR meter, which is a good sign for the calibration routine.
-- The 120 V discrepancy on UV/UW suggests either:
-  - additional connection/cable resistance in the 120 V setup that was not present at 50 V,
-  - a temperature or settling difference between runs, or
-  - a measurement-pair naming mismatch that should be confirmed when the calibration graph is reviewed.
-
-A voltage-vs-current fit graph will be added to this section when available.
+- The 50 V result (7.74 mΩ average phase) is within **+1.2 %** of the LCR reference (7.6465 mΩ per phase).
+- The 120 V result reads lower by **-6.5 %**. The per-phase traces in the plot are stable and consistent with each other, so the shift appears to be a systematic offset between the two runs rather than a noisy measurement.
+- Possible causes for the 120 V offset:
+  - current-sensor offset or scaling drift at the higher DC-link voltage,
+  - connection/cable resistance differences between setups,
+  - temperature or settling differences between runs.
+- The raw telemetry log is available for further analysis: [ResistanceCalResult.jsonl](ResistanceCalResult.jsonl).
 
 ## Notes
 

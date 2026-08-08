@@ -340,7 +340,7 @@ def copy_assets(doc: Document, docs_dir: Path, output_dir: Path) -> None:
     for asset in src_dir.iterdir():
         if asset.is_file() and asset.suffix.lower() in {
             ".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp", ".pdf",
-            ".txt", ".csv",
+            ".txt", ".csv", ".jsonl",
         }:
             dst = dst_dir / asset.name
             dst.parent.mkdir(parents=True, exist_ok=True)
