@@ -11,7 +11,7 @@ The `Docs/` tree has five top-level sections:
    - `Software-Manual/` — Base firmware, RTE host, flashing, custom code.
 2. **Power-Stages** — Physical chassis/inverter assemblies.
    - One folder per chassis family: `C1/`, `C2/`, `C3/`.
-   - Each chassis has a `User-Manual/` and an `Assembly-Guide/`.
+   - Each chassis has an `Integration-Guide/` and an `Assembly-Guide/`.
 3. **Safety-and-Compliance** — Cross-cutting safety and standards docs.
    - `HARA/` — Hazard analyses.
    - `Compliance/` — Standards mappings.
@@ -26,7 +26,7 @@ Do not create leaf `.md` files directly in a parent directory. Instead, create a
 
 Good:
 ```text
-User-Manual/
+Integration-Guide/
   └── Index.md
 ```
 
@@ -50,7 +50,7 @@ Use hierarchical, kebab-case IDs:
 - `OV-PS-*` — Power Stages (top-level)
 - `OV-C1-*` — Chassis Size 1
 - `OV-C2-*` — Chassis Size 2
-  - `OV-C2-UM-*` — C2 User Manual
+  - `OV-C2-IG-*` — C2 Integration Guide
   - `OV-C2-AG-*` — C2 Assembly Guide
   - `OV-C2-DD-*` — C2 Design Documents
 - `OV-C3-*` — Chassis Size 3

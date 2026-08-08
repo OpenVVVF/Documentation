@@ -12,7 +12,7 @@ status: draft
 description: Step-by-step assembly procedures for the Chassis Size 2 power stage.
 nav_order: 322
 normative_refs:
-  - OV-C2-UM-INDEX
+  - OV-C2-IG-INDEX
 ---
 
 # Chassis Size 2 — Assembly Guide

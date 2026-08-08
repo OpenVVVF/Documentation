@@ -22,7 +22,7 @@ This repository is the single source of truth for OpenVVVF documentation.
 <div class="card">
 <h3>Getting Started</h3>
 <ul>
-<li><strong>Installers / Technicians</strong> — start with the <a href="Power-Stages/C2/User-Manual/index.html">C2 User Manual</a> or the <a href="Power-Stages/C2/Assembly-Guide/index.html">C2 Assembly Guide</a>.</li>
+<li><strong>Installers / Technicians</strong> — start with the <a href="Power-Stages/C2/Integration-Guide/index.html">C2 Integration Guide</a> or the <a href="Power-Stages/C2/Assembly-Guide/index.html">C2 Assembly Guide</a>.</li>
 <li><strong>Developers</strong> — see the <a href="Control-Assembly/Software-Manual/index.html">Control Assembly Software Manual</a> and <a href="Software/index.html">Software</a> section.</li>
 <li><strong>Safety / Compliance Reviewers</strong> — begin with the <a href="Safety-and-Compliance/HARA/Core/index.html">HARA Core</a> and <a href="Safety-and-Compliance/Compliance/index.html">Compliance</a> docs.</li>
 </ul>

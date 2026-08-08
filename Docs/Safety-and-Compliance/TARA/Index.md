@@ -14,7 +14,7 @@ nav_order: 215
 normative_refs:
   - OV-SAF-HARA-CORE
   - OV-SAF-HARA-PROF-MOTO
-  - OV-C2-UM-INDEX
+  - OV-C2-IG-INDEX
 ---
 
 > **MCUs:** STM32H723ZG + STM32G474RCTx  
@@ -378,4 +378,4 @@ This TARA is a companion document to the HARA. Safety-relevant cybersecurity thr
 | 1.0 | June 13, 2026 | Initial TARA release. 7 threat scenarios (T-01 through T-07), 7 cybersecurity requirements (CSR-01 through CSR-07), 8 test cases (CT-01 through CT-08). Open-source trust model: no OTP, no vendor lock-in, user-managed HMAC-SHA256 keys. ISO/SAE 21434 aligned. Cross-referenced to HARA companion document. |
 | 1.1 | July 8, 2026 | User-sovereignty security model; 7 threat scenarios (T-01 through T-07); 7 Cybersecurity Requirements; 8 cybersecurity test cases. |
 | 1.2 | July 13, 2026 | Editorial consistency pass: restored missing v1.1 revision-history entry; cross-reference and formatting fixes; CT-08 objective aligned to CSR-01 (HMAC key rotation); CT-09 added for CSR-05 CAN DoS / heartbeat timeout. |
-| 1.3 | August 7, 2026 | Migrated to Documentation repo as `OV-SAF-TARA-INDEX`. Added frontmatter and `doc_id` cross-references to `OV-SAF-HARA-CORE`, `OV-SAF-HARA-PROF-MOTO`, and `OV-C2-UM-INDEX`. |
+| 1.3 | August 7, 2026 | Migrated to Documentation repo as `OV-SAF-TARA-INDEX`. Added frontmatter and `doc_id` cross-references to `OV-SAF-HARA-CORE`, `OV-SAF-HARA-PROF-MOTO`, and `OV-C2-IG-INDEX`. |
