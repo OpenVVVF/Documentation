@@ -1,0 +1,153 @@
+> cal Motor.Resistance
+(sent)
+[CUR] recal done U=-5.646 V=-5.863
+[OL] Init done. Outputs disabled until start.
+[CUR] recal done U=-5.700 V=-5.814
+[OL] offset recalibrated
+[CAL] AUTO: starting (max_mod=0.35 res_I=80.0 A)
+[CAL] AUTO: enter SETTLE
+[CAL] Motor.Resistance: started
+[CAL] RES: I-ctrl (UV/UW/VW) target 80.000 A, 7 points, oc=120.000 A
+[CAL] AUTO: enter RESISTANCE
+[CAL] RES: UV point 1/7: target I=6.137 A
+[CAL] RES: UV timing: update=5964.000 Hz  sample=5964.000 Hz  n_samp=1491
+[CAL] RES: UV timing: update=5860.000 Hz  sample=5860.000 Hz  n_samp=1465
+[CAL] RES: UV timing: update=5796.000 Hz  sample=5796.000 Hz  n_samp=1449
+[CAL] RES: UV timing: update=5812.000 Hz  sample=5812.000 Hz  n_samp=1453
+[CAL] RES: UV point 1/7 done: Vll=5.190 V  Vdc=80.611 V  duty=6.439 %  Iact=5.496 A  Iinact=0.888 A
+[CAL] RES: UV point 2/7: target I=9.414 A
+[CAL] RES: UV timing: update=5800.000 Hz  sample=5800.000 Hz  n_samp=1450
+[CAL] RES: UV timing: update=5840.000 Hz  sample=5840.000 Hz  n_samp=1460
+[CAL] RES: UV timing: update=5880.000 Hz  sample=5880.000 Hz  n_samp=1470
+[CAL] RES: UV timing: update=5872.000 Hz  sample=5872.000 Hz  n_samp=1468
+[CAL] RES: UV point 2/7 done: Vll=6.619 V  Vdc=80.611 V  duty=8.211 %  Iact=9.255 A  Iinact=0.903 A
+[CAL] RES: UV point 3/7: target I=14.443 A
+[CAL] RES: UV timing: update=5828.000 Hz  sample=5828.000 Hz  n_samp=1457
+[CAL] RES: UV timing: update=5784.000 Hz  sample=5784.000 Hz  n_samp=1446
+[CAL] RES: UV timing: update=5856.000 Hz  sample=5856.000 Hz  n_samp=1464
+[CAL] RES: UV timing: update=5880.000 Hz  sample=5880.000 Hz  n_samp=1470
+[CAL] RES: UV point 3/7 done: Vll=8.868 V  Vdc=80.659 V  duty=10.994 %  Iact=14.149 A  Iinact=0.863 A
+[CAL] RES: UV point 4/7: target I=22.157 A
+[CAL] RES: UV timing: update=5852.000 Hz  sample=5852.000 Hz  n_samp=1463
+[CAL] RES: UV timing: update=5908.000 Hz  sample=5908.000 Hz  n_samp=1477
+[CAL] RES: UV timing: update=5852.000 Hz  sample=5852.000 Hz  n_samp=1463
+[CAL] RES: UV timing: update=5892.000 Hz  sample=5892.000 Hz  n_samp=1473
+[CAL] RES: UV point 4/7 done: Vll=12.277 V  Vdc=80.618 V  duty=15.228 %  Iact=21.686 A  Iinact=1.038 A
+[CAL] RES: UV point 5/7: target I=33.991 A
+[CAL] RES: UV timing: update=5864.000 Hz  sample=5864.000 Hz  n_samp=1466
+[CAL] RES: UV timing: update=5864.000 Hz  sample=5864.000 Hz  n_samp=1466
+[CAL] RES: UV timing: update=5880.000 Hz  sample=5880.000 Hz  n_samp=1470
+[CAL] RES: UV timing: update=5836.000 Hz  sample=5836.000 Hz  n_samp=1459
+[CAL] RES: UV point 5/7 done: Vll=17.383 V  Vdc=80.606 V  duty=21.565 %  Iact=33.294 A  Iinact=4.458 A
+[CAL] RES: UV point 6/7: target I=52.147 A
+[CAL] RES: UV timing: update=5876.000 Hz  sample=5876.000 Hz  n_samp=1469
+[CAL] RES: UV timing: update=5768.000 Hz  sample=5768.000 Hz  n_samp=1442
+[CAL] RES: UV timing: update=5920.000 Hz  sample=5920.000 Hz  n_samp=1480
+[CAL] RES: UV timing: update=5892.000 Hz  sample=5892.000 Hz  n_samp=1473
+[CAL] RES: UV point 6/7 done: Vll=20.135 V  Vdc=80.596 V  duty=24.983 %  Iact=39.610 A  Iinact=4.565 A
+[CAL] RES: UV point 7/7: target I=80.000 A
+[CAL] RES: UV timing: update=5952.000 Hz  sample=5952.000 Hz  n_samp=1488
+[CAL] RES: UV timing: update=5836.000 Hz  sample=5836.000 Hz  n_samp=1459
+[CAL] RES: UV timing: update=5900.000 Hz  sample=5900.000 Hz  n_samp=1475
+[CAL] RES: UV timing: update=5868.000 Hz  sample=5868.000 Hz  n_samp=1467
+[CAL] RES: UV point 7/7 done: Vll=20.152 V  Vdc=80.610 V  duty=25.000 %  Iact=39.548 A  Iinact=4.602 A
+[CAL] RES: UV fit data: (V=5.190V I=5.496A), (V=6.619V I=9.255A), (V=8.868V I=14.149A), (V=12.277V I=21.686A), (V=17.383V I=33.294A), (V=20.135V I=39.610A), (V=20.152V I=39.548A)
+[CAL] RES: UV fit math: sumV=90.624 sumI=163.038 sumVI=2654.772 sumII=5027.804 denom=8613.117
+[CAL] RES: UV fit result: R_ll=442.1358 mohm
+[CAL] RES: UV: R_ll=442.1358 mohm  R_phase=221.0679 mohm  Imax=39.610 A  Vdc=80.616 V  V_off=2.648 V
+[CAL] RES: UW point 1/7: target I=6.137 A
+[CAL] RES: UW timing: update=5932.000 Hz  sample=5932.000 Hz  n_samp=1483
+[CAL] RES: UW timing: update=5932.000 Hz  sample=5932.000 Hz  n_samp=1483
+[CAL] RES: UW timing: update=5780.000 Hz  sample=5780.000 Hz  n_samp=1445
+[CAL] RES: UW timing: update=5784.000 Hz  sample=5784.000 Hz  n_samp=1446
+[CAL] RES: UW point 1/7 done: Vll=5.020 V  Vdc=80.612 V  duty=6.228 %  Iact=5.475 A  Iinact=0.053 A
+[CAL] RES: UW point 2/7: target I=9.414 A
+[CAL] RES: UW timing: update=5880.000 Hz  sample=5880.000 Hz  n_samp=1470
+[CAL] RES: UW timing: update=5832.000 Hz  sample=5832.000 Hz  n_samp=1458
+[CAL] RES: UW timing: update=5892.000 Hz  sample=5892.000 Hz  n_samp=1473
+[CAL] RES: UW timing: update=5872.000 Hz  sample=5872.000 Hz  n_samp=1468
+[CAL] RES: UW point 2/7 done: Vll=6.555 V  Vdc=80.612 V  duty=8.131 %  Iact=9.207 A  Iinact=0.048 A
+[CAL] RES: UW point 3/7: target I=14.443 A
+[CAL] RES: UW timing: update=5872.000 Hz  sample=5872.000 Hz  n_samp=1468
+[CAL] RES: UW timing: update=5848.000 Hz  sample=5848.000 Hz  n_samp=1462
+[CAL] RES: UW timing: update=5892.000 Hz  sample=5892.000 Hz  n_samp=1473
+[CAL] RES: UW timing: update=5816.000 Hz  sample=5816.000 Hz  n_samp=1454
+[CAL] RES: UW point 3/7 done: Vll=8.831 V  Vdc=80.615 V  duty=10.954 %  Iact=14.093 A  Iinact=0.088 A
+[CAL] RES: UW point 4/7: target I=22.157 A
+[CAL] RES: UW timing: update=5816.000 Hz  sample=5816.000 Hz  n_samp=1454
+[CAL] RES: UW timing: update=5924.000 Hz  sample=5924.000 Hz  n_samp=1481
+[CAL] RES: UW timing: update=5832.000 Hz  sample=5832.000 Hz  n_samp=1458
+[CAL] RES: UW timing: update=5860.000 Hz  sample=5860.000 Hz  n_samp=1465
+[CAL] RES: UW point 4/7 done: Vll=12.241 V  Vdc=80.616 V  duty=15.184 %  Iact=21.720 A  Iinact=0.069 A
+[CAL] RES: UW point 5/7: target I=33.991 A
+[CAL] RES: UW timing: update=5816.000 Hz  sample=5816.000 Hz  n_samp=1454
+[CAL] RES: UW timing: update=5864.000 Hz  sample=5864.000 Hz  n_samp=1466
+[CAL] RES: UW timing: update=5800.000 Hz  sample=5800.000 Hz  n_samp=1450
+[CAL] RES: UW timing: update=5844.000 Hz  sample=5844.000 Hz  n_samp=1461
+[CAL] RES: UW point 5/7 done: Vll=17.388 V  Vdc=80.609 V  duty=21.571 %  Iact=33.351 A  Iinact=0.145 A
+[CAL] RES: UW point 6/7: target I=52.147 A
+[CAL] RES: UW timing: update=5908.000 Hz  sample=5908.000 Hz  n_samp=1477
+[CAL] RES: UW timing: update=5868.000 Hz  sample=5868.000 Hz  n_samp=1467
+[CAL] RES: UW timing: update=5848.000 Hz  sample=5848.000 Hz  n_samp=1462
+[CAL] RES: UW timing: update=5876.000 Hz  sample=5876.000 Hz  n_samp=1469
+[CAL] RES: UW point 6/7 done: Vll=20.132 V  Vdc=80.597 V  duty=24.979 %  Iact=39.577 A  Iinact=0.143 A
+[CAL] RES: UW point 7/7: target I=80.000 A
+[CAL] RES: UW timing: update=5892.000 Hz  sample=5892.000 Hz  n_samp=1473
+[CAL] RES: UW timing: update=5924.000 Hz  sample=5924.000 Hz  n_samp=1481
+[CAL] RES: UW timing: update=5840.000 Hz  sample=5840.000 Hz  n_samp=1460
+[CAL] RES: UW timing: update=5864.000 Hz  sample=5864.000 Hz  n_samp=1466
+[CAL] RES: UW point 7/7 done: Vll=20.153 V  Vdc=80.613 V  duty=25.000 %  Iact=39.496 A  Iinact=0.136 A
+[CAL] RES: UW fit data: (V=5.020V I=5.475A), (V=6.555V I=9.207A), (V=8.831V I=14.093A), (V=12.241V I=21.720A), (V=17.388V I=33.351A), (V=20.132V I=39.577A), (V=20.153V I=39.496A)
+[CAL] RES: UW fit math: sumV=90.320 sumI=162.919 sumVI=2650.810 sumII=5023.665 denom=8623.087
+[CAL] RES: UW fit result: R_ll=445.4115 mohm
+[CAL] RES: UW: R_ll=445.4115 mohm  R_phase=222.7057 mohm  Imax=39.577 A  Vdc=80.611 V  V_off=2.536 V
+[CAL] RES: VW point 1/7: target I=6.137 A
+[CAL] RES: VW timing: update=5868.000 Hz  sample=5868.000 Hz  n_samp=1467
+[CAL] RES: VW timing: update=5880.000 Hz  sample=5880.000 Hz  n_samp=1470
+[CAL] RES: VW timing: update=5920.000 Hz  sample=5920.000 Hz  n_samp=1480
+[CAL] RES: VW timing: update=5780.000 Hz  sample=5780.000 Hz  n_samp=1445
+[CAL] RES: VW point 1/7 done: Vll=4.550 V  Vdc=80.617 V  duty=5.645 %  Iact=5.614 A  Iinact=0.977 A
+[CAL] RES: VW point 2/7: target I=9.414 A
+[CAL] RES: VW timing: update=5920.000 Hz  sample=5920.000 Hz  n_samp=1480
+[CAL] RES: VW timing: update=5772.000 Hz  sample=5772.000 Hz  n_samp=1443
+[CAL] RES: VW timing: update=5916.000 Hz  sample=5916.000 Hz  n_samp=1479
+[CAL] RES: VW timing: update=5932.000 Hz  sample=5932.000 Hz  n_samp=1483
+[CAL] RES: VW point 2/7 done: Vll=6.095 V  Vdc=80.617 V  duty=7.561 %  Iact=9.218 A  Iinact=0.902 A
+[CAL] RES: VW point 3/7: target I=14.443 A
+[CAL] RES: VW timing: update=5812.000 Hz  sample=5812.000 Hz  n_samp=1453
+[CAL] RES: VW timing: update=5852.000 Hz  sample=5852.000 Hz  n_samp=1463
+[CAL] RES: VW timing: update=5924.000 Hz  sample=5924.000 Hz  n_samp=1481
+[CAL] RES: VW timing: update=5820.000 Hz  sample=5820.000 Hz  n_samp=1455
+[CAL] RES: VW point 3/7 done: Vll=8.460 V  Vdc=80.627 V  duty=10.492 %  Iact=14.173 A  Iinact=0.889 A
+[CAL] RES: VW point 4/7: target I=22.157 A
+[CAL] RES: VW timing: update=5864.000 Hz  sample=5864.000 Hz  n_samp=1466
+[CAL] RES: VW timing: update=5888.000 Hz  sample=5888.000 Hz  n_samp=1472
+[CAL] RES: VW timing: update=5872.000 Hz  sample=5872.000 Hz  n_samp=1468
+[CAL] RES: VW timing: update=5844.000 Hz  sample=5844.000 Hz  n_samp=1461
+[CAL] RES: VW point 4/7 done: Vll=11.842 V  Vdc=80.617 V  duty=14.689 %  Iact=21.682 A  Iinact=0.905 A
+[CAL] RES: VW point 5/7: target I=33.991 A
+[CAL] RES: VW timing: update=5824.000 Hz  sample=5824.000 Hz  n_samp=1456
+[CAL] RES: VW timing: update=5856.000 Hz  sample=5856.000 Hz  n_samp=1464
+[CAL] RES: VW timing: update=5724.000 Hz  sample=5724.000 Hz  n_samp=1431
+[CAL] RES: VW timing: update=5884.000 Hz  sample=5884.000 Hz  n_samp=1471
+[CAL] RES: VW point 5/7 done: Vll=17.057 V  Vdc=80.616 V  duty=21.158 %  Iact=33.321 A  Iinact=0.918 A
+[CAL] RES: VW point 6/7: target I=52.147 A
+[CAL] RES: VW timing: update=5884.000 Hz  sample=5884.000 Hz  n_samp=1471
+[CAL] RES: VW timing: update=5912.000 Hz  sample=5912.000 Hz  n_samp=1478
+[CAL] RES: VW timing: update=5848.000 Hz  sample=5848.000 Hz  n_samp=1462
+[CAL] RES: VW timing: update=5796.000 Hz  sample=5796.000 Hz  n_samp=1449
+[CAL] RES: VW point 6/7 done: Vll=20.131 V  Vdc=80.607 V  duty=24.974 %  Iact=40.255 A  Iinact=0.915 A
+[CAL] RES: VW point 7/7: target I=80.000 A
+[CAL] RES: VW timing: update=5856.000 Hz  sample=5856.000 Hz  n_samp=1464
+[CAL] RES: VW timing: update=5904.000 Hz  sample=5904.000 Hz  n_samp=1476
+[CAL] RES: VW timing: update=5868.000 Hz  sample=5868.000 Hz  n_samp=1467
+[CAL] RES: VW timing: update=5912.000 Hz  sample=5912.000 Hz  n_samp=1478
+[CAL] RES: VW point 7/7 done: Vll=20.154 V  Vdc=80.617 V  duty=25.000 %  Iact=40.223 A  Iinact=0.948 A
+[CAL] RES: VW fit data: (V=4.550V I=5.614A), (V=6.095V I=9.218A), (V=8.460V I=14.173A), (V=11.842V I=21.682A), (V=17.057V I=33.321A), (V=20.131V I=40.255A), (V=20.154V I=40.223A)
+[CAL] RES: VW fit math: sumV=88.289 sumI=164.486 sumVI=2647.748 sumII=5136.084 denom=8897.031
+[CAL] RES: VW fit result: R_ll=450.9377 mohm
+[CAL] RES: VW: R_ll=450.9377 mohm  R_phase=225.4688 mohm  Imax=40.255 A  Vdc=80.617 V  V_off=2.017 V
+[CAL] RES: DONE: Rll_uv=442.1358 Rll_uw=445.4115 Rll_vw=450.9377 Rll_avg=446.1617 mohm
+[FOC] encoder offset adjustment reset
+[CAL] AUTO: calibration results saved
+[CAL] AUTO: enter DONE

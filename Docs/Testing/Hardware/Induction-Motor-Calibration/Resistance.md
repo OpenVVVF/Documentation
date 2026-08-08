@@ -1,5 +1,3 @@
-> **TODO** - Run `cal Motor.Resistance` on this motor and compare the inverter estimate against the LCR reference below.
-
 ---
 doctype: Test Report
 doc_id: OV-TEST-HW-INDUCTION-RES-CAL
@@ -8,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
+version: "0.2"
 date: "2026-08-08"
 status: draft
 description: Validation of the inverter motor-resistance calibration routine on a TECO MAX-IE3 induction motor.
@@ -42,13 +40,7 @@ The motor is a TECO Westinghouse MAX-IE3 3-phase induction motor. Phase leads ar
 
 ![TECO MAX-IE3 nameplate](Motor-Nameplate.jpg)
 
-## Instrument
-
-- **Instrument:** BK Precision 894 20 Hz - 500 kHz LCR Meter
-- **Function:** DCR
-- **Range:** AUTO
-
-## Measurements
+## Reference measurement
 
 | Parameter | Value | Instrument settings |
 |-----------|-------|---------------------|
@@ -57,9 +49,49 @@ The motor is a TECO Westinghouse MAX-IE3 3-phase induction motor. Phase leads ar
 
 ![LCR meter DCR reading: Rd = 415.730 mΩ](Motor-LCR-DCR.jpg)
 
-## Inverter-calibrated resistance
+## Inverter calibration result
 
-The inverter calibration routine has not yet been run on this motor. Once it is run, the estimate will be compared against the 415.730 mΩ line-to-line reference above.
+Command: `cal Motor.Resistance`
+
+Test conditions:
+
+| Parameter | Value |
+|-----------|-------|
+| DC bus voltage | ~80.6 V |
+| Maximum current reached | ~40 A per phase pair |
+| Duty limit | 25 % (voltage-limited by low bus) |
+| Calibration points | 7 per phase pair (UV, UW, VW) |
+
+Reported line-to-line resistances:
+
+| Phase pair | Rll (mΩ) | R_phase (mΩ) | V_offset (V) |
+|------------|----------|--------------|--------------|
+| UV | 442.14 | 221.07 | 2.65 |
+| UW | 445.41 | 222.71 | 2.54 |
+| VW | 450.94 | 225.47 | 2.02 |
+| Average | 446.16 | 223.08 | 2.40 |
+
+![Telemetry from the resistance calibration run](induction-resistance.png)
+
+[Interactive version of the plot](induction-resistance.html)
+
+## Comparison and conclusion
+
+| Quantity | LCR reference | Inverter estimate | Difference |
+|----------|---------------|-------------------|------------|
+| Line-to-line | 415.73 mΩ | 446.16 mΩ | +7.3 % |
+| Per-phase | 207.9 mΩ | 223.1 mΩ | +7.3 % |
+
+The inverter estimate is about 7 % higher than the LCR reference. This is consistent with the operating conditions: the low DC bus voltage limited the calibration current to roughly 40 A, so the IGBT knee voltage and switching dead time contribute a non-negligible offset to the V/I fit. At the currents used, the voltage across the motor winding is small compared with the combined semiconductor drop in the measurement path, which biases the slope estimate upward.
+
+For the intended application (motor resistance in the hundreds of milliohms, running currents of tens of amperes), this is an acceptable first-pass estimate. A higher-current rerun at a higher bus voltage would move the estimate closer to the Kelvin reference.
+
+## Artifacts
+
+- [Command log](induction-cal-cmds.txt)
+- [Telemetry log (JSONL)](induction-cal.jsonl)
+- [Static resistance plot (PNG)](induction-resistance.png)
+- [Interactive resistance plot (HTML)](induction-resistance.html)
 
 ## Notes
 
