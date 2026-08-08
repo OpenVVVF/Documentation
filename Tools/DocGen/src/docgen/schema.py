@@ -1,5 +1,6 @@
 """Frontmatter schema validation for OpenVVVF documentation."""
 
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Set
@@ -23,6 +24,7 @@ OPTIONAL_FIELDS = {
     "applies_to",
     "normative_refs",
     "reviewed",
+    "placeholder",
     "mcus",
     "temp",
     "core_ref",
@@ -163,6 +165,29 @@ def validate_docs(docs_dir: Path) -> ValidationResult:
             result.errors.append(
                 f"{path}: doctype '{doctype}' is not one of {sorted(ALLOWED_DOCTYPES)}"
             )
+
+        # Placeholder flag (explicit or heuristic)
+        if fm.get("placeholder"):
+            result.warnings.append(
+                f"{path}: marked as placeholder — content needs to be completed or reviewed"
+            )
+        elif doc.doc_id != "OV-DOCS-INDEX":
+            body_text = doc.body.strip()
+            body_len = len(body_text)
+            is_index = doctype == "Index"
+            placeholder_phrases = re.findall(
+                r"(?i)(content to be|placeholder|under revision|to be added|to be migrated|stub)",
+                body_text,
+            )
+            if placeholder_phrases:
+                result.warnings.append(
+                    f"{path}: document body contains placeholder language; consider adding "
+                    f"`placeholder: true` to frontmatter"
+                )
+            elif not is_index and body_len < 500:
+                result.warnings.append(
+                    f"{path}: document body is very short ({body_len} chars); may be a placeholder"
+                )
 
         # nav_order uniqueness and type
         nav_order = fm.get("nav_order")

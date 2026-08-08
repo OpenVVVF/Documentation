@@ -322,6 +322,18 @@ def _status_badge(status: Optional[str]) -> str:
     return f'<span class="status-badge status-{safe}">{status}</span>'
 
 
+def _placeholder_banner(doc: Optional[Document]) -> str:
+    """Render a prominent banner if the document is marked as a placeholder."""
+    if doc is None or not doc.frontmatter.get("placeholder"):
+        return ""
+    return (
+        '<div class="placeholder-banner">'
+        '<strong>Placeholder / Under Revision</strong> — '
+        'This page is incomplete or out of date and will be revised.'
+        '</div>'
+    )
+
+
 def copy_assets(doc: Document, docs_dir: Path, output_dir: Path) -> None:
     """Copy image/asset files referenced by a Markdown document."""
     src_dir = doc.path.parent
@@ -354,10 +366,13 @@ def render_page(
         nav = nav_html(docs, None, root, docs_dir)
         crumbs = '<a href="{root}index.html">Index</a>'.format(root=root)
 
+    banner = _placeholder_banner(doc)
+    body = banner + body_html if banner else body_html
+
     page = load_template("page.html")
     return page.format(
         title=title,
-        body=body_html,
+        body=body,
         nav=nav,
         breadcrumbs=crumbs,
         root=root,

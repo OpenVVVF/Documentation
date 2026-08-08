@@ -79,6 +79,7 @@ Every `Index.md` must begin with YAML frontmatter. Required and optional fields:
 | `applies_to` | no | List of product / variant IDs this document applies to. |
 | `normative_refs` | no | List of `doc_id`s this document references. `docgen validate` checks them. |
 | `reviewed` | no | Review status or reviewer/date. Omit if not yet reviewed. |
+| `placeholder` | no | Set to `true` to flag an incomplete or under-revision page. Renders a banner and emits a validation warning. |
 
 ### Canonical doctypes
 
