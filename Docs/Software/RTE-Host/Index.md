@@ -6,8 +6,7 @@ product_line: openvvvf
 applies_to:
   - software-target-rte-host
 version: "0.1"
-reviewed: (not yet reviewed)
-date: "2026-07-30"
+date: "2026-08-08"
 status: draft
 description: Real Time Examiner (RTE) host tools for configuration, telemetry, and node-based code generation.
 nav_order: 450
@@ -17,4 +16,5 @@ nav_order: 450
 
 Real Time Examiner (RTE) host tools for configuration, telemetry, and node-based codegen.
 
+- **Interface** — RTE parameter model, CAN protocol, and user workflow
 - **Codebase Improvement Plan** — Firmware/host codebase improvement plan
