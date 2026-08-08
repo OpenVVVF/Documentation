@@ -627,8 +627,9 @@ main {
 }
 
 .content .sponsor-logos img {
-  max-height: 32px;
+  height: 32px;
   width: auto;
+  max-width: 100%;
   border: none;
   border-radius: 0;
   margin: 0;
