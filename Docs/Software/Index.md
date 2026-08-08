@@ -1,7 +1,7 @@
 ---
 doctype: Index
 doc_id: OV-SW-INDEX
-title: OpenVVVF Software Documentation
+title: Software
 product_line: openvvvf
 applies_to:
   - software-target-main-mcu
@@ -16,7 +16,7 @@ description: Firmware and host-software documentation by target - Main MCU, Safe
 nav_order: 400
 ---
 
-# Software Documentation
+# Software
 
 Firmware and host-software documentation by target.
 

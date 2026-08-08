@@ -14,6 +14,7 @@
   --warning: #c25e00;
   --danger: #c41e3a;
   --info: #005587;
+  --sidebar-width: 320px;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
@@ -121,10 +122,19 @@ a:hover {
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 260px minmax(0, 860px);
+  grid-template-columns: var(--sidebar-width) minmax(0, 860px);
   gap: 3rem;
   justify-content: start;
   padding: 2.5rem 1.5rem;
+}
+
+.layout.sidebar-collapsed {
+  --sidebar-width: 0px;
+  gap: 0;
+}
+
+.layout.sidebar-collapsed .sidebar {
+  display: none;
 }
 
 .sidebar {
@@ -133,6 +143,7 @@ a:hover {
   align-self: start;
   max-height: calc(100vh - 96px);
   overflow-y: auto;
+  overflow-x: hidden;
   padding-right: 0.5rem;
   font-size: 0.9rem;
 }
@@ -165,6 +176,7 @@ a:hover {
   color: var(--text-muted);
   font-size: 0.9rem;
   border-left: 3px solid transparent;
+  line-height: 1.35;
 }
 
 .sidebar a:hover {
@@ -181,23 +193,60 @@ a:hover {
 }
 
 .sidebar .group {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
+}
+
+.sidebar .group:first-child {
+  margin-top: 0;
 }
 
 .sidebar .group-label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text-light);
+  color: var(--text-muted);
   padding: 0.5rem 0.6rem;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
 }
 
 .sidebar ul ul {
-  margin-left: 0.75rem;
+  margin: 0.25rem 0 0.5rem 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--border-light);
+}
+
+.sidebar ul ul ul {
+  margin-left: 0.4rem;
   padding-left: 0.5rem;
-  border-left: 1px solid var(--border-light);
+}
+
+.sidebar ul ul a {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.sidebar ul ul .active {
+  background: transparent;
+}
+
+.sidebar-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sidebar-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 main {
