@@ -22,6 +22,8 @@ This report validates the inverter's motor-inductance calibration routine by com
 
 Resistance reference measurements are kept in the [Motor Resistance Calibration Validation](Resistance.html) report.
 
+A separate induction-machine test report is in [Induction Motor Calibration Validation](../Induction-Motor-Calibration/index.html).
+
 ## Test setup
 
 The motor is mounted on the Sierra CP Engineering test fixture with phase leads accessible for direct LCR measurement.
@@ -42,7 +44,7 @@ The motor is mounted on the Sierra CP Engineering test fixture with phase leads 
 
 ### Phase inductance and series resistance (Ls-Rs)
 
-Two Ls-Rs readings were captured at 1.000 kHz for the first motor.
+Two Ls-Rs readings were captured at 1.000 kHz.
 
 | Reading | Ls | Rs | Instrument settings |
 |---------|----|----|---------------------|
@@ -52,18 +54,6 @@ Two Ls-Rs readings were captured at 1.000 kHz for the first motor.
 ![LCR meter Ls-Rs reading 1: Ls = 71.2980 µH, Rs = 0.02817 Ω](IMG_20260807_212055.jpg)
 
 ![LCR meter Ls-Rs reading 2: Ls = 34.6583 µH, Rs = 0.00974 Ω](IMG_20260807_212115.jpg)
-
-## Motor 2 - TECO MAX-IE3 7.5 kW induction motor
-
-A single Ls-Rs reading was captured at 1.000 kHz for the second motor.
-
-| Reading | Ls | Rs | Instrument settings |
-|---------|----|----|---------------------|
-| 1 | 17.8565 mH | 55.4948 Ω | FUNC: Ls-Rs, FREQ: 1.000 kHz, LEVEL: 2.000 V, RANGE: AUTO, SPEED: FAST |
-
-![LCR meter Ls-Rs reading for TECO motor: Ls = 17.8565 mH, Rs = 55.4948 Ω](Motor2-LCR-Inductance.jpg)
-
-> **Note:** The `Rs` value from an Ls-Rs measurement at 1 kHz is the AC series resistance, which includes skin and proximity effects. It is not the same as the DC resistance used for the resistance calibration.
 
 ## Inverter-calibrated inductance
 

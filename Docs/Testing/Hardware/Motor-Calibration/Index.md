@@ -17,8 +17,10 @@ normative_refs:
 
 # Motor Calibration Validation
 
-This section validates the inverter's motor self-commissioning routines by comparing their estimates against direct bench measurements of the test motors.
+This section validates the inverter's motor self-commissioning routines by comparing their estimates against direct bench measurements of the test motor.
 
-- [Motor Resistance Calibration Validation](Resistance.html) - two motors plus a high-resistance sanity check
+- [Motor Resistance Calibration Validation](Resistance.html) - completed for the C2 test motor
 - [Power Resistor Sanity Check](Resistor-Sanity-Check.html) - high-resistance load sanity check
-- [Motor Inductance Calibration Validation](Inductance.html) - reference Ls-Rs readings captured
+- [Motor Inductance Calibration Validation](Inductance.html) - pending inductance measurements
+
+A separate induction-machine test report is available in [Induction Motor Calibration Validation](../Induction-Motor-Calibration/index.html).
