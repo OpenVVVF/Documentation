@@ -417,7 +417,6 @@
         markers: [],
         annotations: [],
         lastClick: { t: null, y: null },
-        lastHover: null,
         fileName: '',
         customTitle: '',
         customSubtitle: '',
@@ -941,27 +940,18 @@
         const x = e.clientX;
         const y = e.clientY;
 
-        // Prefer the last Plotly hover point (accurate data coordinates) if it
-        // happened recently; otherwise fall back to geometry-based conversion.
+        // Convert the exact cursor pixel position to data coordinates using
+        // Plotly's axis mapping. p2c expects pixels relative to the plot area
+        // (inside the margins), so subtract the axis offset.
         let t = 0, yval = 0;
-        const hover = state.lastHover;
-        if (hover && (Date.now() - hover.time < 2000)) {
-          t = hover.t;
-          yval = hover.y;
-        } else {
-          const fullLayout = els.graph._fullLayout;
-          if (fullLayout && fullLayout.xaxis) {
-            const xa = fullLayout.xaxis;
-            const fracX = (x - rect.left - xa._offset) / xa._length;
-            const xr = xa.range;
-            t = xr[0] + fracX * (xr[1] - xr[0]);
-          }
-          if (fullLayout && fullLayout.yaxis) {
-            const ya = fullLayout.yaxis;
-            const fracY = 1 - (y - rect.top - ya._offset) / ya._length;
-            const yr = ya.range;
-            yval = yr[0] + fracY * (yr[1] - yr[0]);
-          }
+        const fullLayout = els.graph._fullLayout;
+        if (fullLayout && fullLayout.xaxis) {
+          const xa = fullLayout.xaxis;
+          t = xa.p2c(x - rect.left - xa._offset);
+        }
+        if (fullLayout && fullLayout.yaxis) {
+          const ya = fullLayout.yaxis;
+          yval = ya.p2c(y - rect.top - ya._offset);
         }
         showContextMenu(x, y, t, yval);
       });
@@ -1174,14 +1164,6 @@
           if (pt) {
             state.lastClick.t = pt.x;
             state.lastClick.y = pt.y;
-          }
-        });
-
-        // Track hover for accurate right-click coordinates
-        els.graph.on('plotly_hover', (data) => {
-          const pt = data.points[0];
-          if (pt) {
-            state.lastHover = { t: pt.x, y: pt.y, time: Date.now() };
           }
         });
       }
