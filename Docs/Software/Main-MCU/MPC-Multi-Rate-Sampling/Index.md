@@ -27,7 +27,7 @@ nav_order: 430
 
 ---
 
-## 1. Sampling Requirements
+## Sampling Requirements
 
 - **All three phases measured every PWM period** for safety oversight and cross-checking (`iu + iv + iw == 0` is a check, not a substitute).
 - **Mixed resolution per trigger:**
@@ -39,7 +39,7 @@ nav_order: 430
 
 ---
 
-## 2. Hardware Constraints
+## Hardware Constraints
 
 | Resource | Capability |
 |----------|------------|
@@ -52,7 +52,7 @@ nav_order: 430
 
 ---
 
-## 3. Clocking and Timing Budget
+## Clocking and Timing Budget
 
 From current RCC/ADC config:
 
@@ -71,11 +71,11 @@ At **6 kHz center-aligned PWM**, period = **166.7 µs**.
 
 ---
 
-## 4. Recommended Two-Trigger Architecture
+## Recommended Two-Trigger Architecture
 
 Use **TIM1 CH4** as trigger source with `TIM1 TRGO = OC4REF_RISINGFALLING`. In center-aligned mode this gives **two common trigger edges per PWM period**.
 
-### 4.1 Per-Period Sampling Schedule
+### Per-Period Sampling Schedule
 
 | Trigger | ADC1 | ADC2 | ADC3 |
 |---------|------|------|------|
@@ -90,7 +90,7 @@ Use **TIM1 CH4** as trigger source with `TIM1 TRGO = OC4REF_RISINGFALLING`. In c
 
 **Total conversion load:** ~32.7 µs + 65.3 µs = ~100 µs, leaving ~66 µs headroom.
 
-### 4.2 Trigger Placement
+### Trigger Placement
 
 - Place CH4 compare so the two edges are separated by at least ~40 µs to allow the 16-bit oversampled conversion to finish.
 - Example: `CCR4 = 3 × ARR / 4` gives edges near 3/8 and 5/8 of the period (spacing ~42 µs).
@@ -98,7 +98,7 @@ Use **TIM1 CH4** as trigger source with `TIM1 TRGO = OC4REF_RISINGFALLING`. In c
 
 ---
 
-## 5. Three-Trigger Option (Future)
+## Three-Trigger Option (Future)
 
 If the MPC model needs denser data, rotate the 16-bit phase so no trigger carries a 2-channel 16-bit scan:
 
@@ -116,7 +116,7 @@ If the MPC model needs denser data, rotate the 16-bit phase so no trigger carrie
 
 ---
 
-## 6. Data Flow and Timestamping
+## Data Flow and Timestamping
 
 1. DMA transfers ADC results to RAM_D1 circular buffers.
 2. In DMA half/complete callbacks, record:
@@ -132,7 +132,7 @@ If the MPC model needs denser data, rotate the 16-bit phase so no trigger carrie
 
 ---
 
-## 7. Implementation Steps (When Started)
+## Implementation Steps (When Started)
 
 1. **Disable dual-mode ADC** in `PhaseCurrentADC`; reconfigure ADC1/ADC2/ADC3 as independent.
 2. **Reconfigure TIM1:**
@@ -153,7 +153,7 @@ If the MPC model needs denser data, rotate the 16-bit phase so no trigger carrie
 
 ---
 
-## 8. Open Decisions
+## Open Decisions
 
 - Exact trigger angle(s) relative to switching events.
 - Whether to keep 16× oversampling or trade it for more triggers.

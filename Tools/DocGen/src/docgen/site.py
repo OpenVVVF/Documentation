@@ -55,7 +55,6 @@ def md_to_html(text: str) -> str:
     """Convert Markdown text to HTML."""
     MD.reset()
     html = MD.convert(text)
-    html = _apply_chapter_attributes(html)
     html = _apply_callout_classes(html)
     return html
 

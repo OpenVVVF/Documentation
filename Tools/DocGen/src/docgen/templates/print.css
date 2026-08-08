@@ -44,10 +44,10 @@
     font-size: 13pt;
   }
 
-  .content h1[data-chapter]::before,
-  .content h2[data-chapter]::before {
-    border: 1pt solid #999;
-    background: #f0f0f0;
+  .content h1::before,
+  .content h2::before,
+  .content h3::before {
+    font-weight: 700;
   }
 
   a {

@@ -20,7 +20,7 @@ normative_refs:
   - OV-SAF-HARA-CORE
 ---
 
-# 1. Introduction
+# Introduction
 
 This document is an **Application Profile** of the OpenVVVF HARA document set. It assigns motorcycle-specific Operational Situations, Severity/Exposure/Controllability ratings, and ASIL targets to the platform hazard set, Safety Goals, and Functional Safety Requirements defined in the Core Platform document.
 
@@ -29,7 +29,7 @@ This document is an **Application Profile** of the OpenVVVF HARA document set. I
 - **Standard applied:** ISO 26262:2018 (methodology), as for the Core.
 - **Status:** elaborated — this profile is the current reference S/E/C assessment for the platform.
 
-# 2. Application Definition
+# Application Definition
 
 
 High-performance electric 2-wheel motorcycles — Zero (102 V nominal), Energica (<320 V), and similar platforms. Combined traction inverter + VCU function. One-pedal regenerative braking (tractive effort rollback), not wheel-lock capable.
@@ -44,7 +44,7 @@ High-performance electric 2-wheel motorcycles — Zero (102 V nominal), Energica
 | Driven wheels | 1 (rear) |
 | Operator controls | Twist throttle (dual pot + limit switch), friction brakes (independent), kickstand interlock |
 
-# 3. Operational Situations
+# Operational Situations
 
 **Table 2 — Operational Situations (Motorcycle)**
 
@@ -70,11 +70,11 @@ High-performance electric 2-wheel motorcycles — Zero (102 V nominal), Energica
 
 > **OS-10a (Cornering at Limit):** Distinct from OS-10: at full lean the rider actively uses tractive effort to modulate the cornering line with the rear tire at its traction limit. For this platform, loss of drive in this situation is freewheel and dynamically benign (Section 5); controllability for loss-of-power hazards here is **C2**. Unintended *application* of tractive effort at lean remains **C3** (Section 6).
 
-# 4. Environmental Conditions
+# Environmental Conditions
 
 Ambient −20 °C to +50 °C; humidity 0–100% condensing; surfaces dry/wet/standing water/gravel/sand; altitude 0–3,000 m; motorcycle-mounted high vibration.
 
-# 5. Profile-Specific Hazard
+# Profile-Specific Hazard
 
 > **H-03a: Loss of Tractive Effort During Cornering at Lean**
 >
@@ -84,11 +84,11 @@ Ambient −20 °C to +50 °C; humidity 0–100% condensing; surfaces dry/wet/sta
 >
 > **v5.0 residual-risk statement:** Under the immediate-SSO philosophy (Core §2.3), every fault produces this event. The platform mitigations are detection speed (FSR-05 latency budget) and the cleanliness of the torque transition (S-04). The rider-level consequence is **accepted residual risk**, assessed as small for the reasons above, and shall be characterized by track testing (LIMIT-01) before racetrack use.
 
-# 6. Controllability Considerations
+# Controllability Considerations
 
 Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patches, simultaneous roll/pitch/yaw management, high CG relative to wheelbase, single driven wheel. Unintended acceleration/braking at highway speed is therefore **C3**. Loss of tractive effort during cornering at lean (OS-10a) was formerly rated C3 on ICE-dynamics intuition (engine-braking stand-up). For this platform, SSO is freewheel — there is no engine-braking torque — so loss of drive at lean is rated **C2** (Section 5). Unintended *application* of tractive effort at lean remains **C3**.
 
-# 7. Risk Assessment and ASIL Assignment
+# Risk Assessment and ASIL Assignment
 
 **Table 3 — Hazard Risk Assessment & ASIL Assignment (Motorcycle Profile)**
 

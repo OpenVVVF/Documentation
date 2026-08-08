@@ -20,11 +20,11 @@ normative_refs:
 > **MCUs:** STM32H723ZG + STM32G474RCTx  
 > **Operating Temp:** −40 °C to +85 °C
 
-# 1. Scope and Philosophy
+# Scope and Philosophy
 
 This Threat Analysis and Risk Assessment (TARA) covers the cybersecurity aspects of an open-source aftermarket electric motorcycle traction inverter and vehicle control unit (VCU). It follows the methodology of **ISO/SAE 21434** (Road vehicles — Cybersecurity engineering) but adapts it for the realities of open-source hardware.
 
-## 1.1 The Trust-the-User Model
+## The Trust-the-User Model
 
 This project is **open source**. The end user has full access to source code, schematics, firmware, and build tools. This fundamentally changes the cybersecurity posture compared to a proprietary automotive product:
 
@@ -43,7 +43,7 @@ This project is **open source**. The end user has full access to source code, sc
 >
 > This project explicitly rejects all anti-user security mechanisms: OTP fuses, write-once flash regions, vendor-signed firmware with unreplaceable keys, encrypted bootloaders that prevent user modification, and any form of DRM that treats the hardware owner as an adversary. These mechanisms are incompatible with the open-source philosophy and provide no meaningful security benefit when the attacker already has physical access and the full source code. If a user wishes to add their own tamper protection (RDP Level 1/2, encrypted external flash, physical tamper switches) for their specific threat model, they are free to do so — the base design imposes no barriers and documents how. The security model is **trust the user, protect the bus**: the legitimate owner is never the threat; remote CAN bus attacks are.
 
-## 1.2 What We Actually Protect Against
+## What We Actually Protect Against
 
 With physical access = game over (acceptable for open source), the meaningful attack surfaces are:
 
@@ -52,7 +52,7 @@ With physical access = game over (acceptable for open source), the meaningful at
 3. **Replay and downgrade:** An attacker capturing a valid firmware update should not be able to replay it to install older, potentially vulnerable firmware.
 4. **Denial of service:** CAN bus flooding should not prevent the VCU from receiving critical safety messages (BMS heartbeat, brake input).
 
-## 1.3 What We Explicitly Do Not Claim
+## What We Explicitly Do Not Claim
 
 **Table 2: Out-of-Scope Security Claims**
 
@@ -64,7 +64,7 @@ With physical access = game over (acceptable for open source), the meaningful at
 | Firmware extraction protection | Source code is public; extracting firmware from the device provides no advantage. STM32 RDP Level 0 by default. |
 | Anti-cloning | Open schematic and Gerbers; anyone can build a copy. This is a feature, not a bug. |
 
-# 2. Asset Identification
+# Asset Identification
 
 **Table 3: Cybersecurity-Relevant Assets**
 
@@ -77,7 +77,7 @@ With physical access = game over (acceptable for open source), the meaningful at
 | A-05 | CAN bus communication | CAN1 (BMS), CAN2 (IO board, display, charger, ABS) | All external safety inputs and commands | Forged messages = false safety clearance |
 | A-06 | Runtime state (RAM) | STM32 ECC RAM | Active safety variables, fault flags, tractive effort command | Corruption = incorrect safety decisions |
 
-## 2.1 Attack Surface Map
+## Attack Surface Map
 
 **Table 4: Attack Surfaces and Interfaces**
 
@@ -89,7 +89,7 @@ With physical access = game over (acceptable for open source), the meaningful at
 | USB (if present) | Physical access | Low (physical access required) | None needed; physical access = owner |
 | UART console | Physical access or accessible header | Low | Disabled in release builds; debug-only |
 
-# 3. Threat Scenarios
+# Threat Scenarios
 
 Threat scenarios follow ISO/SAE 21434 threat analysis methodology: identify threat sources, attack vectors, and resulting damage scenarios.
 
@@ -105,7 +105,7 @@ Threat scenarios follow ISO/SAE 21434 threat analysis methodology: identify thre
 | **T-06** | Firmware update during vehicle motion | Buggy update tool, malicious update trigger | Initiate firmware update while speed > 0 | A-01 | Update aborts mid-flash; corrupted firmware; undefined behavior on next boot |
 | **T-07** | Bootloader replacement via application | Malicious firmware already running | Application firmware erases and rewrites bootloader sector | A-02 | New bootloader skips signature verification; permanent compromise |
 
-# 4. Risk Assessment
+# Risk Assessment
 
 Risk rating uses ISO/SAE 21434's impact/likelihood framework adapted for the open-source trust model. **Impact** considers vehicle-level safety consequences. **Likelihood** considers attack feasibility given the open-source context (physical access already assumed = user).
 
@@ -121,7 +121,7 @@ Risk rating uses ISO/SAE 21434's impact/likelihood framework adapted for the ope
 | T-06: Update during motion | **Major** | **Unlikely** | **LOW** | Update tool should enforce preconditions; this is a defense-in-depth measure against buggy tools, not a primary attack vector. |
 | T-07: Bootloader replacement | **Severe** | **Unlikely** | **LOW** | Requires already-compromised application firmware. If application is compromised, bootloader protection is irrelevant (attacker already controls the system). |
 
-# 5. Cybersecurity Requirements
+# Cybersecurity Requirements
 
 These cybersecurity requirements (CSRs) are independent of the HARA's Functional Safety Requirements (FSRs). Where a CSR and FSR overlap (e.g., CAN heartbeat timeout), the CSR references the FSR rather than duplicating it.
 
@@ -141,7 +141,7 @@ These cybersecurity requirements (CSRs) are independent of the HARA's Functional
 >
 > HMAC-SHA256 is recommended over asymmetric algorithms (RSA, ECDSA, Ed25519) for three reasons: (1) **Smaller code size** in the bootloader — critical for size-constrained bootloaders; (2) **Faster verification** — SHA-256 is hardware-accelerated on STM32H7; (3) **No PKI complexity** — the user generates one key, stores it in their build environment, and signs their own firmware. The threat model does not require protection against key compromise (the user owns the key) so the non-repudiation benefits of asymmetric crypto are irrelevant here.
 
-# 6. Test Plan
+# Test Plan
 
 Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and CT-09 require a CAN interface and the VCU. CT-07 and CT-08 additionally require SWD/JTAG access to the bootloader flash.
 
@@ -287,9 +287,9 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** Safe state is entered within the FSR-17 timeout under bus flood, and the system recovers cleanly when flooding stops.
 
-# 7. Implementation Guidance
+# Implementation Guidance
 
-## 7.1 HMAC Key Management
+## HMAC Key Management
 
 The user manages their own signing key. The project will provide a build script that:
 
@@ -299,7 +299,7 @@ The user manages their own signing key. The project will provide a build script 
 
 The key is never transmitted over CAN. It never leaves the user's build machine. Key compromise means someone gained access to the user's build environment, at which point they can already build and flash arbitrary firmware (physical access or remote access to build machine).
 
-## 7.2 CAN Update Protocol
+## CAN Update Protocol
 
 Recommended protocol (kept simple for open-source implementability):
 
@@ -316,7 +316,7 @@ Recommended protocol (kept simple for open-source implementability):
 | STATUS | 0x7F6 | [status_code][progress_pct] | Bootloader response |
 | ABORT | 0x7F7 | [error_code] | Error / user abort |
 
-## 7.3 Enabling RDP for Security-Conscious Users
+## Enabling RDP for Security-Conscious Users
 
 For users who want additional protection, document (but do not mandate) how to enable STM32 Read Protection:
 
@@ -328,7 +328,7 @@ For users who want additional protection, document (but do not mandate) how to e
 >
 > **Warning:** RDP Level 2 is irreversible and disables debug permanently. Do not recommend Level 2 in documentation; mention it exists but strongly warn against it for a development-friendly open-source project.
 
-# 8. Gap Analysis
+# Gap Analysis
 
 **Table 9: Cybersecurity Gaps**
 
@@ -339,7 +339,7 @@ For users who want additional protection, document (but do not mandate) how to e
 | No anti-rollback counter yet | MEDIUM | Add 64-bit counter to config flash page | Low |
 | No freshness counter on CAN frames yet | MEDIUM | Add 32-bit rolling counter to BMS/IO board heartbeat frames | Low |
 
-## 8.1 HARA Cross-Reference
+## HARA Cross-Reference
 
 This TARA is a companion document to the HARA. Safety-relevant cybersecurity threats (those that could cause unintended tractive effort or prevent safe state entry) are linked to HARA hazards:
 

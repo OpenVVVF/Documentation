@@ -42,7 +42,7 @@ Heat load at rated ripple was calculated to be 40 W across all capacitors.
 | $\Delta T$ | Temperature rise / difference | K or °C |
 | $\rho_{contact}$ | Contact resistivity | m²·K/W |
 
-## 1. Methodology
+## Methodology
 
 All calculations use one-dimensional steady-state thermal resistance:
 
@@ -87,9 +87,9 @@ Total system resistance is the sum of three series components:
 
 ---
 
-## 2. Design Evolution
+## Design Evolution
 
-### 2.1 Initial concepts (for reference)
+### Initial concepts (for reference)
 
 | Configuration | $k$ [W/m·K] | Area [mm²] | $R_{standoff}$ [K/W] | $\Delta T_{standoff}$ [°C] | Total $\Delta T$ (paste) [°C] |
 |-------------|-------------|------------|----------------------|---------------------------|-------------------------------|
@@ -100,7 +100,7 @@ Total system resistance is the sum of three series components:
 
 *All at 40 W, 6 standoffs, 55 mm long. Values rounded.*
 
-### 2.2 Selected design — 13 mm round aluminium spacers
+### Selected design — 13 mm round aluminium spacers
 
 **Final part specification:**
 - Outer diameter: 13.0 mm
@@ -118,15 +118,15 @@ $$A = \pi (r_{outer}^2 - r_{inner}^2) = \pi (6.5^2 - 3.15^2) \times 10^{-6} = 10
 
 ---
 
-## 3. Final Design Calculation
+## Final Design Calculation
 
-### 3.1 Standoff conduction resistance
+### Standoff conduction resistance
 
 $$R_{standoff} = \frac{L}{k_{Al} \, A \, n} = \frac{0.055}{200 \times 101.6 \times 10^{-6} \times 6} = 0.451 \ \text{K/W}$$
 
 $$\Delta T_{standoff} = 40 \times 0.451 = \mathbf{18.1 \ ^\circ\text{C}}$$
 
-### 3.2 Contact resistance (both faces)
+### Contact resistance (both faces)
 
 With thermal paste:
 
@@ -140,7 +140,7 @@ $$R_{contact} = \frac{2 \times 1.0 \times 10^{-4}}{6 \times 101.6 \times 10^{-6}
 
 $$\Delta T_{contact} = 40 \times 0.328 = \mathbf{13.1 \ ^\circ\text{C}}$$
 
-### 3.3 Aluminium spreading resistance
+### Aluminium spreading resistance
 
 $$R_{spread} = \frac{\ln(50 / 6.5) - 0.5}{2\pi \times 200 \times 0.00318} \approx 0.385 \ \text{K/W}$$
 
@@ -148,14 +148,14 @@ $$\Delta T_{spread} = 40 \times 0.385 = \mathbf{15.4 \ ^\circ\text{C}}$$
 
 *(Spreading resistance is independent of standoff material; it depends only on plate conductivity, thickness, and cell geometry.)*
 
-### 3.4 Total temperature rise
+### Total temperature rise
 
 | Condition | $\Delta T_{total}$ |
 |-----------|---------------------|
 | **With thermal paste** | $18.1 + 6.6 + 15.4 = \mathbf{40.1 \ ^\circ\text{C}}$ |
 | Dry metal-to-metal | $18.1 + 13.1 + 15.4 = \mathbf{46.6 \ ^\circ\text{C}}$ |
 
-### 3.5 Absolute temperatures (heatsink base = 40 °C)
+### Absolute temperatures (heatsink base = 40 °C)
 
 | Condition | Aluminium plate temperature |
 |-----------|----------------------------|
@@ -166,9 +166,9 @@ $$\Delta T_{spread} = 40 \times 0.385 = \mathbf{15.4 \ ^\circ\text{C}}$$
 
 ---
 
-## 4. Sensitivity & Margin
+## Sensitivity & Margin
 
-### 4.1 Effect of standoff material
+### Effect of standoff material
 
 If stainless steel (18-8, $k = 16$ W/m·K) were used instead of aluminium:
 
@@ -176,7 +176,7 @@ $$\Delta T_{standoff} = \frac{40 \times 0.055}{16 \times 101.6 \times 10^{-6} \t
 
 **Total rise would exceed 245 °C.** Stainless steel is **not acceptable** for this thermal path.
 
-### 4.2 Effect of quantity
+### Effect of quantity
 
 | Standoff count | $R_{standoff}$ [K/W] | $\Delta T_{standoff}$ [°C] | Total $\Delta T$ (paste) [°C] |
 |----------------|----------------------|---------------------------|-------------------------------|
@@ -186,7 +186,7 @@ $$\Delta T_{standoff} = \frac{40 \times 0.055}{16 \times 101.6 \times 10^{-6} \t
 
 Six standoffs provides adequate margin; eight would be better but is not required at 40 W.
 
-### 4.3 Effect of length
+### Effect of length
 
 | Length [mm] | $\Delta T_{standoff}$ [°C] | Total $\Delta T$ (paste) [°C] |
 |-------------|---------------------------|-------------------------------|
@@ -196,7 +196,7 @@ Six standoffs provides adequate margin; eight would be better but is not require
 
 ---
 
-## 5. Recommendations
+## Recommendations
 
 1. **Use aluminium standoffs/spacers only.** Do not substitute stainless or carbon steel.
 2. **Apply thermal paste** (or a thin graphite / indium thermal pad) at both the plate-to-standoff and standoff-to-heatsink interfaces. This saves ~6.5 °C and improves long-term thermal stability.
@@ -206,7 +206,7 @@ Six standoffs provides adequate margin; eight would be better but is not require
 
 ---
 
-## 6. Assumptions & Limitations
+## Assumptions & Limitations
 
 - One-dimensional conduction assumed; actual 3D spreading may vary ±20 %.
 - Contact resistivity values are typical estimates; actual values depend on surface finish, flatness, and clamping pressure.

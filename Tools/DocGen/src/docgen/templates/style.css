@@ -564,30 +564,35 @@ main {
   margin-top: 2rem;
 }
 
-/* Chapter / step styling for assembly guides */
-.content h1[data-chapter],
-.content h2[data-chapter] {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+/* Auto-generated section numbers */
+.content {
+  counter-reset: h1;
 }
 
-.content h1[data-chapter]::before,
-.content h2[data-chapter]::before {
-  content: attr(data-chapter);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.5rem;
-  height: 2.5rem;
-  padding: 0 0.6rem;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1;
+.content h1 {
+  counter-increment: h1;
+  counter-reset: h2;
+}
+
+.content h1::before {
+  content: counter(h1) ". ";
+}
+
+.content h2 {
+  counter-increment: h2;
+  counter-reset: h3;
+}
+
+.content h2::before {
+  content: counter(h1) "." counter(h2) ". ";
+}
+
+.content h3 {
+  counter-increment: h3;
+}
+
+.content h3::before {
+  content: counter(h1) "." counter(h2) "." counter(h3) ". ";
 }
 
 @media (max-width: 900px) {
@@ -615,10 +620,5 @@ main {
 
   .print-button {
     margin-left: auto;
-  }
-
-  .content h1[data-chapter],
-  .content h2[data-chapter] {
-    flex-wrap: wrap;
   }
 }

@@ -17,9 +17,9 @@ normative_refs:
   - OV-SAF-HARA-PROF-MOTO
 ---
 
-# 1. Introduction
+# Introduction
 
-## 1.1 Document Set — Core Platform and Application Profiles
+## Document Set — Core Platform and Application Profiles
 
 The OpenVVVF HARA is published as a **document set** rather than a single document:
 
@@ -32,7 +32,7 @@ Additional application profiles (passenger car, rail, industrial/dynamometer) ar
 
 Rationale for the split: the malfunctioning behaviors of a 3-phase traction inverter are platform properties, but the *risk* they create (severity, exposure, controllability, harmed parties, applicable standard) is an application property. A single S/E/C table cannot honestly cover a motorcycle, a car, a train, and a dynamometer; a layered document set can.
 
-## 1.2 Compliance Statement
+## Compliance Statement
 
 > **This Is Not an ISO 26262 Compliance Claim**
 >
@@ -48,7 +48,7 @@ Rationale for the split: the malfunctioning behaviors of a 3-phase traction inve
 >
 > This is an **open-source traction inverter** project. The documentation is published in the interest of transparency. Users bear full responsibility for evaluating the suitability of this design for their specific application, risk tolerance, and applicable regulatory requirements.
 
-## 1.3 Scope
+## Scope
 
 This document presents the Hazard Analysis and Risk Assessment (HARA) and Fault Injection Test Plan for the **OpenVVVF control module**: a combined traction inverter control unit and Vehicle Control Unit (VCU) designed to drive 3-phase PMSM traction motors from a DC link bus supply. The core platform is application-agnostic and may drive any compatible DC link supply and 3-phase traction motor. Application-specific operational situations, hazard analysis, and ASIL assignments are defined in separate application profile documents (see §1.1).
 
@@ -62,7 +62,7 @@ The scope includes all hardware and software within the control module: the STM3
 >
 > This design implements **ASIL B(D) decomposition** through two independent MCUs: the STM32H723ZG (main processor) and the STM32G474RCTx (safety coprocessor). Each MCU independently monitors all safety-critical signals. Either MCU can trigger safe state entry. The 1oo2 gate drive power kill (GATE_DRIVE_PWR1_ENABLE from main, GATE_DRIVE_PWR2_ENABLE from coprocessor) provides an independent supply shutdown path. Target ASIL D is achievable for SG-01 and SG-13 via ASIL B(D) + ASIL B(D) decomposition.
 
-## 1.4 Reference Standards
+## Reference Standards
 
 | Standard | Title | Application |
 | --- | --- | --- |
@@ -77,9 +77,9 @@ The scope includes all hardware and software within the control module: the STM3
 | IEC 61508 | *Functional safety of E/E/PE safety-related systems* | SIL terminology reference (future profiles) |
 | EN 50155 | *Railway applications — Electronic equipment used on rolling stock* | Reference for future rail profile |
 
-# 2. Item Definition
+# Item Definition
 
-## 2.1 System Boundaries
+## System Boundaries
 
 **Table 1 — System Boundary Inclusions and Exclusions**
 
@@ -89,7 +89,7 @@ The scope includes all hardware and software within the control module: the STM3
 | **Interfaced (external)** | DC link source (any compatible DC supply; a source management node such as a BMS may be present on CAN1, heartbeat 5 s), ABS module (CAN2, independently powered), display/dash (CAN2), charger(s) (CAN2), IO board (CAN2, brake switch, kickstand switch, turn signal feedback, headlight feedback, 1 s heartbeat), 3-phase PMSM traction motor with encoder, 12 V onboard power (external DC/DC from DC link; IO-side supplies, including the Cincon converter, are out of scope) |
 | **Out of Scope** | DC source internals (including BMS cell protection where a battery is used), HV contactor control, weld detection, and contactor-related hazards (assessed in the DC source / OEM safety case, not here), ABS hydraulic/mechanical system, charger AC-side circuitry, vehicle chassis, traction motor construction, DC link source beyond electrical interface, IO-board-side power conversion (Cincon DC/DC) |
 
-## 2.2 Architecture Overview
+## Architecture Overview
 
 The control module is a combined unit that performs both motor control (inverter) and vehicle-level control (VCU) functions. The architecture comprises the primary control path, the hardware protection layer, an independent safety monitor, rail supervision, and the safe state actuation layer.
 
@@ -125,7 +125,7 @@ The control module is a combined unit that performs both motor control (inverter
 - **Path 5 (active, ~100 ms):** Coprocessor challenge/response watchdog failure → coprocessor asserts main MCU NRST → system reset → SSO during boot. Main MCU WDT timeout as backup.
 - **Path 6 (active, <10 us):** Coprocessor detects critical fault independently → asserts GATE_DRIVE_PWR2_ENABLE low + GATE_DRIVE_RESET → SSO without relying on the main MCU.
 
-## 2.3 Safe State Philosophy — Immediate SSO, No Software Ramp-Down
+## Safe State Philosophy — Immediate SSO, No Software Ramp-Down
 
 > **Design Decision (v5.0): Fault response shall be immediate transition to Six-Switch-Open (SSO). Software-controlled torque ramp-down on fault is explicitly rejected.**
 >
@@ -138,7 +138,7 @@ The control module is a combined unit that performs both motor control (inverter
 >
 > Note: the NCV57100 **soft turn-off on the DESAT path** is retained. It is a microsecond-scale di/dt/overvoltage protection inside the gate driver and is unrelated to software torque ramping.
 
-## 2.4 Mitigation Strategy
+## Mitigation Strategy
 
 The following table explains how each hazard class is mitigated by the architecture, which mechanisms cover which failure modes, and where the known limitations are.
 
@@ -162,7 +162,7 @@ The following table explains how each hazard class is mitigated by the architect
 
 > **How to read this table:** Each row maps a hazard category to the specific failure modes that could cause it, the mitigation mechanisms in the current architecture that address those failure modes, and the known limitations of those mitigations. The left column is the **what could go wrong**; the middle column is the **how we prevent or detect it**; the right column is the **why this might not be enough**. The limitations are addressed in Section 9 (Gap Analysis).
 
-## 2.5 Technical Parameters
+## Technical Parameters
 
 **Table 4 — Key Technical Parameters (Core Platform)**
 
@@ -184,7 +184,7 @@ The following table explains how each hazard class is mitigated by the architect
 
 Application-specific parameters (vehicle mass, speed, controllability assumptions) are defined in the applicable profile document, not in this core table.
 
-## 2.6 Application Software Trust Model — Node-Based Code Generation
+## Application Software Trust Model — Node-Based Code Generation
 
 The OpenVVVF platform is intended to support user-defined control, modulation, and application-layer logic produced by a **node-based code generation tool**, running on top of a **base safety-tested firmware image**. The following trust model applies and is a platform assumption for all safety claims in this document:
 
@@ -197,7 +197,7 @@ The OpenVVVF platform is intended to support user-defined control, modulation, a
 > 5. Interface contract between generated code and the base image (allowable request ranges, update rates, permitted modulation schemes, sanity envelopes) shall be defined in a separate Interface Control Document. This HARA assumes such a contract exists and is enforced by the base image.
 > 6. The safety coprocessor executes only fixed, project-maintained firmware; no generated code runs on the coprocessor, and its monitoring and actuation functions are trusted without qualification. On the main MCU, the safety-critical base image (fault detection and response, safe state management) is likewise outside the generated-code surface.
 
-## 2.7 Gate Drivers (Non-ASIL)
+## Gate Drivers (Non-ASIL)
 
 Six **onsemi NCV57100** isolated high-current IGBT gate drivers. Automotive-qualified per AEC-Q100. These devices are **not ISO 26262 safety elements** — no safety manual, FMEDA, or ASIL claim is available.
 
@@ -217,7 +217,7 @@ Six **onsemi NCV57100** isolated high-current IGBT gate drivers. Automotive-qual
 
 > **Non-ASIL Gate Driver Implications:** The NCV57100 internal protections provide valuable hardware-level risk reduction but cannot be counted toward ASIL metrics. The OR'd FLT output is monitored by **both** the main MCU (via TIM1_BKIN) and the coprocessor (via independent GPIO). Either MCU detecting FLT can trigger SSO. The coprocessor additionally monitors the combined NCV57100 READY output and can detect a stuck-active FLT line through its independent PWM output monitoring (all 6 phase high/low signals). This dual monitoring closes the single-point FLT path gap.
 
-## 2.8 Future Considerations
+## Future Considerations
 
 > **Safety Coprocessor — STM32G474RCTx (Implemented)**
 >
@@ -233,7 +233,7 @@ Six **onsemi NCV57100** isolated high-current IGBT gate drivers. Automotive-qual
 >
 > The coprocessor enables **target ASIL D claims for SG-01 and SG-13 via ASIL B(D) + ASIL B(D) decomposition**. Both MCUs must independently agree that operation is safe; either can trigger SSO.
 
-# 3. Operational Situations
+# Operational Situations
 
 Operational Situations are **application-specific** and are defined in the applicable Application Profile document:
 
@@ -241,7 +241,7 @@ Operational Situations are **application-specific** and are defined in the appli
 
 Environmental operating conditions for the core platform hardware: ambient −20 °C to +50 °C (storage/qualification −40 °C to +85 °C per front matter), humidity 0–100% condensing, altitude 0–3,000 m MSL, high-vibration mobile mounting. Profiles shall refine these per application.
 
-# 4. Hazard Identification (HAZID) — Core Platform
+# Hazard Identification (HAZID) — Core Platform
 
 Hazards are identified via systematic Functional Hazard Analysis (FHA) combining top-down FMEA perspective, expert judgment on power electronics and traction drive dynamics, and ISO 26262 hazard category checklists. Core-platform hazards are stated at the **drive boundary** (torque production and HV state) with application-neutral harmed parties. Application-specific hazards are defined in the applicable profile document and are additive to this table.
 
@@ -272,7 +272,7 @@ Application-profile-specific hazards:
 | --- | --- | --- |
 | **H-03a** | OV-SAF-HARA-PROF-MOTO | Loss of tractive effort in an application-specific operating situation (defined and assessed in the profile) |
 
-# 5. Risk Assessment Methodology
+# Risk Assessment Methodology
 
 Severity, Exposure, and Controllability classifications follow ISO 26262-3:2018 Tables 1–3 for road-vehicle profiles. Non-road profiles use the equivalent domain classification (future profile documents). The class definitions below are reproduced for convenience; the per-hazard ratings are **application-specific and are assigned in the annexes**, not in this core section.
 
@@ -303,7 +303,7 @@ Severity, Exposure, and Controllability classifications follow ISO 26262-3:2018 
 
 > **Target Assignment Policy (deliberate conservatism):** Profile documents assign ASIL targets per ISO 26262-3 Table 4, and may then **raise a target by up to one level** for hazards whose mitigation depends substantially on software integrity (e.g., software plausibility checks, software fault handling), where a single systematic software fault could defeat multiple nominal mitigations simultaneously. This policy intentionally produces some targets above the Table 4 lookup value (e.g., H-01, H-13, H-15 at ASIL D from S3/E3/C3 inputs). The elevation is a design choice, not a Table 4 result, and shall be read as such.
 
-# 6. Safety Goals — Core Platform
+# Safety Goals — Core Platform
 
 Safety Goals are platform-level. The **Target** integrity level shown is assigned by the applicable profile document; each profile shall assign targets per its own S/E/C assessment. "Achievable" reflects the current architecture's capability, not verified compliance.
 
@@ -326,7 +326,7 @@ Safety Goals are platform-level. The **Target** integrity level shown is assigne
 | **SG-14** | Detect any NCV57100 fault (DESAT, UVLO, TSD) and transition to safe state. | C | C | H-16 | SSO, FLT detect |
 | **SG-15** | Detect PWM deadtime violations and stuck-on faults. Deadtime collapse or stuck-high >100 us → safe state. | C | C | H-17 | SSO, PWM kill |
 
-# 7. Functional Safety Requirements
+# Functional Safety Requirements
 
 Requirements use "shall" for binding provisions and "should" for recommendations. "Tgt" is the target integrity level assigned by the applicable profile document; "Now" is the level achievable with the current architecture.
 
@@ -357,7 +357,7 @@ Requirements use "shall" for binding provisions and "should" for recommendations
 | **FSR-21** | DC link bus undervoltage shall be monitored. UV → tractive effort derate; critical UV → safe state. Prevents overcurrent due to insufficient DC link voltage. | B | B | SG-03, SG-10 |
 | **FSR-22** | Generated application code (Section 2.6) shall not be able to inhibit, bypass, delay, or reconfigure any safety mechanism or safe-state path. All torque requests from generated code shall pass through the platform-enforced limits (FSR-02, FSR-03, FSR-07). | D | C | SG-01, SG-13 |
 
-# 8. Current Design Coverage
+# Current Design Coverage
 
 **Table 9 — Honest Assessment of Design vs. FSRs**
 
@@ -388,9 +388,9 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 | FSR-21 | B | B | Planned | DC link ADC can measure UV | Define UV thresholds and response |
 | FSR-22 | D | C | Planned | Base-image enforcement of interface contract | Codegen toolchain under development; contract ICD to be written (GAP-SW-04) |
 
-# 9. Gap Analysis
+# Gap Analysis
 
-## 9.1 Architecture Gaps
+## Architecture Gaps
 
 > **GAP-ARCH-01: Single-Core MCU Without Independent Monitor (P0)**
 >
@@ -416,7 +416,7 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 >
 > **Resolution:** Closed — analysis complete. No safety goal depends on an ASIL rating of the gate driver; the monitoring coverage above addresses the shared FLT wire. Verification of the cross-check logic remains in C-14, C-15, C-16.
 
-## 9.2 Component and Software Gaps
+## Component and Software Gaps
 
 > **GAP-HW-01: Hardware Overcurrent Detection — CLOSED (Not Required)**
 >
@@ -438,7 +438,7 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 >
 > The node-based code generation toolchain (Section 2.6) is under development. Open items: (1) no software tool confidence assessment of the generator (ISO 26262-8 TCL); (2) the interface contract between generated code and the base safety image (FSR-22) is not yet documented; (3) freedom-from-interference between generated code and safety mechanisms has not been analyzed or tested. Mitigation: define the contract ICD, enforce limits in the base image, and extend the fault injection plan with generated-code fault cases (e.g., generated code requests out-of-envelope torque, generates no request, or corrupts its own state) before any public release of the codegen feature.
 
-## 9.3 Gap Summary
+## Gap Summary
 
 **Table 10 — Gap Mitigation Priority**
 
@@ -457,9 +457,9 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 
 **Note:** With the dual-MCU architecture (STM32H723 + STM32G474 coprocessor), ASIL D is achievable for SG-01 and SG-13 via ASIL B(D) decomposition. The four hazards previously limited to ASIL A (H-06, H-16, H-17, and H-13 safe state failure) are now fully covered: H-06 by dual-MCU independent current monitoring (10 us analog watchdog detection + independent power kill), H-16 by coprocessor FLT/READY/PWM monitoring, H-17 by coprocessor independent deadtime monitoring, and H-13 by six redundant SSO pathways. GAP-HW-01 (HW overcurrent detection) is closed — dual-MCU analog watchdog monitoring is sufficient. No hazards remain below their target ASIL under the applicable profile assessment.
 
-# 10. Fault Injection Test Plan
+# Fault Injection Test Plan
 
-## 10.1 Test Philosophy
+## Test Philosophy
 
 The purpose of this Fault Injection Test Plan is to provide a comprehensive, traceable methodology for verifying that the safety mechanisms implemented in the control module detect faults and transition to the defined safe state (immediate SSO, Section 2.3) within the required time budgets. The test plan defines **92 tests** organized into four categories:
 
@@ -495,9 +495,9 @@ The following vocabulary shall be used consistently for every test and requireme
 
 > This section **defines** the fault injection test plan and acceptance criteria. Test execution records, measured results, telemetry logs, and video/scope evidence shall be maintained separately in the OpenVVVF verification evidence repository and summarized in the OpenVVVF Verification Report(s). This document shall be updated only to reflect changes to the plan itself. As of this revision, all tests are **Defined**; none are **Executed** or **Verified**.
 
-## 10.2 Test Environment
+## Test Environment
 
-### 10.2.1 Available Test Equipment
+### Available Test Equipment
 
 The following equipment is **available** for the current campaign. Tests requiring anything not on this list are marked Conditional or Deferred.
 
@@ -518,7 +518,7 @@ The following equipment is **available** for the current campaign. Tests requiri
 | **RTE (Real Time Examiner)** | Host tool connected via CAN or debug interface | Internal variable monitoring, tractive effort commands, fault status |
 | **Video recording** | Camera(s) covering DUT, scope screen, and test area | Evidence capture for every test (Section 10.2.3) |
 
-### 10.2.2 Equipment Not Available (Drives Deferred Status)
+### Equipment Not Available (Drives Deferred Status)
 
 | Item | Consequence |
 | --- | --- |
@@ -528,7 +528,7 @@ The following equipment is **available** for the current campaign. Tests requiri
 | Thermal chamber, humidity chamber, vibration table, EMC chamber, ESD gun, water spray rig | E-01 through E-12 **Deferred** (type tests). |
 | Shaft voltage / bearing-current brush rig | C-36 **Deferred** pending construction of the measurement fixture. |
 
-### 10.2.3 Test Records and Evidence
+### Test Records and Evidence
 
 Every executed test shall produce the following evidence artifacts:
 
@@ -538,7 +538,7 @@ Every executed test shall produce the following evidence artifacts:
 
 Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15_run2_2026-08-14_60V.mp4`, with the telemetry log and scope captures sharing the same base name. Evidence references shall be entered into the per-test **Evidence** field and the traceability matrices (Section 10.8) upon execution. Evidence shall be published alongside this document in the project repository.
 
-## 10.3 Test Status Summary
+## Test Status Summary
 
 **Table 12 — Executability Summary (v5.0 Campaign)**
 
@@ -560,7 +560,7 @@ Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15
 
 Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 — pending LV bench supply), 1 Deferred-equipment (C-36), 12 Deferred-type-test (E-series).** Total 101 line items including the E-series stubs; 92 tests in the current plan.
 
-## 10.4 Component-Level Tests
+## Component-Level Tests
 
 **Method note — throttle simulation:** For C-01 through C-04 and S-01, the dual throttle potentiometer wipers shall be simulated by two programmable DC supplies (0–5 V, common ground with the DUT). This permits precise, repeatable discrepancy, drift, short-to-rail, and short-to-ground injection. This method simulates the wiper signal only; it does not exercise ratiometric behavior against the sensor 5 V rail (rail faults are covered separately by C-24). At least one test in the campaign (C-05) shall use the real mechanical throttle assembly including the end-travel limit switch so the end-to-end path through the physical connector is exercised.
 
@@ -1301,7 +1301,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Rationale:** H-09 is HV shock from isolation failure. Barriers degrade from thermal cycling, humidity, and electrical stress; this measurement verifies barrier integrity quantitatively before and after stress tests.
 
-## 10.5 System-Level Tests
+## System-Level Tests
 
 System-level tests exercise complete end-to-end fault scenarios with all hardware and software running closed-loop FOC control on the dyno.
 
@@ -1693,7 +1693,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Integration test for the multi-modulation subsystem; catches map programming errors and boundary interactions.
 
-## 10.6 Integration Tests
+## Integration Tests
 
 Tests referencing a CAN1 source management node (I-01, I-15, and related) apply when such a node (e.g., a BMS) is present in the application; the platform does not assume one.
 
@@ -2034,7 +2034,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Wake must be a fresh start; stale pre-sleep fault data must not mask faults.
 
-## 10.7 Environmental and Stress Tests (E-Series) — DEFERRED
+## Environmental and Stress Tests (E-Series) — DEFERRED
 
 > **Status: all E-series tests are Deferred — type tests.** The project does not currently have access to a thermal chamber, humidity chamber, vibration table, EMC chamber, ESD gun, or water spray rig. The E-series is retained in summary form as the reference plan for a future type-test campaign (external lab or acquired equipment). **E-series tests shall not be cited as coverage for any Safety Goal, FSR, or hazard in the current campaign**; where earlier revisions of this document cited them in the traceability matrices, those citations are removed in v5.0 and the corresponding residual risk is carried in Section 10.10 (LIMIT-02, LIMIT-09).
 
@@ -2055,7 +2055,7 @@ Integration tests validate the interaction between the control module and extern
 | E-11 | ESD — air discharge (±4/8/15 kV) | ISO 10605 | Deferred — external lab |
 | E-12 | Water ingress (IPX4/X5/X6; target IP54 min) | IEC 60529 | Deferred — type test |
 
-## 10.8 Safety Goal Traceability
+## Safety Goal Traceability
 
 The following matrices map safety goals, FSRs, and hazards to test cases. Only **executable or conditional** tests are cited as coverage in the current campaign; deferred tests (E-series, C-36) are excluded from coverage claims. Upon execution, the evidence reference (Section 10.2.3) shall be entered against each test.
 
@@ -2078,7 +2078,7 @@ The following matrices map safety goals, FSRs, and hazards to test cases. Only *
 | **SG-14** | C | Detect gate driver fault | C-15, C-16, C-17, C-26, C-27, C-31–C-34 |
 | **SG-15** | C | Detect PWM deadtime violations | C-15, C-16, C-49 (DESAT indirectly covers stuck-on) |
 
-### 10.8.1 FSR Coverage Matrix
+### FSR Coverage Matrix
 
 **Table 15 — Functional Safety Requirement Coverage by Test Cases**
 
@@ -2107,7 +2107,7 @@ The following matrices map safety goals, FSRs, and hazards to test cases. Only *
 | FSR-21 | DC link UV derate / safe state | C-11, C-22, S-13 |
 | FSR-22 | Generated code cannot affect safety mechanisms | To be elaborated per GAP-SW-04 (generated-code fault cases) before codegen release |
 
-### 10.8.2 Hazard Coverage Matrix
+### Hazard Coverage Matrix
 
 **Table 16 — Hazard Coverage by Test Cases**
 
@@ -2131,7 +2131,7 @@ The following matrices map safety goals, FSRs, and hazards to test cases. Only *
 | H-16 | Gate driver fault not acted upon | C-15, C-16, C-17, C-26, C-27, C-31–C-34 |
 | H-17 | PWM deadtime violation / stuck-on | C-15, C-16, C-49 |
 
-## 10.9 Pass/Fail Criteria
+## Pass/Fail Criteria
 
 All test cases use the following standardized definitions. A test is **PASSED** only when all applicable criteria are met. A test is **FAILED** if any criterion is not met.
 
@@ -2147,7 +2147,7 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 | **Logging** | Fault recorded in non-volatile memory (FRAM). DTC matches fault type. Timestamp recorded. | Missing log; incorrect DTC; volatile-only storage. |
 | **No Degradation** | Behavior outside the fault path unaffected; other safety functions remain operational. | Cascade failure; side effects on non-fault paths. |
 
-### 10.9.1 Overall Test Plan Assessment
+### Overall Test Plan Assessment
 
 **Table 18 — Overall Test Plan Assessment Criteria**
 
@@ -2158,7 +2158,7 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 | **FAILED — NOT ROADWORTHY** | Any P0-gap test fails (throttle monitoring, safe state entry, watchdog response). The system shall not be operated on public roads until resolved. |
 | **INCONCLUSIVE** | Tests could not be executed (equipment/environment). Results insufficient for validation. Additional testing required before operation. Note: under the v5.0 status discipline, a campaign containing Deferred tests is assessed against executable tests only, and the deferred scope is carried as documented residual risk — this is distinct from INCONCLUSIVE. |
 
-## 10.10 Known Test Limitations
+## Known Test Limitations
 
 > **LIMIT-01: Vehicle/Application-Level Dynamics Beyond the Dyno**
 >
@@ -2224,11 +2224,11 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 >
 > **Mitigation:** (1) Stepped-voltage energize-into-fault up to the board maximum (140 V nominal / 175 V max). (2) Post-test isolation re-verification per C-50. (3) A contactor-based mid-operation short variant is defined as a future test if a suitably rated, remotely operated shorting contactor is acquired.
 
-## 10.11 Recommended Test Execution Order
+## Recommended Test Execution Order
 
 The campaign follows **progressive validation**: non-destructive tests first, potentially destructive tests last. Advancement between groups requires all tests in the current group to pass (Table 20).
 
-### 10.11.1 Execution Sequence
+### Execution Sequence
 
 **Table 19 — Test Execution Order and Justification**
 
@@ -2246,7 +2246,7 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 | **10** | Fault Response Validation | S-01–S-05, C-45, C-23–C-25*, C-31–C-34, I-05, I-07 | High | Full-power fault injection; energize-into-fault shorts last — a protection failure here can destroy the unit, so nothing may remain blocked behind these tests. |
 | **11** | Environmental (Deferred) | E-01–E-12 | Variable | Deferred type tests; not in this campaign. |
 
-### 10.11.2 Stopping Criteria Between Groups
+### Stopping Criteria Between Groups
 
 **Table 20 — Inter-Group Stopping Criteria**
 
@@ -2259,7 +2259,7 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 | Any test in Group 10 fails | Stop. Destructive testing may have damaged the unit. Inspect thoroughly, including C-50 isolation re-verification. If damaged, switch to a fresh unit and re-run from Group 8. | All pass; Groups 5–8 re-verified on the same unit. |
 | Conditional tests (C-21/22/24/25) not executable at time of campaign | Record as Conditional-not-run; carry as open item; do not block groups that do not depend on them (Groups 1–3 rail-fault coverage gap shall be noted in the campaign report). | Documented in campaign report. |
 
-### 10.11.3 Hardware Damage Risk Classification
+### Hardware Damage Risk Classification
 
 **Table 21 — Per-Test Hardware Damage Risk**
 
@@ -2277,9 +2277,9 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 >
 > Phase short tests are **inherently destructive if protection fails**. Even at reduced voltage, fault currents of 1000+ A are possible. Mandatory precautions: (1) blast shield around the DUT; (2) remote activation of the DC supply — no manual connection of a live circuit; shorts are bolted on de-energized only; (3) supply current limit set to the minimum practical value; (4) fire suppression present; (5) no personnel in the test area during energization; (6) video recording for post-test analysis; (7) DESAT self-test (C-16) shall have passed within 24 hours before any short test; (8) voltage stepping: 50 V first, increase only after verified protection operation and inspection at each step; (9) C-50 isolation re-verification after the short series.
 
-# 11. Implementation Roadmap
+# Implementation Roadmap
 
-## 11.1 Phase 1: Safety-Critical Foundation (Immediate)
+## Phase 1: Safety-Critical Foundation (Immediate)
 
 **Table 22 — Phase 1 — Safety-Critical Foundation**
 
@@ -2290,7 +2290,7 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 | GAP-SW-01 | Implement boot CRC-32 (STM32 CRC peripheral) over safety-critical code + calibration before PWM enable. | Low | C-20, C-39 |
 | GAP-SW-03 | ~~Define sensorless fallback policy~~ — closed: immediate SSO on encoder loss (FSR-09); no fallback mode. | N/A | C-09 |
 
-## 11.2 Phase 2: Monitors and Platform Hardening (Short Term)
+## Phase 2: Monitors and Platform Hardening (Short Term)
 
 **Table 23 — Phase 2 — Monitors and Platform Hardening**
 
@@ -2303,7 +2303,7 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 | FSR-22 / GAP-SW-04 | Define the codegen interface contract ICD; implement base-image enforcement of the torque-request envelope; add generated-code fault cases to the test plan. | Medium | Generated-code fault cases (to be defined) |
 | GAP-TEST-01 | Define a dedicated SG-04 loss-of-regen test (command regen, suppress inverter response, verify operator indication and friction-brake posture). | Low | New test ID at next test-plan revision |
 
-## 11.3 Phase 3: Test Execution and Validation
+## Phase 3: Test Execution and Validation
 
 **Table 24 — Phase 3 — Test Execution and Validation**
 
@@ -2316,7 +2316,7 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 | Application-level characterization (LIMIT-01) | High | In-application testing per the applicable profile, graduated operating points, known fault injection. Characterizes (does not "verify safe") the profile-level residual risk. |
 | Verification report | Medium | Compile executed results and evidence references into the OpenVVVF Verification Report; assess against Table 18; document residual risks. |
 
-## 11.4 Coprocessor Integration Validation
+## Coprocessor Integration Validation
 
 The STM32G474RCTx safety coprocessor is **part of the current hardware design**. The following table maps coprocessor capabilities to safety goals:
 

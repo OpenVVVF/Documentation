@@ -13,7 +13,7 @@ description: DC link capacitor bank assembly for the Chassis Size 2 power stage.
 nav_order: 32
 ---
 
-# 3.2 DC Link Capacitor Bank
+# DC Link Capacitor Bank
 
 DC link capacitor bank assembly steps.
 
