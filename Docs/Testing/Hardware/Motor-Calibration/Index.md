@@ -1,7 +1,7 @@
 ---
 doctype: Index
 doc_id: OV-TEST-HW-MOTOR-CAL-INDEX
-title: Motor Calibration Validation
+title: PMSM Motor Calibration Validation
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
@@ -15,12 +15,12 @@ normative_refs:
   - OV-TEST-HW-INDEX
 ---
 
-# Motor Calibration Validation
+# PMSM Motor Calibration Validation
 
 This section validates the inverter's motor self-commissioning routines by comparing their estimates against direct bench measurements of the test motor.
 
-- [Motor Resistance Calibration Validation](Resistance.html) - completed for the C2 test motor
+- [PMSM Resistance Calibration Validation](Resistance.html) - completed for the C2 test motor
 - [Power Resistor Sanity Check](Resistor-Sanity-Check.html) - high-resistance load sanity check
-- [Motor Inductance Calibration Validation](Inductance.html) - pending inductance measurements
+- [PMSM Inductance Calibration Validation](Inductance.html) - pending inductance measurements
 
 A separate induction-machine test report is available in [Induction Motor Calibration Validation](../Induction-Motor-Calibration/index.html).

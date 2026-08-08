@@ -89,9 +89,14 @@ This repository is the single source of truth for OpenVVVF documentation.
 <h3><a href="Testing/index.html">Testing and Validation</a></h3>
 <p>Formal test reports and validation evidence.</p>
 <ul>
-<li><a href="Testing/Hardware/Motor-Calibration/index.html"><code>OV-TEST-HW-MOTOR-CAL-INDEX</code></a> - Motor Calibration Validation</li>
-<li><a href="Testing/Hardware/Motor-Calibration/Resistance.html"><code>OV-TEST-HW-MOTOR-RES-CAL</code></a> - Motor Resistance Calibration Validation</li>
-<li><a href="Testing/Hardware/Motor-Calibration/Inductance.html"><code>OV-TEST-HW-MOTOR-IND-CAL</code></a> - Motor Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
+<li><strong>PMSM</strong></li>
+<li><a href="Testing/Hardware/Motor-Calibration/index.html"><code>OV-TEST-HW-MOTOR-CAL-INDEX</code></a> - PMSM Motor Calibration Validation</li>
+<li><a href="Testing/Hardware/Motor-Calibration/Resistance.html"><code>OV-TEST-HW-MOTOR-RES-CAL</code></a> - PMSM Resistance Calibration Validation</li>
+<li><a href="Testing/Hardware/Motor-Calibration/Inductance.html"><code>OV-TEST-HW-MOTOR-IND-CAL</code></a> - PMSM Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
+<li><strong>Induction</strong></li>
+<li><a href="Testing/Hardware/Induction-Motor-Calibration/index.html"><code>OV-TEST-HW-INDUCTION-CAL-INDEX</code></a> - Induction Motor Calibration Validation</li>
+<li><a href="Testing/Hardware/Induction-Motor-Calibration/Resistance.html"><code>OV-TEST-HW-INDUCTION-RES-CAL</code></a> - Induction Motor Resistance Calibration Validation</li>
+<li><a href="Testing/Hardware/Induction-Motor-Calibration/Inductance.html"><code>OV-TEST-HW-INDUCTION-IND-CAL</code></a> - Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
 </ul>
 </div>
 

@@ -18,9 +18,11 @@ nav_order: 510
 
 Electrical, thermal, mechanical, and environmental test records.
 
-- [Motor Calibration Validation](Motor-Calibration/index.html) - `OV-TEST-HW-MOTOR-CAL-INDEX` (PMSM, draft)
-  - [Motor Resistance Calibration Validation](Motor-Calibration/Resistance.html) - `OV-TEST-HW-MOTOR-RES-CAL` (draft)
-  - [Motor Inductance Calibration Validation](Motor-Calibration/Inductance.html) - `OV-TEST-HW-MOTOR-IND-CAL` (pending data)
-- [Induction Motor Calibration Validation](Induction-Motor-Calibration/index.html) - `OV-TEST-HW-INDUCTION-CAL-INDEX` (draft)
-  - [Induction Motor Resistance Calibration Validation](Induction-Motor-Calibration/Resistance.html) - `OV-TEST-HW-INDUCTION-RES-CAL` (draft)
-  - [Induction Motor Inductance Calibration Validation](Induction-Motor-Calibration/Inductance.html) - `OV-TEST-HW-INDUCTION-IND-CAL` (draft)
+- **PMSM motor**
+  - [PMSM Motor Calibration Validation](Motor-Calibration/index.html) - `OV-TEST-HW-MOTOR-CAL-INDEX` (draft)
+    - [PMSM Resistance Calibration Validation](Motor-Calibration/Resistance.html) - `OV-TEST-HW-MOTOR-RES-CAL` (draft)
+    - [PMSM Inductance Calibration Validation](Motor-Calibration/Inductance.html) - `OV-TEST-HW-MOTOR-IND-CAL` (pending data)
+- **Induction motor**
+  - [Induction Motor Calibration Validation](Induction-Motor-Calibration/index.html) - `OV-TEST-HW-INDUCTION-CAL-INDEX` (draft)
+    - [Induction Motor Resistance Calibration Validation](Induction-Motor-Calibration/Resistance.html) - `OV-TEST-HW-INDUCTION-RES-CAL` (draft)
+    - [Inductance Calibration Validation](Induction-Motor-Calibration/Inductance.html) - `OV-TEST-HW-INDUCTION-IND-CAL` (pending data)

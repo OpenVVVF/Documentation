@@ -1,7 +1,7 @@
 ---
 doctype: Test Report
 doc_id: OV-TEST-HW-MOTOR-IND-CAL
-title: Motor Inductance Calibration Validation
+title: PMSM Inductance Calibration Validation
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
@@ -16,11 +16,11 @@ normative_refs:
   - OV-TEST-HW-INDEX
 ---
 
-# Motor Inductance Calibration Validation
+# PMSM Inductance Calibration Validation
 
 This report validates the inverter's motor-inductance calibration routine by comparing its estimate against a direct bench LCR measurement of the test motor. The test was run on the C2 chassis test fixture, but the routine itself is shared across all OpenVVVF chassis; motor-specific validation is only needed when a different motor or harness is used.
 
-Resistance reference measurements are kept in the [Motor Resistance Calibration Validation](Resistance.html) report.
+Resistance reference measurements are kept in the [PMSM Resistance Calibration Validation](Resistance.html) report.
 
 A separate induction-machine test report is in [Induction Motor Calibration Validation](../Induction-Motor-Calibration/index.html).
 
