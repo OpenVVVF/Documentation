@@ -1,21 +1,21 @@
 ---
 doctype: Design Document
 doc_id: OV-C2-DD-THERMAL
-title: System Thermal Analysis - IGBT Losses, Inverter Efficiency, and Heatsink/Baseplate Sizing
+title: System Thermal Analysis
 product_line: openvvvf
 applies_to:
   - chassis-size-2
 version: "1.0"
 date: "2026-07-17"
 status: released
-description: IGBT and free-wheeling-diode loss analysis, inverter efficiency, and heatsink/baseplate sizing for the Chassis Size 2 traction inverter.
+description: IGBT and diode loss analysis, inverter efficiency, and heatsink/baseplate sizing for the Chassis Size 2 traction inverter.
 nav_order: 330
 normative_refs:
   - OV-C2-DD-INDEX
   - OV-C2-DD-DCLINK-THERMAL
 ---
 
-# System Thermal Analysis - IGBT Losses, Inverter Efficiency, and Heatsink/Baseplate Sizing
+# System Thermal Analysis
 
 This document estimates the total heat dissipated into the heatsink by the 3-phase traction inverter power stage (3× Mitsubishi CM600DY-24T half-bridge IGBT modules plus the DC-link capacitor bank) and derives the heatsink thermal resistance required for continuous operation. It is the sizing input for the custom heatsink design.
 
