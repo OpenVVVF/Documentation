@@ -18,6 +18,30 @@ normative_refs:
 
 Heat load at rated ripple was calculated to be 40 W across all capacitors.
 
+## Nomenclature
+
+| Symbol | Meaning | Units |
+|---|---|---|
+| $A$ | Cross-sectional area (generic) | m² |
+| $A_{standoff}$ | Cross-sectional area of one standoff | m² |
+| $k$ | Thermal conductivity (generic material) | W/(m·K) |
+| $k_{Al}$ | Thermal conductivity of the aluminium heat-spreader plate | W/(m·K) |
+| $k_{standoff}$ | Thermal conductivity of the standoff material | W/(m·K) |
+| $L$ | Standoff length (thermal conduction path) | m |
+| $n$ | Number of standoffs | — |
+| $Q$ | Heat flow from capacitor bank ripple current | W |
+| $r_{cell}$ | Effective radius of the aluminium spreading cell around one standoff | m |
+| $r_{inner}$ | Standoff inner (hole) radius | m |
+| $r_{outer}$ | Standoff outer radius | m |
+| $r_{standoff}$ | Standoff outer radius (used in spreading model) | m |
+| $R_{contact}$ | Contact resistance across one standoff-to-plate or standoff-to-heatsink interface pair | K/W |
+| $R_{spread}$ | Aluminium heat-spreader plate spreading resistance | K/W |
+| $R_{standoff}$ | Standoff conduction thermal resistance | K/W |
+| $R_{th}$ | Generic thermal resistance | K/W |
+| $t_{Al}$ | Aluminium heat-spreader plate thickness | m |
+| $\Delta T$ | Temperature rise / difference | K or °C |
+| $\rho_{contact}$ | Contact resistivity | m²·K/W |
+
 ## 1. Methodology
 
 All calculations use one-dimensional steady-state thermal resistance:

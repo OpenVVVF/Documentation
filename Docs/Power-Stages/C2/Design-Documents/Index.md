@@ -18,5 +18,5 @@ normative_refs:
 
 Engineering reference documents for the C2 power stage: thermal models, loss calculations, component sizing, and other analyses that support the hardware design.
 
-- **Thermal Analysis** — System-level heat dissipation and heatsink sizing for the traction inverter.
+- **System Thermal Analysis** — IGBT losses, inverter efficiency, and heatsink/baseplate sizing for the traction inverter.
 - **DC Link Thermal Analysis** — DC-link capacitor bank standoff heat-path and thermal resistance analysis.
