@@ -1,19 +1,17 @@
 ---
-doctype: Thermal Analysis
-doc_id: OV-C2-AG-04-01
-title: 4.1 DC Link Thermal Analysis
+doctype: Design Document
+doc_id: OV-C2-DD-DCLINK-THERMAL
+title: DC Link Thermal Analysis
 product_line: openvvvf
 applies_to:
   - chassis-size-2
 version: "1.0"
-reviewed: (not yet reviewed)
 date: "2026-07-13"
 status: released
 description: DC-link capacitor bank standoff heat-path and thermal resistance analysis for Chassis Size 2.
-nav_order: 41
+nav_order: 331
 normative_refs:
-  - OV-C2-AG-04
-  - OV-C2-UM-INDEX
+  - OV-C2-DD-INDEX
 ---
 
 # Thermal Analysis — DC Link Module Standoff Heat Path

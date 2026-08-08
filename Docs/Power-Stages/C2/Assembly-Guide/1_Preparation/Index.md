@@ -17,4 +17,5 @@ nav_order: 10
 
 Preparation steps before starting the C2 assembly.
 
-> **Content to be added.**
+> **NOTE**
+> This chapter is a placeholder. Detailed preparation steps will be added as the assembly documentation is developed.

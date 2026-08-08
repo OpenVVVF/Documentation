@@ -1,18 +1,17 @@
 ---
-doctype: Thermal Analysis
-doc_id: OV-C2-UM-THERMAL
+doctype: Design Document
+doc_id: OV-C2-DD-THERMAL
 title: Thermal Analysis
 product_line: openvvvf
 applies_to:
   - chassis-size-2
 version: "1.0"
-reviewed: (not yet reviewed)
 date: "2026-07-17"
 status: released
 description: System-level heat dissipation and heatsink sizing analysis for the Chassis Size 2 traction inverter.
-nav_order: 10
+nav_order: 330
 normative_refs:
-  - OV-C2-UM-INDEX
+  - OV-C2-DD-INDEX
 ---
 
 # System Thermal Analysis — Traction Inverter

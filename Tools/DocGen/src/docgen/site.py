@@ -73,12 +73,14 @@ def _apply_chapter_attributes(html: str) -> str:
 
     def repl(match: re.Match) -> str:
         tag = match.group(1)
-        attrs = match.group(2) or ""
+        attrs = (match.group(2) or "").strip()
         number = match.group(3)
         decimal = match.group(4) or ""
         rest = match.group(5)
         if 'data-chapter' not in attrs:
             attrs = f'{attrs} data-chapter="{number}{decimal}"'.strip()
+        if attrs:
+            attrs = " " + attrs
         return f"<{tag}{attrs}>{number}{decimal} {rest}</{tag}>"
 
     return _CHAPTER_RE.sub(repl, html)
@@ -271,16 +273,28 @@ def nav_html(
     return _nav_tree(docs, current_doc_id, root, docs_dir)
 
 
-def breadcrumbs_html(doc: Document, root: str, docs_dir: Path) -> str:
-    """Build breadcrumb links for a document relative to the docs root."""
+def breadcrumbs_html(doc: Document, root: str, docs_dir: Path, docs: List[Document]) -> str:
+    """Build breadcrumb links for a document relative to the docs root.
+
+    Uses the index document title for each directory when available, falling
+    back to a display-friendly directory name.
+    """
+    index_by_dir: Dict[Path, Document] = {}
+    for d in docs:
+        if d.path.stem.lower() == "index":
+            rel = d.path.parent.relative_to(docs_dir)
+            index_by_dir[rel] = d
+
     crumbs = [f'<a href="{root}index.html">Index</a>']
-    current = ""
+    current = Path()
     rel_parent = doc.path.parent.relative_to(docs_dir)
     for part in rel_parent.parts:
         if part in ("Docs", "."):
             continue
-        current += part + "/"
-        crumbs.append(f'<a href="{root}{current}index.html">{_display_name(part)}</a>')
+        current = current / part
+        index_doc = index_by_dir.get(current)
+        label = index_doc.title if index_doc else _display_name(part)
+        crumbs.append(f'<a href="{root}{current.as_posix()}/index.html">{label}</a>')
     title = doc.title or _display_name(doc.path.stem)
     crumbs.append(title)
     return " / ".join(crumbs)
@@ -298,6 +312,14 @@ def url_path(doc_path: Path, docs_dir: Path) -> str:
     else:
         rel = rel.with_suffix(".html")
     return str(rel)
+
+
+def _status_badge(status: Optional[str]) -> str:
+    """Render a small status badge for cards and listings."""
+    if not status:
+        return ""
+    safe = status.lower().replace(" ", "-")
+    return f'<span class="status-badge status-{safe}">{status}</span>'
 
 
 def copy_assets(doc: Document, docs_dir: Path, output_dir: Path) -> None:
@@ -327,7 +349,7 @@ def render_page(
     root = rel_root(output_path, output_dir)
     if doc:
         nav = nav_html(docs, doc.doc_id, root, docs_dir)
-        crumbs = breadcrumbs_html(doc, root, docs_dir)
+        crumbs = breadcrumbs_html(doc, root, docs_dir, docs)
     else:
         nav = nav_html(docs, None, root, docs_dir)
         crumbs = '<a href="{root}index.html">Index</a>'.format(root=root)
@@ -394,8 +416,9 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
             blurb = doc.description or doc.path.name
             # Link is relative to the directory index page itself.
             href = f"{doc.path.stem}.html"
+            badge = _status_badge(doc.frontmatter.get("status"))
             items.append(
-                f'<div class="card"><h3><a href="{href}">{title}</a></h3>'
+                f'<div class="card"><h3><a href="{href}">{title}</a> {badge}</h3>'
                 f'<p>{blurb}</p></div>'
             )
         body = f"<h1>{_display_name(rel_dir.name) or 'Documentation'}</h1>\n<div class=\"landing-grid\">\n" + "\n".join(items) + "\n</div>"
@@ -500,8 +523,9 @@ def build_landing_body(docs: List[Document]) -> str:
             href = doc.url_path
             title = doc.title or _display_name(doc.path.stem)
             blurb = doc.description or doc.path.name
+            badge = _status_badge(doc.frontmatter.get("status"))
             out.append(
-                f'<div class="card"><h3><a href="{href}">{title}</a></h3>'
+                f'<div class="card"><h3><a href="{href}">{title}</a> {badge}</h3>'
                 f'<p>{blurb}</p></div>'
             )
         out.append("</div>")

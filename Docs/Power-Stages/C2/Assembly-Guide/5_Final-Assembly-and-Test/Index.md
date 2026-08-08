@@ -17,4 +17,5 @@ nav_order: 50
 
 Final assembly, inspection, and test procedures.
 
-> **Content to be added.**
+> **NOTE**
+> This chapter is a placeholder. Detailed final assembly and test steps will be added as the assembly documentation is developed.

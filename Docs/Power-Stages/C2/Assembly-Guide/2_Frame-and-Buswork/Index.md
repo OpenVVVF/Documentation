@@ -17,4 +17,5 @@ nav_order: 20
 
 Frame and buswork assembly steps.
 
-> **Content to be added.**
+> **NOTE**
+> This chapter is a placeholder. Detailed frame and buswork steps will be added as the assembly documentation is developed.

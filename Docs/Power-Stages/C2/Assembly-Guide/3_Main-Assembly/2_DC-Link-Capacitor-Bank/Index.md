@@ -17,4 +17,5 @@ nav_order: 32
 
 DC link capacitor bank assembly steps.
 
-> **Content to be added.**
+> **NOTE**
+> This step is a placeholder. Detailed capacitor bank assembly steps will be added as the assembly documentation is developed.

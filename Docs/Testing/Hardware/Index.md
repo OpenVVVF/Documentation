@@ -7,8 +7,7 @@ applies_to:
   - openvvvf-control-module
   - chassis-size-2
   - chassis-size-3
-version: "0.1"
-reviewed: (not yet reviewed)
+version: "0.2"
 date: "2026-08-07"
 status: draft
 description: Hardware test reports and validation evidence.
@@ -19,4 +18,4 @@ nav_order: 510
 
 Electrical, thermal, mechanical, and environmental test records.
 
-> **Add test records as they are performed.**
+- [IGBT Mounting Torque Validation](IGBT-Mounting-Torque-Validation/Index.md) — `OV-TEST-HW-IGBT-TORQUE` (completed)

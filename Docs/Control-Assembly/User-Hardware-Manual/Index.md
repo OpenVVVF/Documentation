@@ -19,4 +19,5 @@ normative_refs:
 
 This manual covers the OpenVVVF control module as a standalone hardware product: physical layout, connectors, pinout, mounting, thermal guidelines, electrical interface, HVIL, and safe-state behavior.
 
-> **Content to be migrated and expanded from existing hardware documentation.**
+> **NOTE**
+> This manual is a placeholder. Content will be migrated from existing hardware documentation.

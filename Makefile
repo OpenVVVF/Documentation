@@ -12,8 +12,9 @@ help:
 	@echo "  test         run all tests"
 	@echo "  test-bom     run BOMManager tests"
 	@echo "  test-docgen  run docgen tests"
-	@echo "  validate     validate documentation cross-references"
+	@echo "  validate     validate documentation cross-references and frontmatter"
 	@echo "  site         build the static HTML documentation site"
+	@echo "  serve        serve the built site locally on port 8000"
 	@echo "  clean        remove build artifacts and venv"
 	@echo "  check-clean  fail if ignored *.egg-info directories are present"
 
@@ -35,6 +36,9 @@ validate:
 
 site:
 	$(PYTHON) -m docgen site --output-dir site
+
+serve:
+	cd site && $(PYTHON) -m http.server 8000
 
 clean:
 	rm -rf $(VENV) build dist site .pytest_cache

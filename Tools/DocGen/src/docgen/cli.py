@@ -7,6 +7,7 @@ from pathlib import Path
 from .crossref import validate_crossrefs
 from .frontmatter import load_docs
 from .product import assemble_manual, list_products, load_product
+from .schema import validate_docs
 from .site import build_site
 
 
@@ -62,14 +63,20 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "validate":
-        result = validate_crossrefs(args.docs_dir)
-        for error in result.errors:
+        frontmatter_result = validate_docs(args.docs_dir)
+        crossref_result = validate_crossrefs(args.docs_dir)
+        for error in frontmatter_result.errors:
             print(f"ERROR: {error}", file=sys.stderr)
-        for warning in result.warnings:
+        for warning in frontmatter_result.warnings:
             print(f"WARNING: {warning}", file=sys.stderr)
-        if result.ok:
+        for error in crossref_result.errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        for warning in crossref_result.warnings:
+            print(f"WARNING: {warning}", file=sys.stderr)
+        ok = frontmatter_result.ok and crossref_result.ok
+        if ok:
             print("All cross-references valid.")
-        return 0 if result.ok else 1
+        return 0 if ok else 1
 
     if args.command == "build":
         product_path = Path(args.product)

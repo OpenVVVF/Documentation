@@ -12,7 +12,7 @@ reviewed: (not yet reviewed)
 date: "2026-08-07"
 status: draft
 description: Safety analyses, hazard assessments, and compliance mappings for the OpenVVVF platform and power stages.
-nav_order: 200
+nav_order: 300
 ---
 
 # Safety and Compliance

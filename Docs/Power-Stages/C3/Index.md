@@ -10,7 +10,7 @@ reviewed: (not yet reviewed)
 date: "2026-08-07"
 status: draft
 description: Large power-stage family for high-voltage, high-current traction inverters. In development.
-nav_order: 330
+nav_order: 340
 ---
 
 # Chassis Size 3

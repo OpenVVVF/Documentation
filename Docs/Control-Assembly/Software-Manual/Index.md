@@ -23,4 +23,5 @@ normative_refs:
 
 This manual describes the software side of the OpenVVVF control module: the base firmware image, how to flash it, how to use the RTE host tools for configuration and monitoring, and how to build and load custom application code.
 
-> **Content to be migrated and expanded from existing software documentation.**
+> **NOTE**
+> This manual is a placeholder. Content will be migrated from existing software documentation.

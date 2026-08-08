@@ -11,7 +11,7 @@ reviewed: (not yet reviewed)
 date: "2026-08-07"
 status: draft
 description: Physical chassis and inverter assemblies. Each chassis family has a user manual and an assembly guide.
-nav_order: 300
+nav_order: 200
 ---
 
 # Power Stages
