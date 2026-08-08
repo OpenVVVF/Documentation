@@ -20,11 +20,13 @@ This section contains formal test records and validation evidence. Each document
 
 ## Test evidence dashboard
 
-No formal test evidence has been posted yet. Reports will be added here as they are performed and reviewed.
+| Test ID | Name | Domain | Status | Trace | Report |
+|---------|------|--------|--------|-------|--------|
+| OV-TEST-HW-C2-LCR-CAL | C2 Motor LCR Reference Calibration | Hardware | draft | motor self-commissioning / calibration routine | [Report](Hardware/Chassis2/Calibration/LCR/Index.md) |
 
-Planned first entries:
+Planned next entries:
 
-- Motor self-commissioning / calibration (photos and meter readings).
+- Motor self-commissioning / calibration results compared against the LCR reference readings.
 
 ## Domains
 
