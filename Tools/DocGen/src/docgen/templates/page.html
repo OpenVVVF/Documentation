@@ -53,14 +53,13 @@
 
   <script>
     (function () {{
-      var layout = document.getElementById('layout');
       var sidebar = document.getElementById('sidebar');
       var reveal = document.getElementById('sidebar-reveal');
       var collapseBtn = sidebar.querySelector('.sidebar-toggle');
       var showBtn = reveal.querySelector('.sidebar-toggle');
 
       function setCollapsed(collapsed) {{
-        layout.classList.toggle('sidebar-collapsed', collapsed);
+        document.body.classList.toggle('sidebar-collapsed', collapsed);
         collapseBtn.setAttribute('aria-expanded', String(!collapsed));
         showBtn.setAttribute('aria-expanded', String(collapsed));
         try {{ localStorage.setItem('ovvf-sidebar-collapsed', String(collapsed)); }} catch (e) {{}}
