@@ -4,7 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from .crossref import validate_crossrefs
+from .crossref import validate_crossrefs, validate_links
 from .frontmatter import load_docs
 from .product import assemble_manual, list_products, load_product
 from .schema import validate_docs
@@ -65,6 +65,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "validate":
         frontmatter_result = validate_docs(args.docs_dir)
         crossref_result = validate_crossrefs(args.docs_dir)
+        link_result = validate_links(args.docs_dir)
         for error in frontmatter_result.errors:
             print(f"ERROR: {error}", file=sys.stderr)
         for warning in frontmatter_result.warnings:
@@ -73,9 +74,13 @@ def main(argv: list[str] | None = None) -> int:
             print(f"ERROR: {error}", file=sys.stderr)
         for warning in crossref_result.warnings:
             print(f"WARNING: {warning}", file=sys.stderr)
-        ok = frontmatter_result.ok and crossref_result.ok
+        for error in link_result.errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        for warning in link_result.warnings:
+            print(f"WARNING: {warning}", file=sys.stderr)
+        ok = frontmatter_result.ok and crossref_result.ok and link_result.ok
         if ok:
-            print("All cross-references valid.")
+            print("All cross-references and links valid.")
         return 0 if ok else 1
 
     if args.command == "build":
