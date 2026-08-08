@@ -53,7 +53,7 @@ This report checks that the `cal Motor.Resistance` routine returns a sensible va
 | UW measurement | Failed (non-positive resistance) |
 
 - Command log: [PowerResistor-Command-Log.txt](PowerResistor-Command-Log.txt)
-- Raw telemetry: [PowerResistor-Telemetry.jsonl](PowerResistor-Telemetry.jsonl)
+- Raw telemetry: [PowerResistor-Telemetry.jsonl](PowerResistor-Telemetry.jsonl) - [open in Telemetry Viewer](../../../Tools/Telemetry-Viewer/telemetry-viewer.html?file=../../Testing/Hardware/Motor-Calibration/PowerResistor-Telemetry.jsonl#s=cg_iu_a:left)
 
 ## Analysis
 

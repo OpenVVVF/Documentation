@@ -87,7 +87,7 @@ For the intended application (motor resistance in the hundreds of milliohms, run
 ## Artifacts
 
 - [Command log](induction-cal-cmds.txt)
-- [Telemetry log (JSONL)](induction-cal.jsonl)
+- [Telemetry log (JSONL)](induction-cal.jsonl) - [open in Telemetry Viewer](../../../Tools/Telemetry-Viewer/telemetry-viewer.html?file=../../Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left)
 - [Static resistance plot (PNG)](induction-resistance.png)
 
 ## Notes

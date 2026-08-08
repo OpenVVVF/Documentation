@@ -84,7 +84,7 @@ From the plotted telemetry:
   - current-sensor offset or scaling drift at the higher DC-link voltage,
   - connection/cable resistance differences between setups,
   - temperature or settling differences between runs.
-- The raw telemetry log is available for further analysis: [ResistanceCalResult.jsonl](ResistanceCalResult.jsonl).
+- The raw telemetry log is available for further analysis: [ResistanceCalResult.jsonl](ResistanceCalResult.jsonl) - [open in Telemetry Viewer](../../../Tools/Telemetry-Viewer/telemetry-viewer.html?file=../../Testing/Hardware/Motor-Calibration/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left).
 
 ## Notes
 
