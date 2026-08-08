@@ -84,6 +84,38 @@ From the plotted telemetry:
   - temperature or settling differences between runs.
 - The raw telemetry log is available for further analysis: [ResistanceCalResult.jsonl](ResistanceCalResult.jsonl).
 
+## Power-resistor sanity check
+
+To check that the calibration routine returns a sensible value for a purely resistive, high-impedance load, a known power resistor was connected across phases U and V. The resistor was 23 Ω. With a 120 V DC bus and the routine's duty clamp limiting the applied voltage, only ~0.3 A could be pushed through the load.
+
+### Setup
+
+- Load: 23 Ω power resistor tied across U-V (two phases in parallel).
+- DC bus: ~121 V.
+- Command: `cal Motor.Resistance 8.0 --force`.
+
+### Results
+
+| Parameter | Value |
+|-----------|-------|
+| Reference resistance | 23 Ω |
+| Calibrated UV line-to-line | 20.94 Ω |
+| Calibrated UV per-phase | 10.47 Ω |
+| Max current reached (UV) | 0.345 A |
+| Fit offset (V_off) | 23.6 V |
+| UW measurement | Failed (non-positive resistance) |
+
+- Command log: [PowerResistor-Command-Log.txt](PowerResistor-Command-Log.txt)
+- Raw telemetry: [PowerResistor-Telemetry.jsonl](PowerResistor-Telemetry.jsonl)
+
+### Analysis
+
+The 9 % low reading (21 Ω vs 23 Ω) is expected at this operating point. At ~0.3 A the IGBTs are still in the knee region, where `Vce ≈ Vf(knee) + Ic · Rce(on)`. The knee voltage across the two conducting IGBTs is large compared with the ~6-7 V across the resistor, and the linear fit absorbs most of that knee as an offset. Because the knee is slightly curved, the slope is biased low.
+
+The UW phase failed because no resistor was connected across U-W; the measured current had the wrong sign and the fit produced a negative resistance. This is normal for a single-pair measurement.
+
+This result is not motor-grade accuracy, but it confirms the calibration is in the right decade and is not producing the milliohm-scale nonsense that appears when the routine is run without a real load.
+
 ## Notes
 
 - The DCR reading is the DC resistance measured directly by the meter.
