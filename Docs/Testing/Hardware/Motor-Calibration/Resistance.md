@@ -10,8 +10,9 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 description: Validation of the inverter motor-resistance calibration routine against a bench LCR reference.
-nav_order: 511
+nav_order: 512
 normative_refs:
+  - OV-TEST-HW-MOTOR-CAL-INDEX
   - OV-TEST-HW-INDEX
 ---
 

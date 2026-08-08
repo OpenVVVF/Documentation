@@ -18,4 +18,6 @@ nav_order: 510
 
 Electrical, thermal, mechanical, and environmental test records.
 
-- [Motor Resistance Calibration Validation](Motor-Resistance-Calibration/Index.md) - `OV-TEST-HW-MOTOR-RES-CAL` (draft)
+- [Motor Calibration Validation](Motor-Calibration/Index.md) - `OV-TEST-HW-MOTOR-CAL-INDEX` (draft)
+  - [Motor Resistance Calibration Validation](Motor-Calibration/Resistance.md) - `OV-TEST-HW-MOTOR-RES-CAL` (draft)
+  - [Motor Inductance Calibration Validation](Motor-Calibration/Inductance.md) - `OV-TEST-HW-MOTOR-IND-CAL` (pending data)
