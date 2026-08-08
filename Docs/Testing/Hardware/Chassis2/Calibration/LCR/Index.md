@@ -57,6 +57,32 @@ Two Ls-Rs readings were captured at 1.000 kHz.
 
 ![LCR meter Ls-Rs reading 2: Ls = 34.6583 µH, Rs = 0.00974 Ω](IMG_20260807_212115.jpg)
 
+## Inverter-calibrated resistance
+
+The inverter's `cal Motor.Resistance` routine was run to estimate the motor resistance and compare it against the LCR reference. Two runs were made at different DC-link voltages to check consistency.
+
+### Summary
+
+| Run | Vdc | UV Rll | UW Rll | VW Rll | Average Rll | Per-phase (avg) |
+|-----|-----|--------|--------|--------|-------------|-----------------|
+| 1 | ~50 V | 15.2301 mΩ | 15.5424 mΩ | 15.6386 mΩ | **15.4704 mΩ** | 7.7352 mΩ |
+| 2 | ~120 V | 13.5548 mΩ | 13.7229 mΩ | 15.6423 mΩ | **14.3067 mΩ** | 7.1534 mΩ |
+| LCR reference | - | - | - | - | **15.293 mΩ** | 7.6465 mΩ |
+
+- Run 1 at ~50 V is within **+1.2 %** of the LCR reference (15.4704 mΩ vs 15.293 mΩ).
+- Run 2 at ~120 V reads lower on UV and UW, pulling the average **-6.5 %** below the LCR reference. The VW pair is consistent with run 1 and the reference.
+- The raw command log is available: [Resistance-Command-Log.txt](Resistance-Command-Log.txt).
+
+### Observations
+
+- The 50 V result is very close to the bench LCR meter, which is a good sign for the calibration routine.
+- The 120 V discrepancy on UV/UW suggests either:
+  - additional connection/cable resistance in the 120 V setup that was not present at 50 V,
+  - a temperature or settling difference between runs, or
+  - a measurement-pair naming mismatch that should be confirmed when the calibration graph is reviewed.
+
+A voltage-vs-current fit graph will be added to this section when available.
+
 ## Notes
 
 - The DCR reading is the DC resistance measured directly by the meter.
