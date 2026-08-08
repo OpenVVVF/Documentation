@@ -28,7 +28,7 @@ This repository is the single source of truth for OpenVVVF documentation.
 <ul>
 <li><strong>New users</strong> - read the <a href="System-Architecture/index.html">System Architecture</a> overview and the <a href="Glossary/index.html">Glossary</a> first.</li>
 <li><strong>Installers / Technicians</strong> - go to <a href="Power-Stages/index.html">Power Stages</a> to choose the correct chassis, then open its integration or assembly guide.</li>
-<li><strong>Developers</strong> - see the <a href="Control-Assembly/index.html">Control Assembly</a> and <a href="Software/index.html">Software</a> sections.</li>
+<li><strong>Developers</strong> - see the <a href="Control-Assembly/index.html">Control Assembly</a>, <a href="Software/index.html">Software</a>, and <a href="Tools/index.html">Tools</a> sections.</li>
 <li><strong>Safety / Compliance Reviewers</strong> - begin with the <a href="Safety-and-Compliance/HARA/Core/index.html">HARA Core</a> and <a href="Safety-and-Compliance/Compliance/index.html">Compliance</a> docs.</li>
 </ul>
 </div>
@@ -92,6 +92,14 @@ This repository is the single source of truth for OpenVVVF documentation.
 <li><a href="Testing/Hardware/Motor-Calibration/index.html"><code>OV-TEST-HW-MOTOR-CAL-INDEX</code></a> - Motor Calibration Validation</li>
 <li><a href="Testing/Hardware/Motor-Calibration/Resistance.html"><code>OV-TEST-HW-MOTOR-RES-CAL</code></a> - Motor Resistance Calibration Validation</li>
 <li><a href="Testing/Hardware/Motor-Calibration/Inductance.html"><code>OV-TEST-HW-MOTOR-IND-CAL</code></a> - Motor Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
+</ul>
+</div>
+
+<div class="card">
+<h3><a href="Tools/index.html">Tools</a></h3>
+<p>Support utilities and widgets for working with OpenVVVF.</p>
+<ul>
+<li><a href="Tools/Telemetry-Plotting/index.html"><code>OV-TOOLS-RTEPLOT</code></a> - Telemetry Plotting</li>
 </ul>
 </div>
 

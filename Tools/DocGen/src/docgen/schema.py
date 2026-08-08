@@ -53,6 +53,7 @@ ALLOWED_DOCTYPES = {
     "Software Manual",
     "Software Note",
     "Software Plan",
+    "Tool Manual",
 }
 
 # Map a doc_id prefix to a canonical top-level directory. Used for warnings only.
@@ -67,6 +68,7 @@ PREFIX_TO_DIR = {
     "OV-COMP-": "Safety-and-Compliance/Compliance",
     "OV-SW-": "Software",
     "OV-TEST-": "Testing",
+    "OV-TOOLS-": "Tools",
 }
 
 
@@ -99,6 +101,8 @@ def _prefix_for_path(rel_path: Path) -> Optional[str]:
         return "OV-SW-"
     if top == "Testing":
         return "OV-TEST-"
+    if top == "Tools":
+        return "OV-TOOLS-"
     if top == "Power-Stages":
         if len(parts) > 1:
             chassis = parts[1]

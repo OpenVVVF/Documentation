@@ -592,6 +592,8 @@ def build_landing_body(docs: List[Document]) -> str:
             section = "Software"
         elif "Testing" in parts:
             section = "Testing"
+        elif "Tools" in parts:
+            section = "Tools"
         sections.setdefault(section, []).append(doc)
 
     out = ['<h1>OpenVVVF Documentation</h1>']
