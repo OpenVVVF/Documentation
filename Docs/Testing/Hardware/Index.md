@@ -18,4 +18,4 @@ nav_order: 510
 
 Electrical, thermal, mechanical, and environmental test records.
 
-- [C2 Motor LCR Reference Calibration](Chassis2/Calibration/LCR/Index.md) - `OV-TEST-HW-C2-LCR-CAL` (draft)
+- [Motor LCR Reference Calibration](Chassis2/Calibration/LCR/Index.md) - `OV-TEST-HW-C2-LCR-CAL` (draft)

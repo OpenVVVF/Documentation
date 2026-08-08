@@ -1,30 +1,30 @@
 ---
 doctype: Test Report
 doc_id: OV-TEST-HW-C2-LCR-CAL
-title: C2 Motor LCR Reference Calibration
+title: Motor LCR Reference Calibration
 product_line: openvvvf
 applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-08"
 status: draft
-description: Reference LCR measurements of the C2 motor before running the inverter self-commissioning / calibration routine.
+description: Reference LCR measurements of the motor before running the inverter self-commissioning / calibration routine.
 nav_order: 511
 normative_refs:
   - OV-TEST-HW-INDEX
 ---
 
-# C2 Motor LCR Reference Calibration
+# Motor LCR Reference Calibration
 
-These are reference measurements of the C2 motor taken with a BK Precision 894 LCR meter before running the inverter's self-commissioning / calibration routine. The same motor parameters will be estimated by the calibration routine and compared against these instrument readings.
+These are reference measurements of the motor taken with a BK Precision 894 LCR meter before running the inverter's self-commissioning / calibration routine. The same motor parameters will be estimated by the calibration routine and compared against these instrument readings.
 
 ## Test setup
 
 The motor is mounted on the Sierra CP Engineering test fixture with phase leads accessible for direct LCR measurement.
 
-![C2 motor mounted on the Sierra CP Engineering test fixture](IMG_20260807_203502.jpg)
+![Motor mounted on the Sierra CP Engineering test fixture](IMG_20260807_203502.jpg)
 
-![Side view of the C2 motor and fixture](IMG_20260807_203510.jpg)
+![Side view of the motor and fixture](IMG_20260807_203510.jpg)
 
 ## Instrument
 

@@ -22,7 +22,7 @@ This section contains formal test records and validation evidence. Each document
 
 | Test ID | Name | Domain | Status | Trace | Report |
 |---------|------|--------|--------|-------|--------|
-| OV-TEST-HW-C2-LCR-CAL | C2 Motor LCR Reference Calibration | Hardware | draft | motor self-commissioning / calibration routine | [Report](Hardware/Chassis2/Calibration/LCR/Index.md) |
+| OV-TEST-HW-C2-LCR-CAL | Motor LCR Reference Calibration | Hardware | draft | motor self-commissioning / calibration routine | [Report](Hardware/Chassis2/Calibration/LCR/Index.md) |
 
 Planned next entries:
 
