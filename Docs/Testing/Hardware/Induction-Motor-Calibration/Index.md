@@ -21,4 +21,4 @@ This section validates the inverter's motor self-commissioning routines on a TEC
 
 - [Induction Motor Testbed](Testbed.html) - hardware setup and reference information
 - [Induction Motor Resistance Calibration Validation](Resistance.html) - completed, compared against LCR reference
-- [Induction Motor Inductance Calibration Validation](Inductance.html) - LCR reference captured, inverter cal pending
+- [Inductance Calibration Validation](Inductance.html) - LCR reference captured, inverter cal pending

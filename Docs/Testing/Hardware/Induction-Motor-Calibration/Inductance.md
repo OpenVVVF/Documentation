@@ -1,9 +1,7 @@
-> **TODO** - Run the inverter inductance calibration routine on this motor and compare it against the LCR reference below.
-
 ---
 doctype: Test Report
 doc_id: OV-TEST-HW-INDUCTION-IND-CAL
-title: Induction Motor Inductance Calibration Validation
+title: Inductance Calibration Validation
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
@@ -13,14 +11,17 @@ date: "2026-08-08"
 status: draft
 description: Validation of the inverter motor-inductance calibration routine on a TECO MAX-IE3 induction motor.
 nav_order: 522
+placeholder: true
 normative_refs:
   - OV-TEST-HW-INDUCTION-CAL-INDEX
   - OV-TEST-HW-INDEX
 ---
 
-# Induction Motor Inductance Calibration Validation
+# Inductance Calibration Validation
 
-This report validates the inverter's motor-inductance calibration routine on a TECO MAX-IE3 7.5 kW induction motor.
+> **Placeholder** — the inverter inductance calibration routine has not yet been run on this motor. This page captures the LCR reference measurement and will be updated with the inverter estimate once the test is run.
+
+This report will validate the inverter's `cal Motor.Inductance` routine on a TECO MAX-IE3 7.5 kW induction motor.
 
 ## Instrument
 
@@ -31,7 +32,7 @@ This report validates the inverter's motor-inductance calibration routine on a T
 - **Bias:** 0.00 mV
 - **Range:** AUTO
 
-## Measurements
+## Reference measurement
 
 | Parameter | Value | Instrument settings |
 |-----------|-------|---------------------|
@@ -43,6 +44,11 @@ This report validates the inverter's motor-inductance calibration routine on a T
 ## Inverter-calibrated inductance
 
 The inverter calibration routine has not yet been run on this motor. Once it is run, the estimate will be compared against the 17.8565 mH reference above.
+
+## Artifacts
+
+- [Telemetry log (JSONL)](induction-cal.jsonl) — [open in Telemetry Viewer](../../../Tools/Telemetry-Viewer/telemetry-viewer.html?file=../../Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left)
+- [Static inductance reference photo (JPG)](Motor-LCR-Inductance.jpg)
 
 ## Notes
 
