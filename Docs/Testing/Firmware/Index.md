@@ -11,6 +11,7 @@ date: "2026-08-07"
 status: draft
 description: Firmware test reports and validation evidence.
 nav_order: 520
+menu_only: true
 ---
 
 # Firmware Tests

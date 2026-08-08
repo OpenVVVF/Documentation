@@ -204,6 +204,11 @@ def _is_placeholder_doc(doc: Optional[Document]) -> bool:
     return bool(_PLACEHOLDER_HINTS.search(body))
 
 
+def _is_menu_only(doc: Optional[Document]) -> bool:
+    """Return True if an index document should act as a nav group, not a page."""
+    return doc is not None and bool(doc.frontmatter.get("menu_only"))
+
+
 def _nav_tree(
     docs: List[Document],
     current_doc_id: Optional[str],
@@ -284,13 +289,17 @@ def _nav_tree(
                 f'aria-label="Toggle {_display_name(rel_dir.name)}"></button>'
             )
 
-        if index_doc is not None:
+        if index_doc is not None and not _is_menu_only(index_doc):
             href = index_doc.url_path if hasattr(index_doc, "url_path") else "#"
             active = index_doc.doc_id == current_doc_id
             cls = _link_classes(index_doc, active)
             title = index_doc.title or _display_name(rel_dir.name)
             wip = _wip_marker(index_doc)
             items.append(f'{indent}<a href="{root}{href}"{cls}>{title}{wip}</a>')
+        elif index_doc is not None:
+            title = index_doc.title or _display_name(rel_dir.name)
+            wip = _wip_marker(index_doc)
+            items.append(f'{indent}<span class="group-label">{title}{wip}</span>')
         else:
             items.append(f'{indent}<span class="group-label">{_display_name(rel_dir.name)}</span>')
 
@@ -356,7 +365,10 @@ def breadcrumbs_html(doc: Document, root: str, docs_dir: Path, docs: List[Docume
         current = current / part
         index_doc = index_by_dir.get(current)
         label = index_doc.title if index_doc else _display_name(part)
-        crumbs.append(f'<a href="{root}{current.as_posix()}/index.html">{label}</a>')
+        if index_doc is not None and _is_menu_only(index_doc):
+            crumbs.append(label)
+        else:
+            crumbs.append(f'<a href="{root}{current.as_posix()}/index.html">{label}</a>')
     title = doc.title or _display_name(doc.path.stem)
     crumbs.append(title)
     return " / ".join(crumbs)
@@ -463,8 +475,9 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
         copy_assets(doc, docs_dir, output_dir)
 
     # Render each document (skip the root index; it becomes the landing page).
+    # Skip menu-only index documents; they act as navigation groups, not pages.
     for doc in docs:
-        if doc.doc_id == "OV-DOCS-INDEX":
+        if doc.doc_id == "OV-DOCS-INDEX" or _is_menu_only(doc):
             continue
         body = md_to_html(doc.body)
         fm = frontmatter_table(doc)

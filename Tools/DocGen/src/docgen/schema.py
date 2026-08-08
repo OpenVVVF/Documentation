@@ -30,6 +30,7 @@ OPTIONAL_FIELDS = {
     "core_ref",
     "profile_for",
     "standard",
+    "menu_only",
 }
 
 ALLOWED_STATUSES = {"draft", "review", "released", "obsolete", "elaborated"}

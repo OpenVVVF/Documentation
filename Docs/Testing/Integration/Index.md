@@ -13,6 +13,7 @@ date: "2026-08-07"
 status: draft
 description: System-level integration test reports and validation evidence.
 nav_order: 530
+menu_only: true
 ---
 
 # Integration Tests
