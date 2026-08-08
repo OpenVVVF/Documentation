@@ -73,8 +73,6 @@ Reported line-to-line resistances:
 
 ![Telemetry from the resistance calibration run](induction-resistance.png)
 
-[Interactive version of the plot](induction-resistance.html)
-
 ## Comparison and conclusion
 
 | Quantity | LCR reference | Inverter estimate | Difference |
@@ -91,7 +89,6 @@ For the intended application (motor resistance in the hundreds of milliohms, run
 - [Command log](induction-cal-cmds.txt)
 - [Telemetry log (JSONL)](induction-cal.jsonl)
 - [Static resistance plot (PNG)](induction-resistance.png)
-- [Interactive resistance plot (HTML)](induction-resistance.html)
 
 ## Notes
 
