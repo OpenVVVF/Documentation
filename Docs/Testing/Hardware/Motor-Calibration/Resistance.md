@@ -20,6 +20,8 @@ normative_refs:
 
 This report validates the inverter's `cal Motor.Resistance` routine by comparing its estimate against a direct bench LCR measurement of the test motor. The test was run on the C2 chassis test fixture, but the routine itself is shared across all OpenVVVF chassis; motor-specific validation is only needed when a different motor or harness is used.
 
+Inductance reference measurements are kept in the [Motor Inductance Calibration Validation](Inductance.html) report.
+
 ## Test setup
 
 The motor is mounted on the Sierra CP Engineering test fixture with phase leads accessible for direct LCR measurement.
@@ -31,9 +33,7 @@ The motor is mounted on the Sierra CP Engineering test fixture with phase leads 
 ## Instrument
 
 - **Instrument:** BK Precision 894 20 Hz - 500 kHz LCR Meter
-- **Test frequency:** 1.000 kHz (for Ls-Rs measurements)
-- **Test level:** 2.000 V
-- **Bias:** 0.00 mV
+- **Function:** DCR
 - **Range:** AUTO
 
 ## Measurements
@@ -45,19 +45,6 @@ The motor is mounted on the Sierra CP Engineering test fixture with phase leads 
 | Rd | 15.293 mΩ | FUNC: DCR, RANGE: AUTO, SPEED: MED |
 
 ![LCR meter DCR reading: Rd = 15.293 mΩ](IMG_20260807_210344.jpg)
-
-### Phase inductance and series resistance (Ls-Rs)
-
-Two Ls-Rs readings were captured at 1.000 kHz.
-
-| Reading | Ls | Rs | Instrument settings |
-|---------|----|----|---------------------|
-| 1 | 71.2980 µH | 0.02817 Ω | FUNC: Ls-Rs, FREQ: 1.000 kHz, LEVEL: 2.000 V, RANGE: AUTO, SPEED: FAST |
-| 2 | 34.6583 µH | 0.00974 Ω | FUNC: Ls-Rs, FREQ: 1.000 kHz, LEVEL: 2.000 V, RANGE: AUTO, SPEED: FAST |
-
-![LCR meter Ls-Rs reading 1: Ls = 71.2980 µH, Rs = 0.02817 Ω](IMG_20260807_212055.jpg)
-
-![LCR meter Ls-Rs reading 2: Ls = 34.6583 µH, Rs = 0.00974 Ω](IMG_20260807_212115.jpg)
 
 ## Inverter-calibrated resistance
 
@@ -100,5 +87,4 @@ From the plotted telemetry:
 ## Notes
 
 - The DCR reading is the DC resistance measured directly by the meter.
-- The Ls-Rs readings are series inductance and resistance at 1 kHz.
-- Which phase pair or winding configuration each Ls-Rs reading corresponds to should be recorded when the calibration routine results are compared against these reference values.
+- The line-to-line resistance is twice the per-phase value reported by the calibration routine.

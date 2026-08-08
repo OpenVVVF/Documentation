@@ -22,8 +22,8 @@ This section contains formal test records and validation evidence. Each document
 
 | Test ID | Name | Domain | Status | Trace | Report |
 |---------|------|--------|--------|-------|--------|
-| OV-TEST-HW-MOTOR-RES-CAL | Motor Resistance Calibration Validation | Hardware | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Calibration/Resistance.md) |
-| OV-TEST-HW-MOTOR-IND-CAL | Motor Inductance Calibration Validation | Hardware | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Calibration/Inductance.md) |
+| OV-TEST-HW-MOTOR-RES-CAL | Motor Resistance Calibration Validation | Hardware | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Calibration/Resistance.html) |
+| OV-TEST-HW-MOTOR-IND-CAL | Motor Inductance Calibration Validation | Hardware | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Calibration/Inductance.html) |
 
 These reports validate the calibration routines on the C2 test motor. The same routines are used on all OpenVVVF chassis; add a new report only when a different motor or harness is introduced.
 

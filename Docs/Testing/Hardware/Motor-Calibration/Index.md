@@ -19,5 +19,5 @@ normative_refs:
 
 This section validates the inverter's motor self-commissioning routines by comparing their estimates against direct bench measurements of the test motor.
 
-- [Motor Resistance Calibration Validation](Resistance.md) - completed for the C2 test motor
-- [Motor Inductance Calibration Validation](Inductance.md) - pending inductance measurements
+- [Motor Resistance Calibration Validation](Resistance.html) - completed for the C2 test motor
+- [Motor Inductance Calibration Validation](Inductance.html) - pending inductance measurements
