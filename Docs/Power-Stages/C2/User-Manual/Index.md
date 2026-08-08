@@ -39,7 +39,7 @@ normative_refs:
 >
 > - **HARA:** `OV-SAF-HARA-CORE` — Hazard Analysis and Risk Assessment per ISO 26262. Platform core plus the `OV-SAF-HARA-PROF-MOTO` motorcycle application profile.
 > - **TARA:** `OV-SAF-TARA-INDEX` — Threat Analysis and Risk Assessment per ISO/SAE 21434. 9 cybersecurity tests, 7 CSRs, open-source trust model.
-> - **SWAD (v1.5):** Software Architecture Document. 4-layer architecture, FOC + multi-modulation, 6-state state machine, CAN protocol reference. (Will be replaced by Control Assembly / Software docs.)
+> - **Software Manual:** `OV-CA-SWM-INDEX` — Control Assembly Software Manual. Base firmware image, flashing, RTE host workflow, and software architecture. (Currently a placeholder; to be expanded from SWAD v1.5 content.)
 >
 > The **RTE (Real Time Examiner)** open-source tool connects via CAN bus for live monitoring, parameter configuration, and firmware updates.
 
@@ -118,23 +118,23 @@ Several internal connectors are available for debugging and firmware flashing. U
 
 The renders below show the major PCB assemblies of the inverter.
 
-![Control Board render](../Hardware/Chassis2/Boards/ControlBoard.png)
+![Control Board render](ControlBoard.png)
 
 ***Control Board** — Dual-MCU control: STM32H723ZG main processor (FOC, sensor acquisition, CAN) and STM32G474RCTx safety coprocessor (independent monitoring, 1oo2 gate drive power kill).*
 
-![IO Board render](../Hardware/Chassis2/Boards/IOBoard.png)
+![IO Board render](IOBoard.png)
 
 ***IO Board** (the "Main Board" of Section 1.2) — Vehicle interface: Ampseal 35-pin connector, railway-grade 43-160 V to +12 V DC-DC converter, precharge and auxiliary relay drives, J2 expansion connector (Section 18).*
 
-![Gate Driver Board render](../Hardware/Chassis2/Boards/GateDriver.png)
+![Gate Driver Board render](GateDriver.png)
 
 ***Gate Driver Board** — Six isolated NCV57100 gate drive channels with +15 V / −9 V Murata supplies, DESAT protection, and active Miller clamp.*
 
-![DC Bus Capacitor Board render](../Hardware/Chassis2/Boards/DCBusCapacitorBoard.png)
+![DC Bus Capacitor Board render](DCBusCapacitorBoard.png)
 
 ***DC Bus Capacitor Board** — DC link capacitor bank: 60× 330 µF / 200 V aluminium electrolytic capacitors (19.8 mF total). 450 V upgrade: 60× Nichicon UCS2W680MHD 68 µF / 450 V (4.08 mF total) with 5 mm shorter standoffs. No onboard bleeder — see Section 2.1.*
 
-![DC Bus Filter Board render](../Hardware/Chassis2/Boards/DCBusFilter.png)
+![DC Bus Filter Board render](DCBusFilter.png)
 
 ***DC Bus Filter Board** — Snubber capacitor board mounted at the IGBT module phase terminals (U/V/W).*
 
@@ -213,27 +213,27 @@ The traction inverter does not include an integrated heatsink or cooling system.
 - Provide adequate heat removal (heatsink, liquid cooling plate, or chassis thermal path) sized for the continuous power output of the application.
 - Ensure the mounting surface is flat and clean to minimize thermal contact resistance.
 
-The IGBT junction temperature is monitored internally via three NTC thermistors (one per IGBT module). The firmware implements progressive thermal derating:
+IGBT junction temperature is monitored via two NTC sensors on the IGBT modules. The firmware uses 1-out-of-2 (1oo2) voting for the IGBT temperature: the higher of the two agreeing readings is used, and a stuck-high sensor causes conservative derating rather than allowing thermal overload. A third NTC monitors the DC link capacitor bank temperature. Progressive derating is applied before the critical threshold is reached:
 
 **Thermal Derating Thresholds**
 
 | Temperature | Action |
 |-------------|--------|
 | < 80°C | Full torque available |
-| 80°C | Linear derate: 100% to 50% torque (80-90°C range) |
+| 80°C | Linear derate: 100% to 50% torque (80–90°C range) |
 | 90°C | Torque limited to 25% |
 | 95°C | Warning logged (non-critical) |
-| 100°C | Critical fault: ramp torque to zero, safe state |
+| 100°C | Critical fault: immediate safe state (six-switch-open) |
 
 > **Thermal Design Margin**
 >
-> The 100°C hard cap provides a 75°C safety margin to the IGBT rated maximum junction temperature of 175°C. The real-time loss estimator predicts junction temperature from a thermal model and can warn the operator of impending thermal limits before the hard cap is reached. All thermal parameters are configurable via the RTE tool.
+> The 100°C hard cap provides a 75°C safety margin to the IGBT rated maximum junction temperature of 175°C. The real-time loss estimator predicts junction temperature from a thermal model and can warn the operator of impending thermal limits before the hard cap is reached. At the critical threshold the response is immediate safe-state entry (six-switch-open), consistent with `OV-SAF-HARA-CORE` §2.3. All thermal parameters are configurable via the RTE tool.
 
 ### DC Link Capacitor Cooling
 
 The DC link capacitor bank is thermally coupled to a 3.18 mm (1/8 in) aluminium heat-spreader plate, which mounts to the heatsink via six 55 mm aluminium standoffs (13 mm OD). The thermal path is sized for a 40 W ripple-current heat load at rated operation.
 
-With thermal paste at the interfaces, the plate temperature rise is approximately 40°C above the heatsink base — about 80°C plate temperature at a 40°C heatsink base. Use **aluminium standoffs only** — steel standoffs are thermally unacceptable. The full analysis is documented in Docs/DC_LINK_THERMAL_ANALYSIS.md.
+With thermal paste at the interfaces, the plate temperature rise is approximately 40°C above the heatsink base — about 80°C plate temperature at a 40°C heatsink base. Use **aluminium standoffs only** — steel standoffs are thermally unacceptable. The full analysis is documented in `OV-C2-DD-DCLINK-THERMAL`.
 
 # 6. Specifications
 
@@ -456,7 +456,7 @@ Each IGBT is driven by an isolated gate driver channel with the following featur
 
 Phase currents (I_U, I_V, I_W) and DC link current (I_DC) are measured using Tamura LA37S Hall-effect current transducers with 1.042 mV/A sensitivity and +/-1200 A range. The outputs are conditioned to 0-3.3V for the STM32H723's 16-bit ADC.
 
-Each phase current is sampled on the primary ADC at 16-bit resolution, with redundant 12-bit channels on secondary ADCs for fault detection. The ADC oversamples at an integer multiple (n x) of the PWM switching frequency, up to 48 kSPS, with sinc3 decimation for noise reduction. See SWAD (v1.5) Section 4.2 for full ADC architecture details.
+Each phase current is sampled on the primary ADC at 16-bit resolution, with redundant 12-bit channels on secondary ADCs for fault detection. The ADC oversamples at an integer multiple (n x) of the PWM switching frequency, up to 48 kSPS, with sinc3 decimation for noise reduction. See `OV-SW-MAINMCU-INDEX` for ADC architecture details (to be expanded from SWAD v1.5).
 
 ### Voltage Sensing
 
@@ -466,7 +466,7 @@ Each channel uses a 1001:1 high-voltage divider (4× 250 kΩ + 1 kΩ), giving a 
 
 ### Temperature Sensing
 
-Three NTC thermistors are mounted to the IGBT module baseplate — one per module — for junction temperature estimation. The firmware uses 2-out-of-3 (2oo3) voting: the outlier sensor is excluded and the higher of the two agreeing readings is used, with progressive derating starting at 80°C and a hard cap at 100°C. Motor temperature sensors (if fitted) are connected via the MOT_T1/MOT_T2 pins on the Ampseal connector (Section 7.4; pin numbers are placeholder pending harness finalization).
+Two NTC sensors monitor the IGBT module temperatures for junction-temperature estimation. The firmware uses 1-out-of-2 (1oo2) voting: the higher of the two agreeing readings is used, and a stuck-high sensor causes conservative derating rather than allowing thermal overload. A third NTC monitors the DC link capacitor bank temperature. Progressive derating starts at 80°C and the critical threshold triggers immediate safe-state entry (six-switch-open), consistent with `OV-SAF-HARA-CORE` §2.3 and FSR-08. Motor temperature sensors (if fitted) are connected via the MOT_T1/MOT_T2 pins on the Ampseal connector (Section 7.4; pin numbers are placeholder pending harness finalization).
 
 # 11. External Precharge
 
@@ -509,7 +509,7 @@ The inverter includes two independent CAN 2.0B buses, each with full galvanic is
 
 > **CAN Protocol is User-Configurable**
 >
-> The CAN frame definitions in this manual are a reference implementation only. All CAN IDs, scaling factors, periods, and frame layouts are stored in FRAM and can be modified via the RTE (Real Time Examiner) configuration tool. The VCU does not enforce a rigid protocol — the user defines their own communication scheme for vehicle-specific integration. See the SWAD (v1.5) Section 10 for the reference frame definitions.
+> The CAN frame definitions in this manual are a reference implementation only. All CAN IDs, scaling factors, periods, and frame layouts are stored in FRAM and can be modified via the RTE (Real Time Examiner) configuration tool. The VCU does not enforce a rigid protocol — the user defines their own communication scheme for vehicle-specific integration. See `OV-CA-SWM-INDEX` for the reference frame definitions (to be expanded from SWAD v1.5).
 
 > **CAUTION — Encoder and BMS are Out of Scope**
 >
@@ -549,14 +549,14 @@ The inverter communicates with the Battery Management System (BMS) via CAN Bus 1
 
 ### Heartbeat Supervision
 
-The inverter monitors heartbeats from the BMS and IO board. If a heartbeat is not received within the timeout period, the inverter enters a fault state and ramps torque to zero:
+The inverter monitors heartbeats from the BMS and IO board. If a heartbeat is not received within the timeout period, the inverter enters a fault state and transitions immediately to safe state (six-switch-open), consistent with `OV-SAF-HARA-CORE` §2.3:
 
 **Heartbeat Timeout Configuration (Defaults)**
 
 | Node | Frame | Period | Timeout | Action |
 |------|-------|--------|---------|--------|
-| IO Board | IO_Heartbeat | 100 ms | 1000 ms | FAULT_CAN_TIMEOUT, ramp to zero |
-| BMS | BMS_Status | 100 ms | 5000 ms | FAULT_CAN_TIMEOUT, ramp to zero |
+| IO Board | IO_Heartbeat | 100 ms | 1000 ms | FAULT_CAN_TIMEOUT, immediate SSO |
+| BMS | BMS_Status | 100 ms | 5000 ms | FAULT_CAN_TIMEOUT, immediate SSO |
 | Charger | Chgr_Status | 1000 ms | 5000 ms | Stop charging session |
 
 ### SYSTEM_ON Signal
@@ -601,7 +601,7 @@ The USB-B port is galvanically isolated from the traction high-voltage domain. I
 | No torque output | Throttle plausibility fault; position sensor not detected | Check throttle wiring at the connector. Verify sin/cos or Hall signal on USB-B debug log. |
 | BMS contactor won't close | HVIL loop open; SYSTEM_ON not asserted; BMS not closing contactor | Check HVIL continuity at the connector. Verify 5V source is present. Check BMS is configured to close contactor on SYSTEM_ON. |
 | CAN communication fault | Wrong bitrate; missing termination | Verify CAN bitrate matches BMS (default 500 kbps). Check termination jumpers. |
-| Thermal derating | Inadequate cooling; stuck-high temp sensor | Check heatsink mounting and TIM. Verify all three NTC readings via RTE. |
+| Thermal derating | Inadequate cooling; stuck-high temp sensor | Check heatsink mounting and TIM. Verify both IGBT NTC readings and the DC link capacitor NTC reading via RTE. |
 | Overcurrent fault | Shorted motor phase; incorrect current sensor zero | Disconnect motor and check phase-to-phase resistance. Run zero-cal via RTE. |
 | PWM not outputting | Keyswitch off; brake applied; throttle deadband | Check keyswitch state, brake switch, throttle above deadband. Check state machine log. |
 
