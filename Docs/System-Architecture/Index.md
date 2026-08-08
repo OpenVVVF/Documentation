@@ -12,7 +12,7 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 description: High-level map of the OpenVVVF ecosystem - control module, power stages, software targets, and application profiles.
-nav_order: 10
+nav_order: 8
 normative_refs:
   - OV-DOCS-INDEX
 ---
