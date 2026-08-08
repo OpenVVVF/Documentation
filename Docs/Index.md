@@ -74,7 +74,7 @@ This repository is the single source of truth for OpenVVVF documentation.
 <h3><a href="Testing/index.html">Testing and Validation</a></h3>
 <p>Formal test reports and validation evidence.</p>
 <ul>
-<li><a href="Testing/Hardware/Chassis2/Calibration/LCR/index.html"><code>OV-TEST-HW-C2-LCR-CAL</code></a> - Motor LCR Reference Calibration</li>
+<li><a href="Testing/Hardware/Motor-Resistance-Calibration/index.html"><code>OV-TEST-HW-MOTOR-RES-CAL</code></a> - Motor Resistance Calibration Validation</li>
 </ul>
 </div>
 

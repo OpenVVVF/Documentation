@@ -22,11 +22,9 @@ This section contains formal test records and validation evidence. Each document
 
 | Test ID | Name | Domain | Status | Trace | Report |
 |---------|------|--------|--------|-------|--------|
-| OV-TEST-HW-C2-LCR-CAL | Motor LCR Reference Calibration | Hardware | draft | motor self-commissioning / calibration routine | [Report](Hardware/Chassis2/Calibration/LCR/Index.md) |
+| OV-TEST-HW-MOTOR-RES-CAL | Motor Resistance Calibration Validation | Hardware | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Resistance-Calibration/Index.md) |
 
-Planned next entries:
-
-- Motor self-commissioning / calibration results compared against the LCR reference readings.
+This report validates the calibration routine on the C2 test motor. The same routine is used on all OpenVVVF chassis; add a new report only when a different motor or harness is introduced.
 
 ## Domains
 

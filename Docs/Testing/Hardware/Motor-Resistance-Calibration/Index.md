@@ -1,22 +1,23 @@
 ---
 doctype: Test Report
-doc_id: OV-TEST-HW-C2-LCR-CAL
-title: Motor LCR Reference Calibration
+doc_id: OV-TEST-HW-MOTOR-RES-CAL
+title: Motor Resistance Calibration Validation
 product_line: openvvvf
 applies_to:
+  - openvvvf-control-module
   - chassis-size-2
 version: "0.1"
 date: "2026-08-08"
 status: draft
-description: Reference LCR measurements of the motor before running the inverter self-commissioning / calibration routine.
+description: Validation of the inverter motor-resistance calibration routine against a bench LCR reference.
 nav_order: 511
 normative_refs:
   - OV-TEST-HW-INDEX
 ---
 
-# Motor LCR Reference Calibration
+# Motor Resistance Calibration Validation
 
-These are reference measurements of the motor taken with a BK Precision 894 LCR meter before running the inverter's self-commissioning / calibration routine. The same motor parameters will be estimated by the calibration routine and compared against these instrument readings.
+This report validates the inverter's `cal Motor.Resistance` routine by comparing its estimate against a direct bench LCR measurement of the test motor. The test was run on the C2 chassis test fixture, but the routine itself is shared across all OpenVVVF chassis; motor-specific validation is only needed when a different motor or harness is used.
 
 ## Test setup
 
