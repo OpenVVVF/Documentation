@@ -18,4 +18,4 @@ nav_order: 510
 
 Electrical, thermal, mechanical, and environmental test records.
 
-- [IGBT Mounting Torque Validation](IGBT-Mounting-Torque-Validation/Index.md) - `OV-TEST-HW-IGBT-TORQUE` (completed)
+> No hardware test reports have been posted yet. The first report will cover motor self-commissioning / calibration.

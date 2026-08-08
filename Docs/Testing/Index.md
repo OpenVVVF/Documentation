@@ -20,9 +20,11 @@ This section contains formal test records and validation evidence. Each document
 
 ## Test evidence dashboard
 
-| Test ID | Name | Domain | Status | Trace | Report |
-|---------|------|--------|--------|-------|--------|
-| OV-TEST-HW-IGBT-TORQUE | IGBT Mounting Torque Validation | Hardware | completed | OV-C2-AG-03-01, HARA thermal-path FSRs | [Report](Hardware/IGBT-Mounting-Torque-Validation/Index.md) |
+No formal test evidence has been posted yet. Reports will be added here as they are performed and reviewed.
+
+Planned first entries:
+
+- Motor self-commissioning / calibration (photos and meter readings).
 
 ## Domains
 

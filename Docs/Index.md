@@ -72,12 +72,7 @@ This repository is the single source of truth for OpenVVVF documentation.
 
 <div class="card">
 <h3><a href="Testing/index.html">Testing and Validation</a></h3>
-<p>Formal test reports and validation evidence.</p>
-<ul>
-<li><a href="Testing/Hardware/index.html"><code>OV-TEST-HW-INDEX</code></a> - Hardware Tests</li>
-<li><a href="Testing/Firmware/index.html"><code>OV-TEST-FW-INDEX</code></a> - Firmware Tests</li>
-<li><a href="Testing/Integration/index.html"><code>OV-TEST-INT-INDEX</code></a> - Integration Tests</li>
-</ul>
+<p>Formal test reports and validation evidence. No evidence posted yet - motor self-commissioning / calibration reports will be added here.</p>
 </div>
 
 </div>
