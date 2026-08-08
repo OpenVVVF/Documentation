@@ -42,3 +42,6 @@ site/
 
 # DocGen HTML templates are source, not build output
 !Tools/DocGen/src/docgen/templates/*.html
+
+# Embedded web tools under Docs/Tools are source, not build output
+!Docs/Tools/**/*.html

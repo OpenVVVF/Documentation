@@ -883,7 +883,8 @@
       }
 
       function renderGraph() {
-        if (!Object.keys(state.signals).length && !state.commands.length) {
+        const hasData = Object.keys(state.signals).length > 0 || state.commands.length > 0;
+        if (!hasData) {
           els.graph.innerHTML = `
             <div class="empty-state">
               <div>
@@ -895,6 +896,17 @@
         }
 
         const traces = [];
+
+        if (!state.selected.size) {
+          els.graph.innerHTML = `
+            <div class="empty-state">
+              <div>
+                <strong>No signals selected</strong><br>
+                Click signals in the sidebar to plot them.
+              </div>
+            </div>`;
+          return;
+        }
         const hasRight = Array.from(state.selected.values()).some(s => s.axis === 'right');
         let colorIdx = 0;
 
@@ -959,7 +971,7 @@
 
         const layout = {
           title: {
-            text: `<b>${state.fileName || 'Telemetry'}</b><br><sup>${state.meta ? state.meta.started_at : ''}</sup>`,
+            text: `<b>${escapeHtml(state.fileName || 'Telemetry')}</b><br><sup>${escapeHtml(state.meta ? state.meta.started_at : '')}</sup>`,
             x: 0.0,
             xanchor: 'left',
             font: { size: 18, color: '#1a1a1a' },
@@ -970,13 +982,13 @@
           margin: { l: 70, r: hasRight ? 70 : 50, t: 80, b: 60 },
           xaxis: { title: 'time (s)', showgrid: true },
           yaxis: { title: '', side: 'left', showgrid: true },
-          yaxis2: hasRight ? {
-            title: '', overlaying: 'y', side: 'right', showgrid: false,
-          } : undefined,
           shapes,
           annotations,
           legend: { orientation: 'h', yanchor: 'bottom', y: -0.22, xanchor: 'left', x: 0 },
         };
+        if (hasRight) {
+          layout.yaxis2 = { title: '', overlaying: 'y', side: 'right', showgrid: false, anchor: 'x' };
+        }
 
         const config = {
           responsive: true,
