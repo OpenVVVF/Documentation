@@ -73,6 +73,8 @@ Reported line-to-line resistances:
 
 ![Telemetry from the resistance calibration run](induction-resistance.png)
 
+> **Open telemetry log:** [View this calibration in the Telemetry Viewer](../../../Tools/Telemetry-Viewer/telemetry-viewer.html?file=../../Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left)
+
 ## Comparison and conclusion
 
 | Quantity | LCR reference | Inverter estimate | Difference |

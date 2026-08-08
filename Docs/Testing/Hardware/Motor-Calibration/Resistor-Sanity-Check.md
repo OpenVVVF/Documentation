@@ -52,8 +52,10 @@ This report checks that the `cal Motor.Resistance` routine returns a sensible va
 | Fit offset (V_off) | 23.6 V |
 | UW measurement | Failed (non-positive resistance) |
 
+> **Open telemetry log:** [View this calibration in the Telemetry Viewer](../../../Tools/Telemetry-Viewer/telemetry-viewer.html?file=../../Testing/Hardware/Motor-Calibration/PowerResistor-Telemetry.jsonl#s=cg_iu_a:left)
+
 - Command log: [PowerResistor-Command-Log.txt](PowerResistor-Command-Log.txt)
-- Raw telemetry: [PowerResistor-Telemetry.jsonl](PowerResistor-Telemetry.jsonl) - [open in Telemetry Viewer](../../../Tools/Telemetry-Viewer/telemetry-viewer.html?file=../../Testing/Hardware/Motor-Calibration/PowerResistor-Telemetry.jsonl#s=cg_iu_a:left)
+- Raw telemetry: [PowerResistor-Telemetry.jsonl](PowerResistor-Telemetry.jsonl)
 
 ## Analysis
 

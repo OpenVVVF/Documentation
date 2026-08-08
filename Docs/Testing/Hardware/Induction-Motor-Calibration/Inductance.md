@@ -20,6 +20,8 @@ normative_refs:
 # Inductance Calibration Validation
 
 > **Placeholder** — the inverter inductance calibration routine has not yet been run on this motor. This page captures the LCR reference measurement and will be updated with the inverter estimate once the test is run.
+>
+> **Raw telemetry:** [Open the test-session log in the Telemetry Viewer](../../../Tools/Telemetry-Viewer/telemetry-viewer.html?file=../../Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left)
 
 This report will validate the inverter's `cal Motor.Inductance` routine on a TECO MAX-IE3 7.5 kW induction motor.
 

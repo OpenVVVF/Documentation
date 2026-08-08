@@ -70,6 +70,8 @@ The plot below shows phase currents, DC bus voltage, and the per-phase resistanc
 
 ![Resistance calibration: 50 V vs 120 V bus](ResistanceCalResult_50v_vs_120v.png)
 
+> **Open telemetry log:** [View this calibration in the Telemetry Viewer](../../../Tools/Telemetry-Viewer/telemetry-viewer.html?file=../../Testing/Hardware/Motor-Calibration/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left)
+
 From the plotted telemetry:
 
 - **50 V run:** R_phase_avg = **7.74 mΩ**
