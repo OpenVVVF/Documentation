@@ -3,7 +3,11 @@
   .sidebar,
   .footer,
   .print-button,
-  .breadcrumbs {
+  .breadcrumbs,
+  .mobile-menu-toggle,
+  .mobile-nav-backdrop,
+  .sidebar-close,
+  .site-nav-mobile {
     display: none !important;
   }
 
