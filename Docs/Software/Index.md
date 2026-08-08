@@ -12,7 +12,7 @@ version: "0.1"
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft
-description: Firmware and host-software documentation by target — Main MCU, Safety Coprocessor, RTE Host, and Codegen.
+description: Firmware and host-software documentation by target - Main MCU, Safety Coprocessor, RTE Host, and Codegen.
 nav_order: 400
 ---
 

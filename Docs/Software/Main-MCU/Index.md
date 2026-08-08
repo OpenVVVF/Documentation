@@ -8,7 +8,7 @@ applies_to:
 version: "0.1"
 date: "2026-08-08"
 status: draft
-description: STM32H723ZG main MCU firmware — FOC motor control, sensor acquisition, CAN, and safe-state management.
+description: STM32H723ZG main MCU firmware - FOC motor control, sensor acquisition, CAN, and safe-state management.
 nav_order: 410
 ---
 
@@ -16,7 +16,7 @@ nav_order: 410
 
 The main MCU (STM32H723ZG) runs FOC motor control, sensor acquisition, CAN communication, and safe-state management.
 
-- **Architecture** — Software architecture, layers, state machine, and module overview
-- **Bootloader** — Firmware update, signing, and recovery
-- **Encoder Offset Calibration** — Encoder offset calibration procedure
-- **MPC Multi Rate Sampling** — Multi-rate phase-current sampling plan
+- **Architecture** - Software architecture, layers, state machine, and module overview
+- **Bootloader** - Firmware update, signing, and recovery
+- **Encoder Offset Calibration** - Encoder offset calibration procedure
+- **MPC Multi Rate Sampling** - Multi-rate phase-current sampling plan

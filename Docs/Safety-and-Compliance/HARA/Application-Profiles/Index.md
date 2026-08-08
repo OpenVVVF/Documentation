@@ -17,4 +17,4 @@ nav_order: 212
 
 Application profiles assign vehicle-specific operational situations, Severity/Exposure/Controllability ratings, and ASIL targets to the platform hazard set defined in HARA Core.
 
-- **Motorcycle** — Example profile for electric 2-wheel motorcycles.
+- **Motorcycle** - Example profile for electric 2-wheel motorcycles.

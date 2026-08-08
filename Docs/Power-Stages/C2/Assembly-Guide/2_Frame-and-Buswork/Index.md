@@ -13,7 +13,7 @@ description: Frame and buswork assembly for the Chassis Size 2 power stage.
 nav_order: 20
 ---
 
-# Frame and Buswork
+# 2 Frame and Buswork
 
 Frame and buswork assembly steps.
 

@@ -26,6 +26,6 @@ This section contains formal test records and validation evidence. Each document
 
 ## Domains
 
-- **Hardware** — Electrical, thermal, mechanical, and environmental tests.
-- **Firmware** — Unit tests, integration tests, fault-injection tests, and safety-mechanism tests.
-- **Integration** — System-level tests combining control module and power stage.
+- **Hardware** - Electrical, thermal, mechanical, and environmental tests.
+- **Firmware** - Unit tests, integration tests, fault-injection tests, and safety-mechanism tests.
+- **Integration** - System-level tests combining control module and power stage.

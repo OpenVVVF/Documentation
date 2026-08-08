@@ -1,7 +1,7 @@
 ---
 doctype: Software Manual
 doc_id: OV-SW-MAINMCU-BOOT
-title: Main MCU — Bootloader
+title: Bootloader
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
@@ -10,16 +10,16 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 placeholder: true
-description: STM32H723ZG bootloader — firmware update via CAN/USB/UART, HMAC signing, anti-rollback, and safe-state preconditions.
+description: STM32H723ZG bootloader - firmware update via CAN/USB/UART, HMAC signing, anti-rollback, and safe-state preconditions.
 nav_order: 412
 normative_refs:
   - OV-SAF-TARA-INDEX
   - OV-CA-SWM-INDEX
 ---
 
-# Main MCU — Bootloader
+# Bootloader
 
-> **Placeholder** — This document will describe the main MCU bootloader and firmware-update mechanism. The old SWAD content will not be migrated directly.
+> **Placeholder** - This document will describe the main MCU bootloader and firmware-update mechanism. The old SWAD content will not be migrated directly.
 
 ## Planned sections
 

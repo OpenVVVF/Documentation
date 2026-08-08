@@ -18,6 +18,6 @@ nav_order: 200
 
 OpenVVVF power stages are physical chassis/inverter assemblies that pair with the control module.
 
-- **[C1 — Chassis Size 1](C1/index.html)** — In design. *(No docs yet.)*
-- **[C2 — Chassis Size 2](C2/index.html)** — Implemented, under test. Has an integration guide, assembly guide, and design documents.
-- **[C3 — Chassis Size 3](C3/index.html)** — In design. *(No docs yet.)*
+- **[C1 - Chassis Size 1](C1/index.html)** - In design. *(No docs yet.)*
+- **[C2 - Chassis Size 2](C2/index.html)** - Implemented, under test. Has an integration guide, assembly guide, and design documents.
+- **[C3 - Chassis Size 3](C3/index.html)** - In design. *(No docs yet.)*

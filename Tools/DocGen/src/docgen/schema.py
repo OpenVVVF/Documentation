@@ -45,7 +45,7 @@ ALLOWED_DOCTYPES = {
     "Hazard Analysis",
     "Hazard Analysis & Risk Assessment",
     "Application Profile",
-    "Application Profile — Hazard Analysis & Risk Assessment",
+    "Application Profile - Hazard Analysis & Risk Assessment",
     "Threat Analysis",
     "Threat Analysis & Risk Assessment",
     "Compliance Mapping",
@@ -169,7 +169,7 @@ def validate_docs(docs_dir: Path) -> ValidationResult:
         # Placeholder flag (explicit or heuristic)
         if fm.get("placeholder"):
             result.warnings.append(
-                f"{path}: marked as placeholder — content needs to be completed or reviewed"
+                f"{path}: marked as placeholder - content needs to be completed or reviewed"
             )
         elif doc.doc_id != "OV-DOCS-INDEX":
             body_text = doc.body.strip()

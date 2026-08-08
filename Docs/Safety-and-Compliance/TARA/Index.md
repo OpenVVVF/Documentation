@@ -22,7 +22,7 @@ normative_refs:
 
 # Scope and Philosophy
 
-This Threat Analysis and Risk Assessment (TARA) covers the cybersecurity aspects of an open-source aftermarket electric motorcycle traction inverter and vehicle control unit (VCU). It follows the methodology of **ISO/SAE 21434** (Road vehicles — Cybersecurity engineering) but adapts it for the realities of open-source hardware.
+This Threat Analysis and Risk Assessment (TARA) covers the cybersecurity aspects of an open-source aftermarket electric motorcycle traction inverter and vehicle control unit (VCU). It follows the methodology of **ISO/SAE 21434** (Road vehicles - Cybersecurity engineering) but adapts it for the realities of open-source hardware.
 
 ## The Trust-the-User Model
 
@@ -41,7 +41,7 @@ This project is **open source**. The end user has full access to source code, sc
 
 > **Design Principle: User Sovereignty Over Anti-User DRM**
 >
-> This project explicitly rejects all anti-user security mechanisms: OTP fuses, write-once flash regions, vendor-signed firmware with unreplaceable keys, encrypted bootloaders that prevent user modification, and any form of DRM that treats the hardware owner as an adversary. These mechanisms are incompatible with the open-source philosophy and provide no meaningful security benefit when the attacker already has physical access and the full source code. If a user wishes to add their own tamper protection (RDP Level 1/2, encrypted external flash, physical tamper switches) for their specific threat model, they are free to do so — the base design imposes no barriers and documents how. The security model is **trust the user, protect the bus**: the legitimate owner is never the threat; remote CAN bus attacks are.
+> This project explicitly rejects all anti-user security mechanisms: OTP fuses, write-once flash regions, vendor-signed firmware with unreplaceable keys, encrypted bootloaders that prevent user modification, and any form of DRM that treats the hardware owner as an adversary. These mechanisms are incompatible with the open-source philosophy and provide no meaningful security benefit when the attacker already has physical access and the full source code. If a user wishes to add their own tamper protection (RDP Level 1/2, encrypted external flash, physical tamper switches) for their specific threat model, they are free to do so - the base design imposes no barriers and documents how. The security model is **trust the user, protect the bus**: the legitimate owner is never the threat; remote CAN bus attacks are.
 
 ## What We Actually Protect Against
 
@@ -139,7 +139,7 @@ These cybersecurity requirements (CSRs) are independent of the HARA's Functional
 
 > **Why HMAC-SHA256 Over RSA/ECDSA**
 >
-> HMAC-SHA256 is recommended over asymmetric algorithms (RSA, ECDSA, Ed25519) for three reasons: (1) **Smaller code size** in the bootloader — critical for size-constrained bootloaders; (2) **Faster verification** — SHA-256 is hardware-accelerated on STM32H7; (3) **No PKI complexity** — the user generates one key, stores it in their build environment, and signs their own firmware. The threat model does not require protection against key compromise (the user owns the key) so the non-repudiation benefits of asymmetric crypto are irrelevant here.
+> HMAC-SHA256 is recommended over asymmetric algorithms (RSA, ECDSA, Ed25519) for three reasons: (1) **Smaller code size** in the bootloader - critical for size-constrained bootloaders; (2) **Faster verification** - SHA-256 is hardware-accelerated on STM32H7; (3) **No PKI complexity** - the user generates one key, stores it in their build environment, and signs their own firmware. The threat model does not require protection against key compromise (the user owns the key) so the non-repudiation benefits of asymmetric crypto are irrelevant here.
 
 # Test Plan
 
@@ -147,7 +147,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 ### CT-01: Unsigned Firmware Update Rejected
 
-**Objective:** Verify CSR-01 — Unsigned firmware update via CAN is rejected.
+**Objective:** Verify CSR-01 - Unsigned firmware update via CAN is rejected.
 
 **Threat:** T-01 (malicious firmware upload)
 
@@ -164,7 +164,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 ### CT-02: Signed Firmware Update Accepted
 
-**Objective:** Verify CSR-01 positive path — Signed update accepted.
+**Objective:** Verify CSR-01 positive path - Signed update accepted.
 
 **Threat:** T-01 (legitimate update)
 
@@ -180,7 +180,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 ### CT-03: Corrupted Chunk Detected
 
-**Objective:** Verify CSR-02 — Bit flip in CAN chunk aborts update.
+**Objective:** Verify CSR-02 - Bit flip in CAN chunk aborts update.
 
 **Threat:** T-02 (firmware corruption)
 
@@ -195,7 +195,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 ### CT-04: Anti-Rollback Counter
 
-**Objective:** Verify CSR-03 — Downgrade attack rejected.
+**Objective:** Verify CSR-03 - Downgrade attack rejected.
 
 **Threat:** T-03 (replay / downgrade)
 
@@ -211,7 +211,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 ### CT-05: Update Preconditions
 
-**Objective:** Verify CSR-04 — Update only when stationary.
+**Objective:** Verify CSR-04 - Update only when stationary.
 
 **Threat:** T-06 (update during motion)
 
@@ -224,9 +224,9 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** All precondition violations rejected or aborted.
 
-### CT-06: CAN Freshness Counter — Replay Detected
+### CT-06: CAN Freshness Counter - Replay Detected
 
-**Objective:** Verify CSR-06 — Stale CAN frames treated as lost.
+**Objective:** Verify CSR-06 - Stale CAN frames treated as lost.
 
 **Threat:** T-05 (forged safety frames)
 
@@ -241,9 +241,9 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 ### CT-07: Bootloader Mutable (Design Verification)
 
-**Objective:** Verify CSR-07 — Bootloader can be updated by user.
+**Objective:** Verify CSR-07 - Bootloader can be updated by user.
 
-**Threat:** T-07 (bootloader replacement — intentional user action)
+**Threat:** T-07 (bootloader replacement - intentional user action)
 
 **Procedure:**
 
@@ -256,7 +256,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 ### CT-08: HMAC Key Rotation
 
-**Objective:** Verify CSR-01 — user can rotate firmware signing keys.
+**Objective:** Verify CSR-01 - user can rotate firmware signing keys.
 
 **Threat:** T-01 (key compromise recovery)
 
@@ -273,7 +273,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 ### CT-09: CAN DoS / Heartbeat Timeout
 
-**Objective:** Verify CSR-05 — CAN bus flooding causes heartbeat loss and safe state entry.
+**Objective:** Verify CSR-05 - CAN bus flooding causes heartbeat loss and safe state entry.
 
 **Threat:** T-04 (CAN bus flooding / DoS)
 
@@ -362,12 +362,12 @@ This TARA is a companion document to the HARA. Safety-relevant cybersecurity thr
 
 | Reference | Title / Description |
 |-----------|---------------------|
-| ISO/SAE 21434:2021 | *Road vehicles — Cybersecurity engineering*. Defines threat analysis methodology, cybersecurity requirements, and validation for road vehicle electrical/electronic systems. |
+| ISO/SAE 21434:2021 | *Road vehicles - Cybersecurity engineering*. Defines threat analysis methodology, cybersecurity requirements, and validation for road vehicle electrical/electronic systems. |
 | SAE J3061 | *Cybersecurity Guidebook for Cyber-Physical Vehicle Systems*. Informative guidelines for automotive cybersecurity engineering. |
-| ISO 26262-3:2018 | *Road vehicles — Functional safety — Concept phase*. HARA methodology companion; safety/cybersecurity overlap addressed in both documents. |
-| FIPS 198-1 / NIST SP 800-107 | *FIPS 198-1 / NIST SP 800-107* — HMAC-SHA256 implementation reference. |
-| STM32H723 Reference Manual (RM0433) | *STM32H723/733 — Arm Cortex-M7 MCU*. Flash protection (RDP, WRP), CRC peripheral, and bootloader application note (AN2606). |
-| HARA (this project) | `OV-SAF-HARA-CORE` — *Hazard Analysis and Risk Assessment — Core Platform*. Companion document covering functional safety. Cross-referenced for safety-relevant cybersecurity threats. |
+| ISO 26262-3:2018 | *Road vehicles - Functional safety - Concept phase*. HARA methodology companion; safety/cybersecurity overlap addressed in both documents. |
+| FIPS 198-1 / NIST SP 800-107 | *FIPS 198-1 / NIST SP 800-107* - HMAC-SHA256 implementation reference. |
+| STM32H723 Reference Manual (RM0433) | *STM32H723/733 - Arm Cortex-M7 MCU*. Flash protection (RDP, WRP), CRC peripheral, and bootloader application note (AN2606). |
+| HARA (this project) | `OV-SAF-HARA-CORE` - *Hazard Analysis and Risk Assessment - Core Platform*. Companion document covering functional safety. Cross-referenced for safety-relevant cybersecurity threats. |
 
 ## Document History
 

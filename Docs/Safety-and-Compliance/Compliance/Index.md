@@ -15,5 +15,5 @@ nav_order: 220
 
 # Compliance
 
-- **ISO 26262 Mapping** — Mapping of OpenVVVF safety goals and requirements to ISO 26262:2018 work products.
-- **IEC 61800-5-2 Mapping** — Mapping of OpenVVVF safe states to IEC 61800-5-2 safe functions.
+- **ISO 26262 Mapping** - Mapping of OpenVVVF safety goals and requirements to ISO 26262:2018 work products.
+- **IEC 61800-5-2 Mapping** - Mapping of OpenVVVF safe states to IEC 61800-5-2 safe functions.

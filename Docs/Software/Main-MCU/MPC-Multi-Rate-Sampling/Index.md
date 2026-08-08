@@ -1,7 +1,7 @@
 ---
 doctype: Software Plan
 doc_id: OV-SW-MAINMCU-MPC-SAMPLING
-title: Main MCU — Multi-Rate Phase-Current Sampling Plan
+title: Multi-Rate Phase-Current Sampling Plan
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
@@ -16,7 +16,7 @@ nav_order: 430
 
 # Plan: Multi-Rate Phase-Current Sampling for MPC / Ripple Separation
 
-**Status:** Deferred — implement after SimpleFOC is working.
+**Status:** Deferred - implement after SimpleFOC is working.
 
 **Goal:** Sample phase currents multiple times per PWM period so a software model can separate switching ripple from fundamental current, enabling ripple-aware MPC or advanced current control.
 

@@ -1,7 +1,7 @@
 ---
 doctype: Software Manual
 doc_id: OV-SW-COPROC-ARCH
-title: Safety Coprocessor — Architecture
+title: Architecture
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
@@ -18,9 +18,9 @@ normative_refs:
   - OV-CA-SWM-INDEX
 ---
 
-# Safety Coprocessor — Architecture
+# Architecture
 
-> **Placeholder** — This document will define the safety-coprocessor software architecture once the dual-MCU design is finalized. The old SWAD explicitly excluded this content.
+> **Placeholder** - This document will define the safety-coprocessor software architecture once the dual-MCU design is finalized. The old SWAD explicitly excluded this content.
 
 ## Planned sections
 

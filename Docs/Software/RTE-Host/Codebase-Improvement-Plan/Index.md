@@ -1,7 +1,7 @@
 ---
 doctype: Software Plan
 doc_id: OV-SW-RTE-IMPROVEMENT
-title: RTE Host — Codebase Improvement Plan
+title: Codebase Improvement Plan
 product_line: openvvvf
 applies_to:
   - software-target-rte-host
@@ -13,7 +13,7 @@ description: Readability, reliability, and safety hardening plan for the RTE hos
 nav_order: 460
 ---
 
-# Codebase Improvement Plan — Readability, Reliability, Safety
+# Codebase Improvement Plan - Readability, Reliability, Safety
 
 ## Goals
 
@@ -30,7 +30,7 @@ nav_order: 460
 - **Fail loudly:** turn ignored return values, timeouts, and precondition violations into logged faults or assertions.
 - **Single source of truth:** constants live in one place; hardware ownership is explicit.
 
-## Phase 1 — Safety-critical hardening
+## Phase 1 - Safety-critical hardening
 
 ### Independent watchdog (IWDG)
 
@@ -62,7 +62,7 @@ It checks and faults on:
 - PWM outputs enabled while a Critical fault is active.
 - Gate-driver power enabled but `/RDY` low for >100 ms outside calibration.
 - Current-sensor offset invalid (`!phaseCurrentADC().offsetValid()`).
-- Encoder samples not arriving (`encoderADC()` sample timeout) — re-enable the disabled fault from `EncoderADC::diagnose()`.
+- Encoder samples not arriving (`encoderADC()` sample timeout) - re-enable the disabled fault from `EncoderADC::diagnose()`.
 - Main-loop period exceeded (record `loop_dt_ms` and alarm if >20 ms).
 
 Each check gets a `SafetyCheck` enum, a counter, and a configurable trip threshold. Keep it simple and explicit.
@@ -98,7 +98,7 @@ Use it for:
 
 For release builds the macro can degrade to a fault raise only.
 
-## Phase 2 — Reliability improvements
+## Phase 2 - Reliability improvements
 
 ### Propagate HAL errors and fault on init failures
 
@@ -160,7 +160,7 @@ Other modules request states through `OpenLoopController::requestGateDriverState
 
 Remove the commented-out code in `EncoderADC::diagnose()` and make the timeout configurable (e.g. 200 ms). If it is too noisy during startup, only enable it after `offsetValid()` is true.
 
-## Phase 3 — Readability and maintainability
+## Phase 3 - Readability and maintainability
 
 ### Eliminate magic numbers
 
@@ -220,7 +220,7 @@ Use it in `ResistanceCalibrator`, `EncoderOffsetCalibrator`, `AutoCalibrationCoo
 - Run it on `Src/Inverter/**` and `Inc/Inverter/**` in a single formatting commit so future diffs are clean.
 - Add `-Wall -Wextra -Werror` to CMake after the warning cleanup is done.
 
-## Phase 4 — Testing and static analysis
+## Phase 4 - Testing and static analysis
 
 ### Host-side unit tests for pure logic
 

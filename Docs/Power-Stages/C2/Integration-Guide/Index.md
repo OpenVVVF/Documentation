@@ -1,7 +1,7 @@
 ---
 doctype: Integration Manual
 doc_id: OV-C2-IG-INDEX
-title: Chassis Size 2 — Integration Guide
+title: Integration Guide
 product_line: openvvvf
 applies_to:
   - chassis-size-2
@@ -16,7 +16,7 @@ normative_refs:
   - OV-SAF-HARA-PROF-MOTO
 ---
 
-# Chassis Size 2 — Integration Guide
+# Integration Guide
 
 > **NOTE**
 > This guide is under revision. The previous version contained a large amount of control-module content that is shared across all chassis sizes and belongs in the `OV-CA-UHW-INDEX` Control Assembly User Hardware Manual. It also presented specific capacitor and current ratings that do not apply to all C2 variants.

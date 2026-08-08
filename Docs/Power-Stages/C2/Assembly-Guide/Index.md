@@ -1,7 +1,7 @@
 ---
 doctype: Index
 doc_id: OV-C2-AG-INDEX
-title: Chassis Size 2 — Assembly Guide
+title: Assembly Guide
 product_line: openvvvf
 applies_to:
   - chassis-size-2
@@ -15,13 +15,13 @@ normative_refs:
   - OV-C2-IG-INDEX
 ---
 
-# Chassis Size 2 — Assembly Guide
+# Assembly Guide
 
 This guide contains the ordered procedures for assembling a Chassis Size 2 inverter. Each chapter and step is numbered to match the recommended build order.
 
 | Chapter | Status | Notes |
 |---------|--------|-------|
-| 1. Preparation | pending | Placeholder — content to be added. |
-| 2. Frame and Buswork | pending | Placeholder — content to be added. |
+| 1. Preparation | pending | Placeholder - content to be added. |
+| 2. Frame and Buswork | pending | Placeholder - content to be added. |
 | 3. Main Assembly | in progress | [3.1 IGBT Mounting](3_Main-Assembly/1_IGBT-Mounting/Index.md) is complete; 3.2 DC Link Capacitor Bank is pending. |
-| 4. Final Assembly and Test | pending | Placeholder — content to be added. |
+| 5. Final Assembly and Test | pending | Placeholder - content to be added. |

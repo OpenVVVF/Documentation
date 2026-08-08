@@ -1,7 +1,7 @@
 ---
 doctype: Software Note
 doc_id: OV-SW-MAINMCU-ENCODER-CAL
-title: Main MCU — Encoder Offset Calibration
+title: Encoder Offset Calibration
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module

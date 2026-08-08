@@ -595,6 +595,13 @@ main {
   content: counter(h1) "." counter(h2) "." counter(h3) ". ";
 }
 
+/* Assembly guides number their own headings to match build order */
+.content.assembly-guide h1::before,
+.content.assembly-guide h2::before,
+.content.assembly-guide h3::before {
+  content: none;
+}
+
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;

@@ -18,4 +18,4 @@ nav_order: 510
 
 Electrical, thermal, mechanical, and environmental test records.
 
-- [IGBT Mounting Torque Validation](IGBT-Mounting-Torque-Validation/Index.md) — `OV-TEST-HW-IGBT-TORQUE` (completed)
+- [IGBT Mounting Torque Validation](IGBT-Mounting-Torque-Validation/Index.md) - `OV-TEST-HW-IGBT-TORQUE` (completed)

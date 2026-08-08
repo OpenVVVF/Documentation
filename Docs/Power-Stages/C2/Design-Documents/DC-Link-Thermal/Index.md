@@ -14,7 +14,7 @@ normative_refs:
   - OV-C2-DD-INDEX
 ---
 
-# Thermal Analysis — DC Link Module Standoff Heat Path
+# Thermal Analysis - DC Link Module Standoff Heat Path
 
 Heat load at rated ripple was calculated to be 40 W across all capacitors.
 
@@ -28,7 +28,7 @@ Heat load at rated ripple was calculated to be 40 W across all capacitors.
 | $k_{Al}$ | Thermal conductivity of the aluminium heat-spreader plate | W/(m·K) |
 | $k_{standoff}$ | Thermal conductivity of the standoff material | W/(m·K) |
 | $L$ | Standoff length (thermal conduction path) | m |
-| $n$ | Number of standoffs | — |
+| $n$ | Number of standoffs | - |
 | $Q$ | Heat flow from capacitor bank ripple current | W |
 | $r_{cell}$ | Effective radius of the aluminium spreading cell around one standoff | m |
 | $r_{inner}$ | Standoff inner (hole) radius | m |
@@ -100,7 +100,7 @@ Total system resistance is the sum of three series components:
 
 *All at 40 W, 6 standoffs, 55 mm long. Values rounded.*
 
-### Selected design — 13 mm round aluminium spacers
+### Selected design - 13 mm round aluminium spacers
 
 **Final part specification:**
 - Outer diameter: 13.0 mm

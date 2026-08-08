@@ -15,7 +15,7 @@ normative_refs:
   - OV-C2-IG-INDEX
 ---
 
-# IGBT Module Mounting
+# 3.1 IGBT Module Mounting
 
 This guide covers mounting the three Mitsubishi CM600DY-24T IGBT modules onto the Chassis Size 2 aluminium baseplate/heatspreader.
 
@@ -42,7 +42,7 @@ This guide covers mounting the three Mitsubishi CM600DY-24T IGBT modules onto th
 
 ![Close-up of thermal paste, screws, hex keys, and IGBT modules](PrepareMaterials2.jpg)
 
-## Step 1 — Orient the IGBT module
+## Step 1 - Orient the IGBT module
 
 Remove one IGBT module from its tray.
 
@@ -52,7 +52,7 @@ Take care to mount every module in the same orientation; reversing a module will
 
 ![IGBT modules still in their shipping tray](IGBTsInTray.jpg)
 
-## Step 2 — Apply thermal interface compound
+## Step 2 - Apply thermal interface compound
 
 Apply a thin, even layer of thermal interface compound to the entire flat mounting base of the IGBT module. The goal is full coverage with no bare metal showing and no excess paste squeezing out when compressed.
 
@@ -60,13 +60,13 @@ Apply a thin, even layer of thermal interface compound to the entire flat mounti
 
 ![IGBT module base with thermal paste evenly spread](IGBTThermalPaste.jpg)
 
-## Step 3 — Place the module on the baseplate
+## Step 3 - Place the module on the baseplate
 
 Align the module with the four M6 mounting holes in the baseplate and lower it into place. Confirm that the gate-drive terminals face away from the close edge of the baseplate and toward the control-board area.
 
 ![IGBT module placed onto the baseplate, aligned with mounting holes](IGBTAlign.jpg)
 
-## Step 4 — Install the mounting screws
+## Step 4 - Install the mounting screws
 
 1. Apply thread-locking compound to the threads of all four M6×12 mm screws.
 2. Place a Belleville washer under each screw head, if available. The convex side should face the screw head so the washer flattens as it is tightened.
@@ -77,7 +77,7 @@ Align the module with the four M6 mounting holes in the baseplate and lower it i
 
 Repeat Step 1 through Step 4 for the remaining two IGBT modules.
 
-## Step 5 — Verify orientation and torque
+## Step 5 - Verify orientation and torque
 
 Before final tightening, verify that the gate terminals on all three modules face the same direction, toward the control-board area, as shown below.
 
@@ -87,7 +87,7 @@ Tighten each module's screws in a diagonal pattern to **4 N·m**. Wait approxima
 
 ![Tightening the IGBT mounting screws in a diagonal pattern](IGBTTighten.jpg)
 
-## Step 6 — Mark the screws
+## Step 6 - Mark the screws
 
 Use the permanent marker to draw a straight line from each screw head onto the baseplate. This torque-strip mark makes it easy to spot loosening during later inspection or vibration testing.
 

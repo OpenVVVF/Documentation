@@ -13,6 +13,6 @@ description: Main assembly chapter for the Chassis Size 2 power stage.
 nav_order: 30
 ---
 
-# Main Assembly
+# 3 Main Assembly
 
 Main assembly steps for the C2 power stage.

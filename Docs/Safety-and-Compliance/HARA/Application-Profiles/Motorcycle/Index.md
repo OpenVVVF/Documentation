@@ -1,5 +1,5 @@
 ---
-doctype: Application Profile — Hazard Analysis & Risk Assessment
+doctype: Application Profile - Hazard Analysis & Risk Assessment
 doc_id: OV-SAF-HARA-PROF-MOTO
 title: Motorcycle Application Profile
 product_line: openvvvf
@@ -14,7 +14,7 @@ version: "1.6"
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: elaborated
-description: Motorcycle-specific HARA profile — operational situations, S/E/C ratings, and ASIL targets applied to the platform hazard set.
+description: Motorcycle-specific HARA profile - operational situations, S/E/C ratings, and ASIL targets applied to the platform hazard set.
 nav_order: 213
 normative_refs:
   - OV-SAF-HARA-CORE
@@ -24,17 +24,17 @@ normative_refs:
 
 This document is an **Application Profile** of the OpenVVVF HARA document set. It assigns motorcycle-specific Operational Situations, Severity/Exposure/Controllability ratings, and ASIL targets to the platform hazard set, Safety Goals, and Functional Safety Requirements defined in the Core Platform document.
 
-- **Core document:** OV-SAF-HARA-CORE v5.1 (*OpenVVVF HARA — Core Platform*). This profile was assessed against that version; it shall be reviewed on any Core revision.
+- **Core document:** OV-SAF-HARA-CORE v5.1 (*OpenVVVF HARA - Core Platform*). This profile was assessed against that version; it shall be reviewed on any Core revision.
 - **Normative reference:** hazards H-01 through H-17, Safety Goals SG-01 through SG-15, and FSR-01 through FSR-22 are defined in the Core document and are **not** restated here. The Core compliance statement (Core §1.2) applies in full to this profile: ASIL ratings herein are **targets**, not claims of verified compliance.
 - **Standard applied:** ISO 26262:2018 (methodology), as for the Core.
-- **Status:** elaborated — this profile is the current reference S/E/C assessment for the platform.
+- **Status:** elaborated - this profile is the current reference S/E/C assessment for the platform.
 
 # Application Definition
 
 
-High-performance electric 2-wheel motorcycles — Zero (102 V nominal), Energica (<320 V), and similar platforms. Combined traction inverter + VCU function. One-pedal regenerative braking (tractive effort rollback), not wheel-lock capable.
+High-performance electric 2-wheel motorcycles - Zero (102 V nominal), Energica (<320 V), and similar platforms. Combined traction inverter + VCU function. One-pedal regenerative braking (tractive effort rollback), not wheel-lock capable.
 
-**Table 1 — Application-Specific Parameters**
+**Table 1 - Application-Specific Parameters**
 
 | Parameter | Value / Range |
 | --- | --- |
@@ -46,7 +46,7 @@ High-performance electric 2-wheel motorcycles — Zero (102 V nominal), Energica
 
 # Operational Situations
 
-**Table 2 — Operational Situations (Motorcycle)**
+**Table 2 - Operational Situations (Motorcycle)**
 
 | ID | Operational Situation | Description | Speed |
 | --- | --- | --- | --- |
@@ -78,26 +78,26 @@ Ambient −20 °C to +50 °C; humidity 0–100% condensing; surfaces dry/wet/sta
 
 > **H-03a: Loss of Tractive Effort During Cornering at Lean**
 >
-> **Dynamics assessment (v1.1):** The fault response of this platform is six-switch-open (SSO): on fault, the motor produces zero torque in either direction — dynamically equivalent to pulling in the clutch. Unlike an ICE throttle chop, there is **no engine-braking torque**, hence no forward weight transfer, no rear-tire unloading, and no stand-up tendency. On loss of drive at lean, the rear tire's longitudinal friction demand vanishes and the full friction ellipse becomes available for lateral force. Mid-corner and corner-exit loss of drive is therefore **dynamically benign** for this architecture: the motorcycle coasts through the corner and decelerates gently. The dangerous direction at lean is the opposite one — *unintended* tractive effort (H-01/H-06, highside) — which is covered by SG-01 (ASIL D).
+> **Dynamics assessment (v1.1):** The fault response of this platform is six-switch-open (SSO): on fault, the motor produces zero torque in either direction - dynamically equivalent to pulling in the clutch. Unlike an ICE throttle chop, there is **no engine-braking torque**, hence no forward weight transfer, no rear-tire unloading, and no stand-up tendency. On loss of drive at lean, the rear tire's longitudinal friction demand vanishes and the full friction ellipse becomes available for lateral force. Mid-corner and corner-exit loss of drive is therefore **dynamically benign** for this architecture: the motorcycle coasts through the corner and decelerates gently. The dangerous direction at lean is the opposite one - *unintended* tractive effort (H-01/H-06, highside) - which is covered by SG-01 (ASIL D).
 >
-> **Residual harm path:** the retained hazard is **contextual, not dynamic**: (1) following traffic — a coasting, rapidly decelerating motorcycle (track: on the racing line at corner exit; road: in a live lane) creates a collision risk from closing-speed differential, severity up to S3 at track/highway speeds; (2) the startle transient at the limit, which may provoke rider error on low-grip surfaces. Track use typically involves full PPE (leathers, armor, helmet), which reduces likely harm in the track scenario; however, severity is rated on the worst reasonable outcome and PPE is neither part of the item nor enforceable — the street case (no PPE, intersections) must also be covered. **S3 is retained on the traffic-collision path; controllability C2 (recoverable; freewheel dynamics); exposure E2 (cornering at or near the limit is well under 10% of operating time even for a track-capable platform; E3 previously assigned was not defensible).**
+> **Residual harm path:** the retained hazard is **contextual, not dynamic**: (1) following traffic - a coasting, rapidly decelerating motorcycle (track: on the racing line at corner exit; road: in a live lane) creates a collision risk from closing-speed differential, severity up to S3 at track/highway speeds; (2) the startle transient at the limit, which may provoke rider error on low-grip surfaces. Track use typically involves full PPE (leathers, armor, helmet), which reduces likely harm in the track scenario; however, severity is rated on the worst reasonable outcome and PPE is neither part of the item nor enforceable - the street case (no PPE, intersections) must also be covered. **S3 is retained on the traffic-collision path; controllability C2 (recoverable; freewheel dynamics); exposure E2 (cornering at or near the limit is well under 10% of operating time even for a track-capable platform; E3 previously assigned was not defensible).**
 >
 > **v5.0 residual-risk statement:** Under the immediate-SSO philosophy (Core §2.3), every fault produces this event. The platform mitigations are detection speed (FSR-05 latency budget) and the cleanliness of the torque transition (S-04). The rider-level consequence is **accepted residual risk**, assessed as small for the reasons above, and shall be characterized by track testing (LIMIT-01) before racetrack use.
 
 # Controllability Considerations
 
-Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patches, simultaneous roll/pitch/yaw management, high CG relative to wheelbase, single driven wheel. Unintended acceleration/braking at highway speed is therefore **C3**. Loss of tractive effort during cornering at lean (OS-10a) was formerly rated C3 on ICE-dynamics intuition (engine-braking stand-up). For this platform, SSO is freewheel — there is no engine-braking torque — so loss of drive at lean is rated **C2** (Section 5). Unintended *application* of tractive effort at lean remains **C3**.
+Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patches, simultaneous roll/pitch/yaw management, high CG relative to wheelbase, single driven wheel. Unintended acceleration/braking at highway speed is therefore **C3**. Loss of tractive effort during cornering at lean (OS-10a) was formerly rated C3 on ICE-dynamics intuition (engine-braking stand-up). For this platform, SSO is freewheel - there is no engine-braking torque - so loss of drive at lean is rated **C2** (Section 5). Unintended *application* of tractive effort at lean remains **C3**.
 
 # Risk Assessment and ASIL Assignment
 
-**Table 3 — Hazard Risk Assessment & ASIL Assignment (Motorcycle Profile)**
+**Table 3 - Hazard Risk Assessment & ASIL Assignment (Motorcycle Profile)**
 
 | Hazard | Worst OS | S | E | C | Target ASIL | Achievable Now | Rationale |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **H-01** | OS-06 (85–150 mph) | S3 | E3 | C3 | D | D | Unintended tractive effort at high speed → loss of control. Dual-MCU decomposition: independent throttle ADC, CAN snoop, 1oo2 power kill. |
 | **H-02** | OS-01 (stationary) | S2 | E2 | C2 | B | B | Rearward tip-over at standstill; rider can brace. |
-| **H-03** | OS-06 (highway) | S3 | E3 | C2 | C | C | Sudden loss at highway speed; rear-collision risk. v5.0: abrupt loss on every fault; C2 retained — rider retains brakes/steering; following-traffic risk unchanged by ramp-vs-step at these energies. |
-| **H-03a** | OS-10a (corner at limit) | S3 | E2 | C2 | A | A | Mid-corner loss → stand-up/run-wide. SSO is freewheel — loss of drive at lean is dynamically benign (Section 5); S3 retained on the following-traffic collision path; E2 per Section 5 exposure assessment. Accepted residual risk; detection-to-SSO latency is the mitigation; track characterization required. |
+| **H-03** | OS-06 (highway) | S3 | E3 | C2 | C | C | Sudden loss at highway speed; rear-collision risk. v5.0: abrupt loss on every fault; C2 retained - rider retains brakes/steering; following-traffic risk unchanged by ramp-vs-step at these energies. |
+| **H-03a** | OS-10a (corner at limit) | S3 | E2 | C2 | A | A | Mid-corner loss → stand-up/run-wide. SSO is freewheel - loss of drive at lean is dynamically benign (Section 5); S3 retained on the following-traffic collision path; E2 per Section 5 exposure assessment. Accepted residual risk; detection-to-SSO latency is the mitigation; track characterization required. |
 | **H-04** | OS-09 (braking) | S2 | E3 | C2 | A | A | Loss of regen; friction brakes remain. |
 | **H-05** | OS-13 (wet road) | S3 | E3 | C3 | C | C | Unexpected deceleration on wet surface. |
 | **H-06** | OS-06 (highway WOT) | S3 | E3 | C3 | C | C | Wheel spin at speed. Dual-MCU current monitoring (100 ms); DESAT for hard shorts. |
@@ -118,7 +118,7 @@ Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patc
 
 | Ref | Citation |
 | --- | --- |
-| OV-SAF-HARA-CORE | OpenVVVF HARA — Core Platform, v5.7 (doc_id OV-SAF-HARA-CORE). Normative. |
+| OV-SAF-HARA-CORE | OpenVVVF HARA - Core Platform, v5.7 (doc_id OV-SAF-HARA-CORE). Normative. |
 | Cossalter | Cossalter, Lot, Massaro, *Motorcycle Dynamics* (chapter), 2014. Lean mechanics and tire friction-ellipse basis for the Section 5 dynamics assessment. |
 | NHTSA | *Motorcycle Safety*. https://www.nhtsa.gov/motorcycles. Accident causation context for severity assessment. |
 

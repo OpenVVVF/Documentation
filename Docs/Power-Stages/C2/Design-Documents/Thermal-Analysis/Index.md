@@ -1,37 +1,37 @@
 ---
 doctype: Design Document
 doc_id: OV-C2-DD-THERMAL
-title: System Thermal Analysis — IGBT Losses, Efficiency, and Heatsink Sizing
+title: System Thermal Analysis - IGBT Losses, Inverter Efficiency, and Heatsink/Baseplate Sizing
 product_line: openvvvf
 applies_to:
   - chassis-size-2
 version: "1.0"
 date: "2026-07-17"
 status: released
-description: IGBT conduction and switching-loss analysis, inverter efficiency, and heatsink/baseplate sizing for the Chassis Size 2 traction inverter.
+description: IGBT and free-wheeling-diode loss analysis, inverter efficiency, and heatsink/baseplate sizing for the Chassis Size 2 traction inverter.
 nav_order: 330
 normative_refs:
   - OV-C2-DD-INDEX
   - OV-C2-DD-DCLINK-THERMAL
 ---
 
-# System Thermal Analysis — IGBT Losses, Efficiency, and Heatsink Sizing
+# System Thermal Analysis - IGBT Losses, Inverter Efficiency, and Heatsink/Baseplate Sizing
 
 This document estimates the total heat dissipated into the heatsink by the 3-phase traction inverter power stage (3× Mitsubishi CM600DY-24T half-bridge IGBT modules plus the DC-link capacitor bank) and derives the heatsink thermal resistance required for continuous operation. It is the sizing input for the custom heatsink design.
 
 **Value marking convention used throughout:**
 
-- **[DS]** — value taken directly from the CM600DY-24T datasheet (Mitsubishi Electric, publication date December 2020); page/figure cited.
-- **[EST]** — engineering estimate derived from datasheet curves (digitized) or standard scaling laws; not explicitly guaranteed by the datasheet.
-- **[ASM]** — modeling assumption about the operating point.
+- **[DS]** - value taken directly from the CM600DY-24T datasheet (Mitsubishi Electric, publication date December 2020); page/figure cited.
+- **[EST]** - engineering estimate derived from datasheet curves (digitized) or standard scaling laws; not explicitly guaranteed by the datasheet.
+- **[ASM]** - modeling assumption about the operating point.
 
 ## Nomenclature
 
 | Symbol | Meaning | Units |
 |---|---|---|
 | $A$ | Cross-sectional area (generic) | m² |
-| $\cos \varphi$ | Load power factor | — |
-| $d(\theta)$ | High-side switch duty cycle as a function of electrical angle | — |
+| $\cos \varphi$ | Load power factor | - |
+| $d(\theta)$ | High-side switch duty cycle as a function of electrical angle | - |
 | $E_{on}$ | IGBT turn-on switching energy per pulse | J |
 | $E_{off}$ | IGBT turn-off switching energy per pulse | J |
 | $E_{rr}$ | Free-wheeling diode reverse-recovery energy per pulse | J |
@@ -44,7 +44,7 @@ This document estimates the total heat dissipated into the heatsink by the 3-pha
 | $I_{rms}$ | RMS phase current | A |
 | $k$ | Thermal conductivity | W/(m·K) |
 | $L$ | Length (thermal conduction path) | m |
-| $m$ | Modulation index ($V_{ph,pk} / (V_{DC}/2)$) | — |
+| $m$ | Modulation index ($V_{ph,pk} / (V_{DC}/2)$) | - |
 | $P_{cap}$ | DC-link capacitor bank heat load | W |
 | $P_D$ | Free-wheeling diode conduction loss (per diode) | W |
 | $P_{heat}$ | Total heat rejected to the heatsink | W |
@@ -88,7 +88,7 @@ This document estimates the total heat dissipated into the heatsink by the 3-pha
 | $V_{ph,pk}$ | Peak phase voltage | V |
 | $V_{ph,rms}$ | RMS phase voltage | V |
 | $\Delta T$ | Temperature rise / difference | K or °C |
-| $\eta$ | Inverter efficiency | — |
+| $\eta$ | Inverter efficiency | - |
 | $\lambda$ | Thermal conductivity (e.g., grease) | W/(m·K) |
 | $\varphi$ | Current phase lag behind voltage (power-factor angle) | rad |
 | $\theta$ | Electrical angle | rad |
@@ -96,8 +96,8 @@ This document estimates the total heat dissipated into the heatsink by the 3-pha
 ## References and system inputs
 
 - CM600DY-24T datasheet, Mitsubishi Electric, December 2020 (600 A / 1200 V dual (half-bridge) IGBT module, 62 mm package).
-- `OV-C2-DD-DCLINK-THERMAL` — DC-link capacitor bank heat load of ≈40 W at rated ripple, rejected to the heatsink through the standoff/spreader-plate path.
-- Project README — power stage: 3× CM600DY-24T half-bridge modules (one per phase), SVPWM, default switching frequency 2 kHz (300 Hz – 16 kHz range), DC link 102–320 V (140 V nominal), 600 A class output. Gate drive +15 V / −9 V via onsemi NCV57100.
+- `OV-C2-DD-DCLINK-THERMAL` - DC-link capacitor bank heat load of ≈40 W at rated ripple, rejected to the heatsink through the standoff/spreader-plate path.
+- Project README - power stage: 3× CM600DY-24T half-bridge modules (one per phase), SVPWM, default switching frequency 2 kHz (300 Hz – 16 kHz range), DC link 102–320 V (140 V nominal), 600 A class output. Gate drive +15 V / −9 V via onsemi NCV57100.
 
 ## Datasheet parameters used (CM600DY-24T)
 
@@ -121,8 +121,8 @@ This document estimates the total heat dissipated into the heatsink by the 3-pha
 | $Q_G$ | 3.7 µC typ | $V_{CC} = 600$ V, $I_C = 600$ A, $V_{GE} = 15$ V | Datasheet p.2 | [DS] |
 | $R_{CC'+EE'}$ (internal lead R) | 0.3 mΩ typ | per switch, $T_C = 25 \ ^\circ\text{C}$ | Datasheet p.2 | [DS] |
 | Switching times | $t_{d(on)} \le 500$ ns, $t_r \le 200$ ns, $t_{d(off)} \le 600$ ns, $t_f \le 300$ ns | $V_{CC} = 600$ V, $I_C = 600$ A, $R_G = 1.0 \ \Omega$ | Datasheet p.2 | [DS] |
-| $T_{jop}$ / $T_{jmax}$ | $-40 \dots +150 \ ^\circ\text{C}$ continuous / $175 \ ^\circ\text{C}$ instantaneous | — | Datasheet p.2 | [DS] |
-| Recommended operating point | $V_{CC} = 600$ V typ (850 V max), $V_{GE(on)} = 15$ V, $R_G = 1.0$–$10 \ \Omega$ | — | Datasheet p.4 | [DS] |
+| $T_{jop}$ / $T_{jmax}$ | $-40 \dots +150 \ ^\circ\text{C}$ continuous / $175 \ ^\circ\text{C}$ instantaneous | - | Datasheet p.2 | [DS] |
+| Recommended operating point | $V_{CC} = 600$ V typ (850 V max), $V_{GE(on)} = 15$ V, $R_G = 1.0$–$10 \ \Omega$ | - | Datasheet p.4 | [DS] |
 
 ### Thermal resistances
 
@@ -132,7 +132,7 @@ This document estimates the total heat dissipated into the heatsink by the 3-pha
 | $R_{th(j-c)D}$ | 42 K/kW max (= 0.042 K/W) | one inverter FWD | Datasheet p.3 | [DS] |
 | $R_{th(c-s)}$ | 13.3 K/kW typ (= 0.0133 K/W) | one module (grease $\lambda = 3.0$ W/(m·K), 50 µm) | Datasheet p.3, note 6 | [DS] |
 
-Note: $R_{th(c-s)}$ is a typical value; no maximum is given. Grease ageing/pump-out (datasheet note 8) can raise it over life — covered by the heatsink margin policy in §6.
+Note: $R_{th(c-s)}$ is a typical value; no maximum is given. Grease ageing/pump-out (datasheet note 8) can raise it over life - covered by the heatsink margin policy in §6.
 
 ### Device model parameters digitized from datasheet curves
 
@@ -145,7 +145,7 @@ Conduction models use the standard $V_0 + r \cdot I$ straight-line fit to the da
 | $V_{EC0}$ | 1.15 V | Fit to FWD forward curve, chip, 125 °C (datasheet p.6, "Free Wheeling Diode Forward Characteristics"); through (300 A, 1.38 V), (600 A, 1.65 V), (1200 A, 2.10 V) | [EST] |
 | $r_D$ | 0.8 mΩ (+ 0.3 mΩ lead = 1.1 mΩ used) | same figure + p.2 lead resistance | [EST] |
 
-Switching energy models (datasheet p.7, "Half-Bridge Switching Characteristics — switching energy vs collector/emitter current", $V_{CC} = 600$ V, $V_{GE} = \pm 15$ V, $R_G = 1.0 \ \Omega$; the solid $T_{vj} = 150 \ ^\circ\text{C}$ curves were used, anchored exactly at the p.2 table values at 600 A; the dashed 125 °C curves lie ≈5–10 % lower, so the 150 °C curves are conservative at the 125 °C operating point):
+Switching energy models (datasheet p.7, "Half-Bridge Switching Characteristics - switching energy vs collector/emitter current", $V_{CC} = 600$ V, $V_{GE} = \pm 15$ V, $R_G = 1.0 \ \Omega$; the solid $T_{vj} = 150 \ ^\circ\text{C}$ curves were used, anchored exactly at the p.2 table values at 600 A; the dashed 125 °C curves lie ≈5–10 % lower, so the 150 °C curves are conservative at the 125 °C operating point):
 
 | $I_C$ / $I_E$ | $E_{on}$ | $E_{off}$ | $E_{rr}$ | Mark |
 |---|---|---|---|---|
@@ -172,8 +172,8 @@ Scaling laws applied (not given in the datasheet):
 - Load power factor $\cos \varphi = 0.8$ (traction motor at rated point).
 - Junction operating point $T_j = 125 \ ^\circ\text{C}$ (continuous rating is 150 °C; 125 °C leaves margin).
 - Switching frequency $f_{sw} = 2$ kHz (default); 16 kHz evaluated as worst case.
-- Dead time (0.5–4 µs configurable): the extra FWD conduction during dead time adds ≈ $V_{EC} \cdot \langle i \rangle \cdot 2 \cdot t_{dt} \cdot f_{sw} \approx 7$ W per leg (~20 W total) at 600 A / 2 kHz / 2 µs — under 1 % of total heat, neglected.
-- Gate-drive power ($Q_G \cdot \Delta V_{GE} \cdot f_{sw} \approx 0.2$ W per switch, ≈1 W total) is dissipated in the gate resistors/driver, not the module — excluded.
+- Dead time (0.5–4 µs configurable): the extra FWD conduction during dead time adds ≈ $V_{EC} \cdot \langle i \rangle \cdot 2 \cdot t_{dt} \cdot f_{sw} \approx 7$ W per leg (~20 W total) at 600 A / 2 kHz / 2 µs - under 1 % of total heat, neglected.
+- Gate-drive power ($Q_G \cdot \Delta V_{GE} \cdot f_{sw} \approx 0.2$ W per switch, ≈1 W total) is dissipated in the gate resistors/driver, not the module - excluded.
 - $E_{on}$ as measured in the datasheet half-bridge circuit already contains the turn-on impact of the opposing diode's reverse recovery; $E_{rr}$ is counted once, in the diode (standard datasheet convention).
 
 ### Formulas
@@ -306,18 +306,18 @@ Worst case is 320 V bus (highest switching loss); 140 V nominal shown for refere
 ### Guidance
 
 - **Continuous 600 A (design point): $R_{th(s-a)} \le 0.0076$ K/W (7.6 mK/W) for the whole three-module heatsink assembly, 40 °C ambient.** With ≥25 % engineering margin (grease ageing, digitization/typ-value uncertainty, module-to-module variation, fouling), the design target is **≈ 0.006 K/W or better**. This is outside natural-convection territory (a very large natural-convection sink is ≈0.1–0.5 K/W); it requires a large forced-air heatsink or a liquid cold plate.
-- **Continuous 300 A: $R_{th(s-a)} \le 0.024$ K/W** — achievable with a moderate forced-air extrusion.
+- **Continuous 300 A: $R_{th(s-a)} \le 0.024$ K/W** - achievable with a moderate forced-air extrusion.
 - The junction rise is small at the design point ($T_{j,Q} \approx 97 \ ^\circ\text{C}$ at $T_c = 85 \ ^\circ\text{C}$, ≈28 °C margin to the 125 °C target) because $R_{th(j-c)}$ is only 24 K/kW; the **baseplate ≤ 85 °C constraint, not the junction, sizes the heatsink.** Per-switch dissipation of ≈520 W at 600 A / 320 V / 2 kHz is also well inside the module's 6250 W total dissipation rating (datasheet p.2).
 - 16 kHz operation at high current is impractical with air cooling (≤1.8 mK/W needed at 600 A) and marginal even with liquid cooling; treat 16 kHz as a reduced-current mode (see §7).
 - Mounting: thermal grease per datasheet note 6 ($\lambda = 3.0$ W/(m·K), 50 µm), M6 mounting torque 3.5–4.5 N·m (datasheet p.3), baseplate flatness ≤ 200 µm on the centerlines. Verify the three modules are placed so each sees comparable sink temperature.
 
 ## Sensitivity and notes
 
-- **16 kHz switching:** switching loss scales linearly with $f_{sw}$ (×8 vs 2 kHz). At 600 A / 320 V total heat rises from 3.8 kW to 7.2 kW and the heatsink requirement tightens from 7.6 to 1.8 mK/W. At 300 A / 320 V / 16 kHz the total is 3.55 kW and the requirement is $R_{th(s-a)} \le 8.3$ mK/W (same chain) — still forced-air/liquid territory. Recommend keeping 16 kHz for light-load/low-noise operation only.
-- **Lower power factor:** total heat is nearly unchanged (the IGBT $V_0$ term falls while the FWD share rises; at $\cos \varphi = 0.5$, 600 A / 140 V / 2 kHz, $P_{heat} \approx 3.46$ kW vs 3.49 kW at $\cos \varphi = 0.8$), but output power falls proportionally with $\cos \varphi$, so efficiency drops (≈92.8 % at $\cos \varphi = 0.5$, 600 A / 140 V) and heat per kW delivered rises. Regenerative braking ($\cos \varphi < 0$) shifts loss toward the FWDs — $R_{th(j-c)D} = 42$ K/kW keeps the diode junction ≈5 °C cooler than the IGBT at rated point, so this is not binding.
+- **16 kHz switching:** switching loss scales linearly with $f_{sw}$ (×8 vs 2 kHz). At 600 A / 320 V total heat rises from 3.8 kW to 7.2 kW and the heatsink requirement tightens from 7.6 to 1.8 mK/W. At 300 A / 320 V / 16 kHz the total is 3.55 kW and the requirement is $R_{th(s-a)} \le 8.3$ mK/W (same chain) - still forced-air/liquid territory. Recommend keeping 16 kHz for light-load/low-noise operation only.
+- **Lower power factor:** total heat is nearly unchanged (the IGBT $V_0$ term falls while the FWD share rises; at $\cos \varphi = 0.5$, 600 A / 140 V / 2 kHz, $P_{heat} \approx 3.46$ kW vs 3.49 kW at $\cos \varphi = 0.8$), but output power falls proportionally with $\cos \varphi$, so efficiency drops (≈92.8 % at $\cos \varphi = 0.5$, 600 A / 140 V) and heat per kW delivered rises. Regenerative braking ($\cos \varphi < 0$) shifts loss toward the FWDs - $R_{th(j-c)D} = 42$ K/kW keeps the diode junction ≈5 °C cooler than the IGBT at rated point, so this is not binding.
 - **Typical vs maximum device values:** conduction uses typical chip $V_{CE(sat)}/V_{EC}$; the max terminal values are ≈10–15 % higher, and $R_{th(c-s)}$ is a typical (not max) value. The ≥25 % heatsink margin policy covers this.
-- **600 A RMS operation:** at 600 A RMS the sine peak is 848 A, above the module's 600 A DC rating (at $T_C = 144 \ ^\circ\text{C}$) but within the 1200 A repetitive pulse rating. Continuous 600 A RMS is the inverter's design target (README), with full-load dyno/thermal validation still pending — treat the 600 A column as the sizing bound, not a validated continuous rating.
-- **Gate resistance:** all switching energies assume the datasheet $R_G = 1.0 \ \Omega$ condition. If the populated gate resistance is larger, $E_{on}/E_{off}$ increase substantially (≈3× at 10 Ω for $E_{on}$, datasheet p.7) — re-run this analysis if the gate design deviates.
+- **600 A RMS operation:** at 600 A RMS the sine peak is 848 A, above the module's 600 A DC rating (at $T_C = 144 \ ^\circ\text{C}$) but within the 1200 A repetitive pulse rating. Continuous 600 A RMS is the inverter's design target (README), with full-load dyno/thermal validation still pending - treat the 600 A column as the sizing bound, not a validated continuous rating.
+- **Gate resistance:** all switching energies assume the datasheet $R_G = 1.0 \ \Omega$ condition. If the populated gate resistance is larger, $E_{on}/E_{off}$ increase substantially (≈3× at 10 Ω for $E_{on}$, datasheet p.7) - re-run this analysis if the gate design deviates.
 - **Low-current extrapolation:** below ≈100 A the $E_{rr}/E_{off}$ curve extrapolation carries the constant offsets ($E_{off} \approx 8.7$ mJ, $E_{rr} \approx 12$ mJ); the resulting low-current, high-frequency numbers (e.g., 50 A / 16 kHz) are the least accurate in this document, ±15 %.
 - **Not modeled:** stray-inductance overshoot losses, module NTC self-heating, busbar/terminal ohmic heating into the heatsink (small vs 3.5 kW), and heatsink thermal spreading between modules (left to the heatsink detailed design). Ambient 40 °C is assumed at the heatsink inlet; inside a sealed chassis, derate accordingly.
 - **Firmware tie-in:** the real-time loss estimator uses the same model structure ($V_{ce0}/R_{ce}$ conduction + $E_{on}/E_{off}$ curves + $R_{th}$ chain); the parameters in §2.3 are the recommended calibration set for it.

@@ -13,7 +13,7 @@ description: Preparation steps before assembling the Chassis Size 2 power stage.
 nav_order: 10
 ---
 
-# Preparation
+# 1 Preparation
 
 Preparation steps before starting the C2 assembly.
 

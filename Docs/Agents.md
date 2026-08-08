@@ -1,4 +1,4 @@
-# Agent & Contributor Conventions — Documentation Structure
+# Agent & Contributor Conventions - Documentation Structure
 
 This file explains how the OpenVVVF documentation is organized. Future agents and contributors should follow these conventions when adding or moving documents.
 
@@ -6,18 +6,18 @@ This file explains how the OpenVVVF documentation is organized. Future agents an
 
 The `Docs/` tree has five top-level sections:
 
-1. **Control-Assembly** — The reusable inverter control module.
-   - `User-Hardware-Manual/` — Installation, assembly, and hardware specs.
-   - `Software-Manual/` — Base firmware, RTE host, flashing, custom code.
-2. **Power-Stages** — Physical chassis/inverter assemblies.
+1. **Control-Assembly** - The reusable inverter control module.
+   - `User-Hardware-Manual/` - Installation, assembly, and hardware specs.
+   - `Software-Manual/` - Base firmware, RTE host, flashing, custom code.
+2. **Power-Stages** - Physical chassis/inverter assemblies.
    - One folder per chassis family: `C1/`, `C2/`, `C3/`.
    - Each chassis has an `Integration-Guide/` and an `Assembly-Guide/`.
-3. **Safety-and-Compliance** — Cross-cutting safety and standards docs.
-   - `HARA/` — Hazard analyses.
-   - `Compliance/` — Standards mappings.
-4. **Software** — Firmware and host-software docs by target.
+3. **Safety-and-Compliance** - Cross-cutting safety and standards docs.
+   - `HARA/` - Hazard analyses.
+   - `Compliance/` - Standards mappings.
+4. **Software** - Firmware and host-software docs by target.
    - `Main-MCU/`, `Safety-Coprocessor/`, `RTE-Host/`, `Codegen/`.
-5. **Testing** — Formal test and validation evidence.
+5. **Testing** - Formal test and validation evidence.
    - `Hardware/`, `Firmware/`, `Integration/`.
 
 ## Every document is a folder containing `Index.md`
@@ -45,19 +45,19 @@ UserManual.md
 
 Use hierarchical, kebab-case IDs:
 
-- `OV-DOCS-*` — Site / root index
-- `OV-CA-*` — Control Assembly
-- `OV-PS-*` — Power Stages (top-level)
-- `OV-C1-*` — Chassis Size 1
-- `OV-C2-*` — Chassis Size 2
-  - `OV-C2-IG-*` — C2 Integration Guide
-  - `OV-C2-AG-*` — C2 Assembly Guide
-  - `OV-C2-DD-*` — C2 Design Documents
-- `OV-C3-*` — Chassis Size 3
-- `OV-SAF-*` — Safety and Compliance
-- `OV-COMP-*` — Compliance mappings
-- `OV-SW-*` — Software
-- `OV-TEST-*` — Testing
+- `OV-DOCS-*` - Site / root index
+- `OV-CA-*` - Control Assembly
+- `OV-PS-*` - Power Stages (top-level)
+- `OV-C1-*` - Chassis Size 1
+- `OV-C2-*` - Chassis Size 2
+  - `OV-C2-IG-*` - C2 Integration Guide
+  - `OV-C2-AG-*` - C2 Assembly Guide
+  - `OV-C2-DD-*` - C2 Design Documents
+- `OV-C3-*` - Chassis Size 3
+- `OV-SAF-*` - Safety and Compliance
+- `OV-COMP-*` - Compliance mappings
+- `OV-SW-*` - Software
+- `OV-TEST-*` - Testing
 
 `INDEX` is reserved for the index document of a section or sub-section (e.g. `OV-C2-INDEX`, `OV-C2-DD-INDEX`).
 
@@ -83,15 +83,15 @@ Every `Index.md` must begin with YAML frontmatter. Required and optional fields:
 
 ### Canonical doctypes
 
-- `Index` — section or sub-section landing page
-- `User Manual` — end-user installation/operation manual
-- `User Hardware Manual` — hardware-specific user manual
-- `Integration Manual` — electrical/interface integration manual
-- `Assembly Guide` — ordered build procedure
-- `Design Document` — engineering analysis, calculation, or design rationale
-- `Test Report` — formal test evidence
+- `Index` - section or sub-section landing page
+- `User Manual` - end-user installation/operation manual
+- `User Hardware Manual` - hardware-specific user manual
+- `Integration Manual` - electrical/interface integration manual
+- `Assembly Guide` - ordered build procedure
+- `Design Document` - engineering analysis, calculation, or design rationale
+- `Test Report` - formal test evidence
 - `Hazard Analysis` or `Hazard Analysis & Risk Assessment`
-- `Application Profile` or `Application Profile — Hazard Analysis & Risk Assessment`
+- `Application Profile` or `Application Profile - Hazard Analysis & Risk Assessment`
 - `Threat Analysis` or `Threat Analysis & Risk Assessment`
 - `Compliance Mapping`
 - `Analysis`

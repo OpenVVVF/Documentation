@@ -1,7 +1,7 @@
 ---
 doctype: Software Manual
 doc_id: OV-CA-SWM-INDEX
-title: Control Assembly — Software Manual
+title: Software Manual
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
@@ -23,11 +23,11 @@ normative_refs:
   - OV-SW-RTE-INTERFACE
 ---
 
-# Control Assembly — Software Manual
+# Software Manual
 
 This manual describes the software side of the OpenVVVF control module.
 
-> **Placeholder** — This manual is being rewritten. The previous Software Architecture Document mixed user, developer, and safety-coprocessor material; it is being split into the documents below.
+> **Placeholder** - This manual is being rewritten. The previous Software Architecture Document mixed user, developer, and safety-coprocessor material; it is being split into the documents below.
 
 ## Planned sections
 
@@ -41,10 +41,10 @@ This manual describes the software side of the OpenVVVF control module.
 
 ## Related documents
 
-- `OV-SW-MAINMCU-INDEX` — Main MCU Software
-- `OV-SW-MAINMCU-ARCH` — Main MCU — Architecture
-- `OV-SW-MAINMCU-BOOT` — Main MCU — Bootloader
-- `OV-SW-COPROC-INDEX` — Safety Coprocessor Software
-- `OV-SW-COPROC-ARCH` — Safety Coprocessor — Architecture
-- `OV-SW-RTE-INDEX` — RTE Host Software
-- `OV-SW-RTE-INTERFACE` — RTE Host — Interface
+- `OV-SW-MAINMCU-INDEX` - Main MCU Software
+- `OV-SW-MAINMCU-ARCH` - Architecture
+- `OV-SW-MAINMCU-BOOT` - Bootloader
+- `OV-SW-COPROC-INDEX` - Safety Coprocessor Software
+- `OV-SW-COPROC-ARCH` - Architecture
+- `OV-SW-RTE-INDEX` - RTE Host Software
+- `OV-SW-RTE-INTERFACE` - Interface

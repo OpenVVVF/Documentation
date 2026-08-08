@@ -1,7 +1,7 @@
 ---
 doctype: Software Manual
 doc_id: OV-SW-RTE-INTERFACE
-title: RTE Host — Interface
+title: Interface
 product_line: openvvvf
 applies_to:
   - software-target-rte-host
@@ -10,16 +10,16 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 placeholder: true
-description: RTE host user interface — parameter model, CAN protocol, live telemetry, firmware update workflow, and extension points.
+description: RTE host user interface - parameter model, CAN protocol, live telemetry, firmware update workflow, and extension points.
 nav_order: 451
 normative_refs:
   - OV-CA-SWM-INDEX
   - OV-SW-MAINMCU-BOOT
 ---
 
-# RTE Host — Interface
+# Interface
 
-> **Placeholder** — This document will define the RTE host tool interface and protocol.
+> **Placeholder** - This document will define the RTE host tool interface and protocol.
 
 ## Planned sections
 

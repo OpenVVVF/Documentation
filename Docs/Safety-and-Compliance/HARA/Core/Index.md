@@ -19,14 +19,14 @@ normative_refs:
 
 # Introduction
 
-## Document Set — Core Platform and Application Profiles
+## Document Set - Core Platform and Application Profiles
 
 The OpenVVVF HARA is published as a **document set** rather than a single document:
 
 | Document | ID | Role |
 | --- | --- | --- |
-| **OpenVVVF HARA — Core Platform** (this document) | OV-SAF-HARA-CORE | Defines the control module as an application-independent safety element: hardware, base safety firmware image, safety architecture, platform hazard set, Safety Goals, Functional Safety Requirements, and the Fault Injection Test Plan. Hazards are stated at the **torque / power boundary** and are application-agnostic. |
-| **OpenVVVF HARA — Motorcycle Application Profile** | OV-SAF-HARA-PROF-MOTO | Assigns motorcycle-specific Operational Situations, Severity/Exposure/Controllability ratings, and ASIL targets to the platform hazard set. Normatively references this Core document. |
+| **OpenVVVF HARA - Core Platform** (this document) | OV-SAF-HARA-CORE | Defines the control module as an application-independent safety element: hardware, base safety firmware image, safety architecture, platform hazard set, Safety Goals, Functional Safety Requirements, and the Fault Injection Test Plan. Hazards are stated at the **torque / power boundary** and are application-agnostic. |
+| **OpenVVVF HARA - Motorcycle Application Profile** | OV-SAF-HARA-PROF-MOTO | Assigns motorcycle-specific Operational Situations, Severity/Exposure/Controllability ratings, and ASIL targets to the platform hazard set. Normatively references this Core document. |
 
 Additional application profiles (passenger car, rail, industrial/dynamometer) are planned as future documents in the same format. This Core document shall not contain application-specific risk ratings; profile documents shall not restate platform content, and shall declare the Core document version against which they were assessed.
 
@@ -56,7 +56,7 @@ The DC link may be supplied by any compatible DC source (for example, a traction
 
 The scope includes all hardware and software within the control module: the STM32H723ZG main MCU, the STM32G474RCTx safety coprocessor, six NCV57100 gate drivers, 3-phase IGBT power stage, current/voltage/temperature sensing, HV interlock loop (HVIL) digital input, tractive effort control input processing, motor control algorithm, CAN communication, inter-MCU challenge/response watchdog, and fault handling. The Safety Coprocessor is **part of the current design** and provides independent monitoring, 1oo2 gate drive power kill, and ASIL B(D) decomposition.
 
-**Out of scope:** The traction motor itself (external product), the rotor position sensor/encoder (part of the external motor), the Battery Management System (BMS), the IO board and its associated power supplies (including the Cincon DC/DC converter on the IO side — excluded from this analysis), the charger, and the vehicle display — these are external CAN nodes or external equipment interfaced by the VCU but not designed or manufactured by this project. The CAN protocol definitions in this document are the VCU-side interface only.
+**Out of scope:** The traction motor itself (external product), the rotor position sensor/encoder (part of the external motor), the Battery Management System (BMS), the IO board and its associated power supplies (including the Cincon DC/DC converter on the IO side - excluded from this analysis), the charger, and the vehicle display - these are external CAN nodes or external equipment interfaced by the VCU but not designed or manufactured by this project. The CAN protocol definitions in this document are the VCU-side interface only.
 
 > **ASIL Decomposition via Dual MCU**
 >
@@ -66,22 +66,22 @@ The scope includes all hardware and software within the control module: the STM3
 
 | Standard | Title | Application |
 | --- | --- | --- |
-| ISO 26262-1:2018 | *Road vehicles — Functional Safety — Part 1: Vocabulary* | Definitions and abbreviations |
+| ISO 26262-1:2018 | *Road vehicles - Functional Safety - Part 1: Vocabulary* | Definitions and abbreviations |
 | ISO 26262-3:2018 | *Part 3: Concept phase* | HARA methodology, Safety Goals, FSR derivation |
 | ISO 26262-4:2018 | *Part 4: Product development at the system level* | Technical Safety Requirements, system design |
 | ISO 26262-5:2018 | *Part 5: Product development at the hardware level* | Hardware architectural metrics (SPFM, LFM) |
 | ISO 26262-8:2018 | *Part 8: Supporting processes* | Test planning, change management, software tool confidence |
 | ISO 26262-9:2018 | *Part 9: ASIL-oriented and safety-oriented analyses* | ASIL decomposition, safety analysis |
-| ISO 6469-3:2018 | *Electrically propelled road vehicles — Safety specifications — Part 3: Electrical safety* | HV isolation requirements |
-| IEC 61800-5-2:2016 | *Adjustable speed electrical power drive systems — Part 5-2: Safety requirements — Functional* | Safe-function vocabulary (STO, SS1, SLS); safe-state mapping in Section 2.3 |
+| ISO 6469-3:2018 | *Electrically propelled road vehicles - Safety specifications - Part 3: Electrical safety* | HV isolation requirements |
+| IEC 61800-5-2:2016 | *Adjustable speed electrical power drive systems - Part 5-2: Safety requirements - Functional* | Safe-function vocabulary (STO, SS1, SLS); safe-state mapping in Section 2.3 |
 | IEC 61508 | *Functional safety of E/E/PE safety-related systems* | SIL terminology reference (future profiles) |
-| EN 50155 | *Railway applications — Electronic equipment used on rolling stock* | Reference for future rail profile |
+| EN 50155 | *Railway applications - Electronic equipment used on rolling stock* | Reference for future rail profile |
 
 # Item Definition
 
 ## System Boundaries
 
-**Table 1 — System Boundary Inclusions and Exclusions**
+**Table 1 - System Boundary Inclusions and Exclusions**
 
 | Category | Description |
 | --- | --- |
@@ -93,7 +93,7 @@ The scope includes all hardware and software within the control module: the STM3
 
 The control module is a combined unit that performs both motor control (inverter) and vehicle-level control (VCU) functions. The architecture comprises the primary control path, the hardware protection layer, an independent safety monitor, rail supervision, and the safe state actuation layer.
 
-**Table 2 — External Interfaces**
+**Table 2 - External Interfaces**
 
 | Interface | Connected System |
 | --- | --- |
@@ -107,15 +107,15 @@ The control module is a combined unit that performs both motor control (inverter
 | External DC/DC (IO side) | 12 V onboard power rail |
 | FLT (OR'd, active low) | Six NCV57100 fault outputs |
 
-**Primary control path — STM32H723ZG main MCU.** 550 MHz Cortex-M7, ECC RAM, brown-out detect, internal watchdog. Software functions: FOC motor control, tractive effort command processing, sensor acquisition and plausibility checking, fault detection and handling, CAN communication (FDCAN1 + FDCAN2), safe state management, gate drive power kill (Path 2a). Coprocessor interface: inter-MCU UART, timer sync line, bidirectional NRST. Storage: CY15B102Q-SXET 256 KB FRAM (SPI) for fault logs, configuration, hour meter, odometer; hardware write-protect pin.
+**Primary control path - STM32H723ZG main MCU.** 550 MHz Cortex-M7, ECC RAM, brown-out detect, internal watchdog. Software functions: FOC motor control, tractive effort command processing, sensor acquisition and plausibility checking, fault detection and handling, CAN communication (FDCAN1 + FDCAN2), safe state management, gate drive power kill (Path 2a). Coprocessor interface: inter-MCU UART, timer sync line, bidirectional NRST. Storage: CY15B102Q-SXET 256 KB FRAM (SPI) for fault logs, configuration, hour meter, odometer; hardware write-protect pin.
 
-**Hardware protection layer — six NCV57100 gate drivers (AEC-Q100).** Each device provides local hardware protection for its IGBT: DESAT short-circuit detection (<2 us), complementary anti-shoot-through inputs, UVLO, active Miller clamp, soft turn-off, and gate active pull-down. These protections operate independently of either MCU and provide the first line of defense against power stage faults. All six FLT outputs are OR'd together and fed to both MCUs. ASIL credit for these protections is addressed in Section 2.7.
+**Hardware protection layer - six NCV57100 gate drivers (AEC-Q100).** Each device provides local hardware protection for its IGBT: DESAT short-circuit detection (<2 us), complementary anti-shoot-through inputs, UVLO, active Miller clamp, soft turn-off, and gate active pull-down. These protections operate independently of either MCU and provide the first line of defense against power stage faults. All six FLT outputs are OR'd together and fed to both MCUs. ASIL credit for these protections is addressed in Section 2.7.
 
-**Independent safety monitor — STM32G474RCTx safety coprocessor.** 170 MHz Cortex-M4+FPU, 8 MHz crystal, shared +3.3 V rail (dedicated RD7-12S033R DC/DC converter), independent oscillator. Independent ADC access to all 4 current sense signals (phase U/V/W + DC link) + reference, both IGBT temperature sensors, the DC link capacitor temperature sensor, motor temperature, and all encoder signals (Hall U/V/W, Sin/Cos). Independent gate drive monitoring: GATE_DRIVE_FAULT (OR'd FLT), GATE_DRIVE_READY, GATE_DRIVE_RESET, GATE_DRIVE_PWR1_FB, GATE_DRIVE_PWR2_FB, and all 6 PWM outputs (PH_U/V/W_HIGH/LOW). Independent CAN: FDCAN2 + FDCAN3 — can snoop both CAN buses to cross-check torque commands and node heartbeats. Inter-MCU communication: dedicated UART + timer sync line + bidirectional NRST cross-reset. 1oo2 gate drive power kill: GATE_DRIVE_PWR2_ENABLE (coprocessor) in logical-OR with GATE_DRIVE_PWR1_ENABLE (main); either MCU deasserting its enable kills all six gate drive supplies, each with independent feedback. Challenge/response watchdog: the coprocessor issues a challenge; the main MCU must respond within the window — failure leads to NRST on the main MCU and SSO. Safe state authority: the coprocessor can independently trigger SSO via gate drive power kill, gate drive RESET, or main MCU NRST.
+**Independent safety monitor - STM32G474RCTx safety coprocessor.** 170 MHz Cortex-M4+FPU, 8 MHz crystal, shared +3.3 V rail (dedicated RD7-12S033R DC/DC converter), independent oscillator. Independent ADC access to all 4 current sense signals (phase U/V/W + DC link) + reference, both IGBT temperature sensors, the DC link capacitor temperature sensor, motor temperature, and all encoder signals (Hall U/V/W, Sin/Cos). Independent gate drive monitoring: GATE_DRIVE_FAULT (OR'd FLT), GATE_DRIVE_READY, GATE_DRIVE_RESET, GATE_DRIVE_PWR1_FB, GATE_DRIVE_PWR2_FB, and all 6 PWM outputs (PH_U/V/W_HIGH/LOW). Independent CAN: FDCAN2 + FDCAN3 - can snoop both CAN buses to cross-check torque commands and node heartbeats. Inter-MCU communication: dedicated UART + timer sync line + bidirectional NRST cross-reset. 1oo2 gate drive power kill: GATE_DRIVE_PWR2_ENABLE (coprocessor) in logical-OR with GATE_DRIVE_PWR1_ENABLE (main); either MCU deasserting its enable kills all six gate drive supplies, each with independent feedback. Challenge/response watchdog: the coprocessor issues a challenge; the main MCU must respond within the window - failure leads to NRST on the main MCU and SSO. Safe state authority: the coprocessor can independently trigger SSO via gate drive power kill, gate drive RESET, or main MCU NRST.
 
-**Rail supervisor — TPS389006-Q1 6-channel window supervisor.** Monitors the +3.3 V, +5 V, +12 V, and sensor +5 V rails plus both gate-drive power feedbacks (GATE_DRIVE_PWR1_FB, GATE_DRIVE_PWR2_FB). Window thresholds are I2C-configured by the main MCU at boot. On any out-of-window rail fault — including brownout of the +3.3 V rail shared by both MCUs — its NIRQ output asserts the shared GATE_DRIVER_FAULT line, which is monitored by both MCUs (the same net that carries the OR'd gate-driver FLT). The device is TI Functional Safety-Compliant and supports designs up to SIL 3 / ASIL D per TI. The boot-time I2C threshold configuration is a dependency to be covered by the pending DFA (LIMIT-08).
+**Rail supervisor - TPS389006-Q1 6-channel window supervisor.** Monitors the +3.3 V, +5 V, +12 V, and sensor +5 V rails plus both gate-drive power feedbacks (GATE_DRIVE_PWR1_FB, GATE_DRIVE_PWR2_FB). Window thresholds are I2C-configured by the main MCU at boot. On any out-of-window rail fault - including brownout of the +3.3 V rail shared by both MCUs - its NIRQ output asserts the shared GATE_DRIVER_FAULT line, which is monitored by both MCUs (the same net that carries the OR'd gate-driver FLT). The device is TI Functional Safety-Compliant and supports designs up to SIL 3 / ASIL D per TI. The boot-time I2C threshold configuration is a dependency to be covered by the pending DFA (LIMIT-08).
 
-**Safe state actuation layer — six redundant SSO pathways.**
+**Safe state actuation layer - six redundant SSO pathways.**
 
 - **Path 1 (hardware, <100 ns):** TIM1 break input (TIM1_BKIN) → hardware clears MOE, all PWM outputs disabled. Triggered by OR'd gate driver FLT (DESAT/UVLO) or software fault. Independent of both CPU states after trigger.
 - **Path 2a (active, ~10 us):** Main MCU → GATE_DRIVE_PWR1_ENABLE low → all six Murata MGJ2D121509MPC-R7 supplies shut down → NCV57100 UVLO → active pull-down → SSO. Feedback via GATE_DRIVE_PWR1_FB.
@@ -125,14 +125,14 @@ The control module is a combined unit that performs both motor control (inverter
 - **Path 5 (active, ~100 ms):** Coprocessor challenge/response watchdog failure → coprocessor asserts main MCU NRST → system reset → SSO during boot. Main MCU WDT timeout as backup.
 - **Path 6 (active, <10 us):** Coprocessor detects critical fault independently → asserts GATE_DRIVE_PWR2_ENABLE low + GATE_DRIVE_RESET → SSO without relying on the main MCU.
 
-## Safe State Philosophy — Immediate SSO, No Software Ramp-Down
+## Safe State Philosophy - Immediate SSO, No Software Ramp-Down
 
 > **Design Decision (v5.0): Fault response shall be immediate transition to Six-Switch-Open (SSO). Software-controlled torque ramp-down on fault is explicitly rejected.**
 >
 > In IEC 61800-5-2 vocabulary, this design implements **Safe Torque Off (STO)** as its sole fault response, and deliberately does **not** implement SS1 (controlled deceleration followed by STO). The rationale is as follows:
 >
 > 1. **A controlled ramp requires a trustworthy controller.** A ramp-down on fault detection is executed by the same system whose integrity has just been compromised. If the fault is a lying current sensor, a corrupted tractive effort calculation, or a misbehaving MCU, the "controlled" ramp is closed around untrusted data. Worst case, the ramp-down code is itself where the fault lives. Continued torque production from a faulted controller is unbounded; abrupt torque loss is bounded and, in most operational situations, recoverable by the operator. Moreover, SSO is freewheel: at loss of drive the machine produces no braking torque either, so the torque-free state is dynamically gentle at the drive boundary. Vehicle-level consequences of abrupt torque loss are assessed in the applicable profile document.
-> 2. **Hardware already forces SSO.** DESAT on the NCV57100 disables the phase within <2 us regardless of software intent; TIM1_BKIN disables all PWM within <100 ns. Any software ramp-down would apply only to the subset of faults that do not assert a hardware path — i.e., precisely the faults where software integrity is most in doubt.
+> 2. **Hardware already forces SSO.** DESAT on the NCV57100 disables the phase within <2 us regardless of software intent; TIM1_BKIN disables all PWM within <100 ns. Any software ramp-down would apply only to the subset of faults that do not assert a hardware path - i.e., precisely the faults where software integrity is most in doubt.
 > 3. **The base-image / generated-code trust model requires a minimal safety kernel.** Application and control code on this platform is intended to be user-generated via node-based code generation (Section 2.6). A torque-ramping state machine in the base safety image would add safety-critical states, timing edge cases (new fault arriving mid-ramp, regen-to-motoring zero-crossing during ramp), and verification burden. Immediate SSO removes that class of edge-case defects entirely.
 > 4. **Residual risk is owned, not hidden.** The consequence of this decision is that every fault produces an immediate torque step to zero, which is the H-03/H-03a hazardous event. This is an **accepted residual risk**, documented in Section 2.3 and the applicable profile document. The primary risk-reduction mechanism for loss-of-traction hazards under this philosophy is **detection speed** (fault-to-SSO latency), not torque shaping.
 >
@@ -142,7 +142,7 @@ The control module is a combined unit that performs both motor control (inverter
 
 The following table explains how each hazard class is mitigated by the architecture, which mechanisms cover which failure modes, and where the known limitations are.
 
-**Table 3 — Hazard Mitigation Strategy**
+**Table 3 - Hazard Mitigation Strategy**
 
 | Hazard Category | Failure Mode | Mitigation Mechanism | Limitation |
 | --- | --- | --- | --- |
@@ -151,7 +151,7 @@ The following table explains how each hazard class is mitigated by the architect
 | **Unintended tractive effort** (H-01, H-15) | MCU latch-up / runaway | Windowed watchdog ≤50 ms (FSR-15); breakpoint HW PWM disable (FSR-14) | WDT is on-chip; common-cause with MCU failure possible |
 | **Loss of tractive effort** (H-03, H-03a) | Fault-triggered safe state entry | Immediate SSO on fault (FSR-05); detection-to-SSO latency minimized (FSR-14, FSR-15, six SSO pathways) | No torque shaping on fault: every fault produces an immediate torque step to zero. Accepted residual risk (Section 2.3); detection speed is the primary mitigation |
 | **Loss of tractive effort** (H-03, H-03a) | External system loss (CAN) | CAN heartbeat timeouts with safe defaults (FSR-17); graceful degradation | IO board loss → immediate SSO (abrupt torque loss possible; accepted residual risk) |
-| **Over-torque** (H-06) | Excessive tractive effort command | Software torque limit LUT (FSR-07); torque command plausibility (FSR-02); coprocessor independent current monitoring with cross-check | DESAT handles hard short-circuit (<2 us). Regular overcurrent detected within 10 us by dual-MCU analog watchdog monitoring — sufficient for safe state off without hardware damage. No separate HW OCP comparator required. |
+| **Over-torque** (H-06) | Excessive tractive effort command | Software torque limit LUT (FSR-07); torque command plausibility (FSR-02); coprocessor independent current monitoring with cross-check | DESAT handles hard short-circuit (<2 us). Regular overcurrent detected within 10 us by dual-MCU analog watchdog monitoring - sufficient for safe state off without hardware damage. No separate HW OCP comparator required. |
 | **Over-torque** (H-06) | Short-circuit / shoot-through | NCV57100 DESAT (<2 us) (FSR-13); complementary anti-shoot-through inputs (FSR-12); active Miller clamp | Gate driver protections are hardware-level (Section 2.7); coprocessor independently monitors all 6 PWM output pairs for deadtime violations and stuck-on/stuck-off |
 | **Over-temperature** (H-07) | IGBT thermal runaway | 2 IGBT NTC sensors, 1oo2 voting (FSR-08), plus 1 DC link capacitor NTC; progressive derating; critical threshold → SSO | 1oo2 voter implemented; a stuck-high sensor can cause unnecessary derating (known trade-off: safety over availability). Note: derating applies to *pre-fault* thermal management only; once a fault threshold is crossed, response is immediate SSO. |
 | **Encoder loss** (H-08) | Loss of rotor position feedback | Encoder timeout detection <100 ms (FSR-09); immediate SSO on loss | Single encoder (no redundancy); bounded sensorless fallback if implemented |
@@ -164,7 +164,7 @@ The following table explains how each hazard class is mitigated by the architect
 
 ## Technical Parameters
 
-**Table 4 — Key Technical Parameters (Core Platform)**
+**Table 4 - Key Technical Parameters (Core Platform)**
 
 | Parameter | Value / Range |
 | --- | --- |
@@ -176,7 +176,7 @@ The following table explains how each hazard class is mitigated by the architect
 | Gate driver | onsemi NCV57100 x6 (AEC-Q100) |
 | Isolation | >5 kV<sub>rms</sub> (reinforced) per channel |
 | Power stage | External to the control module; 3-phase 2-level IGBT bridge on the reference board |
-| Fail-safe default | Six-switch-open (SSO) via NCV57100 active pull-down — immediate, no software ramp-down (Section 2.3) |
+| Fail-safe default | Six-switch-open (SSO) via NCV57100 active pull-down - immediate, no software ramp-down (Section 2.3) |
 | Safe function mapping (industrial vocabulary) | SSO ≙ STO per IEC 61800-5-2; SS1 deliberately not implemented (Section 2.3) |
 | Gate kill paths | Six redundant SSO pathways (TIM1_BKIN, 1oo2 gate-drive power kill, shared 3.3 V rail loss, GATE_DRIVE_RESET, coprocessor NRST, coprocessor independent trigger) |
 | FLT outputs | All six NCV57100 FLT OR'd to fault input read by both MCUs |
@@ -184,13 +184,13 @@ The following table explains how each hazard class is mitigated by the architect
 
 Application-specific parameters (vehicle mass, speed, controllability assumptions) are defined in the applicable profile document, not in this core table.
 
-## Application Software Trust Model — Node-Based Code Generation
+## Application Software Trust Model - Node-Based Code Generation
 
 The OpenVVVF platform is intended to support user-defined control, modulation, and application-layer logic produced by a **node-based code generation tool**, running on top of a **base safety-tested firmware image**. The following trust model applies and is a platform assumption for all safety claims in this document:
 
 > **Generated code is an untrusted element.**
 >
-> 1. All safety mechanisms defined in this document — input plausibility and discrepancy checking (FSR-01, FSR-02), rate limiting (FSR-03), torque limiting (FSR-07), temperature voting (FSR-08), encoder-loss detection (FSR-09), HVIL and DC link supervision (FSR-10, FSR-11, FSR-21), watchdog and challenge/response (FSR-15), POST (FSR-16), boot CRC (FSR-19), ECC handling (FSR-20), and all six SSO actuation pathways — **shall reside in the base firmware image and shall be independent of, and not modifiable by, generated application code** (freedom from interference).
+> 1. All safety mechanisms defined in this document - input plausibility and discrepancy checking (FSR-01, FSR-02), rate limiting (FSR-03), torque limiting (FSR-07), temperature voting (FSR-08), encoder-loss detection (FSR-09), HVIL and DC link supervision (FSR-10, FSR-11, FSR-21), watchdog and challenge/response (FSR-15), POST (FSR-16), boot CRC (FSR-19), ECC handling (FSR-20), and all six SSO actuation pathways - **shall reside in the base firmware image and shall be independent of, and not modifiable by, generated application code** (freedom from interference).
 > 2. Generated code may *request* torque within platform-enforced limits; it shall not be able to inhibit, bypass, delay, or reconfigure any safety mechanism or safe-state path.
 > 3. The safe state (immediate SSO, Section 2.3) is hardware-enforced and does not depend on any property of generated code.
 > 4. The code generator itself is a software tool whose output affects safety-relevant behavior. Under ISO 26262-8 tool-confidence terminology it shall be treated as requiring at least **TCL2/TCL3-level confidence**; no tool qualification has been performed and this is recorded as an open limitation (Section 9, GAP-SW-04).
@@ -199,9 +199,9 @@ The OpenVVVF platform is intended to support user-defined control, modulation, a
 
 ## Gate Drivers (Non-ASIL)
 
-Six **onsemi NCV57100** isolated high-current IGBT gate drivers. Automotive-qualified per AEC-Q100. These devices are **not ISO 26262 safety elements** — no safety manual, FMEDA, or ASIL claim is available.
+Six **onsemi NCV57100** isolated high-current IGBT gate drivers. Automotive-qualified per AEC-Q100. These devices are **not ISO 26262 safety elements** - no safety manual, FMEDA, or ASIL claim is available.
 
-**Table 5 — NCV57100 Safety-Relevant Features**
+**Table 5 - NCV57100 Safety-Relevant Features**
 
 | Feature | Specification | Safety Role | ASIL Credit |
 | --- | --- | --- | --- |
@@ -219,17 +219,17 @@ Six **onsemi NCV57100** isolated high-current IGBT gate drivers. Automotive-qual
 
 ## Future Considerations
 
-> **Safety Coprocessor — STM32G474RCTx (Implemented)**
+> **Safety Coprocessor - STM32G474RCTx (Implemented)**
 >
 > The Safety Coprocessor is a **STM32G474RCTx** (170 MHz Cortex-M4+FPU, 3x FDCAN, advanced motor-control timers) that operates as an **independent safety monitor** alongside the main STM32H723ZG. It is part of the current design and provides:
 >
-> - **Independent gate driver supply kill** (GATE_DRIVE_PWR2_ENABLE, Path 2b) — 1oo2 with main MCU's GATE_DRIVE_PWR1_ENABLE. Independent feedback via GATE_DRIVE_PWR2_FB.
+> - **Independent gate driver supply kill** (GATE_DRIVE_PWR2_ENABLE, Path 2b) - 1oo2 with main MCU's GATE_DRIVE_PWR1_ENABLE. Independent feedback via GATE_DRIVE_PWR2_FB.
 > - **Independent ADC monitoring** of all current sensors, temperature sensors, and encoder signals via voltage divider networks
 > - **Challenge-response watchdog** with the main STM32 via inter-MCU UART
-> - **Independent PWM output monitoring** — all 6 phase high/low signals monitored for deadtime violations, stuck-on, stuck-off
+> - **Independent PWM output monitoring** - all 6 phase high/low signals monitored for deadtime violations, stuck-on, stuck-off
 > - **Independent gate driver FLT monitoring** via OR'd fault line + combined READY signal
-> - **Independent CAN bus snooping** via FDCAN2 + FDCAN3 — cross-checks torque commands and heartbeat timing
-> - **Bidirectional NRST** — coprocessor can reset main MCU; main MCU can reset coprocessor
+> - **Independent CAN bus snooping** via FDCAN2 + FDCAN3 - cross-checks torque commands and heartbeat timing
+> - **Bidirectional NRST** - coprocessor can reset main MCU; main MCU can reset coprocessor
 >
 > The coprocessor enables **target ASIL D claims for SG-01 and SG-13 via ASIL B(D) + ASIL B(D) decomposition**. Both MCUs must independently agree that operation is safe; either can trigger SSO.
 
@@ -237,15 +237,15 @@ Six **onsemi NCV57100** isolated high-current IGBT gate drivers. Automotive-qual
 
 Operational Situations are **application-specific** and are defined in the applicable Application Profile document:
 
-- OV-SAF-HARA-PROF-MOTO — Motorcycle Application Profile
+- OV-SAF-HARA-PROF-MOTO - Motorcycle Application Profile
 
 Environmental operating conditions for the core platform hardware: ambient −20 °C to +50 °C (storage/qualification −40 °C to +85 °C per front matter), humidity 0–100% condensing, altitude 0–3,000 m MSL, high-vibration mobile mounting. Profiles shall refine these per application.
 
-# Hazard Identification (HAZID) — Core Platform
+# Hazard Identification (HAZID) - Core Platform
 
 Hazards are identified via systematic Functional Hazard Analysis (FHA) combining top-down FMEA perspective, expert judgment on power electronics and traction drive dynamics, and ISO 26262 hazard category checklists. Core-platform hazards are stated at the **drive boundary** (torque production and HV state) with application-neutral harmed parties. Application-specific hazards are defined in the applicable profile document and are additive to this table.
 
-**Table 6 — Identified Hazards (Core Platform)**
+**Table 6 - Identified Hazards (Core Platform)**
 
 | ID | Malfunctioning Behavior | Drive-Boundary Hazard | Potentially Affected Parties (application-dependent) |
 | --- | --- | --- | --- |
@@ -303,11 +303,11 @@ Severity, Exposure, and Controllability classifications follow ISO 26262-3:2018 
 
 > **Target Assignment Policy (deliberate conservatism):** Profile documents assign ASIL targets per ISO 26262-3 Table 4, and may then **raise a target by up to one level** for hazards whose mitigation depends substantially on software integrity (e.g., software plausibility checks, software fault handling), where a single systematic software fault could defeat multiple nominal mitigations simultaneously. This policy intentionally produces some targets above the Table 4 lookup value (e.g., H-01, H-13, H-15 at ASIL D from S3/E3/C3 inputs). The elevation is a design choice, not a Table 4 result, and shall be read as such.
 
-# Safety Goals — Core Platform
+# Safety Goals - Core Platform
 
 Safety Goals are platform-level. The **Target** integrity level shown is assigned by the applicable profile document; each profile shall assign targets per its own S/E/C assessment. "Achievable" reflects the current architecture's capability, not verified compliance.
 
-**Table 7 — Safety Goals**
+**Table 7 - Safety Goals**
 
 | SG | Safety Goal | Target (Ref. Profile) | Achievable | Hazards | Safe State |
 | --- | --- | --- | --- | --- | --- |
@@ -330,7 +330,7 @@ Safety Goals are platform-level. The **Target** integrity level shown is assigne
 
 Requirements use "shall" for binding provisions and "should" for recommendations. "Tgt" is the target integrity level assigned by the applicable profile document; "Now" is the level achievable with the current architecture.
 
-**Table 8 — Functional Safety Requirements (FSRs)**
+**Table 8 - Functional Safety Requirements (FSRs)**
 
 | FSR | Requirement | Tgt | Now | SG |
 | --- | --- | --- | --- | --- |
@@ -359,9 +359,9 @@ Requirements use "shall" for binding provisions and "should" for recommendations
 
 # Current Design Coverage
 
-**Table 9 — Honest Assessment of Design vs. FSRs**
+**Table 9 - Honest Assessment of Design vs. FSRs**
 
-Status vocabulary used throughout this document: **Covered** (implemented in current design), **Planned** (specified, not yet implemented), **Partial** (partially implemented), **To implement** (not started), **Limited** (implemented with documented constraint). No status in this document shall be read as "verified by test" — verification evidence is produced only by execution of the Section 10 test plan and is recorded separately (Section 10.2).
+Status vocabulary used throughout this document: **Covered** (implemented in current design), **Planned** (specified, not yet implemented), **Partial** (partially implemented), **To implement** (not started), **Limited** (implemented with documented constraint). No status in this document shall be read as "verified by test" - verification evidence is produced only by execution of the Section 10 test plan and is recorded separately (Section 10.2).
 
 | FSR | Tgt | Now | Status | Existing / Planned | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -398,39 +398,39 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 >
 > **Impact:** SG-01 and SG-13 target ASIL D, achievable via dual-MCU ASIL B(D) + ASIL B(D) decomposition (Table 7). The remaining gap is the formal ASIL D claim, pending the Dependent Failure Analysis (LIMIT-08).
 >
-> **Mitigation path:** Dual-MCU ASIL B(D) decomposition — implemented. Main MCU + coprocessor each achieve ASIL B(D); combined via 1oo2 voter on safe state actuation.
+> **Mitigation path:** Dual-MCU ASIL B(D) decomposition - implemented. Main MCU + coprocessor each achieve ASIL B(D); combined via 1oo2 voter on safe state actuation.
 
 > **GAP-ARCH-02: Power Kill Without Feedback Monitoring (P1, was P0)**
 >
-> **Issue:** The GATE_DRIVE_PWR1_ENABLE (main MCU) and GATE_DRIVE_PWR2_ENABLE (coprocessor) paths provide a 1oo2 active SSO mechanism. **Feedback:** GATE_DRIVE_PWR1_FB and GATE_DRIVE_PWR2_FB provide independent per-supply status. When the NCV57100 detects VDD_UVLO (loss of gate drive supply), it asserts FLT (active low), which both MCUs can read. The 1oo2 architecture means a stuck-high GATE_DRIVE_PWR1_ENABLE is not a single-point failure — the coprocessor can still achieve SSO via GATE_DRIVE_PWR2_ENABLE (Path 2b), GATE_DRIVE_RESET (Path 4), or NRST (Path 5). The shared 3.3V rail provides a passive SSO path (NCV57100 pull-down on VDD loss, Path 3).
+> **Issue:** The GATE_DRIVE_PWR1_ENABLE (main MCU) and GATE_DRIVE_PWR2_ENABLE (coprocessor) paths provide a 1oo2 active SSO mechanism. **Feedback:** GATE_DRIVE_PWR1_FB and GATE_DRIVE_PWR2_FB provide independent per-supply status. When the NCV57100 detects VDD_UVLO (loss of gate drive supply), it asserts FLT (active low), which both MCUs can read. The 1oo2 architecture means a stuck-high GATE_DRIVE_PWR1_ENABLE is not a single-point failure - the coprocessor can still achieve SSO via GATE_DRIVE_PWR2_ENABLE (Path 2b), GATE_DRIVE_RESET (Path 4), or NRST (Path 5). The shared 3.3V rail provides a passive SSO path (NCV57100 pull-down on VDD loss, Path 3).
 >
 > **Impact:** SG-13 targets ASIL D via ASIL B(D) decomposition. Six SSO pathways exist (see Section 2.2). The 1oo2 power kill with independent feedback provides diagnostic coverage for the supply kill path.
 >
-> **Mitigation path:** Implemented — GATE_DRIVE_PWR1_FB (main MCU) and GATE_DRIVE_PWR2_FB (coprocessor) provide independent per-supply feedback. Six SSO pathways (TIM1_BKIN; 1oo2 power kill via GATE_DRIVE_PWR1_ENABLE / GATE_DRIVE_PWR2_ENABLE; 3.3 V rail loss; GATE_DRIVE_RESET; coprocessor watchdog/NRST; coprocessor independent fault trigger) provide extensive redundancy. Verify feedback paths in C-17, C-26, C-27, S-10, and S-11.
+> **Mitigation path:** Implemented - GATE_DRIVE_PWR1_FB (main MCU) and GATE_DRIVE_PWR2_FB (coprocessor) provide independent per-supply feedback. Six SSO pathways (TIM1_BKIN; 1oo2 power kill via GATE_DRIVE_PWR1_ENABLE / GATE_DRIVE_PWR2_ENABLE; 3.3 V rail loss; GATE_DRIVE_RESET; coprocessor watchdog/NRST; coprocessor independent fault trigger) provide extensive redundancy. Verify feedback paths in C-17, C-26, C-27, S-10, and S-11.
 
-> **GAP-ARCH-03: Gate Driver Protection Credit — CLOSED**
+> **GAP-ARCH-03: Gate Driver Protection Credit - CLOSED**
 >
 > **Issue:** NCV57100 internal protections are hardware-level and not ASIL-rated (Section 2.7). The OR'd FLT output is a single shared wire, though it is read by both MCUs.
 >
-> **Impact assessment:** Reviewed per affected safety goal. SG-15 (PWM deadtime violations) does not depend on the gate drivers at all — it is enforced by the coprocessor's independent monitoring of all 6 PWM output pairs; unaffected. SG-12 (shoot-through) is covered by the NCV57100 complementary inputs as the hardware first line, with coprocessor deadtime/stuck monitoring and DESAT (SG-14) as independent detection — no gap in practice. SG-14 (gate driver fault detection) retains one diagnosed path concern — a stuck-active or stuck-inactive OR'd FLT wire — which is caught by the coprocessor's combined READY monitoring and its PWM output cross-check (a real gate fault that the FLT wire fails to report still appears as anomalous phase switching). The residual limitation is the absence of manufacturer qualification data (safety manual/FMEDA), which is not available for this part; no ASIL credit is claimed for the internal protections anywhere in this document.
+> **Impact assessment:** Reviewed per affected safety goal. SG-15 (PWM deadtime violations) does not depend on the gate drivers at all - it is enforced by the coprocessor's independent monitoring of all 6 PWM output pairs; unaffected. SG-12 (shoot-through) is covered by the NCV57100 complementary inputs as the hardware first line, with coprocessor deadtime/stuck monitoring and DESAT (SG-14) as independent detection - no gap in practice. SG-14 (gate driver fault detection) retains one diagnosed path concern - a stuck-active or stuck-inactive OR'd FLT wire - which is caught by the coprocessor's combined READY monitoring and its PWM output cross-check (a real gate fault that the FLT wire fails to report still appears as anomalous phase switching). The residual limitation is the absence of manufacturer qualification data (safety manual/FMEDA), which is not available for this part; no ASIL credit is claimed for the internal protections anywhere in this document.
 >
-> **Resolution:** Closed — analysis complete. No safety goal depends on an ASIL rating of the gate driver; the monitoring coverage above addresses the shared FLT wire. Verification of the cross-check logic remains in C-14, C-15, C-16.
+> **Resolution:** Closed - analysis complete. No safety goal depends on an ASIL rating of the gate driver; the monitoring coverage above addresses the shared FLT wire. Verification of the cross-check logic remains in C-14, C-15, C-16.
 
 ## Component and Software Gaps
 
-> **GAP-HW-01: Hardware Overcurrent Detection — CLOSED (Not Required)**
+> **GAP-HW-01: Hardware Overcurrent Detection - CLOSED (Not Required)**
 >
-> Hard short-circuit protection is handled by NCV57100 DESAT (<2 us). Regular overcurrent (below the DESAT threshold) is detected within **10 us by the STM32 analog watchdogs**: both the main STM32H723 and the coprocessor STM32G474 independently monitor all four current sense channels with hardware analog watchdog comparators, so detection does not depend on software sampling rate. Either MCU detecting overcurrent triggers SSO via its independent gate drive power kill path, providing full redundancy — and the coprocessor side runs only fixed, trusted firmware (Section 2.6), so the redundant path does not share the main MCU's software fault surface. **Closed — dual-MCU analog watchdog monitoring is sufficient.**
+> Hard short-circuit protection is handled by NCV57100 DESAT (<2 us). Regular overcurrent (below the DESAT threshold) is detected within **10 us by the STM32 analog watchdogs**: both the main STM32H723 and the coprocessor STM32G474 independently monitor all four current sense channels with hardware analog watchdog comparators, so detection does not depend on software sampling rate. Either MCU detecting overcurrent triggers SSO via its independent gate drive power kill path, providing full redundancy - and the coprocessor side runs only fixed, trusted firmware (Section 2.6), so the redundant path does not share the main MCU's software fault surface. **Closed - dual-MCU analog watchdog monitoring is sufficient.**
 
-> **GAP-HW-02: Tractive Effort Ramp-Down — CLOSED (Rejected by Design Decision)**
+> **GAP-HW-02: Tractive Effort Ramp-Down - CLOSED (Rejected by Design Decision)**
 >
-> Software-controlled torque ramp-down on fault (≤200 Nm/s before SSO) was evaluated and **rejected** (Section 2.3): a controlled ramp requires a trustworthy controller, which cannot be assumed once a fault has been detected; hardware paths (DESAT, TIM1_BKIN) force immediate SSO regardless; and a ramping state machine in the base safety image would add safety-critical states and verification burden while being incompatible with the generated-code trust model (Section 2.6). The requirement is replaced by FSR-05 (immediate SSO; detection-to-SSO ≤200 ms). The resulting abrupt-torque-loss exposure is recorded as accepted residual risk for H-03/H-03a (Section 2.3; applicable profile document). **Closed — no implementation planned.**
+> Software-controlled torque ramp-down on fault (≤200 Nm/s before SSO) was evaluated and **rejected** (Section 2.3): a controlled ramp requires a trustworthy controller, which cannot be assumed once a fault has been detected; hardware paths (DESAT, TIM1_BKIN) force immediate SSO regardless; and a ramping state machine in the base safety image would add safety-critical states and verification burden while being incompatible with the generated-code trust model (Section 2.6). The requirement is replaced by FSR-05 (immediate SSO; detection-to-SSO ≤200 ms). The resulting abrupt-torque-loss exposure is recorded as accepted residual risk for H-03/H-03a (Section 2.3; applicable profile document). **Closed - no implementation planned.**
 
 > **GAP-SW-01: No Boot CRC (P1)**
 >
 > FSR-19: Boot CRC verification is not yet implemented. Add a boot-time CRC-32 using the STM32 CRC peripheral to validate safety-critical code and calibration data before PWM enable.
 
-> **GAP-SW-03: Sensorless Fallback Policy — CLOSED**
+> **GAP-SW-03: Sensorless Fallback Policy - CLOSED**
 >
 > Policy: immediate SSO on encoder loss (FSR-09). No sensorless fallback mode is implemented; a bounded fallback would require trusting speed estimation derived from potentially faulted sensing, which is incompatible with the Section 2.3 philosophy.
 
@@ -440,13 +440,13 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 
 ## Gap Summary
 
-**Table 10 — Gap Mitigation Priority**
+**Table 10 - Gap Mitigation Priority**
 
 | Gap | Priority | Mitigation | Effort |
 | --- | --- | --- | --- |
-| Dual MCU with coprocessor | **RESOLVED** | STM32G474RCTx implemented — 1oo2 power kill, independent ADC, challenge/response watchdog, independent CAN snoop | Complete |
-| HW overcurrent detection | **CLOSED** | Dual-MCU STM32 analog watchdogs detect overcurrent within 10 us — sufficient for SSO without damage. | N/A |
-| Torque ramp-down on fault | **CLOSED — REJECTED** | Replaced by FSR-05 immediate SSO (Section 2.3). Residual risk documented. | N/A |
+| Dual MCU with coprocessor | **RESOLVED** | STM32G474RCTx implemented - 1oo2 power kill, independent ADC, challenge/response watchdog, independent CAN snoop | Complete |
+| HW overcurrent detection | **CLOSED** | Dual-MCU STM32 analog watchdogs detect overcurrent within 10 us - sufficient for SSO without damage. | N/A |
+| Torque ramp-down on fault | **CLOSED - REJECTED** | Replaced by FSR-05 immediate SSO (Section 2.3). Residual risk documented. | N/A |
 | Power kill feedback monitoring | **P1** | GATE_DRIVE_PWR1_FB and GATE_DRIVE_PWR2_FB provide independent per-supply feedback. Verify in C-17, C-26, C-27, S-10, and S-11. | Low |
 | Gate driver protection credit | **CLOSED** | No SG depends on gate-driver ASIL rating (GAP-ARCH-03). Coprocessor monitors FLT, READY, all 6 PWM outputs. Verify cross-check logic in C-14, C-15, C-16. | Low |
 | Boot CRC | **P1** | STM32 CRC peripheral | Low |
@@ -455,7 +455,7 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 | No DFA (ISO 26262-9) | **P0** | Dependent Failure Analysis | Medium |
 | No EMI/EMC pre-compliance | **P1** | CISPR 25 pre-compliance test | Medium |
 
-**Note:** With the dual-MCU architecture (STM32H723 + STM32G474 coprocessor), ASIL D is achievable for SG-01 and SG-13 via ASIL B(D) decomposition. The four hazards previously limited to ASIL A (H-06, H-16, H-17, and H-13 safe state failure) are now fully covered: H-06 by dual-MCU independent current monitoring (10 us analog watchdog detection + independent power kill), H-16 by coprocessor FLT/READY/PWM monitoring, H-17 by coprocessor independent deadtime monitoring, and H-13 by six redundant SSO pathways. GAP-HW-01 (HW overcurrent detection) is closed — dual-MCU analog watchdog monitoring is sufficient. No hazards remain below their target ASIL under the applicable profile assessment.
+**Note:** With the dual-MCU architecture (STM32H723 + STM32G474 coprocessor), ASIL D is achievable for SG-01 and SG-13 via ASIL B(D) decomposition. The four hazards previously limited to ASIL A (H-06, H-16, H-17, and H-13 safe state failure) are now fully covered: H-06 by dual-MCU independent current monitoring (10 us analog watchdog detection + independent power kill), H-16 by coprocessor FLT/READY/PWM monitoring, H-17 by coprocessor independent deadtime monitoring, and H-13 by six redundant SSO pathways. GAP-HW-01 (HW overcurrent detection) is closed - dual-MCU analog watchdog monitoring is sufficient. No hazards remain below their target ASIL under the applicable profile assessment.
 
 # Fault Injection Test Plan
 
@@ -463,10 +463,10 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 
 The purpose of this Fault Injection Test Plan is to provide a comprehensive, traceable methodology for verifying that the safety mechanisms implemented in the control module detect faults and transition to the defined safe state (immediate SSO, Section 2.3) within the required time budgets. The test plan defines **92 tests** organized into four categories:
 
-- **Component-Level Tests (C-01 to C-50):** Individual hardware component validation — inject faults into a single sensor, input, or protection circuit and verify detection and safe state entry.
+- **Component-Level Tests (C-01 to C-50):** Individual hardware component validation - inject faults into a single sensor, input, or protection circuit and verify detection and safe state entry.
 - **System-Level Tests (S-01 to S-19):** Full-system fault scenarios with the complete hardware and software running closed-loop control.
 - **Integration-Level Tests (I-01 to I-18):** External interface and communication fault scenarios (DC source management node, IO board, CAN bus).
-- **Environmental Tests (E-01 to E-12):** Environmental and stress type tests. **The entire E-series is deferred** — the project does not currently have access to an environmental chamber, vibration table, EMC chamber, ESD gun, or water spray rig. The E-series is retained as a stub reference plan (Section 10.7) for a future type-test campaign and shall not be cited as covering any Safety Goal, FSR, or hazard in the current campaign.
+- **Environmental Tests (E-01 to E-12):** Environmental and stress type tests. **The entire E-series is deferred** - the project does not currently have access to an environmental chamber, vibration table, EMC chamber, ESD gun, or water spray rig. The E-series is retained as a stub reference plan (Section 10.7) for a future type-test campaign and shall not be cited as covering any Safety Goal, FSR, or hazard in the current campaign.
 
 Each test case is designed with the following principles:
 
@@ -474,7 +474,7 @@ Each test case is designed with the following principles:
 2. **Every Functional Safety Requirement (FSR-01 through FSR-22) is covered by at least one executable test case** (FSR-22 coverage is planned as generated-code fault cases per GAP-SW-04 and is not yet elaborated).
 3. **Every identified hazard (H-01 through H-17, including H-03a) is covered by at least one executable test case** at the drive-boundary level; vehicle-level validation limits are documented in Section 10.10.
 4. **Response time requirements shall be verified** where measurable (e.g., <10 us HW PWM disable, ≤50 ms WDT timeout, ≤200 ms detection-to-SSO).
-5. **Fault injection shall be realistic** — faults represent credible failure modes observed in traction power electronics systems.
+5. **Fault injection shall be realistic** - faults represent credible failure modes observed in traction power electronics systems.
 6. **Tests shall be independently executable** where possible to allow incremental validation as software matures.
 7. **Only tests that can actually be executed with available equipment are scheduled in the current campaign.** Each test carries an explicit executability status (Section 10.3).
 
@@ -501,7 +501,7 @@ The following vocabulary shall be used consistently for every test and requireme
 
 The following equipment is **available** for the current campaign. Tests requiring anything not on this list are marked Conditional or Deferred.
 
-**Table 11 — Available Test Equipment**
+**Table 11 - Available Test Equipment**
 
 | Item | Description | Used For |
 | --- | --- | --- |
@@ -532,46 +532,46 @@ The following equipment is **available** for the current campaign. Tests requiri
 
 Every executed test shall produce the following evidence artifacts:
 
-1. **Telemetry log** — RTE/CAN capture of internal variables, fault status, and tractive effort commands for the full test duration.
-2. **Video recording** — continuous video covering the DUT, the oscilloscope screen, and the test area, narrated with the procedure step being performed.
-3. **Scope captures** — saved waveforms for every timing-critical measurement (PWM disable, DESAT response, deadtime, etc.).
+1. **Telemetry log** - RTE/CAN capture of internal variables, fault status, and tractive effort commands for the full test duration.
+2. **Video recording** - continuous video covering the DUT, the oscilloscope screen, and the test area, narrated with the procedure step being performed.
+3. **Scope captures** - saved waveforms for every timing-critical measurement (PWM disable, DESAT response, deadtime, etc.).
 
 Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15_run2_2026-08-14_60V.mp4`, with the telemetry log and scope captures sharing the same base name. Evidence references shall be entered into the per-test **Evidence** field and the traceability matrices (Section 10.8) upon execution. Evidence shall be published alongside this document in the project repository.
 
 ## Test Status Summary
 
-**Table 12 — Executability Summary (v5.0 Campaign)**
+**Table 12 - Executability Summary (v5.0 Campaign)**
 
 | Block | Tests | Status |
 | --- | --- | --- |
 | Sensor/input faults | C-01–C-09 | **Executable** (throttle via DC supplies; temp via heat gun; manual injection) |
 | DC link & HVIL | C-10–C-12 | **Executable** |
 | MCU/safety-path faults | C-13–C-20, C-39, C-41, C-43 | **Executable** |
-| LV rail faults | C-21, C-22, C-24, C-25 | **Conditional** — requires small programmable LV bench supply |
+| LV rail faults | C-21, C-22, C-24, C-25 | **Conditional** - requires small programmable LV bench supply |
 | Rail/gate-supply shorts | C-23, C-26, C-27 | **Executable** (current-limited fixtures; C-26/27 via energize-into-fault) |
 | Phase faults (open) | C-28–C-30 | **Executable** (manual disconnect under load) |
 | Phase faults (short) | C-31–C-34 | **Executable** via energize-into-fault at stepped voltage (50 V → 140 V max) |
 | Cap temp / ADC / SPI / thermal runaway / deadtime | C-35, C-41, C-42, C-45, C-49 | **Executable** |
-| Bearing current | C-36 | **Deferred** — requires shaft brush fixture |
+| Bearing current | C-36 | **Deferred** - requires shaft brush fixture |
 | Isolation | C-50 | **Executable** via alternative 1 kV leakage method |
 | System tests | S-01–S-19 | **Executable** (4-quadrant dyno, thermal camera available) |
 | Integration tests | I-01–I-18 | **Executable** (CAN simulation) |
-| Environmental tests | E-01–E-12 | **Deferred** — type tests; no environmental equipment available |
+| Environmental tests | E-01–E-12 | **Deferred** - type tests; no environmental equipment available |
 
-Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 — pending LV bench supply), 1 Deferred-equipment (C-36), 12 Deferred-type-test (E-series).** Total 101 line items including the E-series stubs; 92 tests in the current plan.
+Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 - pending LV bench supply), 1 Deferred-equipment (C-36), 12 Deferred-type-test (E-series).** Total 101 line items including the E-series stubs; 92 tests in the current plan.
 
 ## Component-Level Tests
 
-**Method note — throttle simulation:** For C-01 through C-04 and S-01, the dual throttle potentiometer wipers shall be simulated by two programmable DC supplies (0–5 V, common ground with the DUT). This permits precise, repeatable discrepancy, drift, short-to-rail, and short-to-ground injection. This method simulates the wiper signal only; it does not exercise ratiometric behavior against the sensor 5 V rail (rail faults are covered separately by C-24). At least one test in the campaign (C-05) shall use the real mechanical throttle assembly including the end-travel limit switch so the end-to-end path through the physical connector is exercised.
+**Method note - throttle simulation:** For C-01 through C-04 and S-01, the dual throttle potentiometer wipers shall be simulated by two programmable DC supplies (0–5 V, common ground with the DUT). This permits precise, repeatable discrepancy, drift, short-to-rail, and short-to-ground injection. This method simulates the wiper signal only; it does not exercise ratiometric behavior against the sensor 5 V rail (rail faults are covered separately by C-24). At least one test in the campaign (C-05) shall use the real mechanical throttle assembly including the end-travel limit switch so the end-to-end path through the physical connector is exercised.
 
-**Method note — manual fault injection:** Open-circuit faults shall be injected by physically disconnecting the relevant wire or connector during operation (no relay rig is used in this campaign). Gradual-drift faults shall be injected by ramping or stepping the simulating DC supply. Actual injection timing shall be captured from the telemetry record and video; exact repeatability of the injection instant is not required.
+**Method note - manual fault injection:** Open-circuit faults shall be injected by physically disconnecting the relevant wire or connector during operation (no relay rig is used in this campaign). Gradual-drift faults shall be injected by ramping or stepping the simulating DC supply. Actual injection timing shall be captured from the telemetry record and video; exact repeatability of the injection instant is not required.
 
 #### C-01: Tractive Effort Control Potentiometer 1 Open Circuit
 
-**Objective:** Verify FSR-01 — dual tractive effort control plausibility shall detect an open circuit on the primary channel.
+**Objective:** Verify FSR-01 - dual tractive effort control plausibility shall detect an open circuit on the primary channel.
 
 **Covered:** SG-01 (ASIL D), FSR-01, H-01
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -587,10 +587,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-02: Tractive Effort Control Channel 2 Shorted to +5 V
 
-**Objective:** Verify FSR-01 — the plausibility check shall detect short-to-rail on the secondary channel.
+**Objective:** Verify FSR-01 - the plausibility check shall detect short-to-rail on the secondary channel.
 
 **Covered:** SG-01 (ASIL D), FSR-01, H-01
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -605,10 +605,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-03: Tractive Effort Control Channel 1 Shorted to Ground
 
-**Objective:** Verify FSR-01 — short-to-ground detection on the primary channel.
+**Objective:** Verify FSR-01 - short-to-ground detection on the primary channel.
 
 **Covered:** SG-01 (ASIL D), FSR-01, H-01
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Drive channel 1 to 0 V / ground while channel 2 is at 50%. Observe response. Repeat under motor load.
 
@@ -621,20 +621,20 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify FSR-01 shall detect gradual channel mismatch (sensor degradation).
 
 **Covered:** SG-01 (ASIL D), FSR-01, H-01
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Using the throttle simulation supplies, gradually increase the offset between channel 1 and channel 2 from 0% to 10% over 10 seconds while the traction motor runs at constant speed. Record the trip point from telemetry.
 
 **Acceptance Criteria:** The fault shall trigger when discrepancy exceeds the 5% threshold. No false trips shall occur below threshold.
 
-**Rationale:** Gradual drift (wear, aging) must be distinguished from normal variation. Verifies threshold calibration — neither nuisance trips nor missed faults.
+**Rationale:** Gradual drift (wear, aging) must be distinguished from normal variation. Verifies threshold calibration - neither nuisance trips nor missed faults.
 
 #### C-05: Tractive Effort Control Limit Switch Activation at Speed
 
-**Objective:** Verify FSR-18 — the limit switch shall independently command zero tractive effort, overriding analog values.
+**Objective:** Verify FSR-18 - the limit switch shall independently command zero tractive effort, overriding analog values.
 
 **Covered:** SG-01 (ASIL D), FSR-18, H-01
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** This test shall use the **real mechanical throttle assembly** (not the simulation supplies).
 
@@ -644,14 +644,14 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Acceptance Criteria:** The tractive effort command shall drop to zero within <50 ms of limit switch activation, regardless of potentiometer position. PWM shall be disabled or zero duty. Fault shall be logged.
 
-**Rationale:** The limit switch is an independent hardware path to zero tractive effort — the last-resort protection against stuck cable or sensor malfunction. Also exercises the physical connector path end-to-end.
+**Rationale:** The limit switch is an independent hardware path to zero tractive effort - the last-resort protection against stuck cable or sensor malfunction. Also exercises the physical connector path end-to-end.
 
 #### C-06: Phase Current Sensor Offset Drift
 
-**Objective:** Verify FSR-02 — tractive effort command plausibility shall detect current sensor offset error.
+**Objective:** Verify FSR-02 - tractive effort command plausibility shall detect current sensor offset error.
 
 **Covered:** SG-01 (ASIL D), SG-06 (ASIL C), FSR-02, H-01, H-06
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -666,10 +666,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-07: DC Link Current Sensor Open Circuit
 
-**Objective:** Verify FSR-02 — loss of DC link current sensor shall be detected.
+**Objective:** Verify FSR-02 - loss of DC link current sensor shall be detected.
 
 **Covered:** SG-01 (ASIL D), FSR-02, FSR-07, H-01, H-06
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Open-circuit the DC link current sensor signal wire while the traction motor runs at 25% load. Observe plausibility check and safe state entry.
 
@@ -679,10 +679,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-08: IGBT Overtemperature (Simulated)
 
-**Objective:** Verify FSR-08 — 1oo2 temperature voting and progressive derating.
+**Objective:** Verify FSR-08 - 1oo2 temperature voting and progressive derating.
 
 **Covered:** SG-07 (ASIL B), FSR-08, H-07
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -690,7 +690,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 2. Observe tractive effort derating via RTE.
 3. Elevate the second sensor to the warning threshold. Verify further derating.
 4. Elevate both above the critical threshold. Verify SSO entry.
-5. Test single-sensor failure: one sensor stuck implausibly high while the other is normal. Verify discrepancy detection triggers the fault response (a stuck-high sensor causes derating — safety over availability).
+5. Test single-sensor failure: one sensor stuck implausibly high while the other is normal. Verify discrepancy detection triggers the fault response (a stuck-high sensor causes derating - safety over availability).
 
 **Acceptance Criteria:** Progressive derate shall occur at warning thresholds. SSO shall be entered at the critical threshold. Either sensor reaching threshold shall trigger the response (1oo2); sensor discrepancy shall be detected. Response times: derate <500 ms; SSO <1 s from critical threshold crossing.
 
@@ -698,10 +698,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-09: Traction Motor Encoder Signal Loss
 
-**Objective:** Verify FSR-09 — encoder loss detection and safe state entry.
+**Objective:** Verify FSR-09 - encoder loss detection and safe state entry.
 
 **Covered:** SG-08 (ASIL C), FSR-09, H-08
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -717,10 +717,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-10: DC Link Bus Overvoltage (Simulated)
 
-**Objective:** Verify FSR-11 — DC link overvoltage detection and regen disable.
+**Objective:** Verify FSR-11 - DC link overvoltage detection and regen disable.
 
 **Covered:** SG-10 (ASIL B), FSR-11, H-10
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -736,10 +736,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-11: DC Link Bus Undervoltage (Simulated)
 
-**Objective:** Verify FSR-21 — DC link undervoltage detection and response.
+**Objective:** Verify FSR-21 - DC link undervoltage detection and response.
 
 **Covered:** SG-03 (ASIL C), SG-10 (ASIL B), FSR-21, H-03
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Gradually reduce the DC link voltage via the programmable supply while the traction motor runs at 50% load. Observe derating and safe state entry at the critical UV threshold.
 
@@ -749,15 +749,15 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-12: HVIL Interruption
 
-**Objective:** Verify FSR-10 — HVIL loop interruption detection and response.
+**Objective:** Verify FSR-10 - HVIL loop interruption detection and response.
 
 **Covered:** SG-09 (ASIL A), FSR-10, H-09
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
 1. System at key-on with HVIL loop intact.
-2. Open the HVIL loop (disconnect HVIL connector — the intended field mechanism).
+2. Open the HVIL loop (disconnect HVIL connector - the intended field mechanism).
 3. Measure time from HVIL open to PWM disable and to contactor open request on CAN1.
 
 **Acceptance Criteria:** PWM shall be disabled within <50 ms. Contactor open request shall be transmitted on CAN1 within <100 ms. Fault shall be logged.
@@ -766,10 +766,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-13: Watchdog Timeout (STM32 Failure to Service)
 
-**Objective:** Verify FSR-15 — the independent watchdog shall detect MCU runaway and force reset.
+**Objective:** Verify FSR-15 - the independent watchdog shall detect MCU runaway and force reset.
 
 **Covered:** SG-13 (ASIL D), SG-01 (ASIL D), FSR-15, H-13, H-14
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -784,10 +784,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-14: STM32 Breakpoint Input (HW PWM Disable)
 
-**Objective:** Verify FSR-14 — the hardware breakpoint input shall disable all PWM within <10 us, independent of software.
+**Objective:** Verify FSR-14 - the hardware breakpoint input shall disable all PWM within <10 us, independent of software.
 
 **Covered:** SG-13 (ASIL D), FSR-14, H-13
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -803,10 +803,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-15: Gate Driver DESAT (Simulated Short Circuit)
 
-**Objective:** Verify FSR-13 — NCV57100 DESAT protection shall detect and respond to a simulated short circuit.
+**Objective:** Verify FSR-13 - NCV57100 DESAT protection shall detect and respond to a simulated short circuit.
 
 **Covered:** SG-12 (ASIL C), SG-14 (ASIL C), FSR-13, H-12, H-16
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -822,10 +822,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-16: Gate Driver DESAT Self-Test at Power-On
 
-**Objective:** Verify FSR-16 — the DESAT self-test shall confirm protection circuit function before PWM enable.
+**Objective:** Verify FSR-16 - the DESAT self-test shall confirm protection circuit function before PWM enable.
 
 **Covered:** SG-12 (ASIL C), SG-14 (ASIL C), FSR-16, H-12, H-16
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Power cycle the system. Observe the DESAT self-test sequence. Verify PWM is not enabled until all six gate drivers pass. Introduce a fault in one DESAT circuit (e.g., open DESAT diode) and verify the system refuses to enable PWM.
 
@@ -838,7 +838,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify gate driver UVLO shall prevent operation at insufficient gate drive voltage.
 
 **Covered:** SG-12 (ASIL C), FSR-12, H-12
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Gradually reduce the +15 V gate driver supply while the system is operating. Record the UVLO trigger point and PWM disable.
 
@@ -848,10 +848,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-18: ECC RAM Single-Bit Error Injection
 
-**Objective:** Verify FSR-20 — ECC RAM shall correct single-bit errors and allow continued operation.
+**Objective:** Verify FSR-20 - ECC RAM shall correct single-bit errors and allow continued operation.
 
 **Covered:** SG-13 (ASIL D), SG-15 (ASIL C), FSR-20
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Use the STM32 ECC error injection capability (if available) or the debug probe to flip a single bit in a safety-critical RAM location (e.g., tractive effort limit variable). Observe system behavior via RTE.
 
@@ -861,10 +861,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-19: ECC RAM Double-Bit Error Injection
 
-**Objective:** Verify FSR-20 — double-bit errors shall trigger safe state (uncorrectable).
+**Objective:** Verify FSR-20 - double-bit errors shall trigger safe state (uncorrectable).
 
 **Covered:** SG-13 (ASIL D), FSR-20
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Flip two bits in a safety-critical RAM location. Observe system response.
 
@@ -874,10 +874,10 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 #### C-20: Boot CRC Mismatch
 
-**Objective:** Verify FSR-19 — boot CRC shall prevent operation with corrupted firmware.
+**Objective:** Verify FSR-19 - boot CRC shall prevent operation with corrupted firmware.
 
 **Covered:** SG-01 (ASIL D), SG-13 (ASIL D), FSR-19, H-15
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Deliberately corrupt one byte in the safety-critical code flash region (debugger or flash tool). Power cycle and observe boot behavior.
 
@@ -885,12 +885,12 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Rationale:** Corrupted firmware could modify tractive effort mapping, safety thresholds, or fault handling (H-15).
 
-#### C-21: STM32 Supply Brownout — Gradual Vdd Drop
+#### C-21: STM32 Supply Brownout - Gradual Vdd Drop
 
 **Objective:** Verify brownout detection (BOR) shall trigger safe state before MCU operation becomes unreliable.
 
 **Covered:** SG-13 (ASIL D), FSR-14, FSR-15, H-13, H-14
-**Status:** Conditional — requires small programmable LV bench supply | **Evidence:** —
+**Status:** Conditional - requires small programmable LV bench supply | **Evidence:** -
 
 **Procedure:**
 
@@ -904,12 +904,12 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Rationale:** A declining supply can put the MCU in an undefined region with random PWM output. BOR must catch this first.
 
-#### C-22: Brownout Recovery — Power Dip Ride-Through
+#### C-22: Brownout Recovery - Power Dip Ride-Through
 
 **Objective:** Verify system behavior during brief power dips and recovery.
 
 **Covered:** SG-13 (ASIL D), FSR-16, H-13
-**Status:** Conditional — requires small programmable LV bench supply | **Evidence:** —
+**Status:** Conditional - requires small programmable LV bench supply | **Evidence:** -
 
 **Procedure:**
 
@@ -921,14 +921,14 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Acceptance Criteria:** Dips above BOR: uninterrupted operation. Dips below BOR: clean reset, PWM disabled, POST on recovery. +12 V dip: NCV57100 UVLO triggers, PWM disabled. In all cases the safe state shall be maintained during the anomaly.
 
-**Rationale:** Real-world power disturbances must produce clean ride-through or clean reset — never an undefined operational state.
+**Rationale:** Real-world power disturbances must produce clean ride-through or clean reset - never an undefined operational state.
 
 #### C-23: +12 V Logic Rail Short to Ground
 
 **Objective:** Verify system response when the +12 V logic rail is shorted to ground.
 
 **Covered:** SG-13 (ASIL D), FSR-14, FSR-15, H-13
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -947,7 +947,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify system response when the +5 V sensor supply is shorted.
 
 **Covered:** SG-01 (ASIL D), SG-13 (ASIL D), FSR-01, FSR-09, H-01, H-08
-**Status:** Conditional — requires current-limited LV fixture/supply | **Evidence:** —
+**Status:** Conditional - requires current-limited LV fixture/supply | **Evidence:** -
 
 **Procedure:**
 
@@ -966,7 +966,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify safe state behavior on MCU supply collapse.
 
 **Covered:** SG-13 (ASIL D), FSR-14, FSR-15, H-13
-**Status:** Conditional — requires current-limited LV fixture/supply | **Evidence:** —
+**Status:** Conditional - requires current-limited LV fixture/supply | **Evidence:** -
 
 **Procedure:**
 
@@ -985,7 +985,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify NCV57100 UVLO response when a +15 V gate drive supply is shorted.
 
 **Covered:** SG-12 (ASIL C), SG-14 (ASIL C), FSR-12, FSR-13, H-12, H-16
-**Status:** Executable — Defined (energize-into-fault variant permitted) | **Evidence:** —
+**Status:** Executable - Defined (energize-into-fault variant permitted) | **Evidence:** -
 
 **Procedure:**
 
@@ -1004,7 +1004,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify NCV57100 response when the negative gate drive supply is lost/shorted.
 
 **Covered:** SG-12 (ASIL C), FSR-12, H-12
-**Status:** Executable — Defined (energize-into-fault variant permitted) | **Evidence:** —
+**Status:** Executable - Defined (energize-into-fault variant permitted) | **Evidence:** -
 
 **Procedure:** As C-26, but short the −9 V supply to ground for each gate driver position.
 
@@ -1017,7 +1017,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify the system shall detect and respond to an open-circuited motor phase.
 
 **Covered:** SG-08 (ASIL C), FSR-09, H-08
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1037,7 +1037,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** As C-28 for Phase V.
 
 **Covered:** SG-08 (ASIL C), FSR-09, H-08
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Identical to C-28, opening Phase V.
 
@@ -1050,7 +1050,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** As C-28 for Phase W.
 
 **Covered:** SG-08 (ASIL C), FSR-09, H-08
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Identical to C-28, opening Phase W.
 
@@ -1058,12 +1058,12 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Rationale:** As C-29.
 
-#### C-31: Phase-to-Phase Short (U-V) — Energize-Into-Fault
+#### C-31: Phase-to-Phase Short (U-V) - Energize-Into-Fault
 
 **Objective:** Verify DESAT and overcurrent protection respond to a phase-to-phase short circuit.
 
 **Covered:** SG-12 (ASIL C), SG-14 (ASIL C), FSR-13, H-12, H-16
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 > **Method note (no shorting contactor available):** This test uses the **energize-into-fault** method. The short is bolted across the phase leads with the system fully de-energized and verified with a DMM. The DC link is then energized via the programmable supply (which provides both the contactor function and current limiting), starting at reduced voltage. Mid-operation short injection is not performed in this campaign (LIMIT-10).
 
@@ -1082,40 +1082,40 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Rationale:** Phase-to-phase short is the most severe inverter fault (H-12). Validates the full chain: DESAT → soft turn-off → FLT → safe state. **WARNING:** even at reduced voltage, fault energy is destructive if protection fails. Remote operation and blast shielding are mandatory.
 
-#### C-32: Phase-to-Phase Short (V-W) — Energize-Into-Fault
+#### C-32: Phase-to-Phase Short (V-W) - Energize-Into-Fault
 
 **Objective:** As C-31 for the V-W phase combination.
 
 **Covered:** SG-12 (ASIL C), SG-14 (ASIL C), FSR-13, H-12
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Identical to C-31 (energize-into-fault), with the short bolted across V-W. One phase pair is tested at a time; each pair is a separate, complete run with its own evidence set.
 
 **Acceptance Criteria:** As C-31.
 
-#### C-33: Phase-to-Phase Short (U-W) — Energize-Into-Fault
+#### C-33: Phase-to-Phase Short (U-W) - Energize-Into-Fault
 
 **Objective:** As C-31 for the U-W phase combination.
 
 **Covered:** SG-12 (ASIL C), SG-14 (ASIL C), FSR-13, H-12
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:** Identical to C-31 (energize-into-fault), with the short bolted across U-W. One phase pair is tested at a time; each pair is a separate, complete run with its own evidence set.
 
 **Acceptance Criteria:** As C-31.
 
-**Rationale (C-31 to C-33):** All three phase-pair combinations shall be independently validated, one pair at a time — never two shorts installed simultaneously.
+**Rationale (C-31 to C-33):** All three phase-pair combinations shall be independently validated, one pair at a time - never two shorts installed simultaneously.
 
-#### C-34: Phase-to-DC-Rail Short — Energize-Into-Fault
+#### C-34: Phase-to-DC-Rail Short - Energize-Into-Fault
 
 **Objective:** Verify protection response when a motor phase is shorted to a DC link rail (DC+ and DC−).
 
 **Covered:** SG-12 (ASIL C), FSR-13, H-12
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
-1. Energize-into-fault method per C-31: bolt the short from the selected phase to the selected rail, de-energized; verify with DMM. One short is installed at a time — never two simultaneously.
+1. Energize-into-fault method per C-31: bolt the short from the selected phase to the selected rail, de-energized; verify with DMM. One short is installed at a time - never two simultaneously.
 2. Energize the DC link at 50 V (stepped up per C-31 only after success).
 3. Command a single pulse on the shorted phase: if the high-side IGBT is driven (DC+ case), DESAT shall trigger immediately; if the low-side is driven, a shoot-through path is created through the winding and overcurrent protection shall trigger. The DC− case exercises the complementary paths.
 4. De-energize, inspect, verify FLT and fault log.
@@ -1123,14 +1123,14 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Acceptance Criteria:** Protection shall trigger within <10 us. No hardware damage at reduced voltage. Safe state entered. Fault logged, for every configuration.
 
-**Rationale:** Simulates motor winding insulation failure at DC rail potential — a common failure mode (insulation degradation, moisture, mechanical damage). The current path depends on which switch conducts; DESAT or overcurrent monitoring must catch either, for every phase and rail.
+**Rationale:** Simulates motor winding insulation failure at DC rail potential - a common failure mode (insulation degradation, moisture, mechanical damage). The current path depends on which switch conducts; DESAT or overcurrent monitoring must catch either, for every phase and rail.
 
 #### C-35: DC Link Capacitor Temperature Monitoring
 
 **Objective:** Verify DC link capacitor temperature sensing and thermal protection.
 
 **Covered:** SG-07 (ASIL B), FSR-08 (extended), H-07
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1149,8 +1149,8 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Objective:** Validate that Class Y safety capacitors effectively shunt common-mode bearing currents to ground.
 
-**Covered:** SG-07 (ASIL B, extended), H-07 (indirect — bearing damage leads to mechanical failure)
-**Status:** **Deferred** — requires shaft voltage brush/coupling fixture | **Evidence:** —
+**Covered:** SG-07 (ASIL B, extended), H-07 (indirect - bearing damage leads to mechanical failure)
+**Status:** **Deferred** - requires shaft voltage brush/coupling fixture | **Evidence:** -
 
 **Procedure (reference, for when the fixture is built):**
 
@@ -1169,7 +1169,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify boot CRC (FSR-19) detects flash corruption from bit rot, EMI, or wear.
 
 **Covered:** SG-01 (ASIL D), SG-13 (ASIL D), FSR-19, H-15
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1188,7 +1188,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify ADC reference stability and detection of reference drift.
 
 **Covered:** SG-01 (ASIL D), FSR-02, H-01, H-06
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1200,14 +1200,14 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Acceptance Criteria:** ADC reference shall be stable within ±1% over the tested range. Vrefint shall read in the expected range. If Vref drifts beyond ±2%: the plausibility check shall detect the sensor mismatch and enter safe state.
 
-**Rationale:** Reference drift scales ALL analog readings correlatedly — dangerous because throttle and current sensors misread together. FSR-02 is the primary defense.
+**Rationale:** Reference drift scales ALL analog readings correlatedly - dangerous because throttle and current sensors misread together. FSR-02 is the primary defense.
 
 #### C-42: SPI Communication Fault (MAX22530 Isolated ADC)
 
 **Objective:** Verify the system handles SPI communication failures with the isolated voltage measurement ADC.
 
 **Covered:** SG-10 (ASIL B), FSR-11, H-10
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1225,7 +1225,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify the system handles CAN bus-off correctly (TEC > 255).
 
 **Covered:** SG-01 (ASIL D), FSR-17, H-03
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1244,7 +1244,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify thermal protection catches IGBT thermal runaway before T<sub>j,max</sub>.
 
 **Covered:** SG-07 (ASIL B), FSR-08, H-07
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1263,7 +1263,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 **Objective:** Verify deadtime is always present between complementary switching edges.
 
 **Covered:** SG-12 (ASIL C), FSR-12, H-17
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1277,12 +1277,12 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 �
 
 **Rationale:** Verifies deadtime on the actual gate signals, not just in timer registers. Should be run on every unit.
 
-#### C-50: Isolation Barrier Verification — Applied-Voltage Leakage Method
+#### C-50: Isolation Barrier Verification - Applied-Voltage Leakage Method
 
 **Objective:** Verify reinforced isolation between the HV DC link and chassis/logic ground.
 
 **Covered:** SG-09 (ASIL A), FSR-10, H-09
-**Status:** Executable — Defined (alternative method; no megohmmeter/HiPot tester available) | **Evidence:** —
+**Status:** Executable - Defined (alternative method; no megohmmeter/HiPot tester available) | **Evidence:** -
 
 > **Method note (no insulation tester available):** Isolation shall be verified by an **applied-voltage leakage measurement**: a known HV potential is applied between DC link negative and chassis through a current-limiting series resistor, and the leakage is computed from the measured voltage drop. This yields a quantitative insulation resistance, passable against the >500 Ω/V criterion of ISO 6469-3. It is not a calibrated megohmmeter measurement and shall be recorded as an alternative method.
 
@@ -1307,10 +1307,10 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 #### S-01: Unintended Tractive Effort from Throttle Fault
 
-**Objective:** Verify SG-01, FSR-01, FSR-03, FSR-18 — the system shall reject unintended tractive effort when the throttle input is implausible.
+**Objective:** Verify SG-01, FSR-01, FSR-03, FSR-18 - the system shall reject unintended tractive effort when the throttle input is implausible.
 
 **Covered:** SG-01 (ASIL D), H-01, FSR-01, FSR-03, FSR-18
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** Traction motor on dyno. DC link at nominal voltage. Throttle simulated by dual DC supplies (Section 10.2.1), except step 5 which uses the real assembly.
 
@@ -1327,10 +1327,10 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 #### S-02: Unintended Reverse Tractive Effort
 
-**Objective:** Verify SG-02, FSR-04 — reverse tractive effort shall be rejected when speed > 0.
+**Objective:** Verify SG-02, FSR-04 - reverse tractive effort shall be rejected when speed > 0.
 
 **Covered:** SG-02 (ASIL B), H-02, FSR-04
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** Traction motor spinning forward on dyno.
 
@@ -1345,12 +1345,12 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** The two-condition interlock (stationary + selected) prevents inadvertent reverse from software glitch or sensor fault.
 
-#### S-03: Sudden Loss of Tractive Effort — Immediate SSO Timing
+#### S-03: Sudden Loss of Tractive Effort - Immediate SSO Timing
 
-**Objective:** Verify SG-03, FSR-05 — on fault, the system shall transition to the torque-free state immediately, within the detection-to-SSO latency budget.
+**Objective:** Verify SG-03, FSR-05 - on fault, the system shall transition to the torque-free state immediately, within the detection-to-SSO latency budget.
 
 **Covered:** SG-03 (ASIL C), H-03, FSR-05
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** Traction motor on dyno at 80% load (high sustained-load operating point). Closed-loop control. Dyno torque transducer recording.
 
@@ -1371,7 +1371,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Characterize the torque transition and verify immediate-SSO behavior at high sustained load, providing the drive-boundary data for the profile-level residual-risk assessment.
 
 **Covered:** SG-03 (ASIL C), H-03a, FSR-05
-**Status:** Executable — Defined (vehicle-level validation excluded; LIMIT-01) | **Evidence:** —
+**Status:** Executable - Defined (vehicle-level validation excluded; LIMIT-01) | **Evidence:** -
 
 **Setup:** Traction motor on dyno at 60–80% rated tractive effort, high speed. Dyno torque transducer ≥10 kHz bandwidth.
 
@@ -1385,14 +1385,14 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Acceptance Criteria:** At every operating point, the torque transition shall be a single monotonic fall to zero within the FSR-05 latency budget, without opposite-sign overshoot >5% of rated torque and without oscillation. Behavior shall be identical regardless of operating point.
 
-**Rationale:** H-03a (defined in the applicable profile document) concerns loss of tractive effort in an application-specific operating situation. The dyno cannot replicate application-level dynamics (LIMIT-01); what it can and shall verify is that the drive's contribution to that event — the torque transition itself — is clean, immediate, and operating-point-independent. The operator-level consequence is an accepted residual risk documented in the applicable profile and shall be characterized (not "verified safe") by in-application testing before operational use.
+**Rationale:** H-03a (defined in the applicable profile document) concerns loss of tractive effort in an application-specific operating situation. The dyno cannot replicate application-level dynamics (LIMIT-01); what it can and shall verify is that the drive's contribution to that event - the torque transition itself - is clean, immediate, and operating-point-independent. The operator-level consequence is an accepted residual risk documented in the applicable profile and shall be characterized (not "verified safe") by in-application testing before operational use.
 
 #### S-05: Uncommanded Regenerative Braking
 
-**Objective:** Verify SG-05, FSR-06 — uncommanded regenerative braking shall be detected and rejected.
+**Objective:** Verify SG-05, FSR-06 - uncommanded regenerative braking shall be detected and rejected.
 
 **Covered:** SG-05 (ASIL C), H-05, FSR-06
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** Traction motor on dyno in motoring mode; no regen requested.
 
@@ -1411,7 +1411,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Identify all thermal hotspots under sustained full-load operation using infrared thermography.
 
 **Covered:** SG-07 (ASIL B), FSR-08, H-07 (extended to all components)
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** Traction motor on dyno. Thermal camera. Emissivity-calibrated targets on key surfaces. Ambient 25 °C with controlled airflow.
 
@@ -1427,16 +1427,16 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Point sensors cannot reveal poor solder joints, current crowding, or bad heatsink contact. Run on the first production-representative unit and after any hardware revision.
 
-#### S-07: Thermal Cycling — IGBT and DC Link Capacitor (Bench Method)
+#### S-07: Thermal Cycling - IGBT and DC Link Capacitor (Bench Method)
 
 **Objective:** Validate thermal protection and mechanical integrity under temperature changes achievable without a chamber.
 
 **Covered:** SG-07 (ASIL B), FSR-08, FSR-11, H-07, H-10
-**Status:** Executable — Defined (reduced scope: no chamber; cold-start portion Conditional on cold environment) | **Evidence:** —
+**Status:** Executable - Defined (reduced scope: no chamber; cold-start portion Conditional on cold environment) | **Evidence:** -
 
 **Procedure:**
 
-1. Cold start from the coldest available environment (cold soak outdoors/unheated space in winter, or freezer for the unpowered control PCB only — record actual soak temperature).
+1. Cold start from the coldest available environment (cold soak outdoors/unheated space in winter, or freezer for the unpowered control PCB only - record actual soak temperature).
 2. Ramp to full load while monitoring IGBT temperature rise.
 3. Verify temperature sensors read correctly at low temperature.
 4. Rapid transition: full load hot (>80 °C) → shutdown → immediate restart. Verify no false fault.
@@ -1451,7 +1451,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Verify the regen system handles maximum regen power without overvoltage or instability.
 
 **Covered:** SG-05 (ASIL C), SG-10 (ASIL B), FSR-06, FSR-11, H-05, H-10
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** Traction motor driven by the 4-quadrant dyno at maximum rated speed. DC link supply in sink mode (bidirectional ±50 A) absorbing regen power.
 
@@ -1474,7 +1474,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Verify stable operation above base speed.
 
 **Covered:** SG-06 (ASIL C), FSR-07, H-06
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1493,7 +1493,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Verify correct sequence from key-on to ready-to-drive.
 
 **Covered:** SG-13 (ASIL D), FSR-16, H-13
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** Complete system with DC link supply, CAN1 source-node simulator (when applicable), IO board simulator.
 
@@ -1514,7 +1514,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Verify safe shutdown from any operating state.
 
 **Covered:** SG-13 (ASIL D), FSR-05, H-13
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** System operating at various load levels on dyno.
 
@@ -1534,7 +1534,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Verify reliability of startup/shutdown cycling over many repetitions.
 
 **Covered:** SG-13 (ASIL D), FSR-16, H-13
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1551,7 +1551,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Verify the system survives brief DC link interruptions without unsafe behavior.
 
 **Covered:** SG-03 (ASIL C), FSR-05, FSR-11, FSR-21, H-03
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** System on dyno. Programmable DC link supply with interruption capability.
 
@@ -1572,7 +1572,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Verify reverse functions correctly when explicitly requested at standstill.
 
 **Covered:** SG-02 (ASIL B), FSR-04, H-02
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1591,7 +1591,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Objective:** Verify the system limits maximum motor speed.
 
 **Covered:** SG-06 (ASIL C), FSR-07, H-06
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1600,16 +1600,16 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 3. Verify encoder-derived speed agrees with back-EMF-derived speed.
 4. Verify overspeed fault logging.
 
-**Acceptance Criteria:** Speed shall not exceed the programmed limit by >5%. Tractive effort shall be reduced (controlled enforcement, not SSO — overspeed approach is a control function; limit violation beyond the enforcement band → SSO). Overspeed fault logged. No mechanical damage.
+**Acceptance Criteria:** Speed shall not exceed the programmed limit by >5%. Tractive effort shall be reduced (controlled enforcement, not SSO - overspeed approach is a control function; limit violation beyond the enforcement band → SSO). Overspeed fault logged. No mechanical damage.
 
 **Rationale:** Rotor overspeed risks mechanical burst. The limit must hold even under external forcing (downhill, tow).
 
-#### S-16: Modulation Scheme Transition During Acceleration — Torque Blip
+#### S-16: Modulation Scheme Transition During Acceleration - Torque Blip
 
 **Objective:** Verify modulation scheme transitions do not produce perceptible torque disturbances during acceleration. Transition gating logic shall inhibit switches during high di/dt.
 
 **Covered:** SG-03 (ASIL C), FSR-05, H-03, H-03a
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** Dyno with high-bandwidth torque transducer (≥10 kHz). DC link nominal. Automatic modulation map with ≥3 adjacent schemes.
 
@@ -1628,12 +1628,12 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Abrupt torque change of any origin degrades to H-03/H-03a. Bumpless crossfade and di/dt gating prevent transition disturbances from becoming hazards. (This test concerns *control* torque smoothness, not fault response; it is unaffected by the FSR-05 immediate-SSO philosophy.)
 
-#### S-17: Modulation Scheme Transition During Regenerative Braking — Torque Blip
+#### S-17: Modulation Scheme Transition During Regenerative Braking - Torque Blip
 
 **Objective:** Verify modulation transitions during regen do not produce torque disturbances; FSR-06 shall not false-trip on legitimate transitions.
 
 **Covered:** SG-05 (ASIL C), FSR-06, H-05, H-03
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Setup:** Dyno in speed-control mode driving the DUT into regen. High-bandwidth torque transducer.
 
@@ -1652,12 +1652,12 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** A badly managed transition during regen feels like uncommanded braking (H-05). FSR-06 must distinguish control transitions from faults.
 
-#### S-18: Hysteresis at Modulation Scheme Boundary — No Jitter
+#### S-18: Hysteresis at Modulation Scheme Boundary - No Jitter
 
 **Objective:** Verify hysteresis prevents rapid back-and-forth switching near a scheme boundary.
 
 **Covered:** SG-03 (ASIL C), H-03
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1671,14 +1671,14 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Fail Criteria:** >1 switch/second at default hysteresis; audible jitter; torque ripple correlated with switching.
 
-**Rationale:** Boundary chatter is a chronic H-03 degradation — micro-disturbances eroding control and confidence.
+**Rationale:** Boundary chatter is a chronic H-03 degradation - micro-disturbances eroding control and confidence.
 
-#### S-19: Full Modulation Map Traversal — End-to-End
+#### S-19: Full Modulation Map Traversal - End-to-End
 
 **Objective:** Verify the complete automatic modulation map across all regions with no dead zones, wrong selections, or fault trips.
 
 **Covered:** SG-03 (ASIL C), H-03, H-03a, H-05
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1701,10 +1701,10 @@ Integration tests validate the interaction between the control module and extern
 
 #### I-01: CAN1 Source Management Node Heartbeat Loss
 
-**Objective:** Verify FSR-17 — loss of the CAN1 source management node (when present) shall trigger safe degradation.
+**Objective:** Verify FSR-17 - loss of the CAN1 source management node (when present) shall trigger safe degradation.
 
 **Covered:** SG-01 (ASIL D), H-03, FSR-17
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1719,10 +1719,10 @@ Integration tests validate the interaction between the control module and extern
 
 #### I-02: CAN2 (IO Board) Heartbeat Loss
 
-**Objective:** Verify FSR-17 — IO board CAN loss shall trigger safe-state defaults.
+**Objective:** Verify FSR-17 - IO board CAN loss shall trigger safe-state defaults.
 
 **Covered:** SG-01 (ASIL D), H-03, FSR-17
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1737,10 +1737,10 @@ Integration tests validate the interaction between the control module and extern
 
 #### I-03: Simultaneous Throttle + Brake Request
 
-**Objective:** Verify SG-01, FSR-01, FSR-18 — brake request shall always override throttle.
+**Objective:** Verify SG-01, FSR-01, FSR-18 - brake request shall always override throttle.
 
 **Covered:** SG-01 (ASIL D), H-01, FSR-01, FSR-18
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1755,10 +1755,10 @@ Integration tests validate the interaction between the control module and extern
 
 #### I-04: HVIL Interruption During Operation
 
-**Objective:** Verify SG-09, FSR-10 — HVIL interruption shall trigger the VCU-side HV disconnect response.
+**Objective:** Verify SG-09, FSR-10 - HVIL interruption shall trigger the VCU-side HV disconnect response.
 
 **Covered:** SG-09 (ASIL A), FSR-10, H-09
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1774,10 +1774,10 @@ Integration tests validate the interaction between the control module and extern
 
 #### I-05: DC Link Overvoltage (Regen Event)
 
-**Objective:** Verify SG-10, FSR-11 — DC link overvoltage shall be detected and limited.
+**Objective:** Verify SG-10, FSR-11 - DC link overvoltage shall be detected and limited.
 
 **Covered:** SG-10 (ASIL B), H-10, FSR-11
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1794,7 +1794,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify safe response to kickstand-down while moving.
 
 **Covered:** SG-01 (ASIL D), H-01 (indirect), FSR-17
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1812,7 +1812,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify graceful degradation when multiple external systems fail simultaneously.
 
 **Covered:** SG-01, SG-03, FSR-17
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1825,12 +1825,12 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Crash/EMI can kill multiple nodes at once; the most restrictive timeout must dominate.
 
-#### I-08: CAN Bus Fuzzing — Random Frame Injection
+#### I-08: CAN Bus Fuzzing - Random Frame Injection
 
 **Objective:** Verify the system ignores or gracefully handles random/corrupted CAN frames.
 
 **Covered:** SG-01 (ASIL D), FSR-17, H-01, H-15
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1849,7 +1849,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify correct operation at maximum bus load.
 
 **Covered:** SG-01 (ASIL D), FSR-17, H-03
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1868,7 +1868,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify correct recovery from bus-off.
 
 **Covered:** SG-01 (ASIL D), FSR-17, H-03
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1887,7 +1887,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify handling of valid-ID, semantically invalid data.
 
 **Covered:** SG-01 (ASIL D), SG-10 (ASIL B), FSR-17, H-15
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1899,14 +1899,14 @@ Integration tests validate the interaction between the control module and extern
 
 **Acceptance Criteria:** All invalid frames rejected. Safe defaults used when valid data unavailable. No tractive effort from invalid inputs. DLC mismatch handled safely.
 
-**Rationale:** Semantically invalid data passes CRC/ID filters — range, plausibility, and consistency checks are required.
+**Rationale:** Semantically invalid data passes CRC/ID filters - range, plausibility, and consistency checks are required.
 
 #### I-12: Display Node Failure
 
 **Objective:** Verify safe operation when the display node fails.
 
 **Covered:** SG-01 (ASIL D), FSR-17, H-03
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1924,7 +1924,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify drive-away prevention while charging.
 
 **Covered:** SG-01 (ASIL D), FSR-04, H-01
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1944,7 +1944,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify correct interaction with ABS during anti-lock events.
 
 **Covered:** SG-05 (ASIL C), FSR-06, H-05
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1963,7 +1963,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify correct VCU response to source management node (e.g., BMS) fault messages, when such a node is present.
 
 **Covered:** SG-01 (ASIL D), SG-10 (ASIL B), FSR-17, H-01, H-10
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -1982,7 +1982,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify deterministic handling of simultaneous multi-node faults.
 
 **Covered:** SG-01 (ASIL D), SG-03 (ASIL C), SG-13 (ASIL D), FSR-17, H-01, H-03, H-13
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -2001,7 +2001,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify response to physical CAN wiring faults.
 
 **Covered:** SG-01 (ASIL D), FSR-17, H-03
-**Status:** Executable — Defined | **Evidence:** —
+**Status:** Executable - Defined | **Evidence:** -
 
 **Procedure:**
 
@@ -2021,7 +2021,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify correct wake-from-sleep and sleep-entry behavior.
 
 **Covered:** SG-13 (ASIL D), FSR-16, H-13
-**Status:** Executable — Defined (if sleep/wake implemented; otherwise N/A — record as not applicable) | **Evidence:** —
+**Status:** Executable - Defined (if sleep/wake implemented; otherwise N/A - record as not applicable) | **Evidence:** -
 
 **Procedure:**
 
@@ -2034,32 +2034,32 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Wake must be a fresh start; stale pre-sleep fault data must not mask faults.
 
-## Environmental and Stress Tests (E-Series) — DEFERRED
+## Environmental and Stress Tests (E-Series) - DEFERRED
 
-> **Status: all E-series tests are Deferred — type tests.** The project does not currently have access to a thermal chamber, humidity chamber, vibration table, EMC chamber, ESD gun, or water spray rig. The E-series is retained in summary form as the reference plan for a future type-test campaign (external lab or acquired equipment). **E-series tests shall not be cited as coverage for any Safety Goal, FSR, or hazard in the current campaign**; where earlier revisions of this document cited them in the traceability matrices, those citations are removed in v5.0 and the corresponding residual risk is carried in Section 10.10 (LIMIT-02, LIMIT-09).
+> **Status: all E-series tests are Deferred - type tests.** The project does not currently have access to a thermal chamber, humidity chamber, vibration table, EMC chamber, ESD gun, or water spray rig. The E-series is retained in summary form as the reference plan for a future type-test campaign (external lab or acquired equipment). **E-series tests shall not be cited as coverage for any Safety Goal, FSR, or hazard in the current campaign**; where earlier revisions of this document cited them in the traceability matrices, those citations are removed in v5.0 and the corresponding residual risk is carried in Section 10.10 (LIMIT-02, LIMIT-09).
 
-**Table 13 — Environmental Test Stubs (Reference Plan)**
+**Table 13 - Environmental Test Stubs (Reference Plan)**
 
 | ID | Test | Standard Reference | Status |
 | --- | --- | --- | --- |
-| E-01 | Random vibration — operating (10–1000 Hz, 5 g RMS, 8 h/axis) | ISO 16750-3 | Deferred — type test |
-| E-02 | Sinusoidal vibration sweep — resonance search | ISO 16750-3 | Deferred — type test |
-| E-03 | Mechanical shock (50 g, 11 ms half-sine) | ISO 16750-3 | Deferred — type test |
-| E-04 | High temperature soak (+60 °C operating) | ISO 16750-4 | Deferred — type test |
-| E-05 | Low temperature soak (−20 °C cold start) | ISO 16750-4 | Deferred — type test (partial bench coverage via S-07 cold-soak variant) |
-| E-06 | Thermal shock (−20 °C ↔ +60 °C, 20 cycles) | ISO 16750-4 | Deferred — type test |
-| E-07 | High humidity operation (85% RH, 40 °C, 48 h) | ISO 16750-4 | Deferred — type test |
-| E-08 | Radiated EMI immunity (20 MHz–6 GHz, 100 V/m) | ISO 11452-2 | Deferred — external lab |
-| E-09 | Conducted EMI immunity (BCI, 1–400 MHz) | ISO 11452-4 | Deferred — external lab |
-| E-10 | ESD — contact discharge (±4/6/8 kV) | ISO 10605 | Deferred — external lab |
-| E-11 | ESD — air discharge (±4/8/15 kV) | ISO 10605 | Deferred — external lab |
-| E-12 | Water ingress (IPX4/X5/X6; target IP54 min) | IEC 60529 | Deferred — type test |
+| E-01 | Random vibration - operating (10–1000 Hz, 5 g RMS, 8 h/axis) | ISO 16750-3 | Deferred - type test |
+| E-02 | Sinusoidal vibration sweep - resonance search | ISO 16750-3 | Deferred - type test |
+| E-03 | Mechanical shock (50 g, 11 ms half-sine) | ISO 16750-3 | Deferred - type test |
+| E-04 | High temperature soak (+60 °C operating) | ISO 16750-4 | Deferred - type test |
+| E-05 | Low temperature soak (−20 °C cold start) | ISO 16750-4 | Deferred - type test (partial bench coverage via S-07 cold-soak variant) |
+| E-06 | Thermal shock (−20 °C ↔ +60 °C, 20 cycles) | ISO 16750-4 | Deferred - type test |
+| E-07 | High humidity operation (85% RH, 40 °C, 48 h) | ISO 16750-4 | Deferred - type test |
+| E-08 | Radiated EMI immunity (20 MHz–6 GHz, 100 V/m) | ISO 11452-2 | Deferred - external lab |
+| E-09 | Conducted EMI immunity (BCI, 1–400 MHz) | ISO 11452-4 | Deferred - external lab |
+| E-10 | ESD - contact discharge (±4/6/8 kV) | ISO 10605 | Deferred - external lab |
+| E-11 | ESD - air discharge (±4/8/15 kV) | ISO 10605 | Deferred - external lab |
+| E-12 | Water ingress (IPX4/X5/X6; target IP54 min) | IEC 60529 | Deferred - type test |
 
 ## Safety Goal Traceability
 
 The following matrices map safety goals, FSRs, and hazards to test cases. Only **executable or conditional** tests are cited as coverage in the current campaign; deferred tests (E-series, C-36) are excluded from coverage claims. Upon execution, the evidence reference (Section 10.2.3) shall be entered against each test.
 
-**Table 14 — Safety Goal to Test Case Traceability**
+**Table 14 - Safety Goal to Test Case Traceability**
 
 | SG | Target | Safety Goal | Covering Tests (current campaign) |
 | --- | --- | --- | --- |
@@ -2080,7 +2080,7 @@ The following matrices map safety goals, FSRs, and hazards to test cases. Only *
 
 ### FSR Coverage Matrix
 
-**Table 15 — Functional Safety Requirement Coverage by Test Cases**
+**Table 15 - Functional Safety Requirement Coverage by Test Cases**
 
 | FSR | Requirement Summary | Covering Tests |
 | --- | --- | --- |
@@ -2109,7 +2109,7 @@ The following matrices map safety goals, FSRs, and hazards to test cases. Only *
 
 ### Hazard Coverage Matrix
 
-**Table 16 — Hazard Coverage by Test Cases**
+**Table 16 - Hazard Coverage by Test Cases**
 
 | Hazard | Description | Covering Tests |
 | --- | --- | --- |
@@ -2135,7 +2135,7 @@ The following matrices map safety goals, FSRs, and hazards to test cases. Only *
 
 All test cases use the following standardized definitions. A test is **PASSED** only when all applicable criteria are met. A test is **FAILED** if any criterion is not met.
 
-**Table 17 — Test Pass/Fail Criteria Definitions**
+**Table 17 - Test Pass/Fail Criteria Definitions**
 
 | Criterion | Pass Definition | Fail Definition |
 | --- | --- | --- |
@@ -2149,14 +2149,14 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 
 ### Overall Test Plan Assessment
 
-**Table 18 — Overall Test Plan Assessment Criteria**
+**Table 18 - Overall Test Plan Assessment Criteria**
 
 | Assessment | Definition |
 | --- | --- |
-| **ALL TESTS PASSED** | Every executed test achieves PASS on all criteria. All safety goals and FSRs have at least one passing executable test. The system is considered validated for its achievable integrity level under the applicable profile assessment (ASIL D for SG-01, SG-13; ASIL B for SG-02, SG-07; ASIL C for SG-03, SG-05, SG-06, SG-12, SG-14, SG-15) — subject to the documented limitations (Section 10.10). |
+| **ALL TESTS PASSED** | Every executed test achieves PASS on all criteria. All safety goals and FSRs have at least one passing executable test. The system is considered validated for its achievable integrity level under the applicable profile assessment (ASIL D for SG-01, SG-13; ASIL B for SG-02, SG-07; ASIL C for SG-03, SG-05, SG-06, SG-12, SG-14, SG-15) - subject to the documented limitations (Section 10.10). |
 | **PASSED WITH EXCEPTIONS** | All critical tests (P0-gap coverage) pass. Minor tests may fail with documented workarounds not affecting achievable-ASIL claims. Mitigation plans documented per exception. |
-| **FAILED — NOT ROADWORTHY** | Any P0-gap test fails (throttle monitoring, safe state entry, watchdog response). The system shall not be operated on public roads until resolved. |
-| **INCONCLUSIVE** | Tests could not be executed (equipment/environment). Results insufficient for validation. Additional testing required before operation. Note: under the v5.0 status discipline, a campaign containing Deferred tests is assessed against executable tests only, and the deferred scope is carried as documented residual risk — this is distinct from INCONCLUSIVE. |
+| **FAILED - NOT ROADWORTHY** | Any P0-gap test fails (throttle monitoring, safe state entry, watchdog response). The system shall not be operated on public roads until resolved. |
+| **INCONCLUSIVE** | Tests could not be executed (equipment/environment). Results insufficient for validation. Additional testing required before operation. Note: under the v5.0 status discipline, a campaign containing Deferred tests is assessed against executable tests only, and the deferred scope is carried as documented residual risk - this is distinct from INCONCLUSIVE. |
 
 ## Known Test Limitations
 
@@ -2170,7 +2170,7 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 
 > **LIMIT-02: Environmental Stress (Temperature, Vibration, EMI)**
 >
-> **Limitation:** Component and system tests are conducted at ambient on the bench. The E-series (thermal, vibration, humidity, EMC, ESD, ingress) is deferred — no environmental equipment is available (Section 10.2.2).
+> **Limitation:** Component and system tests are conducted at ambient on the bench. The E-series (thermal, vibration, humidity, EMC, ESD, ingress) is deferred - no environmental equipment is available (Section 10.2.2).
 >
 > **Mitigation:** (1) Gate drivers automotive-qualified (AEC-Q100) for temperature. (2) S-07 bench thermal-cycling variant provides partial screening. (3) EMC and environmental type testing required before production; documented as open residual risk for field use.
 
@@ -2190,9 +2190,9 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 >
 > **Limitation:** The main STM32H723, the safety coprocessor, and the NCV57100 logic side share the same 3.3 V rail and the same PCB. A common-cause affecting the rail or the board could, in principle, affect both MCUs simultaneously.
 >
-> **Headline mitigation — the dominant common-cause is fail-safe by construction:** total or partial collapse of the shared 3.3 V rail does not disable the safe state, it *forces* it: NCV57100 VDD lost → internal active pull-down → SSO with no software involvement (Path 3). The largest single-point energy source in the system therefore fails toward the safe direction rather than defeating the safety architecture.
+> **Headline mitigation - the dominant common-cause is fail-safe by construction:** total or partial collapse of the shared 3.3 V rail does not disable the safe state, it *forces* it: NCV57100 VDD lost → internal active pull-down → SSO with no software involvement (Path 3). The largest single-point energy source in the system therefore fails toward the safe direction rather than defeating the safety architecture.
 >
-> **Further mitigations:** (1) the **TPS389006-Q1 rail supervisor** (TI Functional Safety-Compliant; supports designs up to SIL 3 / ASIL D per TI documentation) monitors the shared 3.3 V rail, the +5 V/+12 V/sensor rails, and both gate-drive power feedbacks; on any out-of-window condition — including brownout of the rail shared by both MCUs — it asserts the shared GATE_DRIVER_FAULT line monitored by both MCUs, providing a hardware path to system shutdown independent of both CPUs (Path 4 trigger). (2) The coprocessor has its own oscillator, independent ADC channels, and independent power kill (GATE_DRIVE_PWR2_ENABLE). (3) Six redundant SSO pathways; 1oo2 power kill with independent feedback. (4) Dual-MCU ASIL B(D) + B(D) decomposition. Formal independence substantiation remains subject to the pending DFA (LIMIT-08).
+> **Further mitigations:** (1) the **TPS389006-Q1 rail supervisor** (TI Functional Safety-Compliant; supports designs up to SIL 3 / ASIL D per TI documentation) monitors the shared 3.3 V rail, the +5 V/+12 V/sensor rails, and both gate-drive power feedbacks; on any out-of-window condition - including brownout of the rail shared by both MCUs - it asserts the shared GATE_DRIVER_FAULT line monitored by both MCUs, providing a hardware path to system shutdown independent of both CPUs (Path 4 trigger). (2) The coprocessor has its own oscillator, independent ADC channels, and independent power kill (GATE_DRIVE_PWR2_ENABLE). (3) Six redundant SSO pathways; 1oo2 power kill with independent feedback. (4) Dual-MCU ASIL B(D) + B(D) decomposition. Formal independence substantiation remains subject to the pending DFA (LIMIT-08).
 
 > **LIMIT-06: Gate Driver Non-ASIL Status**
 >
@@ -2200,11 +2200,11 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 >
 > **Mitigation:** (1) No ASIL credit claimed (Table 9). (2) Coprocessor FLT/READY/PWM monitoring closes the single-point FLT gap. (3) OR'd FLT monitored by both MCUs.
 
-> **LIMIT-07: Software Test Library — Class B vs. Class D**
+> **LIMIT-07: Software Test Library - Class B vs. Class D**
 >
 > **Limitation:** X-CUBE-CLASSB is IEC 60730-1 Class B only; the ISO 26262 Class D STL (X-CUBE-STL) requires an NDA unavailable to open-source projects. Consequently: no FMEDA/SPFM/LFM for this MCU configuration, no tool qualification, no fault-injection coverage evidence, no independent assessment. ASIL decomposition here is a **design and educational exercise only**.
 >
-> **Mitigation:** (1) CLASSB provides CPU register test, RAM March-C, flash CRC — adequate for POST, not ASIL-traceable. (2) Software safety mechanisms independently tested via this fault injection plan. (3) Gap documented explicitly.
+> **Mitigation:** (1) CLASSB provides CPU register test, RAM March-C, flash CRC - adequate for POST, not ASIL-traceable. (2) Software safety mechanisms independently tested via this fault injection plan. (3) Gap documented explicitly.
 
 > **LIMIT-08: No Dependent Failure Analysis (DFA)**
 >
@@ -2220,7 +2220,7 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 
 > **LIMIT-10: No Mid-Operation Short-Circuit Injection (new in v5.0)**
 >
-> **Limitation:** Without a remote shorting contactor, phase short tests (C-31–C-34) use energize-into-fault at stepped voltage. The mid-operation short at full load — the highest-energy manifestation of H-12 — is not reproduced. DESAT physics is identical in both cases (detection is per-switching-cycle at the gate), but bus-level energy and plasma/arc behavior differ.
+> **Limitation:** Without a remote shorting contactor, phase short tests (C-31–C-34) use energize-into-fault at stepped voltage. The mid-operation short at full load - the highest-energy manifestation of H-12 - is not reproduced. DESAT physics is identical in both cases (detection is per-switching-cycle at the gate), but bus-level energy and plasma/arc behavior differ.
 >
 > **Mitigation:** (1) Stepped-voltage energize-into-fault up to the board maximum (140 V nominal / 175 V max). (2) Post-test isolation re-verification per C-50. (3) A contactor-based mid-operation short variant is defined as a future test if a suitably rated, remotely operated shorting contactor is acquired.
 
@@ -2230,7 +2230,7 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 
 ### Execution Sequence
 
-**Table 19 — Test Execution Order and Justification**
+**Table 19 - Test Execution Order and Justification**
 
 | Order | Group | Tests | Risk | Justification |
 | --- | --- | --- | --- | --- |
@@ -2243,12 +2243,12 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 | **7** | Software Integrity | C-18, C-19, C-39, C-15, C-16, I-08, I-09, I-10, I-11 | Medium | Software fault injection at medium load. |
 | **8** | Integration & Coordination | I-01–I-03, I-06, I-12–I-18, S-12 | Medium | Full external-node integration; key-cycle endurance. |
 | **9** | Performance Validation | S-06, S-07, S-08, S-09, S-13, S-14, S-15 | Medium-High | First full-power tests; thermal survey before extended runs. |
-| **10** | Fault Response Validation | S-01–S-05, C-45, C-23–C-25*, C-31–C-34, I-05, I-07 | High | Full-power fault injection; energize-into-fault shorts last — a protection failure here can destroy the unit, so nothing may remain blocked behind these tests. |
+| **10** | Fault Response Validation | S-01–S-05, C-45, C-23–C-25*, C-31–C-34, I-05, I-07 | High | Full-power fault injection; energize-into-fault shorts last - a protection failure here can destroy the unit, so nothing may remain blocked behind these tests. |
 | **11** | Environmental (Deferred) | E-01–E-12 | Variable | Deferred type tests; not in this campaign. |
 
 ### Stopping Criteria Between Groups
 
-**Table 20 — Inter-Group Stopping Criteria**
+**Table 20 - Inter-Group Stopping Criteria**
 
 | Scenario | Required Action | Before Advancing |
 | --- | --- | --- |
@@ -2261,12 +2261,12 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 
 ### Hardware Damage Risk Classification
 
-**Table 21 — Per-Test Hardware Damage Risk**
+**Table 21 - Per-Test Hardware Damage Risk**
 
 | Risk | Tests | Potential Damage | Mitigation |
 | --- | --- | --- | --- |
 | **None** | C-16, C-20, C-21, C-41, C-49, I-08, I-11 | No electrical or mechanical stress. | Standard bench equipment. |
-| **Very Low** | C-22, C-17, C-43, C-50*, I-09, I-10 | Possible MCU reset. No power stage stress. (*C-50: 1 kV applied — personnel hazard mitigated by series resistor; no DUT damage expected at MΩ leakage) | Current-limited supplies. No motor load. |
+| **Very Low** | C-22, C-17, C-43, C-50*, I-09, I-10 | Possible MCU reset. No power stage stress. (*C-50: 1 kV applied - personnel hazard mitigated by series resistor; no DUT damage expected at MΩ leakage) | Current-limited supplies. No motor load. |
 | **Low** | C-26, C-27, C-35, C-42, I-04, I-12, I-17 | Gate driver supply stress; possible fuse blow. | Current-limited fixtures. |
 | **Medium** | C-01–C-15, C-18, C-19, C-28–C-30, C-39, S-01–S-05, S-10–S-14, I-01–I-03, I-05–I-07, I-13–I-16, I-18 | Motor movement; low-level power; thermal stress. | Dyno guard; low initial load; thermal monitoring. |
 | **Medium-High** | S-06–S-09, S-15, S-16–S-19, C-08, C-10, C-45 | Full-power thermal stress; possible overtemperature if protection fails. | Thermal camera; abort button; preset temperature abort. |
@@ -2275,24 +2275,24 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 
 > **Safety Warning for Phase Short Tests (C-31 through C-34)**
 >
-> Phase short tests are **inherently destructive if protection fails**. Even at reduced voltage, fault currents of 1000+ A are possible. Mandatory precautions: (1) blast shield around the DUT; (2) remote activation of the DC supply — no manual connection of a live circuit; shorts are bolted on de-energized only; (3) supply current limit set to the minimum practical value; (4) fire suppression present; (5) no personnel in the test area during energization; (6) video recording for post-test analysis; (7) DESAT self-test (C-16) shall have passed within 24 hours before any short test; (8) voltage stepping: 50 V first, increase only after verified protection operation and inspection at each step; (9) C-50 isolation re-verification after the short series.
+> Phase short tests are **inherently destructive if protection fails**. Even at reduced voltage, fault currents of 1000+ A are possible. Mandatory precautions: (1) blast shield around the DUT; (2) remote activation of the DC supply - no manual connection of a live circuit; shorts are bolted on de-energized only; (3) supply current limit set to the minimum practical value; (4) fire suppression present; (5) no personnel in the test area during energization; (6) video recording for post-test analysis; (7) DESAT self-test (C-16) shall have passed within 24 hours before any short test; (8) voltage stepping: 50 V first, increase only after verified protection operation and inspection at each step; (9) C-50 isolation re-verification after the short series.
 
 # Implementation Roadmap
 
 ## Phase 1: Safety-Critical Foundation (Immediate)
 
-**Table 22 — Phase 1 — Safety-Critical Foundation**
+**Table 22 - Phase 1 - Safety-Critical Foundation**
 
 | Gap | Action | Effort | Validation |
 | --- | --- | --- | --- |
-| GAP-HW-01 | **CLOSED** — Dual-MCU STM32 analog watchdog monitoring (10 us). | N/A | C-06, C-07, S-09, S-15 |
-| GAP-HW-02 | **CLOSED — REJECTED** — Immediate SSO adopted (Section 2.3); FSR-05 rewritten accordingly. | N/A | S-03, S-04, S-11: verify immediate SSO and latency budget |
+| GAP-HW-01 | **CLOSED** - Dual-MCU STM32 analog watchdog monitoring (10 us). | N/A | C-06, C-07, S-09, S-15 |
+| GAP-HW-02 | **CLOSED - REJECTED** - Immediate SSO adopted (Section 2.3); FSR-05 rewritten accordingly. | N/A | S-03, S-04, S-11: verify immediate SSO and latency budget |
 | GAP-SW-01 | Implement boot CRC-32 (STM32 CRC peripheral) over safety-critical code + calibration before PWM enable. | Low | C-20, C-39 |
-| GAP-SW-03 | ~~Define sensorless fallback policy~~ — closed: immediate SSO on encoder loss (FSR-09); no fallback mode. | N/A | C-09 |
+| GAP-SW-03 | ~~Define sensorless fallback policy~~ - closed: immediate SSO on encoder loss (FSR-09); no fallback mode. | N/A | C-09 |
 
 ## Phase 2: Monitors and Platform Hardening (Short Term)
 
-**Table 23 — Phase 2 — Monitors and Platform Hardening**
+**Table 23 - Phase 2 - Monitors and Platform Hardening**
 
 | Item | Action | Effort | Validation |
 | --- | --- | --- | --- |
@@ -2305,7 +2305,7 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 
 ## Phase 3: Test Execution and Validation
 
-**Table 24 — Phase 3 — Test Execution and Validation**
+**Table 24 - Phase 3 - Test Execution and Validation**
 
 | Activity | Effort | Description |
 | --- | --- | --- |
@@ -2320,7 +2320,7 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 
 The STM32G474RCTx safety coprocessor is **part of the current hardware design**. The following table maps coprocessor capabilities to safety goals:
 
-**Table 25 — Coprocessor Capability to Safety Goal Mapping**
+**Table 25 - Coprocessor Capability to Safety Goal Mapping**
 
 | Feature | Description | Impact |
 | --- | --- | --- |
@@ -2333,23 +2333,23 @@ The STM32G474RCTx safety coprocessor is **part of the current hardware design**.
 | Independent temperature monitoring | All heatsink + motor temps via independent ADC; 1oo2 cross-check; capacitor channel derate 90 °C, SSO 105 °C. | SG-07 → ASIL target |
 | FRAM logging | CY15B102Q-SXET 256 KB FRAM (main MCU SPI): fault logs, configuration, hour meter, odometer. Hardware WP. | SG-03 → ASIL C |
 
-The dual-MCU architecture makes **ASIL D achievable for SG-01 and SG-13 via ASIL B(D) + ASIL B(D) decomposition** under the applicable profile assessment. The coprocessor firmware shall be validated alongside the main firmware — see C-14, S-16 through S-19, and I-16.
+The dual-MCU architecture makes **ASIL D achievable for SG-01 and SG-13 via ASIL B(D) + ASIL B(D) decomposition** under the applicable profile assessment. The coprocessor firmware shall be validated alongside the main firmware - see C-14, S-16 through S-19, and I-16.
 
 # References
 
-**Table 26 — Referenced Standards and Documents**
+**Table 26 - Referenced Standards and Documents**
 
 | Reference | Title / Description |
 | --- | --- |
-| ISO 26262-1:2018 | *Road vehicles — Functional safety — Part 1: Vocabulary*. |
+| ISO 26262-1:2018 | *Road vehicles - Functional safety - Part 1: Vocabulary*. |
 | ISO 26262-3:2018 | *Part 3: Concept phase*. HARA methodology, ASIL assignment, safety goal derivation. |
 | ISO 26262-5:2018 | *Part 5: Product development at the hardware level*. Hardware architectural metrics. |
 | ISO 26262-8:2018 | *Part 8: Supporting processes*. Software tool confidence (codegen tool, GAP-SW-04). |
 | ISO 26262-9:2018 | *Part 9: ASIL-oriented and safety-oriented analyses*. Decomposition, DFA. |
-| ISO 6469-3:2018 | *Electrically propelled road vehicles — Part 3: Electrical safety*. HV isolation (>500 Ω/V). |
-| IEC 61800-5-2:2016 | *Adjustable speed drives — Safety — Functional*. STO/SS1/SLS vocabulary; Section 2.3 mapping. |
+| ISO 6469-3:2018 | *Electrically propelled road vehicles - Part 3: Electrical safety*. HV isolation (>500 Ω/V). |
+| IEC 61800-5-2:2016 | *Adjustable speed drives - Safety - Functional*. STO/SS1/SLS vocabulary; Section 2.3 mapping. |
 | IEC 61508 | *Functional safety of E/E/PE safety-related systems*. SIL terminology. |
-| EN 50155:2021 | *Railway applications — Electronic equipment on rolling stock*. Reference for future rail profile. |
+| EN 50155:2021 | *Railway applications - Electronic equipment on rolling stock*. Reference for future rail profile. |
 | AEC-Q100 | *Failure Mechanism Based Stress Test Qualification for ICs*. NCV57100 qualification. |
 | STM32H723ZG | *STM32H723/733 Reference Manual (RM0433)*. STMicroelectronics. |
 | STM32G474RCTx | *STM32G474/484 Reference Manual (RM0440)*. STMicroelectronics. |
@@ -2360,7 +2360,7 @@ Note: the Cincon EC7BW-110S12 DC/DC converter resides on the IO side and is **ex
 
 # Document History
 
-**Table 27 — Revision History**
+**Table 27 - Revision History**
 
 | Version | Date | Changes |
 | --- | --- | --- |
@@ -2375,8 +2375,8 @@ Note: the Cincon EC7BW-110S12 DC/DC converter resides on the IO side and is **ex
 
 | 5.1 | 2026-07-30 | Document set split: Core Platform (this document, OV-SAF-HARA-CORE) and Motorcycle Application Profile (OV-SAF-HARA-PROF-MOTO) are now separate documents. Core made profile-neutral; application annexes removed; car/rail/industrial profiles deferred to future documents. Formatting constrained for automated PDF generation (stable YAML front matter, document IDs, standard Markdown tables only). |
 | 5.2 | 2026-07-30 | Consistency fixes: wrong test cross-references in Table 10 gap summary corrected (S-16–S-19 are modulation tests; power-kill feedback verified by C-17/C-26/C-27/S-10/S-11); contactor wording aligned with BMS-domain authority (VCU requests, BMS actuates); SG-04 reworded (availability monitoring, not availability guarantee); §2.3 residual-risk sentence upgraded with SSO-is-freewheel argument (aligns with OV-SAF-HARA-PROF-MOTO v1.1 H-03a re-rating to ASIL A); §2.7 retitled (coprocessor is implemented, not future); status-count phrasing corrected. |
-| 5.3 | 2026-07-30 | Review pass: (1) deliberate-conservatism target policy added to §5 (targets may exceed Table 4 by one level for software-integrity-dependent hazards); (2) HV contactor references removed where out of VCU domain (BMS actuates contactors); (3) SG-04 coverage marked indirect with GAP-TEST-01 added (dedicated loss-of-regen test to be defined); (4) S-12 converted to offline bench test, no dyno; (5) LIMIT-05 rewritten — shared-rail common-cause is fail-safe by construction (Path 3) and TPS389006-Q1 hardware shutdown path (SIL 3 / ASIL D-capable per TI) documented; stray-statistic scan clean. |
+| 5.3 | 2026-07-30 | Review pass: (1) deliberate-conservatism target policy added to §5 (targets may exceed Table 4 by one level for software-integrity-dependent hazards); (2) HV contactor references removed where out of VCU domain (BMS actuates contactors); (3) SG-04 coverage marked indirect with GAP-TEST-01 added (dedicated loss-of-regen test to be defined); (4) S-12 converted to offline bench test, no dyno; (5) LIMIT-05 rewritten - shared-rail common-cause is fail-safe by construction (Path 3) and TPS389006-Q1 hardware shutdown path (SIL 3 / ASIL D-capable per TI) documented; stray-statistic scan clean. |
 | 5.4 | 2026-07-31 | HV contactor scope cleanup: contactor actuation, weld detection, and contactor-related hazards are BMS/OEM-domain and excluded (Section 1.3). H-11 and SG-11 removed; HARA now covers only VCU-side interface behavior (HVIL → PWM disable + CAN1 contactor open request per FSR-10). I-15 retains the VCU response to a BMS weld-detected message (fatal log + lockout). |
 | 5.5 | 2026-07-31 | Application-neutrality pass: core document scoped to the platform only; application-specific wording moved to profile documents, which the core now references generically (Sections 1.3, 2.3, 4, 6, 10). No technical content changed. |
 | 5.6 | 2026-07-31 | Core scoping cleanup: remaining application-specific descriptors removed; the core now points to the application profile documents generically without naming a reference application. No technical content changed. |
-| 5.7 | 2026-07-31 | Review pass: (1) disclaimer reframed as best-effort functional safety practice with explicit goal of readiness for full compliance work; (2) no DC source type assumed — BMS references generalized to an optional CAN1 source management node; (3) Table 2 restructured (external interfaces table + per-layer descriptions); (4) power-stage-dependent parameters removed from the control-module table (module is power-stage agnostic); (5) gate-driver qualification stated once (Section 2.7), AEC-Q100 elsewhere; (6) GAP-ARCH-03 closed with per-SG analysis (SG-15 independent of gate drivers, SG-12 covered, SG-14 FLT-wire fault caught by coprocessor cross-check); (7) GAP-HW-01 re-based on STM32 analog watchdogs (10 us, dual-MCU redundant); (8) GAP-SW-02 removed, GAP-SW-03 closed (immediate SSO, no sensorless fallback); (9) method notes moved into Section 10.4, Section 10.2.4 removed, HV-safety equipment row removed; (10) tests removed as not executable or not meaningful on this hardware: C-37, C-38, C-40, C-44, C-46, C-47, C-48; C-43 key-cycle requirement replaced by heartbeat/plausibility restoration; (11) phase-to-phase shorts restructured one pair at a time (C-31 U-V, C-32 V-W, C-33 U-W), phase-to-DC-rail merged into C-34; (12) temperature sensing updated to 2 IGBT NTC (1oo2) + 1 DC link capacitor NTC with capacitor derate 90 °C / SSO 105 °C; (13) coprocessor firmware explicitly trusted (no generated code). Plan now 92 tests. |
+| 5.7 | 2026-07-31 | Review pass: (1) disclaimer reframed as best-effort functional safety practice with explicit goal of readiness for full compliance work; (2) no DC source type assumed - BMS references generalized to an optional CAN1 source management node; (3) Table 2 restructured (external interfaces table + per-layer descriptions); (4) power-stage-dependent parameters removed from the control-module table (module is power-stage agnostic); (5) gate-driver qualification stated once (Section 2.7), AEC-Q100 elsewhere; (6) GAP-ARCH-03 closed with per-SG analysis (SG-15 independent of gate drivers, SG-12 covered, SG-14 FLT-wire fault caught by coprocessor cross-check); (7) GAP-HW-01 re-based on STM32 analog watchdogs (10 us, dual-MCU redundant); (8) GAP-SW-02 removed, GAP-SW-03 closed (immediate SSO, no sensorless fallback); (9) method notes moved into Section 10.4, Section 10.2.4 removed, HV-safety equipment row removed; (10) tests removed as not executable or not meaningful on this hardware: C-37, C-38, C-40, C-44, C-46, C-47, C-48; C-43 key-cycle requirement replaced by heartbeat/plausibility restoration; (11) phase-to-phase shorts restructured one pair at a time (C-31 U-V, C-32 V-W, C-33 U-W), phase-to-DC-rail merged into C-34; (12) temperature sensing updated to 2 IGBT NTC (1oo2) + 1 DC link capacitor NTC with capacitor derate 90 °C / SSO 105 °C; (13) coprocessor firmware explicitly trusted (no generated code). Plan now 92 tests. |

@@ -64,5 +64,5 @@ All screws retained torque within the wrench resolution; no screw required more 
 
 ## Traceability
 
-- `OV-C2-AG-03-01` § Torque procedure — verified.
-- HARA Core FSR related to over-temperature due to degraded thermal path — supporting evidence.
+- `OV-C2-AG-03-01` § Torque procedure - verified.
+- HARA Core FSR related to over-temperature due to degraded thermal path - supporting evidence.

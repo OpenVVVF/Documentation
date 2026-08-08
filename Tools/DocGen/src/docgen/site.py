@@ -327,7 +327,7 @@ def _placeholder_banner(doc: Optional[Document]) -> str:
         return ""
     return (
         '<div class="placeholder-banner">'
-        '<strong>Placeholder / Under Revision</strong> — '
+        '<strong>Placeholder / Under Revision</strong> - '
         'This page is incomplete or out of date and will be revised.'
         '</div>'
     )
@@ -368,6 +368,10 @@ def render_page(
     banner = _placeholder_banner(doc)
     body = banner + body_html if banner else body_html
 
+    content_class = ""
+    if doc and "Assembly-Guide" in doc.path.parts:
+        content_class = "assembly-guide"
+
     page = load_template("page.html")
     return page.format(
         title=title,
@@ -376,6 +380,7 @@ def render_page(
         breadcrumbs=crumbs,
         root=root,
         frontmatter=frontmatter,
+        content_class=content_class,
     )
 
 
