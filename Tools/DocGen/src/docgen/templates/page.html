@@ -18,13 +18,23 @@
         <a href="{root}Software/index.html">Software</a>
         <a href="{root}Testing/index.html">Testing</a>
       </nav>
-      <button class="sidebar-toggle" type="button" aria-label="Toggle sidebar" aria-expanded="true" title="Toggle sidebar">☰</button>
       <button class="print-button" type="button" onclick="window.print()" title="Print this page">Print</button>
     </div>
   </header>
 
+  <div class="sidebar-reveal" id="sidebar-reveal">
+    <button class="sidebar-toggle" type="button" aria-label="Show sidebar" aria-expanded="false" title="Show sidebar">
+      <span class="sidebar-toggle-icon" aria-hidden="true">»</span>
+      <span class="sidebar-toggle-label">Contents</span>
+    </button>
+  </div>
+
   <div class="layout" id="layout">
     <aside class="sidebar" id="sidebar" aria-label="Table of contents">
+      <button class="sidebar-toggle" type="button" aria-label="Collapse sidebar" aria-expanded="true" title="Collapse sidebar">
+        <span class="sidebar-toggle-icon" aria-hidden="true">«</span>
+        <span class="sidebar-toggle-label">Collapse</span>
+      </button>
       {nav}
     </aside>
 
@@ -44,20 +54,38 @@
   <script>
     (function () {{
       var layout = document.getElementById('layout');
-      var toggle = document.querySelector('.sidebar-toggle');
-      if (toggle && layout) {{
-        toggle.addEventListener('click', function () {{
-          var collapsed = layout.classList.toggle('sidebar-collapsed');
-          toggle.setAttribute('aria-expanded', String(!collapsed));
-          try {{ localStorage.setItem('ovvf-sidebar-collapsed', String(collapsed)); }} catch (e) {{}}
-        }});
+      var sidebar = document.getElementById('sidebar');
+      var reveal = document.getElementById('sidebar-reveal');
+      var collapseBtn = sidebar.querySelector('.sidebar-toggle');
+      var showBtn = reveal.querySelector('.sidebar-toggle');
+
+      function setCollapsed(collapsed) {{
+        layout.classList.toggle('sidebar-collapsed', collapsed);
+        collapseBtn.setAttribute('aria-expanded', String(!collapsed));
+        showBtn.setAttribute('aria-expanded', String(collapsed));
+        try {{ localStorage.setItem('ovvf-sidebar-collapsed', String(collapsed)); }} catch (e) {{}}
+      }}
+
+      if (collapseBtn) {{
+        collapseBtn.addEventListener('click', function () {{ setCollapsed(true); }});
+      }}
+      if (showBtn) {{
+        showBtn.addEventListener('click', function () {{ setCollapsed(false); }});
+      }}
+
+      function initCollapsed() {{
         try {{
-          if (localStorage.getItem('ovvf-sidebar-collapsed') === 'true') {{
-            layout.classList.add('sidebar-collapsed');
-            toggle.setAttribute('aria-expanded', 'false');
+          var stored = localStorage.getItem('ovvf-sidebar-collapsed');
+          if (stored !== null) {{
+            setCollapsed(stored === 'true');
+            return;
           }}
         }} catch (e) {{}}
+        if (window.innerWidth <= 900) {{
+          setCollapsed(true);
+        }}
       }}
+      initCollapsed();
     }})();
   </script>
 
