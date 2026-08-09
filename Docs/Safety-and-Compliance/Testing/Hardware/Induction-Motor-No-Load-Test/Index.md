@@ -54,13 +54,13 @@ Thermal images were taken at several points during the run.
 - **Approximate hotspot:** ~27 °C
 - **Notes:** Frame barely above ambient.
 
-### Inverter temperature near end
+### Power stage temperature near end
 
-![Inverter chassis near the end of the run](Thermal-021min.jpg)
+![Power stage near the end of the run](Thermal-021min.jpg)
 
 - **Elapsed:** ~21 min
 - **Approximate hotspot:** ~29 °C
-- **Notes:** Slow, steady rise on the inverter enclosure.
+- **Notes:** Slow, steady rise on the power stage.
 
 ### Hottest component: gate driver
 
