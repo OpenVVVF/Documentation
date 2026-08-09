@@ -22,7 +22,7 @@ This report validates the inverter's motor-inductance calibration routine by com
 
 Resistance reference measurements are kept in the [PMSM Resistance Calibration Validation](Resistance.html) report.
 
-A separate induction-machine test report is in [Induction Motor Calibration Validation](../Induction-Motor-Calibration/index.html).
+A separate induction-machine test report is in [Induction Motor Testbed](../Induction-Motor-Calibration/Testbed.html).
 
 ## Test setup
 

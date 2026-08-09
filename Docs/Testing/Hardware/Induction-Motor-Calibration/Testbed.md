@@ -1,5 +1,3 @@
-> **TODO** - Add photos of the fixture, phase-lead access, and any additional instrumentation once the testbed is fully wired.
-
 ---
 doctype: Test Report
 doc_id: OV-TEST-HW-INDUCTION-TESTBED
@@ -13,12 +11,15 @@ date: "2026-08-08"
 status: draft
 description: Base documentation for the TECO MAX-IE3 induction motor testbed used for calibration validation.
 nav_order: 516
+placeholder: true
 normative_refs:
   - OV-TEST-HW-INDUCTION-CAL-INDEX
   - OV-TEST-HW-INDEX
 ---
 
 # Induction Motor Testbed
+
+> **Placeholder** - add photos of the fixture, phase-lead access, and any additional instrumentation once the testbed is fully wired.
 
 This document describes the induction-motor testbed used to validate the OpenVVVF motor self-commissioning routines. The same physical setup is used for both the [resistance](Resistance.html) and [inductance](Inductance.html) calibration reports.
 
@@ -67,4 +68,4 @@ The motor is mounted on a bench fixture with the conduit box open so the three p
 ## Related reports
 
 - [Induction Motor Resistance Calibration Validation](Resistance.html)
-- [Induction Motor Inductance Calibration Validation](Inductance.html)
+- [Inductance Calibration Validation](Inductance.html)

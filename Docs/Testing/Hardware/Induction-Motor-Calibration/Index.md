@@ -11,6 +11,7 @@ date: "2026-08-08"
 status: draft
 description: Validation of the inverter motor self-commissioning routines on a TECO MAX-IE3 induction motor.
 nav_order: 515
+menu_only: true
 normative_refs:
   - OV-TEST-HW-INDEX
 ---

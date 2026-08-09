@@ -11,6 +11,7 @@ date: "2026-08-08"
 status: draft
 description: Validation of the inverter motor self-commissioning routines against bench reference measurements.
 nav_order: 511
+menu_only: true
 normative_refs:
   - OV-TEST-HW-INDEX
 ---
@@ -23,4 +24,4 @@ This section validates the inverter's motor self-commissioning routines by compa
 - [Power Resistor Sanity Check](Resistor-Sanity-Check.html) - high-resistance load sanity check
 - [PMSM Inductance Calibration Validation](Inductance.html) - pending inductance measurements
 
-A separate induction-machine test report is available in [Induction Motor Calibration Validation](../Induction-Motor-Calibration/index.html).
+A separate induction-machine test report is available in [Induction Motor Testbed](../Induction-Motor-Calibration/Testbed.html).

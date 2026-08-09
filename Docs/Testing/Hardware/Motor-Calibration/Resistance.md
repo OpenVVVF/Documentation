@@ -22,7 +22,7 @@ This report validates the inverter's `cal Motor.Resistance` routine by comparing
 
 Inductance reference measurements are kept in the [PMSM Inductance Calibration Validation](Inductance.html) report.
 
-A separate high-resistance load sanity check is documented in [Power Resistor Sanity Check](Resistor-Sanity-Check.html). A separate induction-machine test report is in [Induction Motor Calibration Validation](../Induction-Motor-Calibration/index.html).
+A separate high-resistance load sanity check is documented in [Power Resistor Sanity Check](Resistor-Sanity-Check.html). A separate induction-machine test report is in [Induction Motor Testbed](../Induction-Motor-Calibration/Testbed.html).
 
 ## Test setup
 
