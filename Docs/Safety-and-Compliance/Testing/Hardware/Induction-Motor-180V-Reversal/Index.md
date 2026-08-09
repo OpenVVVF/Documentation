@@ -26,8 +26,9 @@ This report records a 20-minute reversal endurance run of the TECO MAX-IE3 induc
 
 - **Motor:** TECO Westinghouse MAX-IE3 3-phase induction motor, 10 HP / 7.5 kW, 208 V, 60 Hz
 - **Inverter:** OpenVVVF C2 chassis with 200 V DC-link capacitors
+- **Cooling:** Power stage baseplate passively cooled (no active cooling)
 - **Control:** V/Hz open-loop excitation, commanded ±60 Hz, reversing every ~45 s
-- **Instrumentation:** Controller telemetry
+- **Instrumentation:** Controller telemetry, Klein Tools TI250 thermal imager
 
 ## Test conditions
 
@@ -38,7 +39,7 @@ This report records a 20-minute reversal endurance run of the TECO MAX-IE3 induc
 | Reversal interval | ~45 s |
 | Mechanical load | None (free spinning shaft) |
 | Duration | ~21 min (1263 s) |
-| Ambient temperature | ~23 °C |
+| Ambient temperature | ~25 °C |
 
 ## Electrical observations
 
@@ -59,12 +60,24 @@ Key metrics from the log:
 
 > **Open telemetry log:** [View the reversal test in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-180V-Reversal/180v-reversal-decimated.jsonl#s=Iu:left,Iv:left,Iw:left,vdc_v:right,ind_hz:right)
 
+## Thermal results
+
+Thermal spot-checks at the end of the run with no active cooling:
+
+| Location | Steady-state temperature |
+|----------|--------------------------|
+| Power stage baseplate | ~33 °C |
+| Motor frame | ~31 °C |
+
+Ambient temperature was ~25 °C, so the temperature rise was modest under the repeated reversal stress.
+
 ## Results
 
 - The C2 power stage completed 26 consecutive reversals at 180 VDC without fault.
 - DC bus regulation remained stable; voltage sagged only slightly during reversal current spikes.
 - Peak reversal currents averaged ~35.6 A and stayed below ~41 A.
 - Direction-change sequencing behaved consistently across all 26 cycles.
+- Steady-state temperatures stayed low with only passive cooling on the power stage.
 
 ## Conclusion
 
