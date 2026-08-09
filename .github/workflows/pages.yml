@@ -37,6 +37,14 @@ jobs:
       - name: Build static site
         run: python -m docgen site --output-dir site
 
+      - name: Install Chromium for PDF generation
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+
+      - name: Generate PDFs
+        run: python -m docgen pdf --all --site-dir site --output-dir site/pdfs
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:

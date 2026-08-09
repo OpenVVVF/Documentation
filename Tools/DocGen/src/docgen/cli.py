@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .crossref import validate_crossrefs, validate_links
 from .frontmatter import load_docs
+from .pdf import build_all_pdfs, build_pdf
 from .product import assemble_manual, list_products, load_product
 from .schema import validate_docs
 from .site import build_site
@@ -51,6 +52,25 @@ def main(argv: list[str] | None = None) -> int:
     )
     site_parser.add_argument(
         "--output-dir", type=Path, default=repo_root() / "site"
+    )
+
+    # pdf command
+    pdf_parser = subparsers.add_parser("pdf", help="Generate clean PDFs from the built site")
+    pdf_parser.add_argument(
+        "--docs-dir", type=Path, default=repo_root() / "Docs"
+    )
+    pdf_parser.add_argument(
+        "--site-dir", type=Path, default=repo_root() / "site"
+    )
+    pdf_parser.add_argument(
+        "--output-dir", type=Path, default=repo_root() / "build" / "pdfs"
+    )
+    pdf_parser.add_argument("--doc", help="Generate PDF for a single doc_id")
+    pdf_parser.add_argument(
+        "--all", action="store_true", help="Generate PDFs for all documents"
+    )
+    pdf_parser.add_argument(
+        "--chromium", help="Path to Chromium/Chrome executable"
     )
 
     args = parser.parse_args(argv)
@@ -117,6 +137,28 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "site":
         build_site(args.docs_dir, args.output_dir)
         return 0
+
+    if args.command == "pdf":
+        if args.all:
+            build_all_pdfs(
+                args.docs_dir,
+                args.site_dir,
+                args.output_dir,
+                chromium_path=args.chromium,
+            )
+            return 0
+        if args.doc:
+            output_path = build_pdf(
+                args.doc,
+                args.docs_dir,
+                args.site_dir,
+                args.output_dir,
+                chromium_path=args.chromium,
+            )
+            print(f"Wrote {output_path}")
+            return 0
+        print("Specify --doc <doc_id> or --all", file=sys.stderr)
+        return 1
 
     return 1
 

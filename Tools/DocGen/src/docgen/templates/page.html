@@ -37,6 +37,7 @@
         <a href="{root}Software/index.html">Software</a>
         <a href="{root}Tools/index.html">Tools</a>
       </nav>
+      <a class="pdf-download-button" id="pdf-download-button" href="{pdf_url}" title="Download PDF" style="display:none;">PDF</a>
       <button class="print-button" type="button" onclick="window.print()" title="Print this page">Print</button>
     </div>
   </header>
@@ -158,6 +159,22 @@
           setMobileOpen(false);
         }}
       }});
+
+      // Show PDF download button only if the PDF file actually exists
+      (function () {{
+        var pdfLink = document.getElementById('pdf-download-button');
+        if (!pdfLink || !pdfLink.href) return;
+        try {{
+          var req = new XMLHttpRequest();
+          req.open('HEAD', pdfLink.href, true);
+          req.onreadystatechange = function () {{
+            if (req.readyState === 4 && req.status === 200) {{
+              pdfLink.style.display = 'inline-flex';
+            }}
+          }};
+          req.send();
+        }} catch (e) {{}}
+      }})();
 
       // Accordion toggles for nav sections
       document.querySelectorAll('.nav-section-toggle').forEach(function (btn) {{

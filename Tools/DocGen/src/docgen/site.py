@@ -514,6 +514,7 @@ def render_page(
     cover = cover_page(doc)
     header_id = (doc.doc_id if doc else "OpenVVVF Documentation").replace('"', '\\"')
     header_title = title.replace('"', '\\"')
+    pdf_url = f"{root}pdfs/{doc.doc_id}.pdf" if doc and doc.doc_id else ""
 
     page = load_template("page.html")
     return page.format(
@@ -527,6 +528,7 @@ def render_page(
         content_class=content_class,
         cover=cover,
         header_id=header_id,
+        pdf_url=pdf_url,
     )
 
 
