@@ -44,26 +44,45 @@ This report records a one-hour no-load run of the TECO MAX-IE3 7.5 kW induction 
 
 ## Thermal results
 
-Thermal images were taken at several points during the run. The hotspot temperature progressed as follows:
+Thermal images were taken at several points during the run.
 
-| Elapsed time | Hotspot temperature | Notes |
-|--------------|---------------------|-------|
-| 7 min | ~27 °C | Frame barely above ambient |
-| 21 min | ~29 °C | Slow, steady rise |
-| 51 min | ~56 °C | Motor shell clearly warm |
-| 57 min | ~30 °C | Different spot on the frame / terminal box area |
+### Motor temperature at start
 
-![Thermal image at ~7 minutes](Thermal-007min.jpg)
+![Motor frame at the start of the run, ~23 °C ambient](Thermal-007min.jpg)
 
-![Thermal image at ~21 minutes](Thermal-021min.jpg)
+- **Elapsed:** ~7 min
+- **Approximate hotspot:** ~27 °C
+- **Notes:** Frame barely above ambient.
 
-![Thermal image at ~51 minutes](Thermal-051min.jpg)
+### Inverter temperature near end
 
-![Thermal image at ~57 minutes](Thermal-057min.jpg)
+![Inverter chassis near the end of the run](Thermal-021min.jpg)
+
+- **Elapsed:** ~21 min
+- **Approximate hotspot:** ~29 °C
+- **Notes:** Slow, steady rise on the inverter enclosure.
+
+### Hottest component: gate driver
+
+![Gate-driver area, the hottest point during the run](Thermal-051min.jpg)
+
+- **Elapsed:** ~51 min
+- **Approximate hotspot:** ~56 °C
+- **Notes:** Motor shell clearly warm; this shot captures the warmest region on the gate-driver board.
+
+### Motor temperature near end
+
+![Motor frame near the end of the run](Thermal-057min.jpg)
+
+- **Elapsed:** ~57 min
+- **Approximate hotspot:** ~30 °C
+- **Notes:** Different spot on the frame / terminal box area.
 
 ## Electrical observations
 
-The inverter maintained stable V/Hz excitation for the full hour. Telemetry shows the DC bus held at ~121 V and the phase currents remained small, consistent with a no-load magnetizing current. The decimated telemetry log below covers the entire run at roughly 1 sample per second.
+The inverter maintained stable V/Hz excitation for the full hour. Telemetry shows the DC bus held at ~121 V and the phase currents remained small, consistent with a no-load magnetizing current. The plot below is a decimated view of the entire run; the full interactive log is linked underneath.
+
+![Telemetry overview of the one-hour run: phase currents and DC bus voltage](Telemetry-Overview.png)
 
 > **Open telemetry log:** [View the 1-hour run in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-No-Load-Test/no-load-1h-decimated.jsonl#s=cg_iu_a:left)
 

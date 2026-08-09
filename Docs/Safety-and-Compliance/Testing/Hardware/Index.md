@@ -27,7 +27,6 @@ Electrical, thermal, mechanical, and environmental test records.
 
 ## Induction motor
 
-- [Induction Motor Testbed](Induction-Motor-Calibration/Testbed.html)
 - [Induction Motor Resistance Calibration Validation](Induction-Motor-Calibration/Resistance.html)
 - [Inductance Calibration Validation](Induction-Motor-Calibration/Inductance.html)
 - [Induction Motor 1-Hour No-Load Test](Induction-Motor-No-Load-Test/index.html)
