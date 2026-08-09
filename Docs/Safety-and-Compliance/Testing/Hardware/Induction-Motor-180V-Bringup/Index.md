@@ -48,10 +48,12 @@ Key events from the log:
 | Time (s) | Bus voltage | Observation |
 |----------|-------------|-------------|
 | 0 - 160 | ~142 V | Stable no-load excitation, small currents |
-| ~160 - 180 | dip to ~30 V then back to ~142 V | Supply dropout/reconnect; controller recovered |
+| ~160 - 180 | dip to ~30 V then back to ~142 V | Bench supply current limit was too low; motor slip kept current demand high, collapsing the bus until the current limit was raised |
 | 180 - 320 | ~142 V | Continued stable operation |
 | 320 - 420 | ~152 V | First voltage step; currents remain moderate |
-| 420 - 560 | ~172 V | Second voltage step; current ripple increases |
+| 420 - 520 | ~172 V | Second voltage step; current ripple increases |
+| ~520 | data pauses | `control stop` halted the ISR and telemetry; `control start` resumed sampling |
+| 520 - 560 | ~172 V | Operation resumes after control restart |
 | 560 - 604 | ~181 V | Final step to ~180 V; peak phase current ~38 A |
 
 ![Telemetry overview of the 180 V bring-up: phase currents and DC bus voltage](Telemetry-Overview.png)
@@ -62,9 +64,10 @@ Key events from the log:
 
 - The 200 V capacitor bank held the ~180 V rail without issue.
 - Gate-drive and current sensing operated correctly across all voltage steps.
-- The controller recovered cleanly from the ~160 s supply dropout.
+- The controller recovered cleanly after the ~160 s bus collapse once the bench supply current limit was raised.
 - Maximum observed DC bus voltage: **182.5 V**.
 - Maximum observed phase current (transient): **~38 A**.
+- Telemetry was paused around 520 s by `control stop` and resumed with `control start`; no data was lost in the JSONL export.
 
 ## Conclusion
 
