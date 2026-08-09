@@ -55,8 +55,8 @@ a:hover {
 }
 
 .site-header-inner {
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -70,10 +70,15 @@ a:hover {
   letter-spacing: -0.01em;
 }
 
+.site-title-sep {
+  font-weight: 400;
+  color: var(--text-muted);
+  margin: 0 0.2rem;
+}
+
 .site-title-docs {
   font-weight: 400;
   color: var(--text-muted);
-  margin-left: 0.15rem;
 }
 
 .site-nav {
