@@ -10,6 +10,7 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 description: Sanity check of the resistance calibration routine using a known power-resistor load.
+test_id: 3
 nav_order: 514
 normative_refs:
   - OV-TEST-HW-MOTOR-CAL-INDEX

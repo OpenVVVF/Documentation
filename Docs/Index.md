@@ -89,14 +89,14 @@ This repository is the single source of truth for OpenVVVF documentation.
 <h3><a href="Testing/index.html">Testing and Validation</a></h3>
 <p>Formal test reports and validation evidence.</p>
 <ul>
-<li><strong>PMSM Motor Calibration Validation</strong> <code>OV-TEST-HW-MOTOR-CAL-INDEX</code></li>
-<li><a href="Testing/Hardware/Motor-Calibration/Resistance.html"><code>OV-TEST-HW-MOTOR-RES-CAL</code></a> - PMSM Resistance Calibration Validation</li>
-<li><a href="Testing/Hardware/Motor-Calibration/Resistor-Sanity-Check.html"><code>OV-TEST-HW-RESISTOR-SANITY</code></a> - Power Resistor Sanity Check</li>
-<li><a href="Testing/Hardware/Motor-Calibration/Inductance.html"><code>OV-TEST-HW-MOTOR-IND-CAL</code></a> - PMSM Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
-<li><strong>Induction Motor Calibration Validation</strong> <code>OV-TEST-HW-INDUCTION-CAL-INDEX</code></li>
-<li><a href="Testing/Hardware/Induction-Motor-Calibration/Testbed.html"><code>OV-TEST-HW-INDUCTION-TESTBED</code></a> - Induction Motor Testbed</li>
-<li><a href="Testing/Hardware/Induction-Motor-Calibration/Resistance.html"><code>OV-TEST-HW-INDUCTION-RES-CAL</code></a> - Induction Motor Resistance Calibration Validation</li>
-<li><a href="Testing/Hardware/Induction-Motor-Calibration/Inductance.html"><code>OV-TEST-HW-INDUCTION-IND-CAL</code></a> - Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
+<li><strong>PMSM Motor Calibration Validation</strong></li>
+<li><a href="Testing/Hardware/Motor-Calibration/Resistance.html"><code>TEST-1</code></a> - PMSM Resistance Calibration Validation</li>
+<li><a href="Testing/Hardware/Motor-Calibration/Resistor-Sanity-Check.html"><code>TEST-3</code></a> - Power Resistor Sanity Check</li>
+<li><a href="Testing/Hardware/Motor-Calibration/Inductance.html"><code>TEST-2</code></a> - PMSM Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
+<li><strong>Induction Motor Calibration Validation</strong></li>
+<li><a href="Testing/Hardware/Induction-Motor-Calibration/Testbed.html"><code>TEST-4</code></a> - Induction Motor Testbed</li>
+<li><a href="Testing/Hardware/Induction-Motor-Calibration/Resistance.html"><code>TEST-5</code></a> - Induction Motor Resistance Calibration Validation</li>
+<li><a href="Testing/Hardware/Induction-Motor-Calibration/Inductance.html"><code>TEST-6</code></a> - Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
 </ul>
 </div>
 

@@ -112,6 +112,9 @@ def frontmatter_table(doc: Document) -> str:
         return ""
 
     skip_keys = {"prepared", "title"}
+    # Hide opaque doc_id when a friendly test_id is present.
+    if doc.frontmatter.get("test_id") is not None:
+        skip_keys = skip_keys | {"doc_id"}
     skip_values = {"", "N/A", "n/a", "TBD", "tbd", "TODO", "todo", "(not yet reviewed)"}
     rows = []
     for key, value in doc.frontmatter.items():
@@ -131,13 +134,14 @@ def frontmatter_table(doc: Document) -> str:
 
     # Compact summary line shown when the panel is collapsed.
     fm = doc.frontmatter
+    id_bit = fm.get("test_id") if fm.get("test_id") is not None else fm.get("doc_id")
     summary_bits = [
-        fm.get("doc_id"),
+        id_bit,
         f"v{fm.get('version')}" if fm.get("version") else None,
         fm.get("status"),
         fm.get("date"),
     ]
-    summary = " · ".join(str(b) for b in summary_bits if b)
+    summary = " · ".join(str(b) for b in summary_bits if b is not None)
 
     return (
         '<details class="frontmatter">'

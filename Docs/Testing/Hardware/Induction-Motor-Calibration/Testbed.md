@@ -10,6 +10,7 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 description: Base documentation for the TECO MAX-IE3 induction motor testbed used for calibration validation.
+test_id: 4
 nav_order: 516
 placeholder: true
 normative_refs:

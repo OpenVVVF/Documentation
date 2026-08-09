@@ -10,6 +10,7 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 description: Validation of the inverter motor-inductance calibration routine against a bench LCR reference.
+test_id: 2
 nav_order: 513
 normative_refs:
   - OV-TEST-HW-MOTOR-CAL-INDEX

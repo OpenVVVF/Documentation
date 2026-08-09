@@ -10,6 +10,7 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 description: Validation of the inverter motor-inductance calibration routine on a TECO MAX-IE3 induction motor.
+test_id: 6
 nav_order: 522
 placeholder: true
 normative_refs:

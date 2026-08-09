@@ -10,6 +10,7 @@ version: "0.2"
 date: "2026-08-08"
 status: draft
 description: Validation of the inverter motor-resistance calibration routine on a TECO MAX-IE3 induction motor.
+test_id: 5
 nav_order: 521
 normative_refs:
   - OV-TEST-HW-INDUCTION-CAL-INDEX

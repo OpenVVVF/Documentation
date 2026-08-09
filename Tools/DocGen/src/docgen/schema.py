@@ -31,6 +31,7 @@ OPTIONAL_FIELDS = {
     "profile_for",
     "standard",
     "menu_only",
+    "test_id",
 }
 
 ALLOWED_STATUSES = {"draft", "review", "released", "obsolete", "elaborated"}
