@@ -7,18 +7,15 @@ from pathlib import Path
 from typing import Optional
 
 from .frontmatter import Document, load_docs
-from .site import _is_menu_only
+from .site import _is_menu_only, url_path
 
 
 def _html_path_for_doc(doc: Document, docs_dir: Path, site_dir: Path) -> Path:
     """Return the rendered HTML path for a document.
 
-    The site generator lower-cases Index.md -> index.html, so this helper
-    mirrors that transformation.
+    Uses the same path logic as the site generator so filenames always match.
     """
-    rel_path = doc.path.relative_to(docs_dir)
-    html_name = rel_path.name.lower().replace(".md", ".html")
-    return site_dir / rel_path.parent / html_name
+    return site_dir / url_path(doc.path, docs_dir)
 
 
 def _find_chromium() -> Optional[str]:
