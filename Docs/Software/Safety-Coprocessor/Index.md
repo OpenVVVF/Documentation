@@ -9,7 +9,7 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 description: STM32G474RCTx safety-coprocessor firmware - independent monitoring, 1oo2 gate-drive kill, and watchdog.
-nav_order: 440
+nav_order: 420
 ---
 
 # Safety Coprocessor Software

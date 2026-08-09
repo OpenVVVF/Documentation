@@ -10,7 +10,7 @@ reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft
 description: Node-based code generation tools for motor-control and vehicle-logic pipelines.
-nav_order: 470
+nav_order: 440
 ---
 
 # Codegen Tools

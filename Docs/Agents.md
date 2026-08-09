@@ -6,19 +6,17 @@ This file explains how the OpenVVVF documentation is organized. Future agents an
 
 The `Docs/` tree has five top-level sections:
 
-1. **Control-Assembly** - The reusable inverter control module.
-   - `User-Hardware-Manual/` - Installation, assembly, and hardware specs.
-   - `Software-Manual/` - Base firmware, RTE host, flashing, custom code.
-2. **Power-Stages** - Physical chassis/inverter assemblies.
-   - One folder per chassis family: `C1/`, `C2/`, `C3/`.
-   - Each chassis has an `Integration-Guide/` and an `Assembly-Guide/`.
-3. **Safety-and-Compliance** - Cross-cutting safety and standards docs.
+1. **Hardware** - Physical OpenVVVF hardware.
+   - `Control-Assembly/` - The reusable inverter control module.
+   - `Power-Stages/` - Chassis/inverter assemblies (`C1/`, `C2/`, `C3/`).
+2. **Software** - Firmware and host-software docs by target.
+   - `Main-MCU/`, `Safety-Coprocessor/`, `RTE-Studio/`, `Codegen/`.
+   - `Tools/` - Software tools and widgets.
+3. **Safety-and-Compliance** - Cross-cutting safety, standards, and validation docs.
    - `HARA/` - Hazard analyses.
+   - `TARA/` - Threat analyses.
    - `Compliance/` - Standards mappings.
-4. **Software** - Firmware and host-software docs by target.
-   - `Main-MCU/`, `Safety-Coprocessor/`, `RTE-Host/`, `Codegen/`.
-5. **Testing** - Formal test and validation evidence.
-   - `Hardware/`, `Firmware/`, `Integration/`.
+   - `Testing/` - Formal test and validation evidence.
 
 ## Every document is a folder containing `Index.md`
 
@@ -110,11 +108,12 @@ Use these ranges for top-level section indices so the sidebar orders consistentl
 | Range | Section |
 |-------|---------|
 | 0 | Root index (`OV-DOCS-INDEX`) |
+| 10–99 | Hardware |
 | 100–199 | Control Assembly |
-| 200–299 | Power Stages top-level |
+| 200–299 | Power Stages |
 | 300–399 | Safety and Compliance |
 | 400–499 | Software |
-| 500–599 | Testing |
+| 500–599 | Testing and Validation (under Safety and Compliance) |
 
 Within a section or chassis, choose a consistent scheme that makes the document order obvious. For example, in `Power-Stages/C2/Assembly-Guide/` the convention is `chapter × 10` for chapters and `chapter × 10 + step` for substeps:
 

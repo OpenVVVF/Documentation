@@ -61,16 +61,17 @@ ALLOWED_DOCTYPES = {
 # Map a doc_id prefix to a canonical top-level directory. Used for warnings only.
 PREFIX_TO_DIR = {
     "OV-DOCS-": "Docs",
-    "OV-CA-": "Control-Assembly",
-    "OV-PS-": "Power-Stages",
-    "OV-C1-": "Power-Stages/C1",
-    "OV-C2-": "Power-Stages/C2",
-    "OV-C3-": "Power-Stages/C3",
+    "OV-HW-": "Hardware",
+    "OV-CA-": "Hardware/Control-Assembly",
+    "OV-PS-": "Hardware/Power-Stages",
+    "OV-C1-": "Hardware/Power-Stages/C1",
+    "OV-C2-": "Hardware/Power-Stages/C2",
+    "OV-C3-": "Hardware/Power-Stages/C3",
     "OV-SAF-": "Safety-and-Compliance",
     "OV-COMP-": "Safety-and-Compliance/Compliance",
     "OV-SW-": "Software",
-    "OV-TEST-": "Testing",
-    "OV-TOOLS-": "Tools",
+    "OV-TEST-": "Safety-and-Compliance/Testing",
+    "OV-TOOLS-": "Software/Tools",
 }
 
 
@@ -93,28 +94,33 @@ def _prefix_for_path(rel_path: Path) -> Optional[str]:
     top = parts[0]
     if top == "Docs":
         return "OV-DOCS-"
-    if top == "Control-Assembly":
-        return "OV-CA-"
+    if top == "Hardware":
+        if len(parts) > 1:
+            sub = parts[1]
+            if sub == "Control-Assembly":
+                return "OV-CA-"
+            if sub == "Power-Stages" and len(parts) > 2:
+                chassis = parts[2]
+                if chassis == "C1":
+                    return "OV-C1-"
+                if chassis == "C2":
+                    return "OV-C2-"
+                if chassis == "C3":
+                    return "OV-C3-"
+                return "OV-PS-"
+            if sub == "Power-Stages":
+                return "OV-PS-"
+        return "OV-HW-"
     if top == "Safety-and-Compliance":
         if len(parts) > 1 and parts[1] == "Compliance":
             return "OV-COMP-"
+        if len(parts) > 1 and parts[1] == "Testing":
+            return "OV-TEST-"
         return "OV-SAF-"
     if top == "Software":
+        if len(parts) > 1 and parts[1] == "Tools":
+            return "OV-TOOLS-"
         return "OV-SW-"
-    if top == "Testing":
-        return "OV-TEST-"
-    if top == "Tools":
-        return "OV-TOOLS-"
-    if top == "Power-Stages":
-        if len(parts) > 1:
-            chassis = parts[1]
-            if chassis == "C1":
-                return "OV-C1-"
-            if chassis == "C2":
-                return "OV-C2-"
-            if chassis == "C3":
-                return "OV-C3-"
-        return "OV-PS-"
     return None
 
 

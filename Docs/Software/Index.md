@@ -6,23 +6,30 @@ product_line: openvvvf
 applies_to:
   - software-target-main-mcu
   - software-target-safety-coprocessor
-  - software-target-rte-host
+  - software-target-rte-studio
   - software-target-codegen
 version: "0.1"
 reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft
-description: Firmware and host-software documentation by target - Main MCU, Safety Coprocessor, RTE Host, and Codegen.
+description: Firmware targets, host software, and software tools.
 nav_order: 400
 ---
 
 # Software
 
-Firmware and host-software documentation by target.
+Firmware targets, host software, and software tools.
 
 | Target | Path | Repository |
 |--------|------|------------|
 | Main MCU | `Main-MCU/` | OpenVVVF/RTE |
 | Safety Coprocessor | `Safety-Coprocessor/` | OpenVVVF/RTE |
-| RTE Host | `RTE-Host/` | OpenVVVF/RTE |
+| RTE Studio | `RTE-Studio/` | OpenVVVF/RTE |
 | Codegen | `Codegen/` | OpenVVVF/RTE |
+| Tools | `Tools/` | OpenVVVF/Documentation |
+
+- [Main MCU](Main-MCU/index.html) - real-time motor-control firmware.
+- [Safety Coprocessor](Safety-Coprocessor/index.html) - independent safety monitor.
+- [RTE Studio](RTE-Studio/index.html) - host-side real-time examiner and tuning tool.
+- [Codegen](Codegen/index.html) - code and parameter generation tools.
+- [Tools](Tools/index.html) - support utilities and widgets.

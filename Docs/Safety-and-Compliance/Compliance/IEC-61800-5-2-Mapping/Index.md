@@ -10,7 +10,7 @@ reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft
 description: Mapping of OpenVVVF safe states to IEC 61800-5-2 safe functions such as STO, SS1, and SLS.
-nav_order: 222
+nav_order: 332
 normative_refs:
   - OV-SAF-HARA-CORE
 ---

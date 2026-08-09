@@ -11,7 +11,7 @@ reviewed: (not yet reviewed)
 date: "2026-07-13"
 status: draft
 description: Plan for multi-rate phase-current sampling on the STM32H723ZG to support ripple-aware MPC.
-nav_order: 430
+nav_order: 414
 ---
 
 # Plan: Multi-Rate Phase-Current Sampling for MPC / Ripple Separation

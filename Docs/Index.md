@@ -12,7 +12,7 @@ version: "0.1"
 reviewed: (not yet reviewed)
 date: "2026-08-08"
 status: draft
-description: Portal to OpenVVVF product documentation, safety analyses, power-stage guides, software targets, and test evidence.
+description: Portal to OpenVVVF product documentation, hardware manuals, software targets, safety analyses, and validation evidence.
 nav_order: 0
 ---
 
@@ -21,91 +21,127 @@ nav_order: 0
 
 # OpenVVVF Documentation
 
-This repository is the single source of truth for OpenVVVF documentation.
+OpenVVVF is an open-source Variable Voltage Variable Frequency (VVVF) traction inverter platform. A single control module runs the motor-control firmware and talks to one of several power-stage chassis. The same hardware can serve very different applications - motorcycle, passenger car, industrial drive, or rail - by selecting the right power stage and configuring the safety profile.
+
+This site is the single source of truth for OpenVVVF hardware manuals, software documentation, safety analyses, and validation evidence.
 
 <div class="card">
 <h3>Getting Started</h3>
 <ul>
-<li><strong>New users</strong> - read the <a href="System-Architecture/index.html">System Architecture</a> overview and the <a href="Glossary/index.html">Glossary</a> first.</li>
-<li><strong>Installers / Technicians</strong> - go to <a href="Power-Stages/index.html">Power Stages</a> to choose the correct chassis, then open its integration or assembly guide.</li>
-<li><strong>Developers</strong> - see the <a href="Control-Assembly/index.html">Control Assembly</a>, <a href="Software/index.html">Software</a>, and <a href="Tools/index.html">Tools</a> sections.</li>
-<li><strong>Safety / Compliance Reviewers</strong> - begin with the <a href="Safety-and-Compliance/HARA/Core/index.html">HARA Core</a> and <a href="Safety-and-Compliance/Compliance/index.html">Compliance</a> docs.</li>
+<li><strong>New users</strong> - read the overview, architecture, and glossary sections on this page first.</li>
+<li><strong>Installers / Technicians</strong> - start with <a href="Hardware/Power-Stages/index.html">Power Stages</a> to choose the correct chassis, then open its integration or assembly guide.</li>
+<li><strong>Developers</strong> - see the <a href="Hardware/Control-Assembly/index.html">Control Assembly</a> and <a href="Software/index.html">Software</a> sections.</li>
+<li><strong>Safety / Compliance Reviewers</strong> - begin with the <a href="Safety-and-Compliance/HARA/Core/index.html">HARA Core</a>, <a href="Safety-and-Compliance/Compliance/index.html">Compliance</a>, and <a href="Safety-and-Compliance/Testing/index.html">Testing & Validation</a> docs.</li>
 </ul>
 </div>
+
+## System architecture
+
+### Major blocks
+
+- **Control module / control assembly** - The reusable dual-MCU control board that runs OpenVVVF firmware. It handles field-oriented motor control, state estimation, diagnostics, and safety monitoring.
+- **Power stage** - The physical inverter assembly that contains the IGBTs, DC-link capacitors, gate drivers, current sensors, and thermal hardware. Three chassis families are planned:
+  - **C1** - compact, low-power form factor.
+  - **C2** - mid-size, 140 V nominal / up to 450 V class, ~600 A.
+  - **C3** - large, up to 1200 V / 1400 A.
+- **Main MCU software** - The primary microcontroller firmware; runs the real-time motor-control loop, PWM generation, ADC sampling, communication stacks, and application logic.
+- **Safety coprocessor software** - A separate microcontroller that independently monitors safety-critical outputs and can bring the system to a safe state.
+- **RTE Studio** - The host-side Real-Time Examiner and tuning tool. It connects to the inverter over CAN or Ethernet to log variables, adjust parameters, and run calibration routines.
+- **Codegen tools** - Code and parameter generation tools that keep firmware data structures in sync with the hardware model.
+
+### Data flow at a glance
+
+```
+RTE Studio / Codegen
+       |
+       | CAN / parameter files
+       v
+Control Module (Main MCU + Safety Coprocessor)
+       |
+       | PWM / gate-drive / sensor signals
+       v
+    Power Stage
+       |
+       | Three-phase output
+       v
+     Motor
+```
+
+## Glossary
+
+### General terms
+
+- **OpenVVVF** - Open-source Variable Voltage Variable Frequency traction inverter platform.
+- **VVVF** - Variable Voltage Variable Frequency. A method for controlling AC motors by adjusting voltage and frequency.
+- **Traction inverter** - A power-electronics converter that turns a DC bus into variable-frequency AC to drive a motor.
+- **Chassis** - A mechanical/electrical form-factor family for power stages (C1, C2, C3).
+
+### Software terms
+
+- **MCU** - Microcontroller Unit. The main processor running the motor-control firmware.
+- **Main MCU** - The primary microcontroller on the control module; runs the motor-control loop.
+- **Safety coprocessor** - A separate microcontroller that independently monitors safety-critical outputs.
+- **RTE** - Real-Time Examiner. The host-side tool for logging, tuning, and calibrating the inverter over CAN or Ethernet.
+- **Codegen** - Code/parameter generation tools that keep firmware data structures in sync with the hardware model.
+- **FOC** - Field-Oriented Control. The motor-control algorithm used to drive AC machines.
+- **PWM** - Pulse-Width Modulation. The technique used to synthesize variable voltages from a fixed DC bus.
+- **VCU** - Vehicle Control Unit. A higher-level controller that commands the inverter in a vehicle.
+
+### Safety and compliance terms
+
+- **HARA** - Hazard Analysis and Risk Assessment. A process for identifying hazardous events and assigning safety goals.
+- **TARA** - Threat Analysis and Risk Assessment. The cybersecurity counterpart to HARA.
+- **FMEA** - Failure Mode and Effects Analysis. A bottom-up method for analyzing how component failures affect the system.
+- **ISO 26262** - Automotive functional-safety standard.
+- **IEC 61800-5-2** - Industrial-drive safety standard.
+- **ASIL** - Automotive Safety Integrity Level. A risk classification from A (lowest) to D (highest).
+- **HVIL** - High-Voltage Interlock Loop. A safety circuit that detects when HV connectors are unmated.
+- **Safe state** - A defined low-risk state the system enters after a fault.
+
+### Electrical / mechanical terms
+
+- **DC link** - The DC bus capacitors and connections between the battery/supply and the inverter bridge.
+- **IGBT** - Insulated-Gate Bipolar Transistor. The power switch used in the inverter bridge.
+- **Vdc** - DC-link voltage.
+- **Vll** - Line-to-line AC voltage.
+- **DCR** - DC Resistance. The resistance measured at DC, typically used for motor phase resistance.
+- **LCR meter** - Instrument for measuring inductance, capacitance, and resistance.
+- **Heatsink / baseplate** - The metal surface that conducts heat away from the IGBT modules.
+
+## Documentation sections
 
 <div class="landing-grid">
 
 <div class="card">
-<h3><a href="System-Architecture/index.html">System Architecture</a></h3>
-<p>Bird's-eye view of the OpenVVVF ecosystem: control module, power stages, software targets, and application profiles.</p>
-</div>
-
-<div class="card">
-<h3><a href="Glossary/index.html">Glossary</a></h3>
-<p>Definitions for RTE, HARA, TARA, HVIL, VCU, and other terms used across the docs.</p>
-</div>
-
-<div class="card">
-<h3><a href="Control-Assembly/index.html">Control Assembly</a></h3>
-<p>The reusable inverter brain. User hardware manual and software manual.</p>
+<h3><a href="Hardware/index.html">Hardware</a></h3>
+<p>Physical OpenVVVF hardware: the reusable control module and the power-stage chassis families.</p>
 <ul>
-<li><a href="Control-Assembly/User-Hardware-Manual/index.html"><code>OV-CA-UHW-INDEX</code></a> - User Hardware Manual <span class="status-badge status-draft">WIP</span></li>
-<li><a href="Control-Assembly/Software-Manual/index.html"><code>OV-CA-SWM-INDEX</code></a> - Software Manual <span class="status-badge status-draft">WIP</span></li>
-</ul>
-</div>
-
-<div class="card">
-<h3><a href="Power-Stages/index.html">Power Stages</a></h3>
-<p>Physical chassis/inverter assemblies. Each chassis family has a user manual and an assembly guide.</p>
-<ul>
-<li><a href="Power-Stages/C1/index.html"><code>OV-C1-INDEX</code></a> - Chassis Size 1 <span class="status-badge status-draft">WIP</span></li>
-<li><a href="Power-Stages/C2/index.html"><code>OV-C2-INDEX</code></a> - Chassis Size 2 <span class="status-badge status-draft">WIP</span></li>
-<li><a href="Power-Stages/C3/index.html"><code>OV-C3-INDEX</code></a> - Chassis Size 3 <span class="status-badge status-draft">WIP</span></li>
-</ul>
-</div>
-
-<div class="card">
-<h3><a href="Safety-and-Compliance/index.html">Safety and Compliance</a></h3>
-<p>Hazard analyses and compliance mappings.</p>
-<ul>
-<li><a href="Safety-and-Compliance/HARA/Core/index.html"><code>OV-SAF-HARA-CORE</code></a> - HARA Core <span class="status-badge status-draft">WIP</span></li>
-<li><a href="Safety-and-Compliance/HARA/Application-Profiles/Motorcycle/index.html"><code>OV-SAF-HARA-PROF-MOTO</code></a> - Motorcycle Application Profile</li>
-<li><a href="Safety-and-Compliance/Compliance/index.html"><code>OV-COMP-INDEX</code></a> - Compliance</li>
+<li><a href="Hardware/Control-Assembly/index.html"><code>OV-CA-INDEX</code></a> - Control Assembly</li>
+<li><a href="Hardware/Power-Stages/index.html"><code>OV-PS-INDEX</code></a> - Power Stages</li>
 </ul>
 </div>
 
 <div class="card">
 <h3><a href="Software/index.html">Software</a></h3>
-<p>Firmware and host-software documentation by target.</p>
+<p>Firmware targets, host software, and software tools.</p>
 <ul>
 <li><a href="Software/Main-MCU/index.html"><code>OV-SW-MAINMCU-INDEX</code></a> - Main MCU</li>
 <li><a href="Software/Safety-Coprocessor/index.html"><code>OV-SW-COPROC-INDEX</code></a> - Safety Coprocessor</li>
-<li><a href="Software/RTE-Host/index.html"><code>OV-SW-RTE-INDEX</code></a> - RTE Host</li>
+<li><a href="Software/RTE-Studio/index.html"><code>OV-SW-RTE-INDEX</code></a> - RTE Studio</li>
 <li><a href="Software/Codegen/index.html"><code>OV-SW-CODEGEN-INDEX</code></a> - Codegen <span class="status-badge status-draft">WIP</span></li>
+<li><a href="Software/Tools/index.html"><code>OV-TOOLS-INDEX</code></a> - Tools</li>
 </ul>
 </div>
 
 <div class="card">
-<h3><a href="Testing/index.html">Testing and Validation</a></h3>
-<p>Formal test reports and validation evidence.</p>
+<h3><a href="Safety-and-Compliance/index.html">Safety and Compliance</a></h3>
+<p>Hazard analyses, threat analyses, standards mappings, and validation evidence.</p>
 <ul>
-<li><strong>PMSM Motor Calibration Validation</strong></li>
-<li><a href="Testing/Hardware/Motor-Calibration/Resistance.html"><code>TEST-1</code></a> - PMSM Resistance Calibration Validation</li>
-<li><a href="Testing/Hardware/Motor-Calibration/Resistor-Sanity-Check.html"><code>TEST-3</code></a> - Power Resistor Sanity Check</li>
-<li><a href="Testing/Hardware/Motor-Calibration/Inductance.html"><code>TEST-2</code></a> - PMSM Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
-<li><strong>Induction Motor Calibration Validation</strong></li>
-<li><a href="Testing/Hardware/Induction-Motor-Calibration/Testbed.html"><code>TEST-4</code></a> - Induction Motor Testbed</li>
-<li><a href="Testing/Hardware/Induction-Motor-Calibration/Resistance.html"><code>TEST-5</code></a> - Induction Motor Resistance Calibration Validation</li>
-<li><a href="Testing/Hardware/Induction-Motor-Calibration/Inductance.html"><code>TEST-6</code></a> - Inductance Calibration Validation <span class="status-badge status-draft">WIP</span></li>
-</ul>
-</div>
-
-<div class="card">
-<h3><a href="Tools/index.html">Tools</a></h3>
-<p>Support utilities and widgets for working with OpenVVVF.</p>
-<ul>
-<li><a href="Tools/Telemetry-Plotting/index.html"><code>OV-TOOLS-RTEPLOT</code></a> - Telemetry Plotting</li>
-<li><a href="Tools/Telemetry-Viewer/index.html"><code>OV-TOOLS-TELEMETRY-VIEWER</code></a> - Telemetry Viewer</li>
+<li><a href="Safety-and-Compliance/HARA/Core/index.html"><code>OV-SAF-HARA-CORE</code></a> - HARA Core <span class="status-badge status-draft">WIP</span></li>
+<li><a href="Safety-and-Compliance/HARA/Application-Profiles/Motorcycle/index.html"><code>OV-SAF-HARA-PROF-MOTO</code></a> - Motorcycle Application Profile</li>
+<li><a href="Safety-and-Compliance/TARA/index.html"><code>OV-SAF-TARA-INDEX</code></a> - TARA</li>
+<li><a href="Safety-and-Compliance/Compliance/index.html"><code>OV-COMP-INDEX</code></a> - Compliance</li>
+<li><a href="Safety-and-Compliance/Testing/index.html"><code>OV-TEST-INDEX</code></a> - Testing & Validation</li>
 </ul>
 </div>
 

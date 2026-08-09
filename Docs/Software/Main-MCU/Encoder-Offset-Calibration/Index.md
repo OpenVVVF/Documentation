@@ -11,7 +11,7 @@ reviewed: (not yet reviewed)
 date: "2026-07-13"
 status: released
 description: Root-cause analysis and fix for the encoder-field offset calibration bug on the main MCU.
-nav_order: 420
+nav_order: 413
 ---
 
 # Encoder Offset Calibration: What Went Wrong and How It Was Fixed

@@ -11,7 +11,7 @@ date: "2026-08-08"
 status: draft
 placeholder: true
 description: STM32G474RCTx safety-coprocessor software architecture, independent monitoring, and inter-MCU interface.
-nav_order: 441
+nav_order: 421
 normative_refs:
   - OV-SAF-HARA-CORE
   - OV-SW-MAINMCU-ARCH

@@ -15,7 +15,7 @@ reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: elaborated
 description: Motorcycle-specific HARA profile - operational situations, S/E/C ratings, and ASIL targets applied to the platform hazard set.
-nav_order: 213
+nav_order: 313
 normative_refs:
   - OV-SAF-HARA-CORE
 ---

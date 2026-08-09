@@ -10,7 +10,7 @@ reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: draft
 description: Mapping of OpenVVVF safety goals and requirements to ISO 26262:2018 work products.
-nav_order: 221
+nav_order: 331
 normative_refs:
   - OV-SAF-HARA-CORE
 ---

@@ -12,7 +12,7 @@ reviewed: (not yet reviewed)
 date: "2026-07-30"
 status: elaborated
 description: Platform hazard analysis, safety goals, functional safety requirements, and fault-injection test plan for the dual-MCU control module.
-nav_order: 211
+nav_order: 311
 normative_refs:
   - OV-SAF-HARA-PROF-MOTO
 ---
