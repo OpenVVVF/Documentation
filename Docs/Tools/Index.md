@@ -11,7 +11,7 @@ applies_to:
 version: "0.1"
 date: "2026-08-08"
 status: draft
-description: Documentation for OpenVVVF support tools, utilities, and widgets.
+description: Documentation for OpenVVVF support tools and widgets.
 nav_order: 40
 normative_refs:
   - OV-DOCS-INDEX
@@ -19,17 +19,12 @@ normative_refs:
 
 # Tools
 
-This section documents the support tools and small utilities that go with OpenVVVF hardware and software.
+This section documents the support tools and widgets that go with OpenVVVF hardware and software.
 
 <div class="landing-grid">
 
 <div class="card">
-<h3><a href="Telemetry-Plotting/index.html">Telemetry Plotting</a></h3>
-<p>Convert RTE JSONL telemetry logs into publication-ready plots for analysis and test reports.</p>
-</div>
-
-<div class="card">
-<h3><a href="OpenVVVF-Telemetry-Viewer/index.html">OpenVVVF Telemetry Viewer</a></h3>
+<h3><a href="OpenVVVF-Telemetry-Viewer/index.html">Telemetry Viewer</a></h3>
 <p>Browser-based interactive viewer for RTE JSONL telemetry logs.</p>
 </div>
 

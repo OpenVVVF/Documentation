@@ -1,7 +1,7 @@
 ---
 doctype: Tool Manual
 doc_id: OV-TOOLS-TELEMETRY-VIEWER
-title: OpenVVVF Telemetry Viewer
+title: Telemetry Viewer
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
@@ -17,9 +17,9 @@ normative_refs:
   - OV-TOOLS-INDEX
 ---
 
-# OpenVVVF Telemetry Viewer
+# Telemetry Viewer
 
-The OpenVVVF Telemetry Viewer is a browser-based tool for inspecting RTE JSONL telemetry logs interactively. It runs entirely client-side: no data is uploaded to a server.
+The Telemetry Viewer is a browser-based tool for inspecting RTE JSONL telemetry logs interactively. It runs entirely client-side: no data is uploaded to a server.
 
 ## Features
 
@@ -50,10 +50,10 @@ You can link directly to a telemetry file so the viewer opens and loads it autom
 Example:
 
 ```text
-telemetry-viewer.html?file=../../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left
+telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left
 ```
 
-[Open induction calibration log with cg_iu_a plotted](telemetry-viewer.html?file=../../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left)
+[Open induction calibration log with cg_iu_a plotted](telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left)
 
 ## Data privacy
 

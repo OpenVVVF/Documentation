@@ -146,10 +146,9 @@ Control Module (Main MCU + Safety Coprocessor)
 
 <div class="card">
 <h3><a href="Tools/index.html">Tools</a></h3>
-<p>Support utilities and widgets for working with OpenVVVF.</p>
+<p>Support tools and widgets for working with OpenVVVF.</p>
 <ul>
-<li><a href="Tools/Telemetry-Plotting/index.html"><code>OV-TOOLS-RTEPLOT</code></a> - Telemetry Plotting</li>
-<li><a href="Tools/OpenVVVF-Telemetry-Viewer/index.html"><code>OV-TOOLS-TELEMETRY-VIEWER</code></a> - OpenVVVF Telemetry Viewer</li>
+<li><a href="Tools/OpenVVVF-Telemetry-Viewer/index.html"><code>OV-TOOLS-TELEMETRY-VIEWER</code></a> - Telemetry Viewer</li>
 </ul>
 </div>
 

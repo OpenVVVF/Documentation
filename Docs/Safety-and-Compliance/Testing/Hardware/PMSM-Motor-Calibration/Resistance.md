@@ -71,7 +71,7 @@ The plot below shows phase currents, DC bus voltage, and the per-phase resistanc
 
 ![Resistance calibration: 50 V vs 120 V bus](ResistanceCalResult_50v_vs_120v.png)
 
-> **Open telemetry log:** [View this calibration in the OpenVVVF Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/PMSM-Motor-Calibration/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left)
+> **Open telemetry log:** [View this calibration in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/PMSM-Motor-Calibration/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left)
 
 From the plotted telemetry:
 
@@ -87,7 +87,7 @@ From the plotted telemetry:
   - current-sensor offset or scaling drift at the higher DC-link voltage,
   - connection/cable resistance differences between setups,
   - temperature or settling differences between runs.
-- The raw telemetry log is available for further analysis: [ResistanceCalResult.jsonl](ResistanceCalResult.jsonl) - [open in OpenVVVF Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/PMSM-Motor-Calibration/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left).
+- The raw telemetry log is available for further analysis: [ResistanceCalResult.jsonl](ResistanceCalResult.jsonl) - [open in Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/PMSM-Motor-Calibration/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left).
 
 ## Notes
 
