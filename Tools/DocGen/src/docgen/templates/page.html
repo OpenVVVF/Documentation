@@ -5,7 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} - OpenVVVF Documentation</title>
   <link rel="stylesheet" href="{root}style.css?v=4">
-  <link rel="stylesheet" href="{root}print.css?v=3" media="print">
+  <link rel="stylesheet" href="{root}print.css?v=4" media="print">
+  <style media="print">
+    @page {{
+      @top-left {{
+        content: "{header_title}";
+      }}
+      @top-right {{
+        content: "{header_id}";
+      }}
+    }}
+    @page :first {{
+      @top-left {{ content: none; }}
+      @top-right {{ content: none; }}
+    }}
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -35,6 +49,8 @@
   </div>
 
   <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
+
+  {cover}
 
   <div class="layout" id="layout">
     <aside class="sidebar" id="sidebar" aria-label="Table of contents">

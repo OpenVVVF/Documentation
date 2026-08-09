@@ -152,6 +152,65 @@ def frontmatter_table(doc: Document) -> str:
     )
 
 
+def cover_page(doc: Optional[Document]) -> str:
+    """Render a print-only cover page from document frontmatter."""
+    if doc is None or not doc.frontmatter:
+        return (
+            '<div class="print-cover">'
+            '<div class="print-cover-brand">OpenVVVF</div>'
+            '<h1 class="print-cover-title">OpenVVVF Documentation</h1>'
+            '</div>'
+        )
+
+    fm = doc.frontmatter
+    doctype = doc.doctype or "Document"
+    title = doc.title or doc.path.stem
+    description = fm.get("description", "")
+    product_line = fm.get("product_line", "OpenVVVF")
+
+    rows = []
+
+    def add_row(label: str, value: Any) -> None:
+        if value is None or value == "":
+            return
+        if isinstance(value, list):
+            value = ", ".join(str(v) for v in value)
+        rows.append(f"<tr><th>{label}</th><td>{value}</td></tr>")
+
+    add_row("Document ID", fm.get("doc_id"))
+    if fm.get("test_id") is not None:
+        add_row("Test ID", fm.get("test_id"))
+    add_row("Version", fm.get("version"))
+    add_row("Date", fm.get("date"))
+    add_row("Status", fm.get("status"))
+    add_row("Applies to", fm.get("applies_to"))
+    add_row("Product line", product_line)
+    add_row("Normative references", fm.get("normative_refs"))
+
+    meta_table = f'<table class="print-cover-meta">{"".join(rows)}</table>' if rows else ""
+
+    doc_id_value = fm.get("doc_id") or ""
+    strings = ""
+    if doc_id_value:
+        strings = (
+            '<div class="print-cover-strings" aria-hidden="true">'
+            f'<span class="print-cover-string-title">{title}</span>'
+            f'<span class="print-cover-string-id">{doc_id_value}</span>'
+            '</div>'
+        )
+
+    return (
+        '<div class="print-cover">'
+        + strings
+        + f'<div class="print-cover-brand">{product_line.upper()}</div>'
+        + f'<div class="print-cover-doctype">{doctype}</div>'
+        + f'<h1 class="print-cover-title">{title}</h1>'
+        + (f'<p class="print-cover-description">{description}</p>' if description else "")
+        + meta_table
+        + '</div>'
+    )
+
+
 def _doc_sort_key(doc: Document) -> tuple:
     """Sort key: nav_order first, then title, then filename."""
     return (doc.nav_order, doc.title or doc.path.stem, doc.path.name)
@@ -452,15 +511,22 @@ def render_page(
     if doc and "Assembly-Guide" in doc.path.parts:
         content_class = "assembly-guide"
 
+    cover = cover_page(doc)
+    header_id = (doc.doc_id if doc else "OpenVVVF Documentation").replace('"', '\\"')
+    header_title = title.replace('"', '\\"')
+
     page = load_template("page.html")
     return page.format(
         title=title,
+        header_title=header_title,
         body=body,
         nav=nav,
         breadcrumbs=crumbs,
         root=root,
         frontmatter=frontmatter,
         content_class=content_class,
+        cover=cover,
+        header_id=header_id,
     )
 
 

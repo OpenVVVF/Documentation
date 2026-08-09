@@ -1,6 +1,8 @@
 @media print {
+  /* Hide chrome that does not belong in a printed report */
   .site-header,
   .sidebar,
+  .sidebar-reveal,
   .footer,
   .print-button,
   .breadcrumbs,
@@ -11,11 +13,26 @@
     display: none !important;
   }
 
+  /* The on-screen frontmatter collapsible is replaced by the print cover */
+  .frontmatter {
+    display: none !important;
+  }
+
+  /* Reset page canvas */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  html,
   body {
+    margin: 0;
+    padding: 0;
     background: #fff;
-    color: #000;
-    font-size: 11pt;
-    line-height: 1.5;
+    color: #1a1a1a;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
   }
 
   .layout {
@@ -34,99 +51,342 @@
     padding: 0;
   }
 
+  /* Cover page */
+  .print-cover {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 90vh;
+    padding: 2cm 0;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .print-cover-brand {
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #e30613;
+    margin-bottom: 1.5cm;
+  }
+
+  .print-cover-doctype {
+    font-size: 11pt;
+    font-weight: 400;
+    color: #5a5a5a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6cm;
+  }
+
+  .print-cover-title {
+    font-size: 28pt;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #1a1a1a;
+    margin: 0 0 0.8cm 0;
+    padding: 0;
+    border: none;
+  }
+
+  .print-cover-description {
+    font-size: 11pt;
+    color: #4a4a4a;
+    line-height: 1.6;
+    max-width: 16cm;
+    margin: 0 0 1.5cm 0;
+  }
+
+  .print-cover-meta {
+    width: 100%;
+    max-width: 14cm;
+    border-collapse: collapse;
+    margin-top: 0.5cm;
+    font-size: 10pt;
+  }
+
+  .print-cover-meta th,
+  .print-cover-meta td {
+    padding: 0.35cm 0.5cm;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 0.5pt solid #d1d5db;
+  }
+
+  .print-cover-meta th {
+    width: 40%;
+    font-weight: 600;
+    color: #5a5a5a;
+    background: #f8f9fa;
+  }
+
+  .print-cover-meta td {
+    width: 60%;
+    color: #1a1a1a;
+  }
+
+  /* Content typography */
   .content h1 {
-    font-size: 20pt;
-    border-bottom: 1pt solid #ccc;
+    font-size: 18pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 1pt solid #d1d5db;
+    padding-bottom: 0.3cm;
+    margin-top: 0;
+    margin-bottom: 0.6cm;
+    page-break-after: avoid;
+    break-after: avoid;
   }
 
   .content h2 {
-    font-size: 16pt;
-    border-bottom: 0.5pt solid #ddd;
+    font-size: 14pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 0.5pt solid #e9ecef;
+    padding-bottom: 0.2cm;
+    margin-top: 0.9cm;
+    margin-bottom: 0.4cm;
+    page-break-after: avoid;
+    break-after: avoid;
   }
 
   .content h3 {
-    font-size: 13pt;
-  }
-
-  .content h1::before,
-  .content h2::before,
-  .content h3::before {
+    font-size: 12pt;
     font-weight: 700;
+    color: #2a2a2a;
+    margin-top: 0.7cm;
+    margin-bottom: 0.3cm;
+    page-break-after: avoid;
+    break-after: avoid;
   }
 
+  .content h4,
+  .content h5,
+  .content h6 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #333;
+    margin-top: 0.6cm;
+    margin-bottom: 0.25cm;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .content p {
+    margin: 0 0 0.4cm 0;
+    orphans: 3;
+    widows: 3;
+  }
+
+  .content ul,
+  .content ol {
+    margin: 0 0 0.5cm 0;
+    padding-left: 1cm;
+  }
+
+  .content li {
+    margin-bottom: 0.15cm;
+  }
+
+  /* Links */
   a {
-    color: #000;
+    color: #1a1a1a;
     text-decoration: none;
   }
 
-  a[href]::after {
+  /* Only external links get a URL annotation */
+  a[href^="http"]::after,
+  a[href^="mailto:"]::after {
     content: " (" attr(href) ")";
-    font-size: 9pt;
+    font-size: 8.5pt;
     color: #555;
     word-break: break-all;
   }
 
   a[href^="#"]::after,
-  a[href^="javascript:"]::after {
+  a[href^="javascript:"]::after,
+  a[href^="../../"]::after,
+  a[href^="../"]::after,
+  a[href^="./"]::after {
     content: "";
   }
 
-  .frontmatter {
-    border: 0.5pt solid #ccc;
-    background: #f9f9f9;
-    page-break-inside: avoid;
-  }
-
-  .frontmatter summary {
-    display: none;
-  }
-
-  .frontmatter table {
-    display: table;
-  }
-
+  /* Tables */
   .content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5cm 0;
+    font-size: 10pt;
     page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .content thead {
+    display: table-header-group;
+  }
+
+  .content th,
+  .content td {
+    padding: 0.25cm 0.35cm;
+    border: 0.5pt solid #d1d5db;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .content th {
+    background: #f8f9fa;
+    font-weight: 600;
   }
 
   .content tr {
     page-break-inside: avoid;
+    break-inside: avoid;
   }
 
+  /* Images */
   .content img {
     max-width: 100%;
+    max-height: 16cm;
+    height: auto;
+    display: block;
+    margin: 0.5cm 0;
     page-break-inside: avoid;
-    border: 0.5pt solid #ddd;
+    break-inside: avoid;
   }
 
+  .content figure {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Blockquotes / callouts */
   .content blockquote {
     page-break-inside: avoid;
+    break-inside: avoid;
     border-left: 3pt solid #e30613;
+    background: #f8f9fa;
+    padding: 0.4cm 0.6cm;
+    margin: 0.5cm 0;
   }
 
+  .content blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Code */
   .content pre {
     background: #f5f5f5;
     border: 0.5pt solid #ddd;
+    padding: 0.4cm;
+    font-size: 9pt;
+    line-height: 1.4;
     page-break-inside: avoid;
+    break-inside: avoid;
     white-space: pre-wrap;
     word-wrap: break-word;
   }
 
+  .content code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 9pt;
+    background: #f5f5f5;
+    padding: 0.05cm 0.15cm;
+    border-radius: 2pt;
+  }
+
+  .content pre code {
+    background: transparent;
+    padding: 0;
+  }
+
+  /* Cards */
   .card {
     border: 0.5pt solid #ccc;
     box-shadow: none;
+    padding: 0.5cm;
+    margin: 0.4cm 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
+  .card h3 {
+    margin-top: 0;
+  }
+
+  /* Placeholder banner */
+  .placeholder-banner {
+    border: 1pt solid #c25e00;
+    background: #fff8f0;
+    color: #7a3d00;
+    padding: 0.4cm 0.6cm;
+    margin-bottom: 0.6cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Page setup and running elements */
   @page {
-    margin: 2cm 1.5cm;
+    size: A4;
+    margin: 2cm 1.8cm 2.5cm 1.8cm;
+
+    @top-left {
+      font-size: 8.5pt;
+      color: #5a5a5a;
+      border-bottom: 0.5pt solid #e9ecef;
+      padding-bottom: 0.3cm;
+    }
+
+    @top-right {
+      font-size: 8.5pt;
+      color: #5a5a5a;
+      border-bottom: 0.5pt solid #e9ecef;
+      padding-bottom: 0.3cm;
+      text-align: right;
+    }
+
+    @bottom-center {
+      content: counter(page);
+      font-size: 9pt;
+      color: #5a5a5a;
+      border-top: 0.5pt solid #e9ecef;
+      padding-top: 0.3cm;
+    }
+
+    @bottom-right {
+      content: "OpenVVVF Documentation";
+      font-size: 8pt;
+      color: #888;
+      border-top: 0.5pt solid #e9ecef;
+      padding-top: 0.3cm;
+      text-align: right;
+    }
   }
 
+  /* First page (cover) has no running headers/footers */
+  @page :first {
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+    @bottom-right { content: none; }
+  }
+
+  /* Hidden strings kept for browsers that support CSS Generated Content for Paged Media */
+  .print-cover-strings {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+  }
+
+  /* Headings should not be orphaned */
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
+    break-after: avoid;
   }
 
-  p {
-    orphans: 3;
-    widows: 3;
+  table, figure, pre, blockquote, .card {
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 }

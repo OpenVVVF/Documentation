@@ -45,6 +45,10 @@ a:hover {
   text-decoration: underline;
 }
 
+.print-cover {
+  display: none;
+}
+
 .site-header {
   background: var(--bg);
   border-bottom: 1px solid var(--border);
