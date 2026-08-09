@@ -68,7 +68,9 @@ def _is_external(url: str) -> bool:
     return bool(re.match(r"^[a-z][a-z0-9+.-]*://", url, re.IGNORECASE)) or url.lower().startswith("mailto:")
 
 
-def _resolve_target(url: str, doc_dir: Path, docs_dir: Path, existing: Set[str]) -> Tuple[bool, str]:
+def _resolve_target(
+    url: str, doc_dir: Path, docs_dir: Path, existing: Set[str]
+) -> Tuple[bool, str]:
     """Return (ok, resolved_or_original_path) for a link target."""
     # Strip query string and hash for validation; the runtime handles them.
     clean_url = url.split('?')[0].split('#')[0]
@@ -78,7 +80,15 @@ def _resolve_target(url: str, doc_dir: Path, docs_dir: Path, existing: Set[str])
     if clean_url.startswith("/"):
         rel = Path(clean_url.lstrip("/"))
     else:
-        rel = Path(os.path.normpath(doc_dir / clean_url)).relative_to(docs_dir)
+        resolved = Path(os.path.normpath(doc_dir / clean_url))
+        try:
+            rel = resolved.relative_to(docs_dir)
+        except ValueError:
+            # Link leaves the Docs tree (e.g. to a standalone web tool under
+            # Tools/). Verify it exists on disk and treat it as valid.
+            if resolved.exists():
+                return True, resolved.as_posix()
+            return False, resolved.as_posix()
 
     rel_posix = rel.as_posix()
     candidates: List[str] = [rel_posix]
