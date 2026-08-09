@@ -24,9 +24,9 @@ This section contains formal test records and validation evidence. Each document
 
 | Test ID | Name | Motor class | Status | Trace | Report |
 |---------|------|-------------|--------|-------|--------|
-| 1 | PMSM Resistance Calibration Validation | PMSM | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Calibration/Resistance.html) |
-| 2 | PMSM Inductance Calibration Validation | PMSM | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Calibration/Inductance.html) |
-| 3 | Power Resistor Sanity Check | - | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Calibration/Resistor-Sanity-Check.html) |
+| 1 | PMSM Resistance Calibration Validation | PMSM | draft | motor self-commissioning / calibration routine | [Report](Hardware/PMSM-Motor-Calibration/Resistance.html) |
+| 2 | PMSM Inductance Calibration Validation | PMSM | draft | motor self-commissioning / calibration routine | [Report](Hardware/PMSM-Motor-Calibration/Inductance.html) |
+| 3 | Power Resistor Sanity Check | - | draft | motor self-commissioning / calibration routine | [Report](Hardware/PMSM-Motor-Calibration/Resistor-Sanity-Check.html) |
 | 4 | Induction Motor Testbed | Induction | draft | motor self-commissioning / calibration routine | [Report](Hardware/Induction-Motor-Calibration/Testbed.html) |
 | 5 | Induction Motor Resistance Calibration Validation | Induction | draft | motor self-commissioning / calibration routine | [Report](Hardware/Induction-Motor-Calibration/Resistance.html) |
 | 6 | Inductance Calibration Validation | Induction | draft | motor self-commissioning / calibration routine | [Report](Hardware/Induction-Motor-Calibration/Inductance.html) |

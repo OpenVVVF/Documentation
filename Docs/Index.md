@@ -123,13 +123,12 @@ Control Module (Main MCU + Safety Coprocessor)
 
 <div class="card">
 <h3><a href="Software/index.html">Software</a></h3>
-<p>Firmware targets, host software, and software tools.</p>
+<p>Firmware targets and host software.</p>
 <ul>
 <li><a href="Software/Main-MCU/index.html"><code>OV-SW-MAINMCU-INDEX</code></a> - Main MCU</li>
 <li><a href="Software/Safety-Coprocessor/index.html"><code>OV-SW-COPROC-INDEX</code></a> - Safety Coprocessor</li>
 <li><a href="Software/RTE-Studio/index.html"><code>OV-SW-RTE-INDEX</code></a> - RTE Studio</li>
 <li><a href="Software/Codegen/index.html"><code>OV-SW-CODEGEN-INDEX</code></a> - Codegen <span class="status-badge status-draft">WIP</span></li>
-<li><a href="Software/Tools/index.html"><code>OV-TOOLS-INDEX</code></a> - Tools</li>
 </ul>
 </div>
 
@@ -142,6 +141,15 @@ Control Module (Main MCU + Safety Coprocessor)
 <li><a href="Safety-and-Compliance/TARA/index.html"><code>OV-SAF-TARA-INDEX</code></a> - TARA</li>
 <li><a href="Safety-and-Compliance/Compliance/index.html"><code>OV-COMP-INDEX</code></a> - Compliance</li>
 <li><a href="Safety-and-Compliance/Testing/index.html"><code>OV-TEST-INDEX</code></a> - Testing & Validation</li>
+</ul>
+</div>
+
+<div class="card">
+<h3><a href="Tools/index.html">Tools</a></h3>
+<p>Support utilities and widgets for working with OpenVVVF.</p>
+<ul>
+<li><a href="Tools/Telemetry-Plotting/index.html"><code>OV-TOOLS-RTEPLOT</code></a> - Telemetry Plotting</li>
+<li><a href="Tools/OpenVVVF-Telemetry-Viewer/index.html"><code>OV-TOOLS-TELEMETRY-VIEWER</code></a> - OpenVVVF Telemetry Viewer</li>
 </ul>
 </div>
 

@@ -21,9 +21,9 @@ Electrical, thermal, mechanical, and environmental test records.
 
 ## PMSM motor
 
-- [PMSM Resistance Calibration Validation](Motor-Calibration/Resistance.html)
-- [Power Resistor Sanity Check](Motor-Calibration/Resistor-Sanity-Check.html)
-- [PMSM Inductance Calibration Validation](Motor-Calibration/Inductance.html)
+- [PMSM Resistance Calibration Validation](PMSM-Motor-Calibration/Resistance.html)
+- [Power Resistor Sanity Check](PMSM-Motor-Calibration/Resistor-Sanity-Check.html)
+- [PMSM Inductance Calibration Validation](PMSM-Motor-Calibration/Inductance.html)
 
 ## Induction motor
 

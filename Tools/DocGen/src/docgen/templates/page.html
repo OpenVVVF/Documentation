@@ -21,6 +21,7 @@
         <a href="{root}Hardware/index.html">Hardware</a>
         <a href="{root}Safety-and-Compliance/index.html">Safety & Compliance</a>
         <a href="{root}Software/index.html">Software</a>
+        <a href="{root}Tools/index.html">Tools</a>
       </nav>
       <button class="print-button" type="button" onclick="window.print()" title="Print this page">Print</button>
     </div>
@@ -49,6 +50,7 @@
           <li><a href="{root}Hardware/index.html">Hardware</a></li>
           <li><a href="{root}Safety-and-Compliance/index.html">Safety & Compliance</a></li>
           <li><a href="{root}Software/index.html">Software</a></li>
+          <li><a href="{root}Tools/index.html">Tools</a></li>
         </ul>
       </nav>
       {nav}
@@ -148,6 +150,14 @@
           var li = btn.closest('.nav-section');
           var collapsed = li.classList.toggle('nav-section-collapsed');
           btn.setAttribute('aria-expanded', String(!collapsed));
+        }});
+      }});
+
+      // Menu-only section labels are also clickable to expand/collapse
+      document.querySelectorAll('.nav-section > .group-label').forEach(function (label) {{
+        label.addEventListener('click', function () {{
+          var btn = label.parentElement.querySelector('.nav-section-toggle');
+          if (btn) btn.click();
         }});
       }});
     }})();

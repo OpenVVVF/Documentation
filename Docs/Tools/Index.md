@@ -12,9 +12,9 @@ version: "0.1"
 date: "2026-08-08"
 status: draft
 description: Documentation for OpenVVVF support tools, utilities, and widgets.
-nav_order: 450
+nav_order: 40
 normative_refs:
-  - OV-SW-INDEX
+  - OV-DOCS-INDEX
 ---
 
 # Tools
