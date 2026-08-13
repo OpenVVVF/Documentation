@@ -7,8 +7,8 @@
   --text: #1a1a1a;
   --text-muted: #5a5a5a;
   --text-light: #6c757d;
-  --accent: #e30613;
-  --accent-dark: #b00510;
+  --accent: #fc0f27;
+  --accent-dark: #c40d20;
   --accent-contrast: #ffffff;
   --success: #137a3a;
   --warning: #c25e00;
@@ -16,7 +16,45 @@
   --info: #005587;
   --sidebar-width: 320px;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-brand: "Saira", var(--font-body);
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+/* Brand font: Saira (SIL OFL), self-hosted */
+@font-face {
+  font-family: "Saira";
+  src: url("brand/fonts/Saira-400.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saira";
+  src: url("brand/fonts/Saira-700.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saira";
+  src: url("brand/fonts/Saira-900.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saira";
+  src: url("brand/fonts/Saira-Italic-700.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saira";
+  src: url("brand/fonts/Saira-Italic-900.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
 }
 
 * {
@@ -72,6 +110,14 @@ a:hover {
   color: var(--text);
   white-space: nowrap;
   letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+}
+
+.site-logo {
+  height: 1.35rem;
+  width: auto;
+  display: block;
 }
 
 .site-title-sep {
@@ -83,6 +129,7 @@ a:hover {
 .site-title-docs {
   font-weight: 400;
   color: var(--text-muted);
+  font-family: var(--font-brand);
 }
 
 .site-nav {
@@ -784,17 +831,111 @@ body.mobile-nav-open .mobile-nav-backdrop {
 }
 
 .footer {
-  text-align: center;
   color: var(--text-light);
-  font-size: 0.8rem;
-  padding: 2rem;
+  font-size: 0.85rem;
   border-top: 1px solid var(--border-light);
-  margin-top: 2rem;
+  margin-top: 3rem;
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.25s ease;
+  padding: 2.5rem 1.5rem 1.5rem;
+  background: var(--surface);
+}
+
+.sidebar-collapsed .footer {
+  margin-left: 0;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto 1.5rem;
+  text-align: left;
+}
+
+.footer-brand {
+  max-width: 260px;
+}
+
+.footer-logo {
+  height: 1.6rem;
+  width: auto;
+  margin-bottom: 0.6rem;
+}
+
+.footer-brand p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.footer-col,
+.footer-sponsors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.footer-col h4,
+.footer-sponsors h4 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-brand);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.footer-col a {
+  color: var(--text-light);
+}
+
+.footer-col a:hover {
+  color: var(--accent);
+}
+
+.footer-sponsor-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.footer-sponsor-logos img {
+  height: 22px;
+  width: auto;
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition: filter 0.15s, opacity 0.15s;
+}
+
+.footer-sponsor-logos img:hover {
+  filter: none;
+  opacity: 1;
+}
+
+.footer-legal {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  border-top: 1px solid var(--border-light);
+  padding-top: 1.25rem;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 /* Auto-generated section numbers */
 .content {
   counter-reset: h1;
+}
+
+/* Brand typeface for headings */
+.content h1,
+.content h2,
+.content h3,
+.card h3 {
+  font-family: var(--font-brand);
 }
 
 .content h1 {
@@ -830,39 +971,10 @@ body.mobile-nav-open .mobile-nav-backdrop {
   content: none;
 }
 
-/* Sponsors section on the landing page */
-.content .sponsors {
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-light);
-}
-
-.content .sponsors h2::before,
+/* Landing-page card headings suppress auto section numbers */
 .content .card h2::before,
 .content .card h3::before {
   content: none;
-}
-
-.content .sponsor-logos {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
-.content .sponsor-logos a {
-  display: inline-flex;
-  align-items: center;
-}
-
-.content .sponsor-logos img {
-  height: 32px;
-  width: auto;
-  max-width: 100%;
-  border: none;
-  border-radius: 0;
-  margin: 0;
 }
 
 @media (max-width: 900px) {
@@ -893,6 +1005,10 @@ body.mobile-nav-open .mobile-nav-backdrop {
 
   .layout {
     padding-left: 1.5rem;
+  }
+
+  .footer {
+    margin-left: 0;
   }
 
   .sidebar {

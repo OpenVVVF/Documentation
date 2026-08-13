@@ -175,12 +175,23 @@ def frontmatter_table(doc: Document) -> str:
     )
 
 
-def cover_page(doc: Optional[Document]) -> str:
+def copy_brand_assets(output_dir: Path) -> None:
+    """Copy brand assets (logo, icons, fonts) into the built site."""
+    src = template_dir() / "brand"
+    shutil.copytree(src, output_dir / "brand", dirs_exist_ok=True)
+
+
+def cover_page(doc: Optional[Document], root: str = "./") -> str:
     """Render a print-only cover page from document frontmatter."""
+    logo = (
+        f'<img class="print-cover-logo" src="{root}brand/logo.png" alt="OpenVVVF">'
+        '<div class="print-cover-rule"></div>'
+    )
     if doc is None or not doc.frontmatter:
         return (
             '<div class="print-cover">'
-            '<div class="print-cover-brand">OpenVVVF</div>'
+            + logo
+            + '<div class="print-cover-brand">OpenVVVF</div>'
             '<h1 class="print-cover-title">OpenVVVF Documentation</h1>'
             '</div>'
         )
@@ -223,6 +234,7 @@ def cover_page(doc: Optional[Document]) -> str:
 
     return (
         '<div class="print-cover">'
+        + logo
         + strings
         + f'<div class="print-cover-brand">{product_line.upper()}</div>'
         + f'<div class="print-cover-doctype">{doctype}</div>'
@@ -532,7 +544,7 @@ def render_page(
     if doc and "Assembly-Guide" in doc.path.parts:
         content_class = "assembly-guide"
 
-    cover = cover_page(doc)
+    cover = cover_page(doc, root)
     header_id = (doc.doc_id if doc else "OpenVVVF Documentation").replace('"', '\\"')
     header_title = title.replace('"', '\\"')
     pdf_url = f"{root}pdfs/{doc.doc_id}.pdf" if doc and doc.doc_id else ""
@@ -558,6 +570,8 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
     if output_dir.exists():
         shutil.rmtree(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    copy_brand_assets(output_dir)
 
     by_id = load_docs(docs_dir)
     docs = list(by_id.values())

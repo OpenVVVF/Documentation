@@ -64,13 +64,26 @@
     break-after: page;
   }
 
+  .print-cover-logo {
+    width: 7cm;
+    height: auto;
+    margin-bottom: 0.4cm;
+  }
+
+  .print-cover-rule {
+    width: 100%;
+    border-top: 2.5pt solid #fc0f27;
+    margin-bottom: 1.2cm;
+  }
+
   .print-cover-brand {
+    font-family: "Saira", "Helvetica Neue", Arial, sans-serif;
     font-size: 11pt;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: #e30613;
-    margin-bottom: 1.5cm;
+    color: #5a5a5a;
+    margin-bottom: 1cm;
   }
 
   .print-cover-doctype {
@@ -83,13 +96,16 @@
   }
 
   .print-cover-title {
+    font-family: "Saira", "Helvetica Neue", Arial, sans-serif;
     font-size: 28pt;
-    font-weight: 700;
+    font-weight: 900;
+    font-style: italic;
     line-height: 1.15;
-    color: #1a1a1a;
+    color: #fc0f27;
     margin: 0 0 0.8cm 0;
-    padding: 0;
+    padding: 0 0 0.3cm 0;
     border: none;
+    border-bottom: 2.5pt solid #fc0f27;
   }
 
   .print-cover-description {
@@ -266,7 +282,7 @@
   .content blockquote {
     page-break-inside: avoid;
     break-inside: avoid;
-    border-left: 3pt solid #e30613;
+    border-left: 3pt solid #fc0f27;
     background: #f8f9fa;
     padding: 0.4cm 0.6cm;
     margin: 0.5cm 0;
