@@ -1,6 +1,6 @@
 ---
 doctype: Test Plan
-doc_id: OV-TEST-FW-FAULT-INJECTION
+doc_id: OV-TEST-FAULT-INJECTION
 title: Fault Injection Test Plan
 product_line: openvvvf
 applies_to:
@@ -8,13 +8,15 @@ applies_to:
   - chassis-size-2
 version: "1.0"
 date: "2026-08-13"
-description: Fault-injection test plan validating the dual-MCU control module safety mechanisms, safe-state entry, and timing budgets; extracted from the HARA Core document.
-nav_order: 500
+description: Safety-mechanism validation by fault injection across component, system, and integration levels; exercises the control module and the C2 power stage as one test article. Extracted from the HARA Core document.
+nav_order: 371
 normative_refs:
   - OV-SAF-HARA-CORE
 ---
 
-This document is the fault-injection test plan for the OpenVVVF control module. It was extracted verbatim from the HARA Core document ([OV-SAF-HARA-CORE](../../../HARA/Core/Index.md)) at its version 5.7, where it was Section 10. References of the form "Section 10.x" below are internal to this document; references to other section numbers (e.g., Section 2.3) refer to OV-SAF-HARA-CORE. Test execution records and evidence are maintained separately per the evidence framework defined herein.
+This document is the fault-injection test plan for the OpenVVVF control module. It was extracted verbatim from the HARA Core document ([OV-SAF-HARA-CORE](../../HARA/Core/Index.md)) at its version 5.7, where it was Section 10. References of the form "Section 10.x" below are internal to this document; references to other section numbers (e.g., Section 2.3) refer to OV-SAF-HARA-CORE.
+
+This plan is filed directly under `Testing/` rather than under a domain folder because its categories span all of them: the mechanisms under test are firmware safety functions, but the stimulus is physical fault injection into control-module and power-stage hardware (C-series), the closed-loop system (S-series), and external interfaces (I-series). Test execution records and evidence are maintained separately per the evidence framework defined herein: each execution campaign produces a dated `Test Report` document filed as a sibling of this plan, referencing it by doc_id and test ID. Evidence reports are immutable once released; this plan's status tables are the living roll-up.
 
 # Fault Injection Test Plan
 

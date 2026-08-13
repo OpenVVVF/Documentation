@@ -9,6 +9,7 @@ version: "0.1"
 date: "2026-07-30"
 description: Mapping of OpenVVVF safety goals and requirements to ISO 26262:2018 work products.
 nav_order: 331
+placeholder: true
 normative_refs:
   - OV-SAF-HARA-CORE
 ---

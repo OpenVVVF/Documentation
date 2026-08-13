@@ -19,5 +19,5 @@ Cross-cutting safety and compliance documentation. HARA Core applies to the cont
 
 - **HARA** - Hazard Analysis and Risk Assessment
 - **TARA** - Threat Analysis and Risk Assessment (ISO/SAE 21434 cybersecurity)
-- **Compliance** - Standards mapping (ISO 26262, IEC 61800-5-2, EN 5012x)
+- **Compliance** - Standards mapping (ISO 26262, IEC 61800-5-2)
 - **Testing and Validation** - Formal test reports and validation evidence

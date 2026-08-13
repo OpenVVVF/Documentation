@@ -6,11 +6,11 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - application-profile-motorcycle
-core_ref: OV-SAF-HARA-CORE v5.7
+core_ref: OV-SAF-HARA-CORE v5.8
 profile_for: motorcycle
 standard: ISO 26262:2018
 temp: −40 °C to +85 °C
-version: "1.6"
+version: "1.7"
 date: "2026-07-30"
 description: Motorcycle-specific HARA profile - operational situations, S/E/C ratings, and ASIL targets applied to the platform hazard set.
 nav_order: 313
@@ -22,7 +22,7 @@ normative_refs:
 
 This document is an **Application Profile** of the OpenVVVF HARA document set. It assigns motorcycle-specific Operational Situations, Severity/Exposure/Controllability ratings, and ASIL targets to the platform hazard set, Safety Goals, and Functional Safety Requirements defined in the Core Platform document.
 
-- **Core document:** OV-SAF-HARA-CORE v5.1 (*OpenVVVF HARA - Core Platform*). This profile was assessed against that version; it shall be reviewed on any Core revision.
+- **Core document:** OV-SAF-HARA-CORE v5.8 (*OpenVVVF HARA - Core Platform*). This profile was assessed against Core v5.7; v5.8 is a documentation-only reorganization (fault-injection test plan extraction) with no technical change. It shall be reviewed on any Core revision.
 - **Normative reference:** hazards H-01 through H-17, Safety Goals SG-01 through SG-15, and FSR-01 through FSR-22 are defined in the Core document and are **not** restated here. The Core compliance statement (Core §1.2) applies in full to this profile: ASIL ratings herein are **targets**, not claims of verified compliance.
 - **Standard applied:** ISO 26262:2018 (methodology), as for the Core.
 - **Status:** elaborated - this profile is the current reference S/E/C assessment for the platform.
@@ -116,7 +116,7 @@ Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patc
 
 | Ref | Citation |
 | --- | --- |
-| OV-SAF-HARA-CORE | OpenVVVF HARA - Core Platform, v5.7 (doc_id OV-SAF-HARA-CORE). Normative. |
+| OV-SAF-HARA-CORE | OpenVVVF HARA - Core Platform, v5.8 (doc_id OV-SAF-HARA-CORE). Normative. |
 | Cossalter | Cossalter, Lot, Massaro, *Motorcycle Dynamics* (chapter), 2014. Lean mechanics and tire friction-ellipse basis for the Section 5 dynamics assessment. |
 | NHTSA | *Motorcycle Safety*. https://www.nhtsa.gov/motorcycles. Accident causation context for severity assessment. |
 
@@ -133,3 +133,4 @@ Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patc
 | 1.4 | 2026-07-31 | Table 3 H-03a row corrected to S3/E2/C2/ASIL A, matching the v1.1 re-analysis recorded in Sections 5–6 (the table row had retained the superseded S3/E3/C3/ASIL C values). References section added (Cossalter, NHTSA). Assessed against OV-SAF-HARA-CORE v5.5. |
 | 1.5 | 2026-07-31 | Formatting and consistency cleanup: OS-10a/OS-16 table rows no longer bolded; "aftermarket" descriptors removed from the application definition; OS-10a note aligned with the Section 5 dynamics assessment (loss of drive at lean = C2, superseding the earlier C3 statement in the note). Assessed against OV-SAF-HARA-CORE v5.6. |
 | 1.6 | 2026-07-31 | Dynamics reference corrected: the lean-mechanics citation is now Cossalter, Lot, Massaro, *Motorcycle Dynamics* (2014 chapter). Assessed against OV-SAF-HARA-CORE v5.7. |
+| 1.7 | 2026-08-13 | Core reference updated to v5.8 (documentation-only test-plan extraction; no technical delta). Stale v5.1 mention in the core-document note corrected. |

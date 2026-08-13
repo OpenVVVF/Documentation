@@ -15,5 +15,4 @@ nav_order: 430
 
 Real-Time Examiner (RTE) Studio host tools for configuration, telemetry, and node-based codegen.
 
-- **Interface** - RTE parameter model, CAN protocol, and user workflow
-- **Codebase Improvement Plan** - Firmware/host codebase improvement plan
+- **[Interface](Interface/Index.md)** - RTE parameter model, CAN protocol, and user workflow

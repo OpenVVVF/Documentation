@@ -24,7 +24,7 @@ normative_refs:
 
 # Software Manual
 
-This manual describes the software side of the OpenVVVF control module.
+This manual describes the software side of the OpenVVVF control module. It is the **user-facing** companion: operating, flashing, and configuring the software on this hardware. Firmware internals and architecture are documented under `Docs/Software/`; this manual links there rather than duplicating that content.
 
 > **Placeholder** - This manual is being rewritten. The previous Software Architecture Document mixed user, developer, and safety-coprocessor material; it is being split into the documents below.
 

@@ -9,11 +9,11 @@ mcus: STM32H723ZG + STM32G474RCTx
 temp: −40 °C to +85 °C
 version: "5.8"
 date: "2026-08-13"
-description: Platform hazard analysis, safety goals, functional safety requirements, and fault-injection test plan for the dual-MCU control module.
+description: Platform hazard analysis, safety goals, and functional safety requirements for the dual-MCU control module; fault-injection validation is defined in OV-TEST-FAULT-INJECTION.
 nav_order: 311
 normative_refs:
   - OV-SAF-HARA-PROF-MOTO
-  - OV-TEST-FW-FAULT-INJECTION
+  - OV-TEST-FAULT-INJECTION
 ---
 
 # Introduction
@@ -24,7 +24,7 @@ The OpenVVVF HARA is published as a **document set** rather than a single docume
 
 | Document | ID | Role |
 | --- | --- | --- |
-| **OpenVVVF HARA - Core Platform** (this document) | OV-SAF-HARA-CORE | Defines the control module as an application-independent safety element: hardware, base safety firmware image, safety architecture, platform hazard set, Safety Goals, Functional Safety Requirements, and the Fault Injection Test Plan. Hazards are stated at the **torque / power boundary** and are application-agnostic. |
+| **OpenVVVF HARA - Core Platform** (this document) | OV-SAF-HARA-CORE | Defines the control module as an application-independent safety element: hardware, base safety firmware image, safety architecture, platform hazard set, Safety Goals, and Functional Safety Requirements. Fault-injection validation of these requirements is defined in the standalone plan OV-TEST-FAULT-INJECTION. Hazards are stated at the **torque / power boundary** and are application-agnostic. |
 | **OpenVVVF HARA - Motorcycle Application Profile** | OV-SAF-HARA-PROF-MOTO | Assigns motorcycle-specific Operational Situations, Severity/Exposure/Controllability ratings, and ASIL targets to the platform hazard set. Normatively references this Core document. |
 
 Additional application profiles (passenger car, rail, industrial/dynamometer) are planned as future documents in the same format. This Core document shall not contain application-specific risk ratings; profile documents shall not restate platform content, and shall declare the Core document version against which they were assessed.
@@ -360,7 +360,7 @@ Requirements use "shall" for binding provisions and "should" for recommendations
 
 **Table 9 - Honest Assessment of Design vs. FSRs**
 
-Status vocabulary used throughout this document: **Covered** (implemented in current design), **Planned** (specified, not yet implemented), **Partial** (partially implemented), **To implement** (not started), **Limited** (implemented with documented constraint). No status in this document shall be read as "verified by test" - verification evidence is produced only by execution of the Section 10 test plan and is recorded separately (Section 10.2).
+Status vocabulary used throughout this document: **Covered** (implemented in current design), **Planned** (specified, not yet implemented), **Partial** (partially implemented), **To implement** (not started), **Limited** (implemented with documented constraint). No status in this document shall be read as "verified by test" - verification evidence is produced only by execution of the fault-injection test plan OV-TEST-FAULT-INJECTION and is recorded separately per that plan's evidence framework.
 
 | FSR | Tgt | Now | Status | Existing / Planned | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -458,13 +458,13 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 
 # Fault Injection Test Plan
 
-The fault-injection test plan that validates the safety mechanisms, safe-state entry paths, and timing budgets defined in this HARA has been extracted to a standalone document in the Testing tree: [OV-TEST-FW-FAULT-INJECTION - Fault Injection Test Plan](../../Testing/Firmware/Fault-Injection-Test-Plan/Index.md). It defines 92 tests in four categories - component-level (C-01 to C-50), system-level (S-01 to S-19), integration-level (I-01 to I-18), and environmental (E-01 to E-12, deferred type tests) - with per-test executability status, evidence requirements, pass/fail criteria, Safety Goal / FSR / hazard traceability matrices, and a recommended execution order with hardware damage risk classification. Every Safety Goal, Functional Safety Requirement, and identified hazard in this document is covered by at least one executable test case in that plan. Test execution records and evidence are maintained separately as described in the plan.
+The fault-injection test plan that validates the safety mechanisms, safe-state entry paths, and timing budgets defined in this HARA has been extracted to a standalone document in the Testing tree: [OV-TEST-FAULT-INJECTION - Fault Injection Test Plan](../../Testing/Fault-Injection-Test-Plan/Index.md). It defines 92 tests in four categories - component-level (C-01 to C-50), system-level (S-01 to S-19), integration-level (I-01 to I-18), and environmental (E-01 to E-12, deferred type tests) - with per-test executability status, evidence requirements, pass/fail criteria, Safety Goal / FSR / hazard traceability matrices, and a recommended execution order with hardware damage risk classification. Every Safety Goal, Functional Safety Requirement, and identified hazard in this document is covered by at least one executable test case in that plan. Test execution records and evidence are maintained separately as described in the plan.
 
 # Implementation Roadmap
 
 ## Phase 1: Safety-Critical Foundation (Immediate)
 
-**Table 22 - Phase 1 - Safety-Critical Foundation**
+**Table 11 - Phase 1 - Safety-Critical Foundation**
 
 | Gap | Action | Effort | Validation |
 | --- | --- | --- | --- |
@@ -475,7 +475,7 @@ The fault-injection test plan that validates the safety mechanisms, safe-state e
 
 ## Phase 2: Monitors and Platform Hardening (Short Term)
 
-**Table 23 - Phase 2 - Monitors and Platform Hardening**
+**Table 12 - Phase 2 - Monitors and Platform Hardening**
 
 | Item | Action | Effort | Validation |
 | --- | --- | --- | --- |
@@ -488,22 +488,22 @@ The fault-injection test plan that validates the safety mechanisms, safe-state e
 
 ## Phase 3: Test Execution and Validation
 
-**Table 24 - Phase 3 - Test Execution and Validation**
+**Table 13 - Phase 3 - Test Execution and Validation**
 
 | Activity | Effort | Description |
 | --- | --- | --- |
-| Execute component tests (C-01 to C-50, executable set) | High | Bench campaign per Section 10.11 order. All evidence captured per Section 10.2.3. Fix failures before proceeding. |
+| Execute component tests (C-01 to C-50, executable set) | High | Bench campaign per the recommended execution order in OV-TEST-FAULT-INJECTION. All evidence captured per that plan's evidence requirements. Fix failures before proceeding. |
 | Execute system tests (S-01 to S-19) | High | Dyno campaign. Measure detection-to-SSO latencies, torque transitions, thermal behavior. |
 | Execute integration tests (I-01 to I-18) | Medium | CAN simulation campaign. |
 | Conditional LV-rail tests (C-21, C-22, C-24, C-25) | Low | Schedule once a small programmable LV bench supply is confirmed. |
 | Application-level characterization (LIMIT-01) | High | In-application testing per the applicable profile, graduated operating points, known fault injection. Characterizes (does not "verify safe") the profile-level residual risk. |
-| Verification report | Medium | Compile executed results and evidence references into the OpenVVVF Verification Report; assess against Table 18; document residual risks. |
+| Verification report | Medium | Compile executed results and evidence references into the OpenVVVF Verification Report; assess against the pass/fail criteria in OV-TEST-FAULT-INJECTION; document residual risks. |
 
 ## Coprocessor Integration Validation
 
 The STM32G474RCTx safety coprocessor is **part of the current hardware design**. The following table maps coprocessor capabilities to safety goals:
 
-**Table 25 - Coprocessor Capability to Safety Goal Mapping**
+**Table 14 - Coprocessor Capability to Safety Goal Mapping**
 
 | Feature | Description | Impact |
 | --- | --- | --- |
@@ -520,7 +520,7 @@ The dual-MCU architecture makes **ASIL D achievable for SG-01 and SG-13 via ASIL
 
 # References
 
-**Table 26 - Referenced Standards and Documents**
+**Table 15 - Referenced Standards and Documents**
 
 | Reference | Title / Description |
 | --- | --- |
@@ -543,7 +543,7 @@ Note: the Cincon EC7BW-110S12 DC/DC converter resides on the IO side and is **ex
 
 # Document History
 
-**Table 27 - Revision History**
+**Table 16 - Revision History**
 
 | Version | Date | Changes |
 | --- | --- | --- |
@@ -563,4 +563,4 @@ Note: the Cincon EC7BW-110S12 DC/DC converter resides on the IO side and is **ex
 | 5.5 | 2026-07-31 | Application-neutrality pass: core document scoped to the platform only; application-specific wording moved to profile documents, which the core now references generically (Sections 1.3, 2.3, 4, 6, 10). No technical content changed. |
 | 5.6 | 2026-07-31 | Core scoping cleanup: remaining application-specific descriptors removed; the core now points to the application profile documents generically without naming a reference application. No technical content changed. |
 | 5.7 | 2026-07-31 | Review pass: (1) disclaimer reframed as best-effort functional safety practice with explicit goal of readiness for full compliance work; (2) no DC source type assumed - BMS references generalized to an optional CAN1 source management node; (3) Table 2 restructured (external interfaces table + per-layer descriptions); (4) power-stage-dependent parameters removed from the control-module table (module is power-stage agnostic); (5) gate-driver qualification stated once (Section 2.7), AEC-Q100 elsewhere; (6) GAP-ARCH-03 closed with per-SG analysis (SG-15 independent of gate drivers, SG-12 covered, SG-14 FLT-wire fault caught by coprocessor cross-check); (7) GAP-HW-01 re-based on STM32 analog watchdogs (10 us, dual-MCU redundant); (8) GAP-SW-02 removed, GAP-SW-03 closed (immediate SSO, no sensorless fallback); (9) method notes moved into Section 10.4, Section 10.2.4 removed, HV-safety equipment row removed; (10) tests removed as not executable or not meaningful on this hardware: C-37, C-38, C-40, C-44, C-46, C-47, C-48; C-43 key-cycle requirement replaced by heartbeat/plausibility restoration; (11) phase-to-phase shorts restructured one pair at a time (C-31 U-V, C-32 V-W, C-33 U-W), phase-to-DC-rail merged into C-34; (12) temperature sensing updated to 2 IGBT NTC (1oo2) + 1 DC link capacitor NTC with capacitor derate 90 °C / SSO 105 °C; (13) coprocessor firmware explicitly trusted (no generated code). Plan now 92 tests. |
-| 5.8 | 2026-08-13 | Fault-injection test plan extracted to OV-TEST-FW-FAULT-INJECTION (Testing/Firmware); Section 10 replaced by a reference to the standalone plan. |
+| 5.8 | 2026-08-13 | Fault-injection test plan extracted to OV-TEST-FAULT-INJECTION (standalone document under Testing/); Section 10 replaced by a reference to the standalone plan. |

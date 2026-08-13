@@ -114,18 +114,17 @@ Use these ranges for top-level section indices so the sidebar orders consistentl
 | 10–99 | Hardware |
 | 100–199 | Control Assembly |
 | 200–299 | Power Stages |
-| 300–399 | Safety and Compliance |
+| 300–399 | Safety and Compliance (incl. Testing at 340–379) |
 | 400–499 | Software |
-| 500–599 | Testing and Validation (under Safety and Compliance) |
 | 600–699 | Tools |
 
-Within a section or chassis, choose a consistent scheme that makes the document order obvious. For example, in `Power-Stages/C2/Assembly-Guide/` the convention is `chapter × 10` for chapters and `chapter × 10 + step` for substeps:
+Within a section or chassis, choose a consistent scheme that makes the document order obvious. For example, in `Power-Stages/C2/Assembly-Guide/` chapters use sequential values within a local block (guide index 222, chapters 223, 224, ...). The exact numbers matter less than being unique and locally consistent.
 
-- Chapter 3: `nav_order: 30`
-- Chapter 3, step 1: `nav_order: 31`
-- Chapter 3, step 2: `nav_order: 32`
+## Section boundaries
 
-The exact numbers matter less than being unique and locally consistent.
+- **`Docs/Tools/` vs `Docs/Software/`** - `Tools/` holds standalone widgets and utilities (e.g. the browser-based Telemetry Viewer); `Software/` holds firmware targets and host-IDE documentation (Main MCU, Safety Coprocessor, RTE Studio, Codegen).
+- **`Hardware/Control-Assembly/Software-Manual/` vs `Docs/Software/`** - the Software Manual is the user-facing "operate the software on this hardware" companion and links to `Docs/Software/`; it must not duplicate firmware internals documented there.
+- **Testing domain folders** - file test documents by what is being tested (DUT), not by bench equipment: Hardware = physical hardware is the DUT; Firmware = firmware logic is the DUT without physical fault injection; Integration = combined system. Campaigns spanning all domains (e.g. the fault-injection plan) are filed directly under `Testing/`. Plans are living documents; each execution campaign produces a separate dated Test Report referencing the plan by doc_id and test ID.
 
 ## Product manuals
 

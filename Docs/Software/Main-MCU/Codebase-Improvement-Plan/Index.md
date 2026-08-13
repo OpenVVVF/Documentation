@@ -1,14 +1,14 @@
 ---
 doctype: Software Plan
-doc_id: OV-SW-RTE-IMPROVEMENT
+doc_id: OV-SW-MAINMCU-IMPROVEMENT
 title: Codebase Improvement Plan
 product_line: openvvvf
 applies_to:
-  - software-target-rte-studio
+  - software-target-main-mcu
 version: "1.0"
 date: "2026-07-13"
-description: Readability, reliability, and safety hardening plan for the RTE Studio and firmware codebase.
-nav_order: 432
+description: Readability, reliability, and safety hardening plan for the main-MCU firmware codebase.
+nav_order: 415
 ---
 
 # Codebase Improvement Plan - Readability, Reliability, Safety

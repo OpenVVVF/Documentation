@@ -6,7 +6,6 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-  - chassis-size-3
 version: "0.2"
 date: "2026-08-13"
 description: Formal test reports and validation evidence for OpenVVVF hardware, firmware, and integration.
@@ -36,14 +35,18 @@ This section contains formal test records and validation evidence. Each document
 
 These reports validate the calibration routines on the C2 test fixture. The same routines are used on all OpenVVVF chassis; add a new report only when a different motor or harness is introduced.
 
-### Firmware
+### Safety-mechanism validation
 
-| Test ID | Name | Scope | Status | Trace | Report |
-|---------|------|-------|--------|-------|--------|
-| - | Fault-Injection Test Plan | fault injection / safety mechanisms | planned | safety-mechanism validation | [Plan](Firmware/Fault-Injection-Test-Plan/Index.md) |
+| Test ID | Name | Scope | Status | Trace | Plan |
+|---------|------|-------|--------|-------|------|
+| - | Fault-Injection Test Plan | component / system / integration / environmental fault injection (control module + power stage) | planned | HARA safety goals, FSRs, hazards | [Plan](Fault-Injection-Test-Plan/Index.md) |
+
+The fault-injection plan spans all test domains, so it is filed directly under Testing. Execution campaigns produce dated test reports filed as siblings of the plan, referencing it by test ID.
 
 ## Domains
 
-- **Hardware** - Electrical, thermal, mechanical, and environmental tests.
-- **Firmware** - Unit tests, integration tests, fault-injection tests, and safety-mechanism tests.
+Documents are filed by **what is being tested**, not by what equipment the bench uses:
+
+- **Hardware** - The DUT is physical hardware: power-stage bring-up, thermal, and bench characterization. Firmware-routine validations whose error budget is power-stage physics (e.g. motor self-commissioning calibrated against instruments) also live here.
+- **Firmware** - The DUT is control-module firmware logic: unit tests and host- or bench-based tests that do not inject physical faults.
 - **Integration** - System-level tests combining control module and power stage.
