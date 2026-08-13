@@ -132,6 +132,10 @@ a:hover {
   font-family: var(--font-brand);
 }
 
+.site-nav-mobile {
+  display: none;
+}
+
 .site-nav {
   display: flex;
   gap: 1.25rem;
@@ -968,6 +972,13 @@ body.mobile-nav-open .mobile-nav-backdrop {
 .content.assembly-guide h1::before,
 .content.assembly-guide h2::before,
 .content.assembly-guide h3::before {
+  content: none;
+}
+
+/* The landing page is a portal, not a numbered document */
+.content.landing h1::before,
+.content.landing h2::before,
+.content.landing h3::before {
   content: none;
 }
 

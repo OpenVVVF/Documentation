@@ -532,7 +532,11 @@ def render_page(
     root = rel_root(output_path, output_dir)
     if doc:
         nav = nav_html(docs, doc.doc_id, root, docs_dir)
-        crumbs = breadcrumbs_html(doc, root, docs_dir, docs)
+        if doc.doc_id == "OV-DOCS-INDEX":
+            # Landing page: no breadcrumbs, no metadata strip.
+            crumbs = ""
+        else:
+            crumbs = breadcrumbs_html(doc, root, docs_dir, docs)
     else:
         nav = nav_html(docs, None, root, docs_dir)
         crumbs = '<a href="{root}index.html">Index</a>'.format(root=root)
@@ -543,6 +547,8 @@ def render_page(
     content_class = ""
     if doc and "Assembly-Guide" in doc.path.parts:
         content_class = "assembly-guide"
+    elif doc and doc.doc_id == "OV-DOCS-INDEX":
+        content_class = "landing"
 
     cover = cover_page(doc, root)
     header_id = (doc.doc_id if doc else "OpenVVVF Documentation").replace('"', '\\"')
@@ -667,7 +673,6 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
         index_doc.url_path = "index.html"
         output_path = output_dir / "index.html"
         body = md_to_html(index_doc.body)
-        fm = frontmatter_table(index_doc)
         html = render_page(
             title=index_doc.title or "OpenVVVF Documentation",
             body_html=body,
@@ -676,7 +681,7 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
             output_path=output_path,
             output_dir=output_dir,
             docs_dir=docs_dir,
-            frontmatter=fm,
+            frontmatter="",
         )
     else:
         landing_body = build_landing_body(docs)

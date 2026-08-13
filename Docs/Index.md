@@ -33,6 +33,52 @@ This site is the single source of truth for OpenVVVF hardware manuals, software 
 </ul>
 </div>
 
+## Documentation sections
+
+<div class="landing-grid">
+
+<div class="card">
+<h3><a href="Hardware/Index.md">Hardware</a></h3>
+<p>Physical OpenVVVF hardware: the reusable control module and the power-stage chassis families.</p>
+<ul>
+<li><a href="Hardware/Control-Assembly/Index.md">Control Assembly</a></li>
+<li><a href="Hardware/Power-Stages/Index.md">Power Stages</a></li>
+</ul>
+</div>
+
+<div class="card">
+<h3><a href="Software/Index.md">Software</a></h3>
+<p>Firmware targets and host software.</p>
+<ul>
+<li><a href="Software/Main-MCU/Index.md">Main MCU</a></li>
+<li><a href="Software/Safety-Coprocessor/Index.md">Safety Coprocessor</a></li>
+<li><a href="Software/RTE-Studio/Index.md">RTE Studio</a></li>
+<li><a href="Software/Codegen/Index.md">Codegen</a> <span class="status-badge status-draft">WIP</span></li>
+</ul>
+</div>
+
+<div class="card">
+<h3><a href="Safety-and-Compliance/Index.md">Safety and Compliance</a></h3>
+<p>Hazard analyses, threat analyses, standards mappings, and validation evidence.</p>
+<ul>
+<li><a href="Safety-and-Compliance/HARA/Core/Index.md">HARA Core</a></li>
+<li><a href="Safety-and-Compliance/HARA/Application-Profiles/Motorcycle/Index.md">Motorcycle Application Profile</a></li>
+<li><a href="Safety-and-Compliance/TARA/Index.md">TARA</a></li>
+<li><a href="Safety-and-Compliance/Compliance/Index.md">Compliance</a></li>
+<li><a href="Safety-and-Compliance/Testing/Index.md">Testing &amp; Validation</a></li>
+</ul>
+</div>
+
+<div class="card">
+<h3><a href="Tools/Index.md">Tools</a></h3>
+<p>Support tools and widgets for working with OpenVVVF.</p>
+<ul>
+<li><a href="Tools/OpenVVVF-Telemetry-Viewer/Index.md">Telemetry Viewer</a></li>
+</ul>
+</div>
+
+</div>
+
 ## System architecture
 
 ### Major blocks
@@ -105,50 +151,4 @@ Control Module (Main MCU + Safety Coprocessor)
 - **DCR** - DC Resistance. The resistance measured at DC, typically used for motor phase resistance.
 - **LCR meter** - Instrument for measuring inductance, capacitance, and resistance.
 - **Heatsink / baseplate** - The metal surface that conducts heat away from the IGBT modules.
-
-## Documentation sections
-
-<div class="landing-grid">
-
-<div class="card">
-<h3><a href="Hardware/Index.md">Hardware</a></h3>
-<p>Physical OpenVVVF hardware: the reusable control module and the power-stage chassis families.</p>
-<ul>
-<li><a href="Hardware/Control-Assembly/Index.md"><code>OV-CA-INDEX</code></a> - Control Assembly</li>
-<li><a href="Hardware/Power-Stages/Index.md"><code>OV-PS-INDEX</code></a> - Power Stages</li>
-</ul>
-</div>
-
-<div class="card">
-<h3><a href="Software/Index.md">Software</a></h3>
-<p>Firmware targets and host software.</p>
-<ul>
-<li><a href="Software/Main-MCU/Index.md"><code>OV-SW-MAINMCU-INDEX</code></a> - Main MCU</li>
-<li><a href="Software/Safety-Coprocessor/Index.md"><code>OV-SW-COPROC-INDEX</code></a> - Safety Coprocessor</li>
-<li><a href="Software/RTE-Studio/Index.md"><code>OV-SW-RTE-INDEX</code></a> - RTE Studio</li>
-<li><a href="Software/Codegen/Index.md"><code>OV-SW-CODEGEN-INDEX</code></a> - Codegen <span class="status-badge status-draft">WIP</span></li>
-</ul>
-</div>
-
-<div class="card">
-<h3><a href="Safety-and-Compliance/Index.md">Safety and Compliance</a></h3>
-<p>Hazard analyses, threat analyses, standards mappings, and validation evidence.</p>
-<ul>
-<li><a href="Safety-and-Compliance/HARA/Core/Index.md"><code>OV-SAF-HARA-CORE</code></a> - HARA Core <span class="status-badge status-draft">WIP</span></li>
-<li><a href="Safety-and-Compliance/HARA/Application-Profiles/Motorcycle/Index.md"><code>OV-SAF-HARA-PROF-MOTO</code></a> - Motorcycle Application Profile</li>
-<li><a href="Safety-and-Compliance/TARA/Index.md"><code>OV-SAF-TARA-INDEX</code></a> - TARA</li>
-<li><a href="Safety-and-Compliance/Compliance/Index.md"><code>OV-COMP-INDEX</code></a> - Compliance</li>
-<li><a href="Safety-and-Compliance/Testing/Index.md"><code>OV-TEST-INDEX</code></a> - Testing & Validation</li>
-</ul>
-</div>
-
-<div class="card">
-<h3><a href="Tools/Index.md">Tools</a></h3>
-<p>Support tools and widgets for working with OpenVVVF.</p>
-<ul>
-<li><a href="Tools/OpenVVVF-Telemetry-Viewer/Index.md"><code>OV-TOOLS-TELEMETRY-VIEWER</code></a> - Telemetry Viewer</li>
-</ul>
-</div>
-
-</div>
 
