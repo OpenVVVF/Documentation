@@ -51,10 +51,34 @@ def rel_root(doc_path: Path, output_dir: Path) -> str:
     return "../" * len(relative.parts)
 
 
+_MD_LINK_RE = re.compile(r'href="([^"#?]+?)\.md([#?][^"]*)?"')
+
+
+def _rewrite_md_links(html: str) -> str:
+    """Rewrite relative links to .md sources so they point at built pages.
+
+    `Name.md` becomes `Name.html`; `Index.md` becomes `index.html`, matching
+    the directory-index URLs used by the built site. This lets source
+    documents interlink with source paths that also work on GitHub.
+    """
+
+    def repl(match: re.Match) -> str:
+        target, suffix = match.group(1), match.group(2) or ""
+        if "://" in target or target.startswith("/"):
+            return match.group(0)
+        if target.lower() == "index" or target.lower().endswith("/index"):
+            base = target[:-5] + "index"
+            return f'href="{base}.html{suffix}"'
+        return f'href="{target}.html{suffix}"'
+
+    return _MD_LINK_RE.sub(repl, html)
+
+
 def md_to_html(text: str) -> str:
     """Convert Markdown text to HTML."""
     MD.reset()
     html = MD.convert(text)
+    html = _rewrite_md_links(html)
     html = _apply_callout_classes(html)
     return html
 
@@ -138,7 +162,6 @@ def frontmatter_table(doc: Document) -> str:
     summary_bits = [
         id_bit,
         f"v{fm.get('version')}" if fm.get("version") else None,
-        fm.get("status"),
         fm.get("date"),
     ]
     summary = " · ".join(str(b) for b in summary_bits if b is not None)
@@ -182,7 +205,6 @@ def cover_page(doc: Optional[Document]) -> str:
         add_row("Test ID", fm.get("test_id"))
     add_row("Version", fm.get("version"))
     add_row("Date", fm.get("date"))
-    add_row("Status", fm.get("status"))
     add_row("Applies to", fm.get("applies_to"))
     add_row("Product line", product_line)
     add_row("Normative references", fm.get("normative_refs"))
@@ -451,12 +473,11 @@ def url_path(doc_path: Path, docs_dir: Path) -> str:
     return str(rel)
 
 
-def _status_badge(status: Optional[str]) -> str:
-    """Render a small status badge for cards and listings."""
-    if not status:
+def _wip_badge(doc: Document) -> str:
+    """Render a small WIP badge for placeholder documents in cards/listings."""
+    if not _is_placeholder_doc(doc):
         return ""
-    safe = status.lower().replace(" ", "-")
-    return f'<span class="status-badge status-{safe}">{status}</span>'
+    return '<span class="status-badge status-draft">WIP</span>'
 
 
 def _placeholder_banner(doc: Optional[Document]) -> str:
@@ -584,7 +605,7 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
             blurb = doc.description or doc.path.name
             # Link is relative to the directory index page itself.
             href = f"{doc.path.stem}.html"
-            badge = _status_badge(doc.frontmatter.get("status"))
+            badge = _wip_badge(doc)
             items.append(
                 f'<div class="card"><h3><a href="{href}">{title}</a> {badge}</h3>'
                 f'<p>{blurb}</p></div>'
@@ -693,7 +714,7 @@ def build_landing_body(docs: List[Document]) -> str:
             href = doc.url_path
             title = doc.title or _display_name(doc.path.stem)
             blurb = doc.description or doc.path.name
-            badge = _status_badge(doc.frontmatter.get("status"))
+            badge = _wip_badge(doc)
             out.append(
                 f'<div class="card"><h3><a href="{href}">{title}</a> {badge}</h3>'
                 f'<p>{blurb}</p></div>'

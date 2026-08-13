@@ -8,7 +8,6 @@ applies_to:
   - openvvvf-control-module
 version: "0.1"
 date: "2026-08-08"
-status: draft
 placeholder: true
 description: RTE Studio user interface - parameter model, CAN protocol, live telemetry, firmware update workflow, and extension points.
 nav_order: 431

@@ -14,7 +14,6 @@ REQUIRED_FIELDS = {
     "doctype",
     "version",
     "date",
-    "status",
     "nav_order",
     "description",
 }
@@ -23,7 +22,6 @@ OPTIONAL_FIELDS = {
     "product_line",
     "applies_to",
     "normative_refs",
-    "reviewed",
     "placeholder",
     "mcus",
     "temp",
@@ -34,8 +32,6 @@ OPTIONAL_FIELDS = {
     "test_id",
 }
 
-ALLOWED_STATUSES = {"draft", "review", "released", "obsolete", "elaborated"}
-
 ALLOWED_DOCTYPES = {
     "Index",
     "User Manual",
@@ -44,6 +40,7 @@ ALLOWED_DOCTYPES = {
     "Assembly Guide",
     "Design Document",
     "Test Report",
+    "Test Plan",
     "Hazard Analysis",
     "Hazard Analysis & Risk Assessment",
     "Application Profile",
@@ -162,13 +159,6 @@ def validate_docs(docs_dir: Path) -> ValidationResult:
         if unknown:
             result.warnings.append(
                 f"{path}: unknown frontmatter field(s): {', '.join(sorted(unknown))}"
-            )
-
-        # Status enum
-        status = fm.get("status")
-        if status is not None and status not in ALLOWED_STATUSES:
-            result.errors.append(
-                f"{path}: status '{status}' is not one of {sorted(ALLOWED_STATUSES)}"
             )
 
         # Doctype enum

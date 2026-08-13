@@ -9,7 +9,6 @@ applies_to:
   - software-target-safety-coprocessor
 version: "0.1"
 date: "2026-08-08"
-status: draft
 placeholder: true
 description: Base firmware image, RTE Studio setup, flashing procedures, and custom software development for the control module.
 nav_order: 120

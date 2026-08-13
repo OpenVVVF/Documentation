@@ -10,9 +10,8 @@ applies_to:
   - chassis-size-3
 version: "0.1"
 date: "2026-08-08"
-status: draft
 description: Browser-based interactive viewer for RTE JSONL telemetry logs.
-nav_order: 452
+nav_order: 601
 normative_refs:
   - OV-TOOLS-INDEX
 ---
@@ -50,10 +49,10 @@ You can link directly to a telemetry file so the viewer opens and loads it autom
 Example:
 
 ```text
-telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left
+telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/Resistance/induction-cal.jsonl#s=cg_iu_a:left
 ```
 
-[Open induction calibration log with cg_iu_a plotted](telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/induction-cal.jsonl#s=cg_iu_a:left)
+[Open induction calibration log with cg_iu_a plotted](telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/Resistance/induction-cal.jsonl#s=cg_iu_a:left)
 
 ## Data privacy
 

@@ -6,9 +6,7 @@ product_line: openvvvf
 applies_to:
   - chassis-size-1
 version: "0.1"
-reviewed: (not yet reviewed)
 date: "2026-08-07"
-status: draft
 description: Small power-stage family for the OpenVVVF control module. In development.
 nav_order: 210
 ---

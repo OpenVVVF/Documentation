@@ -8,7 +8,6 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-08"
-status: draft
 description: Base documentation for the TECO MAX-IE3 induction motor testbed used for calibration validation.
 test_id: 4
 nav_order: 351
@@ -22,7 +21,7 @@ normative_refs:
 
 > **Placeholder** - add photos of the fixture, phase-lead access, and any additional instrumentation once the testbed is fully wired.
 
-This document describes the induction-motor testbed used to validate the OpenVVVF motor self-commissioning routines. The same physical setup is used for both the [resistance](Resistance.html) and [inductance](Inductance.html) calibration reports.
+This document describes the induction-motor testbed used to validate the OpenVVVF motor self-commissioning routines. The same physical setup is used for both the [resistance](../Resistance/Index.md) and [inductance](../Inductance/Index.md) calibration reports.
 
 ## Motor under test
 
@@ -68,5 +67,5 @@ The motor is mounted on a bench fixture with the conduit box open so the three p
 
 ## Related reports
 
-- [Induction Motor Resistance Calibration Validation](Resistance.html)
-- [Inductance Calibration Validation](Inductance.html)
+- [Induction Motor Resistance Calibration Validation](../Resistance/Index.md)
+- [Inductance Calibration Validation](../Inductance/Index.md)

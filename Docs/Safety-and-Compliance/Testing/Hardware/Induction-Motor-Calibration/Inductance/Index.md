@@ -8,7 +8,6 @@ applies_to:
   - chassis-size-2
 version: "0.2"
 date: "2026-08-09"
-status: draft
 description: Validation of the inverter motor-inductance calibration routine on a TECO MAX-IE3 induction motor.
 test_id: 6
 nav_order: 353
@@ -73,7 +72,7 @@ Point 5 was rejected because the current dropped too low.
 
 ![Telemetry from the inductance calibration runs](induction-inductance-cal.png)
 
-> **Open telemetry log:** [View this calibration in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/induction-inductance-cal.jsonl#s=cg_iu_a:left)
+> **Open telemetry log:** [View this calibration in the Telemetry Viewer](../../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/Inductance/induction-inductance-cal.jsonl#s=cg_iu_a:left)
 
 ## Comparison and conclusion
 
@@ -89,7 +88,7 @@ For motor-control purposes, this level of agreement is acceptable. The calibrati
 
 ## Artifacts
 
-- [Telemetry log (JSONL)](induction-inductance-cal.jsonl) - [open in Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/induction-inductance-cal.jsonl#s=cg_iu_a:left)
+- [Telemetry log (JSONL)](induction-inductance-cal.jsonl) - [open in Telemetry Viewer](../../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Induction-Motor-Calibration/Inductance/induction-inductance-cal.jsonl#s=cg_iu_a:left)
 - [Static inductance plot (PNG)](induction-inductance-cal.png)
 - [Static inductance reference photo (JPG)](Motor-LCR-Inductance.jpg)
 

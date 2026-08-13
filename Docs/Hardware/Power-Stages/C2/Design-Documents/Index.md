@@ -7,7 +7,6 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-07"
-status: draft
 description: Engineering analyses, calculations, and design rationale for the Chassis Size 2 power stage.
 nav_order: 229
 normative_refs:

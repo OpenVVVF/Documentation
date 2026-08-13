@@ -6,9 +6,7 @@ product_line: openvvvf
 applies_to:
   - chassis-size-3
 version: "0.1"
-reviewed: (not yet reviewed)
 date: "2026-08-07"
-status: draft
 description: Large power-stage family for high-voltage, high-current traction inverters. In development.
 nav_order: 240
 ---

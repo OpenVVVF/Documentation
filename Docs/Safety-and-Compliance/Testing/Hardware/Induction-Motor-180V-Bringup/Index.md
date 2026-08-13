@@ -8,7 +8,6 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-09"
-status: draft
 description: Bring-up run of the C2 power stage with 200 V capacitors, driving the TECO MAX-IE3 induction motor up to 180 VDC bus.
 test_id: 8
 nav_order: 355

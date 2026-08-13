@@ -6,9 +6,7 @@ product_line: openvvvf
 applies_to:
   - software-target-rte-studio
 version: "1.0"
-reviewed: (not yet reviewed)
 date: "2026-07-13"
-status: draft
 description: Readability, reliability, and safety hardening plan for the RTE Studio and firmware codebase.
 nav_order: 432
 ---

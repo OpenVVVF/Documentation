@@ -1,21 +1,19 @@
 ---
 doctype: Assembly Guide
-doc_id: OV-C2-AG-03-01
-title: 3.1 IGBT Mounting
+doc_id: OV-C2-AG-02
+title: IGBT Mounting
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.0"
-reviewed: (not yet reviewed)
-date: "2026-08-05"
-status: draft
+version: "1.1"
+date: "2026-08-13"
 description: Step-by-step procedure for mounting the IGBT half-bridge modules to the Chassis Size 2 heatspreader.
-nav_order: 226
+nav_order: 224
 normative_refs:
   - OV-C2-IG-INDEX
 ---
 
-# 3.1 IGBT Module Mounting
+# IGBT Module Mounting
 
 This guide covers mounting the three Mitsubishi CM600DY-24T IGBT modules onto the Chassis Size 2 aluminium baseplate/heatspreader.
 

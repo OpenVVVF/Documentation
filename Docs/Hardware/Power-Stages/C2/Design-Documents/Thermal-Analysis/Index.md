@@ -7,7 +7,6 @@ applies_to:
   - chassis-size-2
 version: "1.0"
 date: "2026-07-17"
-status: released
 description: IGBT and diode loss analysis, inverter efficiency, and heatsink/baseplate sizing for the Chassis Size 2 traction inverter.
 nav_order: 230
 normative_refs:

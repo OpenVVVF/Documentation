@@ -8,7 +8,6 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-09"
-status: draft
 description: One-hour no-load run of the TECO MAX-IE3 induction motor at 120 VDC to establish a gate-driver and system thermal baseline.
 test_id: 7
 nav_order: 354

@@ -7,7 +7,6 @@ applies_to:
   - chassis-size-2
 version: "0.2"
 date: "2026-08-08"
-status: draft
 placeholder: true
 description: Installation, integration, and operating guide for the Chassis Size 2 power-stage family. Under revision.
 nav_order: 221

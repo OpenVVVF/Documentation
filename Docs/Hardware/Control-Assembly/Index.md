@@ -6,9 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
 version: "0.1"
-reviewed: (not yet reviewed)
 date: "2026-08-07"
-status: draft
 description: The reusable OpenVVVF control module - user hardware manual and software manual.
 nav_order: 100
 ---
@@ -19,3 +17,4 @@ The control assembly is the reusable inverter brain of OpenVVVF. It is a dual-MC
 
 - **User Hardware Manual** - Board layout, connectors, pinout, mounting, thermal, electrical interface, HVIL, and safe-state behavior.
 - **Software Manual** - Base firmware image overview, flashing procedure, RTE host setup, and how to build and load custom code.
+- **[Assembly Guide](Assembly-Guide/Index.md)** - Step-by-step assembly procedures for the control module.

@@ -7,9 +7,7 @@ applies_to:
   - openvvvf-control-module
   - software-target-main-mcu
 version: "1.0"
-reviewed: (not yet reviewed)
 date: "2026-07-13"
-status: released
 description: Root-cause analysis and fix for the encoder-field offset calibration bug on the main MCU.
 nav_order: 413
 ---

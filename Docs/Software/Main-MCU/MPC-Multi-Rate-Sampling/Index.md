@@ -7,9 +7,7 @@ applies_to:
   - openvvvf-control-module
   - software-target-main-mcu
 version: "1.0"
-reviewed: (not yet reviewed)
 date: "2026-07-13"
-status: draft
 description: Plan for multi-rate phase-current sampling on the STM32H723ZG to support ripple-aware MPC.
 nav_order: 414
 ---

@@ -8,9 +8,7 @@ applies_to:
   - chassis-size-2
   - chassis-size-3
 version: "0.1"
-reviewed: (not yet reviewed)
 date: "2026-08-07"
-status: draft
 description: Safety analyses, hazard assessments, compliance mappings, and validation evidence for the OpenVVVF platform and power stages.
 nav_order: 300
 ---

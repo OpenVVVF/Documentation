@@ -8,7 +8,6 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-08"
-status: draft
 description: Validation of the inverter motor-resistance calibration routine against a bench LCR reference.
 test_id: 1
 nav_order: 343
@@ -21,9 +20,9 @@ normative_refs:
 
 This report validates the inverter's `cal Motor.Resistance` routine by comparing its estimate against a direct bench LCR measurement of the test motor. The test was run on the C2 chassis test fixture, but the routine itself is shared across all OpenVVVF chassis; motor-specific validation is only needed when a different motor or harness is used.
 
-Inductance reference measurements are kept in the [PMSM Inductance Calibration Validation](Inductance.html) report.
+Inductance reference measurements are kept in the [PMSM Inductance Calibration Validation](../Inductance/Index.md) report.
 
-A separate high-resistance load sanity check is documented in [Power Resistor Sanity Check](Resistor-Sanity-Check.html). A separate induction-machine test report is in [Induction Motor Testbed](../Induction-Motor-Calibration/Testbed.html).
+A separate high-resistance load sanity check is documented in [Power Resistor Sanity Check](../Resistor-Sanity-Check/Index.md). A separate induction-machine test report is in [Induction Motor Testbed](../../Induction-Motor-Calibration/Testbed/Index.md).
 
 ## Test setup
 
@@ -71,7 +70,7 @@ The plot below shows phase currents, DC bus voltage, and the per-phase resistanc
 
 ![Resistance calibration: 50 V vs 120 V bus](ResistanceCalResult_50v_vs_120v.png)
 
-> **Open telemetry log:** [View this calibration in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/PMSM-Motor-Calibration/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left)
+> **Open telemetry log:** [View this calibration in the Telemetry Viewer](../../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/PMSM-Motor-Calibration/Resistance/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left)
 
 From the plotted telemetry:
 
@@ -87,7 +86,7 @@ From the plotted telemetry:
   - current-sensor offset or scaling drift at the higher DC-link voltage,
   - connection/cable resistance differences between setups,
   - temperature or settling differences between runs.
-- The raw telemetry log is available for further analysis: [ResistanceCalResult.jsonl](ResistanceCalResult.jsonl) - [open in Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/PMSM-Motor-Calibration/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left).
+- The raw telemetry log is available for further analysis: [ResistanceCalResult.jsonl](ResistanceCalResult.jsonl) - [open in Telemetry Viewer](../../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/PMSM-Motor-Calibration/Resistance/ResistanceCalResult.jsonl#s=cg_iu_a:left,r_phase_avg:left).
 
 ## Notes
 

@@ -8,7 +8,6 @@ applies_to:
   - chassis-size-2
 version: "1.3"
 date: "2026-08-07"
-status: released
 description: ISO/SAE 21434 cybersecurity threat analysis for the open-source OpenVVVF traction inverter / VCU.
 nav_order: 320
 normative_refs:

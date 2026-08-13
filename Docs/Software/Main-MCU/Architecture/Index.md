@@ -8,7 +8,6 @@ applies_to:
   - software-target-main-mcu
 version: "0.1"
 date: "2026-08-08"
-status: draft
 placeholder: true
 description: STM32H723ZG main MCU software architecture - layers, state machine, FOC, modulation, sensing, and safety mechanisms.
 nav_order: 411

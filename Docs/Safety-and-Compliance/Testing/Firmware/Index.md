@@ -5,17 +5,14 @@ title: Firmware Tests
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
-version: "0.1"
-reviewed: (not yet reviewed)
-date: "2026-08-07"
-status: draft
-description: Firmware test reports and validation evidence.
+version: "0.2"
+date: "2026-08-13"
+description: Firmware test plans, test reports, and safety-mechanism validation evidence.
 nav_order: 360
-menu_only: true
 ---
 
 # Firmware Tests
 
-Unit tests, integration tests, fault-injection tests, and safety-mechanism test records.
+This section holds firmware test plans and safety-mechanism validation evidence for the control module firmware: unit, integration, and fault-injection testing that demonstrates the safety mechanisms specified in the HARA detect faults and enter the defined safe state within their timing budgets.
 
-> **Add test records as they are performed.**
+- [Fault Injection Test Plan](Fault-Injection-Test-Plan/Index.md) (OV-TEST-FW-FAULT-INJECTION) - component-, system-, integration-, and environmental-level fault-injection tests validating the dual-MCU safety architecture; extracted from the HARA Core document.

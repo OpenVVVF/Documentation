@@ -6,9 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
 version: "0.1"
-reviewed: (not yet reviewed)
 date: "2026-08-07"
-status: draft
 description: HARA documents - platform core and application profiles.
 nav_order: 310
 ---

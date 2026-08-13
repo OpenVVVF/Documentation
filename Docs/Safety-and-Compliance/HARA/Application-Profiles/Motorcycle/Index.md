@@ -11,9 +11,7 @@ profile_for: motorcycle
 standard: ISO 26262:2018
 temp: −40 °C to +85 °C
 version: "1.6"
-reviewed: (not yet reviewed)
 date: "2026-07-30"
-status: elaborated
 description: Motorcycle-specific HARA profile - operational situations, S/E/C ratings, and ASIL targets applied to the platform hazard set.
 nav_order: 313
 normative_refs:

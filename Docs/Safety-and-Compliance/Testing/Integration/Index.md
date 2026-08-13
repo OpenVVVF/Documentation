@@ -8,9 +8,7 @@ applies_to:
   - chassis-size-2
   - chassis-size-3
 version: "0.1"
-reviewed: (not yet reviewed)
 date: "2026-08-07"
-status: draft
 description: System-level integration test reports and validation evidence.
 nav_order: 370
 menu_only: true

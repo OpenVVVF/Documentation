@@ -6,9 +6,7 @@ product_line: openvvvf
 applies_to:
   - chassis-size-2
 version: "0.1"
-reviewed: (not yet reviewed)
 date: "2026-08-07"
-status: draft
 description: Preparation steps before assembling the Chassis Size 2 power stage.
 nav_order: 223
 ---

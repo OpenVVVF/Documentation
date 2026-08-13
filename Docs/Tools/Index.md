@@ -10,9 +10,8 @@ applies_to:
   - chassis-size-3
 version: "0.1"
 date: "2026-08-08"
-status: draft
 description: Documentation for OpenVVVF support tools and widgets.
-nav_order: 40
+nav_order: 600
 normative_refs:
   - OV-DOCS-INDEX
 ---
@@ -24,7 +23,7 @@ This section documents the support tools and widgets that go with OpenVVVF hardw
 <div class="landing-grid">
 
 <div class="card">
-<h3><a href="OpenVVVF-Telemetry-Viewer/index.html">Telemetry Viewer</a></h3>
+<h3><a href="OpenVVVF-Telemetry-Viewer/Index.md">Telemetry Viewer</a></h3>
 <p>Browser-based interactive viewer for RTE JSONL telemetry logs.</p>
 </div>
 

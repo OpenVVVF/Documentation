@@ -7,7 +7,6 @@ applies_to:
   - software-target-main-mcu
 version: "0.1"
 date: "2026-08-08"
-status: draft
 description: STM32H723ZG main MCU firmware - FOC motor control, sensor acquisition, CAN, and safe-state management.
 nav_order: 410
 ---

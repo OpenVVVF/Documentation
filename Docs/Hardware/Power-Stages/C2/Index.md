@@ -7,7 +7,6 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-08"
-status: draft
 description: Mid-size power-stage family for the OpenVVVF control module - integration guide, assembly guide, and design documents.
 nav_order: 220
 normative_refs:

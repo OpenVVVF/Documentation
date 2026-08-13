@@ -4,19 +4,19 @@ This file explains how the OpenVVVF documentation is organized. Future agents an
 
 ## Top-level sections
 
-The `Docs/` tree has five top-level sections:
+The `Docs/` tree has four top-level sections:
 
 1. **Hardware** - Physical OpenVVVF hardware.
    - `Control-Assembly/` - The reusable inverter control module.
    - `Power-Stages/` - Chassis/inverter assemblies (`C1/`, `C2/`, `C3/`).
 2. **Software** - Firmware and host-software docs by target.
    - `Main-MCU/`, `Safety-Coprocessor/`, `RTE-Studio/`, `Codegen/`.
-   - `Tools/` - Software tools and widgets.
 3. **Safety-and-Compliance** - Cross-cutting safety, standards, and validation docs.
    - `HARA/` - Hazard analyses.
    - `TARA/` - Threat analyses.
    - `Compliance/` - Standards mappings.
    - `Testing/` - Formal test and validation evidence.
+4. **Tools** - Software tools and widgets.
 
 ## Every document is a folder containing `Index.md`
 
@@ -56,6 +56,7 @@ Use hierarchical, kebab-case IDs:
 - `OV-COMP-*` - Compliance mappings
 - `OV-SW-*` - Software
 - `OV-TEST-*` - Testing
+- `OV-TOOLS-*` - Tools
 
 `INDEX` is reserved for the index document of a section or sub-section (e.g. `OV-C2-INDEX`, `OV-C2-DD-INDEX`).
 
@@ -70,14 +71,14 @@ Every `Index.md` must begin with YAML frontmatter. Required and optional fields:
 | `doctype` | yes | Document type. Use one of the canonical values listed below. |
 | `version` | yes | Document version, as a string (e.g. `"1.0"`). |
 | `date` | yes | ISO-8601 date (`YYYY-MM-DD`). |
-| `status` | yes | `draft`, `review`, `released`, or `obsolete`. |
 | `nav_order` | yes | Global integer sort key. Lower values appear first. Allocate ranges per section (see below). |
 | `description` | yes | One-sentence summary for cards and listings. |
 | `product_line` | no | Product line this document belongs to (e.g. `openvvvf`). |
 | `applies_to` | no | List of product / variant IDs this document applies to. |
 | `normative_refs` | no | List of `doc_id`s this document references. `docgen validate` checks them. |
-| `reviewed` | no | Review status or reviewer/date. Omit if not yet reviewed. |
-| `placeholder` | no | Set to `true` to flag an incomplete or under-revision page. Renders a banner and emits a validation warning. |
+| `placeholder` | no | Set to `true` to flag an incomplete or under-revision page. Renders a banner, a WIP badge, and emits a validation warning. |
+
+Document maturity is conveyed by `version` plus the `placeholder` flag. There is deliberately no `status` or `reviewed` field; bump `version` when a document changes materially.
 
 ### Canonical doctypes
 
@@ -87,6 +88,7 @@ Every `Index.md` must begin with YAML frontmatter. Required and optional fields:
 - `Integration Manual` - electrical/interface integration manual
 - `Assembly Guide` - ordered build procedure
 - `Design Document` - engineering analysis, calculation, or design rationale
+- `Test Plan` - test plan defining test cases, procedures, and acceptance criteria
 - `Test Report` - formal test evidence
 - `Hazard Analysis` or `Hazard Analysis & Risk Assessment`
 - `Application Profile` or `Application Profile - Hazard Analysis & Risk Assessment`
@@ -96,6 +98,7 @@ Every `Index.md` must begin with YAML frontmatter. Required and optional fields:
 - `Software Manual`
 - `Software Note`
 - `Software Plan`
+- `Tool Manual`
 
 Avoid free-form `doctype` values. If none of the canonical types fit, propose a new one in `Docs/Agents.md` rather than inventing an ad-hoc value.
 
@@ -114,6 +117,7 @@ Use these ranges for top-level section indices so the sidebar orders consistentl
 | 300–399 | Safety and Compliance |
 | 400–499 | Software |
 | 500–599 | Testing and Validation (under Safety and Compliance) |
+| 600–699 | Tools |
 
 Within a section or chassis, choose a consistent scheme that makes the document order obvious. For example, in `Power-Stages/C2/Assembly-Guide/` the convention is `chapter × 10` for chapters and `chapter × 10 + step` for substeps:
 

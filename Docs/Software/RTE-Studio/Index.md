@@ -7,7 +7,6 @@ applies_to:
   - software-target-rte-studio
 version: "0.1"
 date: "2026-08-08"
-status: draft
 description: Real-Time Examiner (RTE) Studio host tools for configuration, telemetry, and node-based code generation.
 nav_order: 430
 ---

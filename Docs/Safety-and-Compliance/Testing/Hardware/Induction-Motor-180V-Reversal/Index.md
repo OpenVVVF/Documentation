@@ -8,7 +8,6 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-09"
-status: draft
 description: Repeated forward/reverse direction changes at 180 VDC and ±60 Hz on the TECO MAX-IE3 induction motor to stress-test switching and current control.
 test_id: 9
 nav_order: 356

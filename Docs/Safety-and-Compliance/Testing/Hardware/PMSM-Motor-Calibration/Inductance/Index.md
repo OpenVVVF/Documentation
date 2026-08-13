@@ -8,7 +8,6 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-08"
-status: draft
 description: Validation of the inverter motor-inductance calibration routine against a bench LCR reference.
 test_id: 2
 nav_order: 344
@@ -21,9 +20,9 @@ normative_refs:
 
 This report validates the inverter's motor-inductance calibration routine by comparing its estimate against a direct bench LCR measurement of the test motor. The test was run on the C2 chassis test fixture, but the routine itself is shared across all OpenVVVF chassis; motor-specific validation is only needed when a different motor or harness is used.
 
-Resistance reference measurements are kept in the [PMSM Resistance Calibration Validation](Resistance.html) report.
+Resistance reference measurements are kept in the [PMSM Resistance Calibration Validation](../Resistance/Index.md) report.
 
-A separate induction-machine test report is in [Induction Motor Testbed](../Induction-Motor-Calibration/Testbed.html).
+A separate induction-machine test report is in [Induction Motor Testbed](../../Induction-Motor-Calibration/Testbed/Index.md).
 
 ## Test setup
 
