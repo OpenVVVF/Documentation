@@ -6,7 +6,6 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-  - chassis-size-3
 version: "0.1"
 date: "2026-08-07"
 description: Safety analyses, hazard assessments, compliance mappings, and validation evidence for the OpenVVVF platform and power stages.

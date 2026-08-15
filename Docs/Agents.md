@@ -8,7 +8,7 @@ The `Docs/` tree has four top-level sections:
 
 1. **Hardware** - Physical OpenVVVF hardware.
    - `Control-Assembly/` - The reusable inverter control module.
-   - `Power-Stages/` - Chassis/inverter assemblies (`C1/`, `C2/`, `C3/`).
+   - `Power-Stages/` - Chassis/inverter assemblies (currently `C2/`).
 2. **Software** - Firmware and host-software docs by target.
    - `Main-MCU/`, `Safety-Coprocessor/`, `RTE-Studio/`, `Codegen/`.
 3. **Safety-and-Compliance** - Cross-cutting safety, standards, and validation docs.
@@ -46,12 +46,10 @@ Use hierarchical, kebab-case IDs:
 - `OV-DOCS-*` - Site / root index
 - `OV-CA-*` - Control Assembly
 - `OV-PS-*` - Power Stages (top-level)
-- `OV-C1-*` - Chassis Size 1
 - `OV-C2-*` - Chassis Size 2
   - `OV-C2-IG-*` - C2 Integration Guide
   - `OV-C2-AG-*` - C2 Assembly Guide
   - `OV-C2-DD-*` - C2 Design Documents
-- `OV-C3-*` - Chassis Size 3
 - `OV-SAF-*` - Safety and Compliance
 - `OV-COMP-*` - Compliance mappings
 - `OV-SW-*` - Software

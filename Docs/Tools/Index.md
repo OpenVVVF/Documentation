@@ -5,9 +5,7 @@ title: Tools
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
-  - chassis-size-1
   - chassis-size-2
-  - chassis-size-3
 version: "0.1"
 date: "2026-08-08"
 description: Documentation for OpenVVVF support tools and widgets.

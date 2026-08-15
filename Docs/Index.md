@@ -5,9 +5,7 @@ title: OpenVVVF Documentation Index
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
-  - chassis-size-1
   - chassis-size-2
-  - chassis-size-3
 version: "0.1"
 date: "2026-08-08"
 description: Portal to OpenVVVF product documentation, hardware manuals, software targets, safety analyses, and validation evidence.
@@ -84,10 +82,8 @@ This site is the single source of truth for OpenVVVF hardware manuals, software 
 ### Major blocks
 
 - **Control module / control assembly** - The reusable dual-MCU control board that runs OpenVVVF firmware. It handles field-oriented motor control, state estimation, diagnostics, and safety monitoring.
-- **Power stage** - The physical inverter assembly that contains the IGBTs, DC-link capacitors, gate drivers, current sensors, and thermal hardware. Three chassis families are planned:
-  - **C1** - compact, low-power form factor.
+- **Power stage** - The physical inverter assembly that contains the IGBTs, DC-link capacitors, gate drivers, current sensors, and thermal hardware.
   - **C2** - mid-size, 140 V nominal / up to 450 V class, ~600 A.
-  - **C3** - large, up to 1200 V / 1400 A.
 - **Main MCU software** - The primary microcontroller firmware; runs the real-time motor-control loop, PWM generation, ADC sampling, communication stacks, and application logic.
 - **Safety coprocessor software** - A separate microcontroller that independently monitors safety-critical outputs and can bring the system to a safe state.
 - **RTE Studio** - The host-side Real-Time Examiner and tuning tool. It connects to the inverter over CAN or Ethernet to log variables, adjust parameters, and run calibration routines.
@@ -118,7 +114,7 @@ Control Module (Main MCU + Safety Coprocessor)
 - **OpenVVVF** - Open-source Variable Voltage Variable Frequency traction inverter platform.
 - **VVVF** - Variable Voltage Variable Frequency. A method for controlling AC motors by adjusting voltage and frequency.
 - **Traction inverter** - A power-electronics converter that turns a DC bus into variable-frequency AC to drive a motor.
-- **Chassis** - A mechanical/electrical form-factor family for power stages (C1, C2, C3).
+- **Chassis** - A mechanical/electrical form-factor family for power stages (currently C2).
 
 ### Software terms
 
