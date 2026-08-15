@@ -54,94 +54,180 @@
 
   /* Cover page */
   .print-cover {
+    position: relative;
     display: flex !important;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     min-height: 90vh;
-    padding: 2cm 0;
+    padding: 0;
+    margin: 0;
     page-break-after: always;
     break-after: page;
+    background: #fff;
+  }
+
+  .print-cover-accent {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1.2cm;
+    background: #fc0f27;
+  }
+
+  .print-cover-accent-top {
+    top: 0;
+  }
+
+  .print-cover-accent-bottom {
+    bottom: 0;
+  }
+
+  .print-cover-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 17cm;
+    min-height: 80vh;
+    padding: 1.5cm 0 1.5cm 0;
+  }
+
+  .print-cover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6cm;
+    border-bottom: 0.75pt solid #e5e7eb;
+    padding-bottom: 0.8cm;
   }
 
   .print-cover-logo {
-    width: 7cm;
+    width: 5.5cm;
     height: auto;
-    margin-bottom: 0.4cm;
+    display: block;
   }
 
-  .print-cover-rule {
-    width: 100%;
-    border-top: 2.5pt solid #fc0f27;
-    margin-bottom: 1.2cm;
+  .print-cover-header-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    gap: 0.1cm;
   }
 
-  .print-cover-brand {
-    font-family: "Saira", "Helvetica Neue", Arial, sans-serif;
-    font-size: 11pt;
-    font-weight: 700;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: #5a5a5a;
-    margin-bottom: 1cm;
+  .print-cover-tagline {
+    font-size: 9pt;
+    color: #6b7280;
+    max-width: 8cm;
+    line-height: 1.4;
+  }
+
+  .print-cover-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5cm 0;
   }
 
   .print-cover-doctype {
+    font-family: "Saira", "Helvetica Neue", Arial, sans-serif;
     font-size: 11pt;
-    font-weight: 400;
-    color: #5a5a5a;
+    font-weight: 600;
+    color: #fc0f27;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.6cm;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.5cm;
   }
 
   .print-cover-title {
     font-family: "Saira", "Helvetica Neue", Arial, sans-serif;
-    font-size: 28pt;
-    font-weight: 900;
-    font-style: italic;
-    line-height: 1.15;
-    color: #fc0f27;
-    margin: 0 0 0.8cm 0;
-    padding: 0 0 0.3cm 0;
+    font-size: 32pt;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #111827;
+    margin: 0 0 0.6cm 0;
+    padding: 0;
     border: none;
-    border-bottom: 2.5pt solid #fc0f27;
   }
 
   .print-cover-description {
-    font-size: 11pt;
-    color: #4a4a4a;
+    font-size: 11.5pt;
+    color: #4b5563;
     line-height: 1.6;
-    max-width: 16cm;
-    margin: 0 0 1.5cm 0;
+    max-width: 15cm;
+    margin: 0;
+  }
+
+  .print-cover-footer {
+    border-top: 0.75pt solid #e5e7eb;
+    padding-top: 0.8cm;
   }
 
   .print-cover-meta {
     width: 100%;
-    max-width: 14cm;
     border-collapse: collapse;
-    margin-top: 0.5cm;
-    font-size: 10pt;
+    margin-bottom: 0.6cm;
+    font-size: 9.5pt;
   }
 
   .print-cover-meta th,
   .print-cover-meta td {
-    padding: 0.35cm 0.5cm;
+    padding: 0.28cm 0.45cm;
     text-align: left;
     vertical-align: top;
-    border-bottom: 0.5pt solid #d1d5db;
+    border-bottom: 0.5pt solid #e5e7eb;
   }
 
   .print-cover-meta th {
-    width: 40%;
+    width: 35%;
     font-weight: 600;
-    color: #5a5a5a;
-    background: #f8f9fa;
+    color: #6b7280;
+    background: #f9fafb;
   }
 
   .print-cover-meta td {
-    width: 60%;
-    color: #1a1a1a;
+    width: 65%;
+    color: #1f2937;
+  }
+
+  .print-cover-meta tr:last-child th,
+  .print-cover-meta tr:last-child td {
+    border-bottom: none;
+  }
+
+  .print-cover-footer-note {
+    font-size: 8.5pt;
+    color: #9ca3af;
+    text-align: right;
+  }
+
+  .print-cover-sponsors {
+    margin-top: 0.8cm;
+    padding-top: 0.5cm;
+    border-top: 1.5pt solid #d1d5db;
+  }
+
+  .print-cover-sponsors-label {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 0.3cm;
+  }
+
+  .print-cover-sponsor-logos {
+    display: flex;
+    align-items: center;
+    gap: 0.6cm;
+    flex-wrap: wrap;
+  }
+
+  .print-cover-sponsor-logos img {
+    max-height: 0.8cm;
+    width: auto;
+    max-width: 4cm;
+    margin: 0;
   }
 
   /* Content typography */
@@ -346,7 +432,7 @@
   /* Page setup and running elements */
   @page {
     size: A4;
-    margin: 2cm 1.8cm 2.5cm 1.8cm;
+    margin: 2cm 1.8cm 2cm 1.8cm;
 
     @top-left {
       font-size: 8.5pt;

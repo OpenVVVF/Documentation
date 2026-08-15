@@ -183,24 +183,32 @@ def copy_brand_assets(output_dir: Path) -> None:
 
 def cover_page(doc: Optional[Document], root: str = "./") -> str:
     """Render a print-only cover page from document frontmatter."""
-    logo = (
-        f'<img class="print-cover-logo" src="{root}brand/logo.png" alt="OpenVVVF">'
-        '<div class="print-cover-rule"></div>'
-    )
+    brand = "OpenVVVF"
     if doc is None or not doc.frontmatter:
-        return (
-            '<div class="print-cover">'
-            + logo
-            + '<div class="print-cover-brand">OpenVVVF</div>'
-            '<h1 class="print-cover-title">OpenVVVF Documentation</h1>'
-            '</div>'
-        )
+        return "".join([
+            '<div class="print-cover">',
+            '<div class="print-cover-accent print-cover-accent-top"></div>',
+            '<div class="print-cover-inner">',
+            '<header class="print-cover-header">',
+            f'<img class="print-cover-logo" src="{root}brand/logo.svg" alt="{brand}">',
+            '<div class="print-cover-header-text">',
+            '<span class="print-cover-tagline">Open-source model-based traction inverter platform</span>',
+            '</div>',
+            '</header>',
+            '<div class="print-cover-main">',
+            '<div class="print-cover-doctype">Documentation</div>',
+            f'<h1 class="print-cover-title">{brand} Documentation</h1>',
+            '</div>',
+            '</div>',
+            '<div class="print-cover-accent print-cover-accent-bottom"></div>',
+            '</div>',
+        ])
 
     fm = doc.frontmatter
     doctype = doc.doctype or "Document"
     title = doc.title or doc.path.stem
     description = fm.get("description", "")
-    product_line = fm.get("product_line", "OpenVVVF")
+    product_line = fm.get("product_line", brand)
 
     rows = []
 
@@ -222,27 +230,37 @@ def cover_page(doc: Optional[Document], root: str = "./") -> str:
 
     meta_table = f'<table class="print-cover-meta">{"".join(rows)}</table>' if rows else ""
 
-    doc_id_value = fm.get("doc_id") or ""
-    strings = ""
-    if doc_id_value:
-        strings = (
-            '<div class="print-cover-strings" aria-hidden="true">'
-            f'<span class="print-cover-string-title">{title}</span>'
-            f'<span class="print-cover-string-id">{doc_id_value}</span>'
-            '</div>'
-        )
-
-    return (
-        '<div class="print-cover">'
-        + logo
-        + strings
-        + f'<div class="print-cover-brand">{product_line.upper()}</div>'
-        + f'<div class="print-cover-doctype">{doctype}</div>'
-        + f'<h1 class="print-cover-title">{title}</h1>'
-        + (f'<p class="print-cover-description">{description}</p>' if description else "")
-        + meta_table
-        + '</div>'
-    )
+    return "".join([
+        '<div class="print-cover">',
+        '<div class="print-cover-accent print-cover-accent-top"></div>',
+        '<div class="print-cover-inner">',
+        '<header class="print-cover-header">',
+        f'<img class="print-cover-logo" src="{root}brand/logo.svg" alt="{brand}">',
+        '<div class="print-cover-header-text">',
+        '<span class="print-cover-tagline">Open-source model-based traction inverter platform</span>',
+        '</div>',
+        '</header>',
+        '<div class="print-cover-main">',
+        f'<div class="print-cover-doctype">{doctype}</div>',
+        f'<h1 class="print-cover-title">{title}</h1>',
+        (f'<p class="print-cover-description">{description}</p>' if description else ""),
+        '</div>',
+        '<footer class="print-cover-footer">',
+        meta_table,
+        '<div class="print-cover-sponsors">',
+        '<div class="print-cover-sponsors-label">Supported by</div>',
+        '<div class="print-cover-sponsor-logos">',
+        '<img src="https://cdn.trustedparts.com/company/dd042a20-7bd6-4e96-92c0-203775acde0d-mouser-logo.svg" alt="Mouser Electronics">',
+        '<img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Mitsubishi_Electric_logo.svg" alt="Mitsubishi Electric">',
+        '<img src="https://sendcutsend.com/wp-content/uploads/2022/11/scs-logo-text-1-1.svg" alt="SendCutSend">',
+        '</div>',
+        '</div>',
+        '<div class="print-cover-footer-note">OpenVVVF Documentation</div>',
+        '</footer>',
+        '</div>',
+        '<div class="print-cover-accent print-cover-accent-bottom"></div>',
+        '</div>',
+    ])
 
 
 def _doc_sort_key(doc: Document) -> tuple:
