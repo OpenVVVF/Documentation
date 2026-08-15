@@ -80,7 +80,22 @@ def md_to_html(text: str) -> str:
     html = MD.convert(text)
     html = _rewrite_md_links(html)
     html = _apply_callout_classes(html)
+    html = _wrap_figures(html)
     return html
+
+
+_FIGURE_RE = re.compile(r'<p><img alt="([^"]*)" src="([^"]+)"\s*/></p>')
+
+
+def _wrap_figures(html: str) -> str:
+    """Wrap standalone images in <figure> with a <figcaption> from the alt text."""
+
+    def repl(m: re.Match) -> str:
+        alt, src = m.group(1), m.group(2)
+        caption = f"<figcaption>{alt}</figcaption>" if alt else ""
+        return f'<figure><img alt="{alt}" src="{src}" />{caption}</figure>'
+
+    return _FIGURE_RE.sub(repl, html)
 
 
 _CHAPTER_RE = re.compile(r"<(h[12])(\b[^>]*)>(\d+)(\.\d+)?\s+(.+?)</\1>", re.S)
@@ -575,14 +590,11 @@ def render_page(
         content_class = "landing"
 
     cover = cover_page(doc, root)
-    header_id = (doc.doc_id if doc else "OpenVVVF Documentation").replace('"', '\\"')
-    header_title = title.replace('"', '\\"')
     pdf_url = f"{root}pdfs/{doc.doc_id}.pdf" if doc and doc.doc_id else ""
 
     page = load_template("page.html")
     return page.format(
         title=title,
-        header_title=header_title,
         body=body,
         nav=nav,
         breadcrumbs=crumbs,
@@ -590,7 +602,6 @@ def render_page(
         frontmatter=frontmatter,
         content_class=content_class,
         cover=cover,
-        header_id=header_id,
         pdf_url=pdf_url,
     )
 

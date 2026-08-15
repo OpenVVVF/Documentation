@@ -10,23 +10,30 @@ from typing import Optional
 from .frontmatter import Document, load_docs
 from .site import _is_menu_only, template_dir, url_path
 
-# A4 page geometry matching the @page rule in print.css (2cm/1.8cm margins).
+# A4 page geometry matching the @page rule in print.css (2.4cm/2cm top/bottom,
+# 1.8cm left/right margins).
 _MARGIN_X = 1.8 * 28.3465  # left/right margin in pt
-_LINE_Y = 2.0 * 28.3465 - 8  # divider line just below the content area
+_LINE_Y = 2.0 * 28.3465 - 8  # footer divider, just below the content area
 _TEXT_Y = _LINE_Y - 22  # footer baseline, roughly centered in the bottom margin
+_HEADER_LINE_OFFSET = 16  # header divider sits this far above the content area
 _FONT_SIZE = 10
+_HEADER_FONT_SIZE = 8.5
 _LOGO_H = 10.6
 _LOGO_W = _LOGO_H * 1600 / 405  # brand logo aspect ratio
 _GREY = (156 / 255, 163 / 255, 175 / 255)  # #9ca3af, same as the footer text
+_DARK_GREY = (90 / 255, 90 / 255, 90 / 255)  # #5a5a5a, header text
 _LINE_GREY = (233 / 255, 236 / 255, 239 / 255)  # #e9ecef
 
 
-def _stamp_footers(pdf_path: Path, footer_text: str) -> None:
-    """Stamp the running footer (logo, doc line, page number) on every page
-    except the cover.
+def _stamp_running(
+    pdf_path: Path, footer_text: str, header_title: str, header_id: str
+) -> None:
+    """Stamp the running header (doc title/id + rule) and footer (logo,
+    doc line, page number) onto the finished PDF.
 
-    Chromium's page margin boxes cannot render images, so the footer is
-    drawn directly onto the finished PDF instead of via CSS.
+    Chromium's page margin boxes cannot render images and glue their rules
+    to the content edge, so all running elements are drawn directly onto
+    the PDF instead of via CSS. The cover page only gets a page number.
     """
     from pypdf import PdfReader, PdfWriter
     from reportlab.pdfgen import canvas
@@ -40,9 +47,15 @@ def _stamp_footers(pdf_path: Path, footer_text: str) -> None:
         buf = io.BytesIO()
         c = canvas.Canvas(buf, pagesize=(width, height))
         if index > 0:
+            header_line_y = height - 2.4 * 28.3465 + _HEADER_LINE_OFFSET
             c.setStrokeColorRGB(*_LINE_GREY)
             c.setLineWidth(0.5)
+            c.line(_MARGIN_X, header_line_y, width - _MARGIN_X, header_line_y)
             c.line(_MARGIN_X, _LINE_Y, width - _MARGIN_X, _LINE_Y)
+            c.setFillColorRGB(*_DARK_GREY)
+            c.setFont("Helvetica", _HEADER_FONT_SIZE)
+            c.drawString(_MARGIN_X, header_line_y + 8, header_title)
+            c.drawRightString(width - _MARGIN_X, header_line_y + 8, header_id)
             if logo_path.exists():
                 c.drawImage(
                     str(logo_path),
@@ -139,7 +152,12 @@ def build_pdf(
 
     output_path = output_dir / f"{doc_id}.pdf"
     html_to_pdf(html_path, output_path, chromium_path)
-    _stamp_footers(output_path, f"/  Documentation  /  {doc.doctype or 'Document'}")
+    _stamp_running(
+        output_path,
+        f"/  Documentation  /  {doc.doctype or 'Document'}",
+        doc.title or doc_id,
+        doc.doc_id or "",
+    )
     return output_path
 
 
@@ -163,7 +181,12 @@ def build_all_pdfs(
         output_path = output_dir / f"{doc_id}.pdf"
         try:
             html_to_pdf(html_path, output_path, chromium_path)
-            _stamp_footers(output_path, f"/  Documentation  /  {doc.doctype or 'Document'}")
+            _stamp_running(
+                output_path,
+                f"/  Documentation  /  {doc.doctype or 'Document'}",
+                doc.title or doc_id,
+                doc.doc_id or "",
+            )
             generated.append(output_path)
             print(f"Wrote {output_path}")
         except RuntimeError as e:

@@ -53,8 +53,8 @@
   }
 
   /*
-   * Cover page. Fills the full A4 content area (25.7cm at 2cm top/bottom
-   * margins) and paints above the fixed .print-footer so the cover stays
+   * Cover page. Fills the full A4 content area (25.3cm at 2.4cm/2cm
+   * top/bottom margins) and paints above the fixed .print-footer so the cover stays
    * free of running elements.
    */
   .print-cover {
@@ -64,7 +64,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 25.7cm;
+    height: 25.3cm;
     padding: 0;
     margin: 0;
     page-break-after: always;
@@ -133,7 +133,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 2.2cm 0 1.5cm 0;
+    padding: 1cm 0 1.5cm 0;
   }
 
   .print-cover-title {
@@ -153,6 +153,9 @@
     line-height: 1.6;
     max-width: 15cm;
     margin: 0;
+    border-left: 3pt solid #fc0f27;
+    background: #f8f9fa;
+    padding: 0.4cm 0.6cm;
   }
 
   .print-cover-footer {
@@ -355,20 +358,28 @@
     break-inside: avoid;
   }
 
-  /* Images */
+  /* Images: capped so two figures fit on one page */
   .content img {
     max-width: 100%;
-    max-height: 16cm;
+    max-height: 10cm;
     height: auto;
     display: block;
-    margin: 0.5cm 0;
+    margin: 0.5cm auto;
     page-break-inside: avoid;
     break-inside: avoid;
   }
 
   .content figure {
+    margin: 0.5cm 0;
+    text-align: center;
     page-break-inside: avoid;
     break-inside: avoid;
+  }
+
+  .content figcaption {
+    font-size: 8.5pt;
+    color: #6b7280;
+    margin-top: 0.2cm;
   }
 
   /* Blockquotes / callouts */
@@ -436,26 +447,11 @@
     break-inside: avoid;
   }
 
-  /* Page setup. The bottom running footer (logo, doc line, page number)
-     is stamped onto the PDF by docgen, not rendered via CSS. */
+  /* Page setup. Running headers and footers (rules, doc title/id, logo,
+     page number) are stamped onto the PDF by docgen, not rendered via CSS. */
   @page {
     size: A4;
-    margin: 2cm 1.8cm 2cm 1.8cm;
-
-    @top-left {
-      font-size: 8.5pt;
-      color: #5a5a5a;
-      border-bottom: 0.5pt solid #e9ecef;
-      padding-bottom: 0.3cm;
-    }
-
-    @top-right {
-      font-size: 8.5pt;
-      color: #5a5a5a;
-      border-bottom: 0.5pt solid #e9ecef;
-      padding-bottom: 0.3cm;
-      text-align: right;
-    }
+    margin: 2.4cm 1.8cm 2cm 1.8cm;
   }
 
   /* Hidden strings kept for browsers that support CSS Generated Content for Paged Media */

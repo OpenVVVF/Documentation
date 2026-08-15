@@ -10,22 +10,6 @@
   <link rel="apple-touch-icon" href="{root}brand/apple-touch-icon.png">
   <link rel="stylesheet" href="{root}style.css?v=5">
   <link rel="stylesheet" href="{root}print.css?v=5" media="print">
-  <style media="print">
-    @page {{
-      @top-left {{
-        content: "{header_title}";
-      }}
-      @top-right {{
-        content: "{header_id}";
-      }}
-    }}
-    /* Suppression rules must come after the blanket @page above:
-       Chromium lets a later blanket @page re-add margin boxes. */
-    @page :first {{
-      @top-left {{ content: none; }}
-      @top-right {{ content: none; }}
-    }}
-  </style>
 </head>
 <body>
   <header class="site-header">
