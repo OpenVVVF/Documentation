@@ -8,7 +8,7 @@ applies_to:
 version: "0.1"
 date: "2026-08-15"
 description: Assemble the bottom stack onto the Chassis Size 2 heatspreader, including spacers, DC-link bus bars, filter board, and phase bus bars.
-nav_order: 232
+nav_order: 229
 normative_refs:
   - OV-C2-IG-INDEX
 ---

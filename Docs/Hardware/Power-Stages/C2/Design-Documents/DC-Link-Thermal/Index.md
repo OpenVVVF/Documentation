@@ -8,7 +8,7 @@ applies_to:
 version: "1.0"
 date: "2026-07-13"
 description: DC-link capacitor bank standoff heat-path and thermal resistance analysis for Chassis Size 2.
-nav_order: 231
+nav_order: 232
 normative_refs:
   - OV-C2-DD-INDEX
 ---

@@ -8,7 +8,7 @@ applies_to:
 version: "0.1"
 date: "2026-08-07"
 description: Engineering analyses, calculations, and design rationale for the Chassis Size 2 power stage.
-nav_order: 229
+nav_order: 230
 normative_refs:
   - OV-C2-INDEX
 ---

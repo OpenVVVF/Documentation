@@ -8,7 +8,7 @@ applies_to:
 version: "1.0"
 date: "2026-07-17"
 description: IGBT and diode loss analysis, inverter efficiency, and heatsink/baseplate sizing for the Chassis Size 2 traction inverter.
-nav_order: 230
+nav_order: 231
 normative_refs:
   - OV-C2-DD-INDEX
   - OV-C2-DD-DCLINK-THERMAL
