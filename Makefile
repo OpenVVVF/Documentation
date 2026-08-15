@@ -1,4 +1,4 @@
-.PHONY: help install test test-bom test-docgen validate site clean check-clean
+.PHONY: help install test test-bom test-docgen validate site manuals clean check-clean
 
 VENV := .venv
 PYTHON := $(VENV)/bin/python
@@ -15,6 +15,7 @@ help:
 	@echo "  validate     validate documentation cross-references and frontmatter"
 	@echo "  site         build the static HTML documentation site"
 	@echo "  pdfs         build the site and generate per-document PDFs into site/pdfs"
+	@echo "  manuals      generate umbrella manual PDFs (e.g. full C2 assembly guide)"
 	@echo "  serve        serve the built site locally on port 8000"
 	@echo "  clean        remove build artifacts and venv"
 	@echo "  check-clean  fail if ignored *.egg-info directories are present"
@@ -40,6 +41,9 @@ site:
 
 pdfs: site
 	$(PYTHON) -m docgen pdf --all --output-dir site/pdfs
+
+manuals: site
+	$(PYTHON) -m docgen pdf --manual OV-C2-AG-INDEX --output-dir site/pdfs
 
 serve:
 	cd site && $(PYTHON) -m http.server 8000

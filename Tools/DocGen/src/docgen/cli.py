@@ -6,7 +6,7 @@ from pathlib import Path
 
 from .crossref import validate_crossrefs, validate_links
 from .frontmatter import load_docs
-from .pdf import build_all_pdfs, build_pdf
+from .pdf import build_all_pdfs, build_manual, build_pdf
 from .product import assemble_manual, list_products, load_product
 from .schema import validate_docs
 from .site import build_site
@@ -66,6 +66,11 @@ def main(argv: list[str] | None = None) -> int:
         "--output-dir", type=Path, default=repo_root() / "build" / "pdfs"
     )
     pdf_parser.add_argument("--doc", help="Generate PDF for a single doc_id")
+    pdf_parser.add_argument(
+        "--manual",
+        metavar="DOC_ID",
+        help="Generate one umbrella PDF for an index document and its chapters",
+    )
     pdf_parser.add_argument(
         "--all", action="store_true", help="Generate PDFs for all documents"
     )
@@ -157,7 +162,17 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(f"Wrote {output_path}")
             return 0
-        print("Specify --doc <doc_id> or --all", file=sys.stderr)
+        if args.manual:
+            output_path = build_manual(
+                args.manual,
+                args.docs_dir,
+                args.site_dir,
+                args.output_dir,
+                chromium_path=args.chromium,
+            )
+            print(f"Wrote {output_path}")
+            return 0
+        print("Specify --doc <doc_id>, --manual <doc_id>, or --all", file=sys.stderr)
         return 1
 
     return 1

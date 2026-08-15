@@ -192,3 +192,79 @@ def build_all_pdfs(
         except RuntimeError as e:
             print(f"ERROR generating PDF for {doc_id}: {e}", file=sys.stderr)
     return generated
+
+
+def _front_matter_pages(doc: Document) -> int:
+    """Number of pages before the content: cover, plus an info page if the
+    document has any metadata rows."""
+    fm = doc.frontmatter or {}
+    has_rows = any(
+        fm.get(key)
+        for key in ("doc_id", "test_id", "version", "date", "applies_to", "normative_refs")
+    )
+    return 2 if has_rows else 1
+
+
+def build_manual(
+    doc_id: str,
+    docs_dir: Path,
+    site_dir: Path,
+    output_dir: Path,
+    chromium_path: Optional[str] = None,
+) -> Path:
+    """Generate a single umbrella PDF for an index document and its chapters.
+
+    Takes the cover and info page from the index document, then appends the
+    content of every chapter document below it (in nav_order), skipping each
+    chapter's own cover/info pages. Running headers/footers and continuous
+    page numbers are stamped onto the merged result.
+    """
+    import tempfile
+
+    from pypdf import PdfReader, PdfWriter
+
+    by_id = load_docs(docs_dir)
+    if doc_id not in by_id:
+        raise ValueError(f"Document not found: {doc_id}")
+    index = by_id[doc_id]
+    base = index.path.parent
+
+    chapters = [
+        doc
+        for other_id, doc in by_id.items()
+        if other_id != doc_id
+        and doc.path.is_relative_to(base)
+        and not _is_menu_only(doc)
+    ]
+    chapters.sort(key=lambda d: ((d.frontmatter or {}).get("nav_order", 0), d.title or ""))
+    if not chapters:
+        raise ValueError(f"No chapter documents found below {doc_id} ({base})")
+
+    writer = PdfWriter()
+    with tempfile.TemporaryDirectory() as tmp:
+        for i, doc in enumerate([index, *chapters]):
+            html_path = _html_path_for_doc(doc, docs_dir, site_dir)
+            if not html_path.exists():
+                raise FileNotFoundError(
+                    f"HTML not found for {doc.doc_id}: {html_path}\n"
+                    "Run 'docgen site' first."
+                )
+            part = Path(tmp) / f"part-{i:03d}.pdf"
+            html_to_pdf(html_path, part, chromium_path)
+            pages = PdfReader(str(part)).pages
+            skip = min(_front_matter_pages(doc), len(pages))
+            for page in pages[skip:] if i > 0 else pages[:skip]:
+                writer.add_page(page)
+
+        output_path = output_dir / f"{doc_id}-MANUAL.pdf"
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, "wb") as f:
+            writer.write(f)
+
+    _stamp_running(
+        output_path,
+        f"/  Documentation  /  {index.doctype or 'Document'}",
+        index.title or doc_id,
+        index.doc_id or "",
+    )
+    return output_path
