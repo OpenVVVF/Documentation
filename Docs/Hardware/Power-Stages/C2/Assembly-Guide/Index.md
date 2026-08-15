@@ -1,5 +1,5 @@
 ---
-doctype: Index
+doctype: Assembly Guide
 doc_id: OV-C2-AG-INDEX
 title: Assembly Guide
 product_line: openvvvf
@@ -21,11 +21,11 @@ This guide documents the build of a Chassis Size 2 inverter, chapter by chapter,
 
 1. [Preparation](1_Preparation/Index.md) - workspace, tools, and materials to have ready before starting.
 2. [IGBT Mounting](2_IGBT-Mounting/Index.md) - mounting the three IGBT half-bridge modules to the heatspreader, including thermal compound application and torque procedure.
-3. [IGBT Temperature Sensor Wiring Harness](IGBT-Temperature-Sensor-Wiring-Harness/Index.md) - building the temperature-sensor harnesses that connect to the control assembly.
-4. [IGBT Temperature Sensor Mounting](IGBT-Temp-Sense-Mounting/Index.md) - mounting the ring-lug temperature sensors to the heatspreader.
-5. [DC-Link Capacitor Board](DC-Link-Module/PCB/Index.md) - populating and soldering the DC-link capacitor PCB.
-6. [DC-Link Filter Board](DC-Link-Filter-Board/Index.md) - populating and soldering the DC-link filter PCB.
-7. [Bottom Stack Assembly](Mounting-DC-Filter-Board-And-Busbars/Index.md) - installing the bottom spacers, DC-link bus bars, filter board, and phase bus bars onto the heatspreader.
+3. [IGBT Temperature Sensor Wiring Harness](3_IGBT-Temp-Sense-Harness/Index.md) - building the temperature-sensor harnesses that connect to the control assembly.
+4. [IGBT Temperature Sensor Mounting](4_IGBT-Temp-Sense-Mounting/Index.md) - mounting the ring-lug temperature sensors to the heatspreader.
+5. [DC-Link Capacitor Board](5_DC-Link-Capacitor-Board/Index.md) - populating and soldering the DC-link capacitor PCB.
+6. [DC-Link Filter Board](6_DC-Link-Filter-Board/Index.md) - populating and soldering the DC-link filter PCB.
+7. [Bottom Stack Assembly](7_Bottom-Stack-Assembly/Index.md) - installing the bottom spacers, DC-link bus bars, filter board, and phase bus bars onto the heatspreader.
 
 ## Planned build order
 
