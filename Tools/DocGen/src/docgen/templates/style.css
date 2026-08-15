@@ -83,7 +83,8 @@ a:hover {
   text-decoration: underline;
 }
 
-.print-cover {
+.print-cover,
+.print-info {
   display: none;
 }
 
