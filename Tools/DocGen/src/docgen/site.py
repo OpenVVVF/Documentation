@@ -192,11 +192,10 @@ def cover_page(doc: Optional[Document], root: str = "./") -> str:
             '<header class="print-cover-header">',
             f'<img class="print-cover-logo" src="{root}brand/logo.svg" alt="{brand}">',
             '<div class="print-cover-header-text">',
-            '<span class="print-cover-tagline">Open-source model-based traction inverter platform</span>',
+            '<span class="print-cover-header-doctype">Documentation</span>',
             '</div>',
             '</header>',
             '<div class="print-cover-main">',
-            '<div class="print-cover-doctype">Documentation</div>',
             f'<h1 class="print-cover-title">{brand} Documentation</h1>',
             '</div>',
             '</div>',
@@ -230,6 +229,15 @@ def cover_page(doc: Optional[Document], root: str = "./") -> str:
 
     meta_table = f'<table class="print-cover-meta">{"".join(rows)}</table>' if rows else ""
 
+    info_page = ""
+    if meta_table:
+        info_page = "".join([
+            '<div class="print-info">',
+            '<h2 class="print-info-title">Document Information</h2>',
+            meta_table,
+            '</div>',
+        ])
+
     return "".join([
         '<div class="print-cover">',
         '<div class="print-cover-accent print-cover-accent-top"></div>',
@@ -237,16 +245,14 @@ def cover_page(doc: Optional[Document], root: str = "./") -> str:
         '<header class="print-cover-header">',
         f'<img class="print-cover-logo" src="{root}brand/logo.svg" alt="{brand}">',
         '<div class="print-cover-header-text">',
-        '<span class="print-cover-tagline">Open-source model-based traction inverter platform</span>',
+        f'<span class="print-cover-header-doctype">{doctype}</span>',
         '</div>',
         '</header>',
         '<div class="print-cover-main">',
-        f'<div class="print-cover-doctype">{doctype}</div>',
         f'<h1 class="print-cover-title">{title}</h1>',
         (f'<p class="print-cover-description">{description}</p>' if description else ""),
         '</div>',
         '<footer class="print-cover-footer">',
-        meta_table,
         '<div class="print-cover-sponsors">',
         '<div class="print-cover-sponsors-label">Supported by</div>',
         '<div class="print-cover-sponsor-logos">',
@@ -259,6 +265,7 @@ def cover_page(doc: Optional[Document], root: str = "./") -> str:
         '</div>',
         '<div class="print-cover-accent print-cover-accent-bottom"></div>',
         '</div>',
+        info_page,
     ])
 
 

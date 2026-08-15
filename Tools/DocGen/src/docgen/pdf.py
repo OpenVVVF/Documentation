@@ -13,8 +13,9 @@ from .site import _is_menu_only, template_dir, url_path
 # A4 page geometry matching the @page rule in print.css (2cm/1.8cm margins).
 _MARGIN_X = 1.8 * 28.3465  # left/right margin in pt
 _LINE_Y = 2.0 * 28.3465 - 8  # divider line just below the content area
-_TEXT_Y = _LINE_Y - 14  # footer baseline, below the divider line
-_LOGO_H = 8.5
+_TEXT_Y = _LINE_Y - 22  # footer baseline, roughly centered in the bottom margin
+_FONT_SIZE = 10
+_LOGO_H = 10.6
 _LOGO_W = _LOGO_H * 1600 / 405  # brand logo aspect ratio
 _GREY = (156 / 255, 163 / 255, 175 / 255)  # #9ca3af, same as the footer text
 _LINE_GREY = (233 / 255, 236 / 255, 239 / 255)  # #e9ecef
@@ -34,11 +35,11 @@ def _stamp_footers(pdf_path: Path, footer_text: str) -> None:
     reader = PdfReader(str(pdf_path))
     writer = PdfWriter()
     for index, page in enumerate(reader.pages):
+        width = float(page.mediabox.width)
+        height = float(page.mediabox.height)
+        buf = io.BytesIO()
+        c = canvas.Canvas(buf, pagesize=(width, height))
         if index > 0:
-            width = float(page.mediabox.width)
-            height = float(page.mediabox.height)
-            buf = io.BytesIO()
-            c = canvas.Canvas(buf, pagesize=(width, height))
             c.setStrokeColorRGB(*_LINE_GREY)
             c.setLineWidth(0.5)
             c.line(_MARGIN_X, _LINE_Y, width - _MARGIN_X, _LINE_Y)
@@ -46,19 +47,21 @@ def _stamp_footers(pdf_path: Path, footer_text: str) -> None:
                 c.drawImage(
                     str(logo_path),
                     _MARGIN_X,
-                    _TEXT_Y - 1.5,
+                    _TEXT_Y - 2,
                     width=_LOGO_W,
                     height=_LOGO_H,
                     mask="auto",
                 )
             c.setFillColorRGB(*_GREY)
-            c.setFont("Helvetica", 8)
-            c.drawString(_MARGIN_X + _LOGO_W + 6, _TEXT_Y, footer_text)
-            c.drawRightString(width - _MARGIN_X, _TEXT_Y, str(index + 1))
-            c.showPage()
-            c.save()
-            buf.seek(0)
-            page.merge_page(PdfReader(buf).pages[0])
+            c.setFont("Helvetica", _FONT_SIZE)
+            c.drawString(_MARGIN_X + _LOGO_W + 7, _TEXT_Y, footer_text)
+        c.setFillColorRGB(*_GREY)
+        c.setFont("Helvetica", _FONT_SIZE)
+        c.drawRightString(width - _MARGIN_X, _TEXT_Y, str(index + 1))
+        c.showPage()
+        c.save()
+        buf.seek(0)
+        page.merge_page(PdfReader(buf).pages[0])
         writer.add_page(page)
     with open(pdf_path, "wb") as f:
         writer.write(f)
@@ -136,7 +139,7 @@ def build_pdf(
 
     output_path = output_dir / f"{doc_id}.pdf"
     html_to_pdf(html_path, output_path, chromium_path)
-    _stamp_footers(output_path, f"Documentation  /  {doc.doctype or 'Document'}")
+    _stamp_footers(output_path, f"/  Documentation  /  {doc.doctype or 'Document'}")
     return output_path
 
 
@@ -160,7 +163,7 @@ def build_all_pdfs(
         output_path = output_dir / f"{doc_id}.pdf"
         try:
             html_to_pdf(html_path, output_path, chromium_path)
-            _stamp_footers(output_path, f"Documentation  /  {doc.doctype or 'Document'}")
+            _stamp_footers(output_path, f"/  Documentation  /  {doc.doctype or 'Document'}")
             generated.append(output_path)
             print(f"Wrote {output_path}")
         except RuntimeError as e:

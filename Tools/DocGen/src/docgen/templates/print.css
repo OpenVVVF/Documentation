@@ -102,7 +102,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.6cm;
+    gap: 0.5cm;
     border-bottom: 0.75pt solid #e5e7eb;
     padding-bottom: 0.8cm;
   }
@@ -115,35 +115,25 @@
 
   .print-cover-header-text {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    text-align: right;
-    gap: 0.1cm;
+    align-items: baseline;
   }
 
-  .print-cover-tagline {
-    font-size: 9pt;
-    color: #6b7280;
-    max-width: 8cm;
-    line-height: 1.4;
+  .print-cover-header-doctype {
+    font-family: "Saira", "Helvetica Neue", Arial, sans-serif;
+    font-size: 18pt;
+    font-weight: 600;
+    color: #fc0f27;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    text-align: right;
   }
 
   .print-cover-main {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 1.5cm 0;
-  }
-
-  .print-cover-doctype {
-    font-family: "Saira", "Helvetica Neue", Arial, sans-serif;
-    font-size: 11pt;
-    font-weight: 600;
-    color: #fc0f27;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    margin-bottom: 0.5cm;
+    justify-content: flex-start;
+    padding: 2.2cm 0 1.5cm 0;
   }
 
   .print-cover-title {
@@ -166,8 +156,7 @@
   }
 
   .print-cover-footer {
-    border-top: 0.75pt solid #e5e7eb;
-    padding-top: 0.8cm;
+    padding-top: 0;
   }
 
   .print-cover-meta {
@@ -200,6 +189,25 @@
   .print-cover-meta tr:last-child th,
   .print-cover-meta tr:last-child td {
     border-bottom: none;
+  }
+
+  /* Document information page (follows the cover) */
+  .print-info {
+    page-break-after: always;
+    break-after: page;
+    padding-top: 0.5cm;
+  }
+
+  .print-info-title {
+    font-family: "Saira", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 1pt solid #d1d5db;
+    padding-bottom: 0.3cm;
+    margin: 0 0 0.6cm 0;
+    page-break-after: avoid;
+    break-after: avoid;
   }
 
   .print-cover-sponsors {
