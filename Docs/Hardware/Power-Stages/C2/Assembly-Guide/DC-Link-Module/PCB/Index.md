@@ -8,7 +8,7 @@ applies_to:
 version: "0.2"
 date: "2026-08-14"
 description: Populate and solder the DC-link capacitor PCB for the Chassis Size 2 power stage.
-nav_order: 226
+nav_order: 227
 normative_refs:
   - OV-C2-IG-INDEX
 ---
