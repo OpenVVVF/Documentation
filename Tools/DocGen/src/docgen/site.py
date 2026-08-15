@@ -255,7 +255,6 @@ def cover_page(doc: Optional[Document], root: str = "./") -> str:
         '<img src="https://sendcutsend.com/wp-content/uploads/2022/11/scs-logo-text-1-1.svg" alt="SendCutSend">',
         '</div>',
         '</div>',
-        '<div class="print-cover-footer-note">OpenVVVF Documentation</div>',
         '</footer>',
         '</div>',
         '<div class="print-cover-accent print-cover-accent-bottom"></div>',

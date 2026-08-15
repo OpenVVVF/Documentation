@@ -52,14 +52,19 @@
     padding: 0;
   }
 
-  /* Cover page */
+  /*
+   * Cover page. Fills the full A4 content area (25.7cm at 2cm top/bottom
+   * margins) and paints above the fixed .print-footer so the cover stays
+   * free of running elements.
+   */
   .print-cover {
     position: relative;
+    z-index: 1;
     display: flex !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 90vh;
+    height: 25.7cm;
     padding: 0;
     margin: 0;
     page-break-after: always;
@@ -71,7 +76,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    height: 1.2cm;
+    height: 0.45cm;
     background: #fc0f27;
   }
 
@@ -85,11 +90,11 @@
 
   .print-cover-inner {
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
     max-width: 17cm;
-    min-height: 80vh;
     padding: 1.5cm 0 1.5cm 0;
   }
 
@@ -195,12 +200,6 @@
   .print-cover-meta tr:last-child th,
   .print-cover-meta tr:last-child td {
     border-bottom: none;
-  }
-
-  .print-cover-footer-note {
-    font-size: 8.5pt;
-    color: #9ca3af;
-    text-align: right;
   }
 
   .print-cover-sponsors {
@@ -429,7 +428,8 @@
     break-inside: avoid;
   }
 
-  /* Page setup and running elements */
+  /* Page setup. The bottom running footer (logo, doc line, page number)
+     is stamped onto the PDF by docgen, not rendered via CSS. */
   @page {
     size: A4;
     margin: 2cm 1.8cm 2cm 1.8cm;
@@ -448,31 +448,6 @@
       padding-bottom: 0.3cm;
       text-align: right;
     }
-
-    @bottom-center {
-      content: counter(page);
-      font-size: 9pt;
-      color: #5a5a5a;
-      border-top: 0.5pt solid #e9ecef;
-      padding-top: 0.3cm;
-    }
-
-    @bottom-right {
-      content: "OpenVVVF Documentation";
-      font-size: 8pt;
-      color: #888;
-      border-top: 0.5pt solid #e9ecef;
-      padding-top: 0.3cm;
-      text-align: right;
-    }
-  }
-
-  /* First page (cover) has no running headers/footers */
-  @page :first {
-    @top-left { content: none; }
-    @top-right { content: none; }
-    @bottom-center { content: none; }
-    @bottom-right { content: none; }
   }
 
   /* Hidden strings kept for browsers that support CSS Generated Content for Paged Media */
