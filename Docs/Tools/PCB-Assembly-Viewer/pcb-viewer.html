@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCB Assembly Viewer - OpenVVVF</title>
+<link rel="icon" type="image/svg+xml" href="../../brand/icon.svg">
+<style>
+@font-face { font-family: "Saira"; src: url("../../brand/fonts/Saira-400.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Saira"; src: url("../../brand/fonts/Saira-700.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+:root {
+  --bg: #ffffff; --surface: #f8f9fa; --surface-2: #f1f3f5;
+  --border: #d1d5db; --border-light: #e9ecef;
+  --text: #1a1a1a; --text-muted: #5a5a5a;
+  --accent: #fc0f27; --accent-dark: #c40d20;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-brand: "Saira", var(--font-body);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-body); color: var(--text); background: var(--bg); }
+header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 20px; border-bottom: 1px solid var(--border-light); background: var(--surface);
+}
+header img { height: 28px; }
+header h1 { font-family: var(--font-brand); font-size: 20px; font-weight: 700; margin: 0; }
+header h1 .sep { color: var(--text-muted); font-weight: 400; margin: 0 6px; }
+.layout { display: flex; min-height: calc(100vh - 54px); }
+aside {
+  width: 300px; flex-shrink: 0; border-right: 1px solid var(--border-light);
+  background: var(--surface); padding: 12px; overflow-y: auto;
+}
+aside input {
+  width: 100%; padding: 8px 10px; margin-bottom: 10px;
+  border: 1px solid var(--border); border-radius: 6px; font-size: 14px;
+}
+.chassis { font-family: var(--font-brand); font-weight: 700; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin: 14px 4px 6px; }
+.pn {
+  display: block; width: 100%; text-align: left; cursor: pointer;
+  padding: 8px 10px; margin-bottom: 4px; border: 1px solid var(--border-light);
+  border-radius: 6px; background: #fff; font-size: 13px;
+}
+.pn small { display: block; color: var(--text-muted); }
+.pn:hover { border-color: var(--accent); }
+.pn.active { border-color: var(--accent); background: #fff5f6; box-shadow: inset 3px 0 0 var(--accent); }
+main { flex: 1; padding: 24px 28px; overflow-y: auto; }
+main h2 { font-family: var(--font-brand); margin: 0 0 4px; }
+.meta { color: var(--text-muted); font-size: 14px; margin-bottom: 18px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.actions a {
+  display: inline-block; padding: 9px 16px; border-radius: 6px; font-size: 14px;
+  text-decoration: none; border: 1px solid var(--border); color: var(--text); background: #fff;
+}
+.actions a.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.actions a.primary:hover { background: var(--accent-dark); }
+.actions a:hover { border-color: var(--accent); }
+.renders { display: flex; flex-wrap: wrap; gap: 16px; }
+.renders figure { margin: 0; }
+.renders img {
+  max-width: 420px; width: 100%; border: 1px solid var(--border-light);
+  border-radius: 8px; background: var(--surface-2);
+}
+.renders figcaption { font-size: 13px; color: var(--text-muted); margin-top: 6px; text-align: center; }
+.empty { color: var(--text-muted); margin-top: 40px; }
+@media (max-width: 800px) {
+  .layout { flex-direction: column; }
+  aside { width: 100%; border-right: none; border-bottom: 1px solid var(--border-light); }
+}
+</style>
+</head>
+<body>
+<header>
+  <img src="../../brand/logo.png" alt="OpenVVVF">
+  <h1>OpenVVVF<span class="sep">/</span>PCB Assembly Viewer</h1>
+</header>
+<div class="layout">
+  <aside>
+    <input id="filter" type="search" placeholder="Filter part numbers..." oninput="renderList()">
+    <div id="list"></div>
+  </aside>
+  <main id="main"><p class="empty">Select a PCB on the left.</p></main>
+</div>
+<script>
+const MANIFEST = {"HW-C2-PCB-CTRL-A": {"artifacts": {"bom_csv": "bom.csv", "drc": "drc.txt", "drc_violations": 0, "gerber_zip": "gerbers.zip", "ibom": "ibom.html", "renders": ["ControlBoard-Back.png", "ControlBoard.png"], "schematic_pdf": "schematic.pdf", "step": "ControlBoard.step"}, "board": "ControlBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/ControlBoard", "generated": "2026-08-16T20:03:04+00:00", "part_number": "HW-C2-PCB-CTRL-A", "rev": "A", "source_tag": "C2-A"}, "HW-C2-PCB-DCBUSCAP-A": {"artifacts": {"bom_csv": "bom.csv", "drc": "drc.txt", "drc_violations": 0, "gerber_zip": "gerbers.zip", "ibom": "ibom.html", "renders": ["DCBusCapacitorBoard-Back.png", "DCBusCapacitorBoard-Front.png", "DCBusCapacitorBoard.png"], "schematic_pdf": "schematic.pdf", "step": "DCBusCapacitorBoard.step"}, "board": "DCBusCapacitorBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/DCBusCapacitorBoard", "generated": "2026-08-16T20:03:20+00:00", "part_number": "HW-C2-PCB-DCBUSCAP-A", "rev": "A", "source_tag": "C2-A"}, "HW-C2-PCB-DCFLT-A": {"artifacts": {"bom_csv": "bom.csv", "drc": "drc.txt", "drc_violations": 0, "gerber_zip": "gerbers.zip", "ibom": "ibom.html", "renders": ["DCBusFilter-Back.png", "DCBusFilter-Back2.png", "DCBusFilter-Front.png", "DCBusFilter.png"], "schematic_pdf": "schematic.pdf", "step": "DCBusFilter.step"}, "board": "DCBusFilter", "chassis": "C2", "dir": "Data/Releases/C2/A/DCBusFilter", "generated": "2026-08-16T20:03:40+00:00", "part_number": "HW-C2-PCB-DCFLT-A", "rev": "A", "source_tag": "C2-A"}, "HW-C2-PCB-GD-A": {"artifacts": {"bom_csv": "bom.csv", "drc": "drc.txt", "drc_violations": 0, "gerber_zip": "gerbers.zip", "ibom": "ibom.html", "renders": ["GateDriver-Back.png", "GateDriver-Front.png", "GateDriver.png"], "schematic_pdf": "schematic.pdf", "step": "GateDriver.step"}, "board": "GateDriver", "chassis": "C2", "dir": "Data/Releases/C2/A/GateDriver", "generated": "2026-08-16T20:04:00+00:00", "part_number": "HW-C2-PCB-GD-A", "rev": "A", "source_tag": "C2-A"}, "HW-C2-PCB-IO-A": {"artifacts": {"bom_csv": "bom.csv", "drc": "drc.txt", "drc_violations": 0, "gerber_zip": "gerbers.zip", "ibom": "ibom.html", "renders": ["IOBoard-Back.png", "IOBoard-Front.png", "IOBoard.png"], "schematic_pdf": "schematic.pdf", "step": "IOBoard.step"}, "board": "IOBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/IOBoard", "generated": "2026-08-16T20:04:16+00:00", "part_number": "HW-C2-PCB-IO-A", "rev": "A", "source_tag": "C2-A"}};
+const ROOT = "../../";
+
+const ARTIFACTS = [
+  ["ibom", "Open Interactive Assembly \u2197", "primary", true],
+  ["schematic_pdf", "Schematic PDF", "", true],
+  ["bom_csv", "BOM (CSV)", "", true],
+  ["gerber_zip", "Gerbers (ZIP)", "", true],
+  ["drc", "DRC Report", "", true],
+  ["step", "STEP Model", "", false],
+];
+
+function entries() {
+  return Object.values(MANIFEST).sort((a, b) => a.part_number.localeCompare(b.part_number));
+}
+
+function renderList() {
+  const q = document.getElementById("filter").value.trim().toLowerCase();
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  let lastChassis = null;
+  for (const e of entries()) {
+    if (q && !e.part_number.toLowerCase().includes(q) && !e.board.toLowerCase().includes(q)) continue;
+    if (e.chassis !== lastChassis) {
+      const h = document.createElement("div");
+      h.className = "chassis";
+      h.textContent = "Chassis " + e.chassis;
+      list.appendChild(h);
+      lastChassis = e.chassis;
+    }
+    const b = document.createElement("button");
+    b.className = "pn" + (location.hash === "#" + e.part_number ? " active" : "");
+    b.innerHTML = e.part_number + "<small>" + e.board + "</small>";
+    b.onclick = () => { location.hash = e.part_number; };
+    list.appendChild(b);
+  }
+}
+
+function renderMain() {
+  const pn = location.hash.slice(1);
+  const e = MANIFEST[pn];
+  const main = document.getElementById("main");
+  if (!e) { main.innerHTML = '<p class="empty">Select a PCB on the left.</p>'; renderList(); return; }
+  const base = ROOT + e.dir + "/";
+  const a = e.artifacts || {};
+  let html = "<h2>" + e.part_number + "</h2>";
+  html += '<div class="meta">' + e.board + " · Chassis " + e.chassis +
+          " · Rev " + e.rev + " · source tag <code>" + e.source_tag + "</code></div>";
+  html += '<div class="actions">';
+  for (const [key, label, cls, newTab] of ARTIFACTS) {
+    if (!a[key]) continue;
+    html += '<a class="' + cls + '" href="' + base + a[key] + '"' +
+            (newTab ? ' target="_blank" rel="noopener"' : ' download') + '>' + label + "</a>";
+  }
+  html += "</div>";
+  if (a.renders && a.renders.length) {
+    html += '<div class="renders">';
+    for (const r of a.renders) {
+      const cap = r.replace(e.board, "").replace(/[-.]/g, " ").replace(/png$/, "").trim() || "Render";
+      html += '<figure><a href="' + base + r + '" target="_blank" rel="noopener"><img src="' + base + r + '" alt="' + cap + '"></a>' +
+              "<figcaption>" + cap + "</figcaption></figure>";
+    }
+    html += "</div>";
+  }
+  main.innerHTML = html;
+  renderList();
+}
+
+window.addEventListener("hashchange", renderMain);
+renderMain();
+</script>
+</body>
+</html>

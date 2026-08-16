@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hwrelease"
+version = "0.1.0"
+description = "Hardware release exporter: turns InverterGen5 release tags into versioned board artifacts for the documentation repo."
+requires-python = ">=3.10"
+dependencies = [
+    "PyYAML",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+hwrelease = "hwrelease.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["hwrelease*"]

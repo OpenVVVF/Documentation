@@ -18,13 +18,15 @@ This is the OpenVVVF documentation and hardware-data hub. It does **not** contai
 
 1. **BOMManager** (`Tools/BOMManager`) is the generalized Bill-of-Materials and fabrication package manager. It reads product definitions from `Config/Products.yaml`.
 2. **docgen** (`Tools/DocGen`) validates frontmatter, resolves `doc_id` references, and assembles product manuals.
-3. Run `pytest` before committing changes to tools.
+3. **HWRelease** (`Tools/HWRelease`) exports per-board release artifacts (schematic PDF, BOM, gerbers, DRC, STEP, iBOM HTML) from `../InverterGen5` release tags into `Data/Releases/`, indexed by part number in `Data/Releases/manifest.json`.
+4. Run `pytest` before committing changes to tools.
 
 ## Data conventions
 
 1. `Data/Parts/*.json` are committed project data.
 2. `Data/Parts/Inventory.json` and `Data/Parts/PriceCache.json` are **gitignored**; they represent personal/local state.
 3. Part numbers use the format `HW-{product}-{category}-{descriptor}-{rev}` by default.
+4. `Data/Releases/` is committed generated data (written by HWRelease); do not hand-edit — regenerate with `hwrelease update --force`.
 
 ## Prohibited changes
 

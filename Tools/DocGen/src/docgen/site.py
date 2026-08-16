@@ -262,6 +262,14 @@ def copy_brand_assets(output_dir: Path) -> None:
     shutil.copytree(src, output_dir / "brand", dirs_exist_ok=True)
 
 
+def copy_release_assets(docs_dir: Path, output_dir: Path) -> None:
+    """Copy HWRelease exports (Data/Releases/) into the built site."""
+    src = docs_dir.parent / "Data" / "Releases"
+    if src.is_dir():
+        shutil.copytree(src, output_dir / "Data" / "Releases",
+                        dirs_exist_ok=True)
+
+
 def cover_page(doc: Optional[Document], root: str = "./") -> str:
     """Render a print-only cover page from document frontmatter."""
     brand = "OpenVVVF"
@@ -684,6 +692,7 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     copy_brand_assets(output_dir)
+    copy_release_assets(docs_dir, output_dir)
 
     by_id = load_docs(docs_dir)
     docs = list(by_id.values())

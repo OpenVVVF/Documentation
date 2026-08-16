@@ -1,0 +1,117 @@
+{
+  "HW-C2-PCB-CTRL-A": {
+    "artifacts": {
+      "bom_csv": "bom.csv",
+      "drc": "drc.txt",
+      "drc_violations": 0,
+      "gerber_zip": "gerbers.zip",
+      "ibom": "ibom.html",
+      "renders": [
+        "ControlBoard-Back.png",
+        "ControlBoard.png"
+      ],
+      "schematic_pdf": "schematic.pdf",
+      "step": "ControlBoard.step"
+    },
+    "board": "ControlBoard",
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/A/ControlBoard",
+    "generated": "2026-08-16T20:03:04+00:00",
+    "part_number": "HW-C2-PCB-CTRL-A",
+    "rev": "A",
+    "source_tag": "C2-A"
+  },
+  "HW-C2-PCB-DCBUSCAP-A": {
+    "artifacts": {
+      "bom_csv": "bom.csv",
+      "drc": "drc.txt",
+      "drc_violations": 0,
+      "gerber_zip": "gerbers.zip",
+      "ibom": "ibom.html",
+      "renders": [
+        "DCBusCapacitorBoard-Back.png",
+        "DCBusCapacitorBoard-Front.png",
+        "DCBusCapacitorBoard.png"
+      ],
+      "schematic_pdf": "schematic.pdf",
+      "step": "DCBusCapacitorBoard.step"
+    },
+    "board": "DCBusCapacitorBoard",
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/A/DCBusCapacitorBoard",
+    "generated": "2026-08-16T20:03:20+00:00",
+    "part_number": "HW-C2-PCB-DCBUSCAP-A",
+    "rev": "A",
+    "source_tag": "C2-A"
+  },
+  "HW-C2-PCB-DCFLT-A": {
+    "artifacts": {
+      "bom_csv": "bom.csv",
+      "drc": "drc.txt",
+      "drc_violations": 0,
+      "gerber_zip": "gerbers.zip",
+      "ibom": "ibom.html",
+      "renders": [
+        "DCBusFilter-Back.png",
+        "DCBusFilter-Back2.png",
+        "DCBusFilter-Front.png",
+        "DCBusFilter.png"
+      ],
+      "schematic_pdf": "schematic.pdf",
+      "step": "DCBusFilter.step"
+    },
+    "board": "DCBusFilter",
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/A/DCBusFilter",
+    "generated": "2026-08-16T20:03:40+00:00",
+    "part_number": "HW-C2-PCB-DCFLT-A",
+    "rev": "A",
+    "source_tag": "C2-A"
+  },
+  "HW-C2-PCB-GD-A": {
+    "artifacts": {
+      "bom_csv": "bom.csv",
+      "drc": "drc.txt",
+      "drc_violations": 0,
+      "gerber_zip": "gerbers.zip",
+      "ibom": "ibom.html",
+      "renders": [
+        "GateDriver-Back.png",
+        "GateDriver-Front.png",
+        "GateDriver.png"
+      ],
+      "schematic_pdf": "schematic.pdf",
+      "step": "GateDriver.step"
+    },
+    "board": "GateDriver",
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/A/GateDriver",
+    "generated": "2026-08-16T20:04:00+00:00",
+    "part_number": "HW-C2-PCB-GD-A",
+    "rev": "A",
+    "source_tag": "C2-A"
+  },
+  "HW-C2-PCB-IO-A": {
+    "artifacts": {
+      "bom_csv": "bom.csv",
+      "drc": "drc.txt",
+      "drc_violations": 0,
+      "gerber_zip": "gerbers.zip",
+      "ibom": "ibom.html",
+      "renders": [
+        "IOBoard-Back.png",
+        "IOBoard-Front.png",
+        "IOBoard.png"
+      ],
+      "schematic_pdf": "schematic.pdf",
+      "step": "IOBoard.step"
+    },
+    "board": "IOBoard",
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/A/IOBoard",
+    "generated": "2026-08-16T20:04:16+00:00",
+    "part_number": "HW-C2-PCB-IO-A",
+    "rev": "A",
+    "source_tag": "C2-A"
+  }
+}

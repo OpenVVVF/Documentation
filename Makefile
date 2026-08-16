@@ -12,6 +12,10 @@ help:
 	@echo "  test         run all tests"
 	@echo "  test-bom     run BOMManager tests"
 	@echo "  test-docgen  run docgen tests"
+	@echo "  test-hwrelease  run HWRelease tests"
+	@echo "  hw-update    export new board revisions from InverterGen5 release tags"
+	@echo "  hw-list      list exported board revisions"
+	@echo "  hw-viewer    regenerate the PCB assembly viewer page"
 	@echo "  validate     validate documentation cross-references and frontmatter"
 	@echo "  site         build the static HTML documentation site"
 	@echo "  pdfs         build the site and generate per-document PDFs into site/pdfs"
@@ -24,14 +28,27 @@ install:
 	python3 -m venv $(VENV)
 	$(PIP) install -e Tools/BOMManager -q
 	$(PIP) install -e Tools/DocGen -q
+	$(PIP) install -e Tools/HWRelease -q
 
-test: test-bom test-docgen
+test: test-bom test-docgen test-hwrelease
 
 test-bom:
 	$(PYTHON) -m pytest Tools/BOMManager/tests -q
 
 test-docgen:
 	$(PYTHON) -m pytest Tools/DocGen/tests -q
+
+test-hwrelease:
+	$(PYTHON) -m pytest Tools/HWRelease/tests -q
+
+hw-update:
+	$(PYTHON) -m hwrelease.cli update
+
+hw-list:
+	$(PYTHON) -m hwrelease.cli list
+
+hw-viewer:
+	$(PYTHON) -m hwrelease.cli build-viewer
 
 validate:
 	$(PYTHON) -m docgen validate
