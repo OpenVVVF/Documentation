@@ -74,9 +74,67 @@ def _rewrite_md_links(html: str) -> str:
     return _MD_LINK_RE.sub(repl, html)
 
 
+def _split_consecutive_blockquotes(md: str) -> str:
+    """Insert separators between consecutive blockquotes separated by blank lines.
+
+    Python-Markdown merges consecutive blockquotes when they are separated only by
+    a blank line. Authors use blank lines to separate items (gaps, notes, limits),
+    so split them by inserting an HTML comment between the blocks.
+
+    Code fences are left untouched so that quoted examples inside fenced code do
+    not get split.
+    """
+    lines = md.splitlines()
+    out: list[str] = []
+    in_code_fence = False
+    fence_char: str | None = None
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip()
+
+        # Toggle fenced code blocks (``` or ~~~).
+        if not in_code_fence and (
+            stripped.startswith("```") or stripped.startswith("~~~")
+        ):
+            in_code_fence = True
+            fence_char = stripped[0]
+            out.append(line)
+            i += 1
+            continue
+        if in_code_fence:
+            if stripped.startswith(fence_char * 3):
+                in_code_fence = False
+                fence_char = None
+            out.append(line)
+            i += 1
+            continue
+
+        # If this is a blockquote line and the next non-blank line is also a
+        # blockquote *and* they are separated by at least one blank line,
+        # insert a separator and resume from that next line.
+        if stripped.startswith(">"):
+            j = i + 1
+            blank_seen = False
+            while j < len(lines) and lines[j].strip() == "":
+                blank_seen = True
+                j += 1
+            if blank_seen and j < len(lines) and lines[j].strip().startswith(">"):
+                out.append(line)
+                out.append("<!-- -->")
+                i = j
+                continue
+
+        out.append(line)
+        i += 1
+
+    return "\n".join(out)
+
+
 def md_to_html(text: str) -> str:
     """Convert Markdown text to HTML."""
     MD.reset()
+    text = _split_consecutive_blockquotes(text)
     html = MD.convert(text)
     html = _rewrite_md_links(html)
     html = _apply_callout_classes(html)
@@ -128,17 +186,25 @@ _CALLOUT_CLASSES = {
     "danger": "callout-danger",
     "warning": "callout-warning",
     "caution": "callout-warning",
+    "important": "callout-warning",
     "note": "callout-note",
     "tip": "callout-tip",
 }
 
 
 def _apply_callout_classes(html: str) -> str:
-    """Add callout classes to blockquotes whose first strong tag is a known label."""
+    """Style blockquotes whose first strong tag is a known callout label.
+
+    Adds a callout class and an icon span. Labels may be upper- or lower-case and
+    may be followed by a colon.
+    """
     for label, cls in _CALLOUT_CLASSES.items():
         html = re.sub(
-            rf'<blockquote>\s*<p>\s*<strong>{label}</strong>',
-            f'<blockquote class="{cls}"><p><strong>{label.capitalize()}</strong>',
+            rf'<blockquote(\b[^>]*)>\s*<p>\s*<strong>({label})(\b[^<]*)</strong>',
+            lambda m, label=label, cls=cls: f'<blockquote class="{cls}"'
+            f'{m.group(1) or ""}><p>'
+            f'<span class="callout-icon" aria-hidden="true"></span>'
+            f'<strong>{label.capitalize()}{m.group(3)}</strong>',
             html,
             flags=re.IGNORECASE,
         )

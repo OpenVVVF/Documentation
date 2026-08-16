@@ -392,6 +392,26 @@
     margin: 0.5cm 0;
   }
 
+  .content blockquote.callout-danger {
+    border-left-color: #c41e3a;
+    background: #fdf2f4;
+  }
+
+  .content blockquote.callout-warning {
+    border-left-color: #c25e00;
+    background: #fff8f0;
+  }
+
+  .content blockquote.callout-note {
+    border-left-color: #005587;
+    background: #f2f8fb;
+  }
+
+  .content blockquote.callout-tip {
+    border-left-color: #137a3a;
+    background: #f2faf5;
+  }
+
   .content blockquote p:last-child {
     margin-bottom: 0;
   }

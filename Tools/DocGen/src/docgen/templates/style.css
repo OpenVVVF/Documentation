@@ -627,6 +627,31 @@ body.mobile-nav-open .mobile-nav-backdrop {
   margin-bottom: 0.35rem;
 }
 
+.content blockquote[class^="callout-"] {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.content blockquote[class^="callout-"] > p:first-child strong:first-child {
+  display: inline;
+}
+
+.callout-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .content blockquote.callout-danger {
   border-left-color: var(--danger);
   background: #fff5f6;
@@ -634,6 +659,14 @@ body.mobile-nav-open .mobile-nav-backdrop {
 
 .content blockquote.callout-danger strong:first-child {
   color: var(--danger);
+}
+
+.content blockquote.callout-danger .callout-icon {
+  background: var(--danger);
+}
+
+.content blockquote.callout-danger .callout-icon::before {
+  content: "!";
 }
 
 .content blockquote.callout-warning {
@@ -645,6 +678,14 @@ body.mobile-nav-open .mobile-nav-backdrop {
   color: var(--warning);
 }
 
+.content blockquote.callout-warning .callout-icon {
+  background: var(--warning);
+}
+
+.content blockquote.callout-warning .callout-icon::before {
+  content: "!";
+}
+
 .content blockquote.callout-note {
   border-left-color: var(--info);
   background: #f2f8fb;
@@ -654,6 +695,14 @@ body.mobile-nav-open .mobile-nav-backdrop {
   color: var(--info);
 }
 
+.content blockquote.callout-note .callout-icon {
+  background: var(--info);
+}
+
+.content blockquote.callout-note .callout-icon::before {
+  content: "i";
+}
+
 .content blockquote.callout-tip {
   border-left-color: var(--success);
   background: #f2faf5;
@@ -661,6 +710,14 @@ body.mobile-nav-open .mobile-nav-backdrop {
 
 .content blockquote.callout-tip strong:first-child {
   color: var(--success);
+}
+
+.content blockquote.callout-tip .callout-icon {
+  background: var(--success);
+}
+
+.content blockquote.callout-tip .callout-icon::before {
+  content: "✓";
 }
 
 .content code {
