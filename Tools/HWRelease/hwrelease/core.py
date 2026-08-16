@@ -342,6 +342,12 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
             if not boards:
                 print(f"Tag {tag}: no boards found, skipped.")
                 continue
+            # BOMManager discovers board BOMs as <Board>.csv beside the KiCad
+            # project — export them from the schematics before generating.
+            for board in boards:
+                if board.sch:
+                    kicad.export_bom(board.sch,
+                                     board.sch.parent / f"{board.name}.csv")
             regenerate_vendor_boms(tmp_path / "Hardware")
             ibom_gen = kicad.find_ibom_generator(_ibom_search_roots(hw_repo))
             print(f"Tag {tag}: {len(boards)} board(s)"
