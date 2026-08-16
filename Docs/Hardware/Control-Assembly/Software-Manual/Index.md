@@ -12,21 +12,13 @@ date: "2026-08-08"
 placeholder: true
 description: Base firmware image, RTE Studio setup, flashing procedures, and custom software development for the control module.
 nav_order: 120
-normative_refs:
-  - OV-SW-MAINMCU-INDEX
-  - OV-SW-MAINMCU-ARCH
-  - OV-SW-MAINMCU-BOOT
-  - OV-SW-COPROC-INDEX
-  - OV-SW-COPROC-ARCH
-  - OV-SW-RTE-INDEX
-  - OV-SW-RTE-INTERFACE
 ---
 
 # Software Manual
 
-This manual describes the software side of the OpenVVVF control module. It is the **user-facing** companion: operating, flashing, and configuring the software on this hardware. Firmware internals and architecture are documented under `Docs/Software/`; this manual links there rather than duplicating that content.
+This manual describes the software side of the OpenVVVF control module. It is the **user-facing** companion: operating, flashing, and configuring the software on this hardware.
 
-> **Placeholder** - This manual is being rewritten. The previous Software Architecture Document mixed user, developer, and safety-coprocessor material; it is being split into the documents below.
+> **Placeholder** - This manual is being rewritten. The previous Software Architecture Document mixed user, developer, and safety-coprocessor material; it is being split into dedicated documents. Firmware internals and architecture documentation will be published alongside it.
 
 ## Planned sections
 
@@ -37,13 +29,3 @@ This manual describes the software side of the OpenVVVF control module. It is th
 5. Firmware updates and rollback
 6. Safety-coprocessor interaction
 7. Troubleshooting
-
-## Related documents
-
-- `OV-SW-MAINMCU-INDEX` - Main MCU Software
-- `OV-SW-MAINMCU-ARCH` - Architecture
-- `OV-SW-MAINMCU-BOOT` - Bootloader
-- `OV-SW-COPROC-INDEX` - Safety Coprocessor Software
-- `OV-SW-COPROC-ARCH` - Architecture
-- `OV-SW-RTE-INDEX` - RTE Studio Software
-- `OV-SW-RTE-INTERFACE` - Interface

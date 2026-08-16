@@ -289,7 +289,7 @@ $$T_{j,D} = T_c + (P_D + P_{sw,D}) \cdot R_{th(j-c)D}$$
 
 - $R_{th(c-s)} = 13.3$ K/kW typ per module (thermal grease) [DS p.3]
 - $R_{th(j-c)Q} = 24$ K/kW max, $R_{th(j-c)D} = 42$ K/kW max [DS p.3]
-- Design limits: module baseplate $T_c \le 85 \ ^\circ\text{C}$ at $T_{amb} = 40 \ ^\circ\text{C}$; junction target $T_j \le 125 \ ^\circ\text{C}$ with margin (continuous rating 150 °C [DS]). The 85 °C baseplate limit is also consistent with the firmware NTC monitor (100 °C hard cap on the module-sited NTC; see `OV-SW-MAINMCU-INDEX`) and with the DC-link spreader plate, which reaches ≈80 °C at a 40 °C heatsink base under its 40 W load (`OV-C2-DD-DCLINK-THERMAL`).
+- Design limits: module baseplate $T_c \le 85 \ ^\circ\text{C}$ at $T_{amb} = 40 \ ^\circ\text{C}$; junction target $T_j \le 125 \ ^\circ\text{C}$ with margin (continuous rating 150 °C [DS]). The 85 °C baseplate limit is also consistent with the firmware NTC monitor (100 °C hard cap on the module-sited NTC) and with the DC-link spreader plate, which reaches ≈80 °C at a 40 °C heatsink base under its 40 W load (`OV-C2-DD-DCLINK-THERMAL`).
 
 ### Required heatsink thermal resistance
 

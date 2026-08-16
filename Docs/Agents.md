@@ -4,19 +4,19 @@ This file explains how the OpenVVVF documentation is organized. Future agents an
 
 ## Top-level sections
 
-The `Docs/` tree has four top-level sections:
+The `Docs/` tree has three top-level sections:
 
 1. **Hardware** - Physical OpenVVVF hardware.
    - `Control-Assembly/` - The reusable inverter control module.
    - `Power-Stages/` - Chassis/inverter assemblies (currently `C2/`).
-2. **Software** - Firmware and host-software docs by target.
-   - `Main-MCU/`, `Safety-Coprocessor/`, `RTE-Studio/`, `Codegen/`.
-3. **Safety-and-Compliance** - Cross-cutting safety, standards, and validation docs.
+2. **Safety-and-Compliance** - Cross-cutting safety, standards, and validation docs.
    - `HARA/` - Hazard analyses.
    - `TARA/` - Threat analyses.
    - `Compliance/` - Standards mappings.
    - `Testing/` - Formal test and validation evidence.
-4. **Tools** - Software tools and widgets.
+3. **Tools** - Software tools and widgets.
+
+Firmware and host-software documentation (formerly `Docs/Software/`) was removed as not yet ready; it will be re-added when the software docs are rewritten.
 
 ## Every document is a folder containing `Index.md`
 
@@ -52,7 +52,6 @@ Use hierarchical, kebab-case IDs:
   - `OV-C2-DD-*` - C2 Design Documents
 - `OV-SAF-*` - Safety and Compliance
 - `OV-COMP-*` - Compliance mappings
-- `OV-SW-*` - Software
 - `OV-TEST-*` - Testing
 - `OV-TOOLS-*` - Tools
 
@@ -113,15 +112,14 @@ Use these ranges for top-level section indices so the sidebar orders consistentl
 | 100–199 | Control Assembly |
 | 200–299 | Power Stages |
 | 300–399 | Safety and Compliance (incl. Testing at 340–379) |
-| 400–499 | Software |
+| 400–499 | (reserved; formerly Software) |
 | 600–699 | Tools |
 
 Within a section or chassis, choose a consistent scheme that makes the document order obvious. For example, in `Power-Stages/C2/Assembly-Guide/` chapters use sequential values within a local block (guide index 222, chapters 223, 224, ...). The exact numbers matter less than being unique and locally consistent.
 
 ## Section boundaries
 
-- **`Docs/Tools/` vs `Docs/Software/`** - `Tools/` holds standalone widgets and utilities (e.g. the browser-based Telemetry Viewer); `Software/` holds firmware targets and host-IDE documentation (Main MCU, Safety Coprocessor, RTE Studio, Codegen).
-- **`Hardware/Control-Assembly/Software-Manual/` vs `Docs/Software/`** - the Software Manual is the user-facing "operate the software on this hardware" companion and links to `Docs/Software/`; it must not duplicate firmware internals documented there.
+- **`Hardware/Control-Assembly/Software-Manual/`** - the user-facing "operate the software on this hardware" companion. Firmware internals documentation (formerly `Docs/Software/`) will be re-added separately; the manual must not duplicate it.
 - **Testing domain folders** - file test documents by what is being tested (DUT), not by bench equipment: Hardware = physical hardware is the DUT; Firmware = firmware logic is the DUT without physical fault injection; Integration = combined system. Campaigns spanning all domains (e.g. the fault-injection plan) are filed directly under `Testing/`. Plans are living documents; each execution campaign produces a separate dated Test Report referencing the plan by doc_id and test ID.
 
 ## Product manuals
