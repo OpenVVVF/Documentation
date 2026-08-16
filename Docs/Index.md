@@ -24,6 +24,7 @@ This site is the single source of truth for OpenVVVF hardware manuals, software 
 <div class="card">
 <h3>Getting Started</h3>
 <ul>
+<li><strong>Just want to spin a motor?</strong> - the FOC demo firmware can be flashed straight from <a href="Software/RTE-Studio/Index.md">RTE Studio</a>, and the guided motor-calibration routine takes it from there - no firmware build or toolchain setup needed. You can go from unboxing to a spinning motor in just a few minutes.</li>
 <li><strong>New users</strong> - read the overview, architecture, and glossary sections on this page first.</li>
 <li><strong>Installers / Technicians</strong> - start with <a href="Hardware/Power-Stages/Index.md">Power Stages</a> to choose the correct chassis, then open its integration or assembly guide.</li>
 <li><strong>Developers</strong> - see the <a href="Hardware/Control-Assembly/Index.md">Control Assembly</a> and <a href="Software/Index.md">Software</a> sections.</li>

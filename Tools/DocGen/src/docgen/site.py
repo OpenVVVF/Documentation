@@ -591,6 +591,10 @@ def render_page(
 
     cover = cover_page(doc, root)
     pdf_url = f"{root}pdfs/{doc.doc_id}.pdf" if doc and doc.doc_id else ""
+    has_children = bool(
+        doc and any(d is not doc and d.path.is_relative_to(doc.path.parent) for d in docs)
+    )
+    manual_url = f"{root}pdfs/{doc.doc_id}-MANUAL.pdf" if has_children else ""
 
     page = load_template("page.html")
     return page.format(
@@ -603,6 +607,7 @@ def render_page(
         content_class=content_class,
         cover=cover,
         pdf_url=pdf_url,
+        manual_url=manual_url,
     )
 
 
