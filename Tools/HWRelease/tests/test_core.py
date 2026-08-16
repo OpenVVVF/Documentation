@@ -18,6 +18,11 @@ def hw_repo(tmp_path):
     (board / "ControlBoard.kicad_sch").write_text('(kicad_sch (rev "A"))')
     (board / "ControlBoard.kicad_pcb").write_text('(kicad_pcb (rev "A"))')
     (repo / "Hardware" / "Chassis2" / "Boards" / "ControlBoard.png").write_bytes(b"png")
+    boms = repo / "Hardware" / "Chassis2" / "FabricationData" / "BOMs"
+    (boms / "Variants" / "standard").mkdir(parents=True)
+    (boms / "mouser_bom.csv").write_text("pn,qty\nX,1\n")
+    (boms / "sendcutsend_bom.csv").write_text("part,qty\nY,2\n")
+    (boms / "Variants" / "standard" / "mouser_bom.csv").write_text("pn,qty\nZ,3\n")
     subprocess.run(["git", "init", "-q", str(repo)], check=True)
     subprocess.run(["git", "-C", str(repo), "commit", "-q", "--allow-empty",
                     "-m", "init"], check=True,
@@ -109,7 +114,12 @@ def test_update_exports_each_revision_once(hw_repo, docs_root, fake_kicad):
     rc = core.update(hw_repo, tag_pattern="hw-rev-*", manifest_path=manifest_path)
     assert rc == 0
     manifest = json.loads(manifest_path.read_text())
-    assert set(manifest) == {"HW-C2-PCB-CTRL-A", "HW-C2-PCB-CTRL-B"}
+    assert set(manifest) == {"HW-C2-PCB-CTRL-A", "HW-C2-PCB-CTRL-B", "CHASSIS-C2-A", "CHASSIS-C2-B"}
+    chassis = manifest["CHASSIS-C2-A"]
+    assert chassis["artifacts"]["vendor_boms"]["mouser"] == "BOMs/mouser_bom.csv"
+    assert chassis["artifacts"]["vendor_boms"]["sendcutsend"] == "BOMs/sendcutsend_bom.csv"
+    assert chassis["artifacts"]["variants"]["standard"]["mouser"] == "BOMs/Variants/standard/mouser_bom.csv"
+    assert (docs_root / chassis["dir"] / "BOMs" / "mouser_bom.csv").is_file()
     entry = manifest["HW-C2-PCB-CTRL-A"]
     assert entry["source_tag"] == "hw-rev-a"
     assert entry["artifacts"]["ibom"] == "ibom.html"
@@ -131,7 +141,7 @@ def test_update_only_tag(hw_repo, docs_root, fake_kicad):
     rc = core.update(hw_repo, only_tag="hw-rev-b", manifest_path=manifest_path)
     assert rc == 0
     manifest = json.loads(manifest_path.read_text())
-    assert set(manifest) == {"HW-C2-PCB-CTRL-B"}
+    assert set(manifest) == {"HW-C2-PCB-CTRL-B", "CHASSIS-C2-B"}
 
 
 def test_update_no_tags(hw_repo, docs_root, fake_kicad):
@@ -164,5 +174,9 @@ def test_build_viewer(hw_repo, docs_root, fake_kicad):
     assert "HW-C2-PCB-CTRL-A" in html
     assert "PCB Tool" in html
     assert "Open Interactive Assembly" in html
+    bom_html = (out_path.parent.parent / "BOM-Tool" / "bom-tool.html").read_text()
+    assert "BOM Tool" in bom_html
+    assert "CHASSIS-C2-A" in bom_html
+    assert "Mouser" in bom_html
     # empty manifest -> error
     assert viewer.build_viewer(docs_root / "nope.json", out_path) == 1

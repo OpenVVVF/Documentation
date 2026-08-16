@@ -144,6 +144,46 @@ def save_manifest(manifest: Dict[str, dict], path: Path = MANIFEST_PATH) -> None
     path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
 
 
+# --------------------------------------------------------- chassis-level BOMs
+
+_VENDOR_BOMS = {
+    "mouser_bom.csv": "mouser",
+    "mcmaster_bom.csv": "mcmaster",
+    "sendcutsend_bom.csv": "sendcutsend",
+    "digikey_bom.csv": "digikey",
+    "Consolidated_BOM.csv": "consolidated",
+    "assembly_bom.csv": "assembly",
+    "pcb_bom.csv": "pcb",
+}
+
+
+def _scan_bom_dir(bom_dir: Path, base: Path) -> Dict[str, str]:
+    return {key: str(f.relative_to(base))
+            for f, key in ((bom_dir / name, key) for name, key in _VENDOR_BOMS.items())
+            if f.is_file()}
+
+
+def export_chassis_boms(chassis_dir: Path, out_dir: Path) -> dict:
+    """Copy FabricationData/BOMs/ (incl. Variants) into out_dir/BOMs."""
+    src = chassis_dir / "FabricationData" / "BOMs"
+    if not src.is_dir():
+        return {}
+    dest = out_dir / "BOMs"
+    if dest.exists():
+        shutil.rmtree(dest)
+    shutil.copytree(src, dest)
+    artifacts = {"vendor_boms": _scan_bom_dir(dest, out_dir)}
+    variants_dir = dest / "Variants"
+    variants = {}
+    if variants_dir.is_dir():
+        for vdir in sorted(variants_dir.iterdir()):
+            if vdir.is_dir():
+                variants[vdir.name] = _scan_bom_dir(vdir, out_dir)
+    if variants:
+        artifacts["variants"] = variants
+    return artifacts
+
+
 # -------------------------------------------------------------------- update
 
 def default_hw_repo() -> Path:
@@ -287,6 +327,35 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                     entry["source_url"] = f"{web_url}/tree/{tag}"
                 manifest[pn] = entry
                 new_count += 1
+            # Chassis-level vendor BOMs (one entry per chassis per revision).
+            chassis_dirs = {b.chassis for b in boards}
+            for chassis in sorted(chassis_dirs):
+                short = chassis_short_code(products, chassis)
+                if not short:
+                    continue
+                revs = {b.rev for b in boards if b.chassis == chassis}
+                rev = revs.pop() if len(revs) == 1 else tag
+                key = f"CHASSIS-{short}-{rev}"
+                if key in manifest and not force:
+                    continue
+                out_dir = releases_dir / short / rev
+                artifacts = export_chassis_boms(tmp_path / "Hardware" / chassis,
+                                                out_dir)
+                if not artifacts:
+                    continue
+                entry = {
+                    "chassis": short,
+                    "rev": rev,
+                    "source_tag": tag,
+                    "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    "dir": str(out_dir.relative_to(REPO_ROOT)),
+                    "artifacts": artifacts,
+                }
+                if web_url:
+                    entry["source_url"] = f"{web_url}/tree/{tag}"
+                manifest[key] = entry
+                print(f"  {chassis} vendor BOMs rev {rev}: exported")
+                new_count += 1
         save_manifest(manifest, manifest_path)
 
     print(f"\n{new_count} board revision(s) exported -> {releases_dir.relative_to(REPO_ROOT)}")
@@ -317,11 +386,14 @@ def list_boards(manifest_path: Path = MANIFEST_PATH) -> int:
         print("Manifest is empty — run: hwrelease update")
         return 0
     by_rev: Dict[str, List[dict]] = {}
-    for entry in manifest.values():
-        by_rev.setdefault(entry["rev"], []).append(entry)
+    for key, entry in manifest.items():
+        by_rev.setdefault(entry["rev"], []).append((key, entry))
     for rev in sorted(by_rev):
         print(f"Rev {rev}:")
-        for e in sorted(by_rev[rev], key=lambda x: x["part_number"]):
+        for key, e in sorted(by_rev[rev], key=lambda x: x[0]):
+            if "board" not in e:
+                print(f"  {key:<24} chassis {e['chassis']:<5} vendor BOMs  {e['dir']}")
+                continue
             ibom = "ibom" if "ibom" in e.get("artifacts", {}) else "no-ibom"
-            print(f"  {e['part_number']:<24} {e['board']:<22} [{ibom}]  {e['dir']}")
+            print(f"  {key:<24} {e['board']:<22} [{ibom}]  {e['dir']}")
     return 0

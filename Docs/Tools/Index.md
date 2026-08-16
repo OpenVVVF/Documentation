@@ -30,4 +30,9 @@ This section documents the support tools and widgets that go with OpenVVVF hardw
 <p>Released PCBs by part number — renders, interactive assembly, schematics, and fabrication files.</p>
 </div>
 
+<div class="card">
+<h3><a href="BOM-Tool/Index.md">BOM Tool</a></h3>
+<p>Vendor order BOMs (Mouser, McMaster-Carr, SendCutSend, DigiKey) per chassis, revision, and build variant.</p>
+</div>
+
 </div>

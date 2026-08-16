@@ -18,6 +18,7 @@ from typing import Dict, Optional
 from . import core
 
 VIEWER_REL = Path("Docs") / "Tools" / "PCB-Tool" / "pcb-tool.html"
+BOM_TOOL_REL = Path("Docs") / "Tools" / "BOM-Tool" / "bom-tool.html"
 
 # Depth of <section>/Tools/<name>/ below the built site root.
 _ROOT = "../../"
@@ -104,7 +105,7 @@ main h2 {{ font-family: var(--font-brand); margin: 0 0 4px; }}
 <body>
 <header>
   <img src="{root}brand/logo.png" alt="OpenVVVF">
-  <h1>OpenVVVF<span class="sep">/</span>PCB Tool</h1>
+  <h1><span class="sep">/</span>PCB Tool</h1>
 </header>
 <div class="layout">
   <aside>
@@ -126,7 +127,8 @@ const ARTIFACTS = [
 ];
 
 function entries() {{
-  return Object.values(MANIFEST).sort((a, b) => a.part_number.localeCompare(b.part_number));
+  return Object.values(MANIFEST).filter(e => e.board)
+           .sort((a, b) => a.part_number.localeCompare(b.part_number));
 }}
 
 function renderList() {{
@@ -215,6 +217,213 @@ def render_viewer_html(manifest: Dict[str, dict], root: str = _ROOT) -> str:
     return _PAGE.format(root=root, manifest=data)
 
 
+_BOM_PAGE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOM Tool - OpenVVVF</title>
+<link rel="icon" type="image/svg+xml" href="{root}brand/icon.svg">
+<style>
+@font-face {{ font-family: "Saira"; src: url("{root}brand/fonts/Saira-400.ttf") format("truetype"); font-weight: 400; font-display: swap; }}
+@font-face {{ font-family: "Saira"; src: url("{root}brand/fonts/Saira-700.ttf") format("truetype"); font-weight: 700; font-display: swap; }}
+:root {{
+  --bg: #ffffff; --surface: #f8f9fa; --surface-2: #f1f3f5;
+  --border: #d1d5db; --border-light: #e9ecef;
+  --text: #1a1a1a; --text-muted: #5a5a5a;
+  --accent: #fc0f27; --accent-dark: #c40d20;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-brand: "Saira", var(--font-body);
+}}
+* {{ box-sizing: border-box; }}
+body {{ margin: 0; font-family: var(--font-body); color: var(--text); background: var(--bg); }}
+header {{
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 20px; border-bottom: 1px solid var(--border-light); background: var(--surface);
+}}
+header img {{ height: 28px; }}
+header h1 {{ font-family: var(--font-brand); font-size: 20px; font-weight: 700; margin: 0; }}
+header h1 .sep {{ color: var(--text-muted); font-weight: 400; margin: 0 6px; }}
+main {{ padding: 24px 28px; max-width: 1400px; }}
+.controls {{ display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }}
+.controls label {{ font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 4px; }}
+.controls select {{
+  padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px;
+  font-size: 14px; background: #fff; min-width: 160px;
+}}
+.vendors {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }}
+.vendors button, .vendors a {{
+  padding: 9px 16px; border-radius: 6px; font-size: 14px; cursor: pointer;
+  border: 1px solid var(--border); background: #fff; color: var(--text);
+  text-decoration: none; font-family: var(--font-body);
+}}
+.vendors button:hover, .vendors a:hover {{ border-color: var(--accent); }}
+.vendors button.active {{ border-color: var(--accent); background: #fff5f6; box-shadow: inset 0 -3px 0 var(--accent); }}
+.vendors a.download {{ background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }}
+.vendors a.download:hover {{ background: var(--accent-dark); }}
+.meta {{ color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }}
+table {{ border-collapse: collapse; width: 100%; font-size: 13px; }}
+th, td {{ border: 1px solid var(--border-light); padding: 6px 10px; text-align: left; }}
+th {{ background: var(--surface); font-family: var(--font-brand); position: sticky; top: 0; }}
+tr:nth-child(even) {{ background: var(--surface); }}
+.empty {{ color: var(--text-muted); margin-top: 40px; }}
+</style>
+</head>
+<body>
+<header>
+  <img src="{root}brand/logo.png" alt="OpenVVVF">
+  <h1><span class="sep">/</span>BOM Tool</h1>
+</header>
+<main>
+  <div class="controls">
+    <div><label>Chassis</label><select id="chassis" onchange="onChassis()"></select></div>
+    <div><label>Revision</label><select id="rev" onchange="onRev()"></select></div>
+    <div><label>Variant</label><select id="variant" onchange="onVariant()"></select></div>
+  </div>
+  <div class="meta" id="meta"></div>
+  <div class="vendors" id="vendors"></div>
+  <div id="preview"><p class="empty">Pick a vendor BOM above to preview it.</p></div>
+</main>
+<script>
+const MANIFEST = {manifest};
+const ROOT = "{root}";
+const VENDOR_LABELS = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "SendCutSend",
+  digikey: "DigiKey", consolidated: "Consolidated", assembly: "Assembly", pcb: "PCBs"}};
+
+let state = {{chassis: null, rev: null, variant: "base", vendor: null}};
+
+function releases() {{
+  return Object.values(MANIFEST).filter(e => !e.board && e.artifacts && e.artifacts.vendor_boms);
+}}
+
+function fill(sel, values, current) {{
+  sel.innerHTML = "";
+  for (const v of values) {{
+    const o = document.createElement("option");
+    o.value = v; o.textContent = v;
+    if (v === current) o.selected = true;
+    sel.appendChild(o);
+  }}
+}}
+
+function current() {{
+  return releases().find(e => e.chassis === state.chassis && e.rev === state.rev);
+}}
+
+function init() {{
+  const rel = releases();
+  if (!rel.length) {{
+    document.getElementById("meta").textContent = "No chassis BOM exports yet — run: hwrelease update";
+    return;
+  }}
+  state.chassis = state.chassis || rel[0].chassis;
+  fill(document.getElementById("chassis"), [...new Set(rel.map(e => e.chassis))].sort(), state.chassis);
+  onChassis();
+}}
+
+function onChassis() {{
+  state.chassis = document.getElementById("chassis").value;
+  const rel = releases().filter(e => e.chassis === state.chassis);
+  state.rev = rel[0].rev;
+  fill(document.getElementById("rev"), [...new Set(rel.map(e => e.rev))].sort(), state.rev);
+  onRev();
+}}
+
+function onRev() {{
+  state.rev = document.getElementById("rev").value;
+  const e = current();
+  const variants = ["base"].concat(Object.keys((e.artifacts || {{}}).variants || {{}}));
+  state.variant = "base";
+  fill(document.getElementById("variant"), variants, state.variant);
+  onVariant();
+}}
+
+function onVariant() {{
+  state.variant = document.getElementById("variant").value;
+  state.vendor = null;
+  renderVendors();
+}}
+
+function boms() {{
+  const e = current();
+  const a = (e && e.artifacts) || {{}};
+  return state.variant === "base" ? (a.vendor_boms || {{}}) : ((a.variants || {{}})[state.variant] || {{}});
+}}
+
+function renderVendors() {{
+  const e = current();
+  const box = document.getElementById("vendors");
+  box.innerHTML = "";
+  document.getElementById("meta").innerHTML =
+    "Chassis " + e.chassis + " · Rev " + e.rev + " · source tag <code>" + e.source_tag + "</code>" +
+    (e.source_url ? ' · <a href="' + e.source_url + '" target="_blank" rel="noopener">source \\u2197</a>' : "");
+  const map = boms();
+  for (const [key, label] of Object.entries(VENDOR_LABELS)) {{
+    if (!map[key]) continue;
+    const b = document.createElement("button");
+    b.textContent = label;
+    b.className = state.vendor === key ? "active" : "";
+    b.onclick = () => {{ state.vendor = key; renderVendors(); loadPreview(); }};
+    box.appendChild(b);
+  }}
+  if (state.vendor && map[state.vendor]) {{
+    const a = document.createElement("a");
+    a.className = "download";
+    a.href = ROOT + e.dir + "/" + map[state.vendor];
+    a.download = "";
+    a.textContent = "Download CSV";
+    box.appendChild(a);
+  }}
+}}
+
+function parseCSV(text) {{
+  const rows = []; let row = [], cur = "", q = false;
+  for (let i = 0; i < text.length; i++) {{
+    const c = text[i];
+    if (q) {{
+      if (c === '"') {{ if (text[i+1] === '"') {{ cur += '"'; i++; }} else q = false; }}
+      else cur += c;
+    }} else if (c === '"') q = true;
+    else if (c === ",") {{ row.push(cur); cur = ""; }}
+    else if (c === "\\n") {{ row.push(cur); rows.push(row); row = []; cur = ""; }}
+    else if (c !== "\\r") cur += c;
+  }}
+  if (cur || row.length) {{ row.push(cur); rows.push(row); }}
+  return rows;
+}}
+
+async function loadPreview() {{
+  const e = current();
+  const map = boms();
+  const div = document.getElementById("preview");
+  if (!state.vendor || !map[state.vendor]) return;
+  const r = await fetch(ROOT + e.dir + "/" + map[state.vendor]);
+  const rows = parseCSV(await r.text());
+  let html = "<table><thead><tr>";
+  for (const h of rows[0]) html += "<th>" + h + "</th>";
+  html += "</tr></thead><tbody>";
+  for (const row of rows.slice(1, 501)) {{
+    html += "<tr>";
+    for (const c of row) html += "<td>" + c + "</td>";
+    html += "</tr>";
+  }}
+  html += "</tbody></table>";
+  if (rows.length > 501) html += '<p class="meta">Showing 500 of ' + (rows.length - 1) + " rows.</p>";
+  div.innerHTML = html;
+}}
+
+init();
+</script>
+</body>
+</html>
+"""
+
+
+def render_bom_tool_html(manifest: Dict[str, dict], root: str = _ROOT) -> str:
+    data = json.dumps(manifest, sort_keys=True)
+    return _BOM_PAGE.format(root=root, manifest=data)
+
+
 def build_viewer(manifest_path: Optional[Path] = None,
                  out_path: Optional[Path] = None) -> int:
     manifest_path = manifest_path or core.MANIFEST_PATH
@@ -226,5 +435,10 @@ def build_viewer(manifest_path: Optional[Path] = None,
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(render_viewer_html(manifest))
     print(f"Wrote {out_path.relative_to(core.REPO_ROOT)} "
-          f"({len(manifest)} board revision(s))")
+          f"({sum(1 for e in manifest.values() if 'board' in e)} board revision(s))")
+    bom_path = out_path.parent.parent / "BOM-Tool" / "bom-tool.html"
+    bom_path.parent.mkdir(parents=True, exist_ok=True)
+    bom_path.write_text(render_bom_tool_html(manifest))
+    print(f"Wrote {bom_path.relative_to(core.REPO_ROOT)} "
+          f"({sum(1 for e in manifest.values() if 'board' not in e)} chassis release(s))")
     return 0
