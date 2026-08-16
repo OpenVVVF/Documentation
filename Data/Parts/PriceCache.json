@@ -217,7 +217,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-07-17T22:32:52.197435Z"
+    "last_updated": "2026-08-16T20:47:51.632587Z"
   },
   "sendcutsend:hw-c2-pbb-a": {
     "vendor": "sendcutsend",
@@ -227,7 +227,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-07-17T22:32:52.197480Z"
+    "last_updated": "2026-08-16T20:47:51.632608Z"
   },
   "sendcutsend:hw-c2-bsp-a": {
     "vendor": "sendcutsend",
@@ -237,7 +237,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-07-17T22:32:52.198100Z"
+    "last_updated": "2026-08-16T20:47:52.157200Z"
   },
   "sendcutsend:hw-c2-chsp-a": {
     "vendor": "sendcutsend",
@@ -247,7 +247,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-07-17T22:32:52.198119Z"
+    "last_updated": "2026-08-16T20:47:52.157223Z"
   },
   "mouser:80-c1210c104k1rac": {
     "vendor": "mouser",
@@ -1158,5 +1158,45 @@
     "source": "manual",
     "url": "",
     "last_updated": "2026-07-17T01:57:17.265013Z"
+  },
+  "mcmaster:1821a55": {
+    "vendor": "mcmaster",
+    "part_number": "1821A55",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/1821A55/",
+    "last_updated": "2026-08-16T20:47:51.978299Z"
+  },
+  "mcmaster:91458a112": {
+    "vendor": "mcmaster",
+    "part_number": "91458A112",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/91458A112/",
+    "last_updated": "2026-08-16T20:47:52.157095Z"
+  },
+  "sendcutsend:dc link module holder - 200v class": {
+    "vendor": "sendcutsend",
+    "part_number": "DC Link Module Holder - 200V Class",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-16T20:47:52.157180Z"
+  },
+  "sendcutsend:dc link module holder - 250-450v class": {
+    "vendor": "sendcutsend",
+    "part_number": "DC Link Module Holder - 250-450V Class",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-16T20:47:52.157191Z"
   }
 }

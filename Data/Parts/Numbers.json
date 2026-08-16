@@ -1892,5 +1892,73 @@
         "note": "created"
       }
     ]
+  },
+  "c2|mechanical|mcmaster|1821a55": {
+    "part_number": "HW-C2-MECH-1821A55-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "1821A55",
+    "revision": "A",
+    "description": "1821A55",
+    "key": "c2|mechanical|mcmaster|1821a55",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-16",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|91458a112": {
+    "part_number": "HW-C2-MECH-91458A112-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "91458A112",
+    "revision": "A",
+    "description": "91458A112",
+    "key": "c2|mechanical|mcmaster|91458a112",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-16",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|fab:hw-c2-dclmh-200-printed-a": {
+    "part_number": "HW-C2-HW-DC-LINK-MODULE-HOLDER-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "DC-LINK-MODULE-HOLDER",
+    "revision": "A",
+    "description": "DC Link Module Holder - 200V Class",
+    "key": "c2|other|fab:hw-c2-dclmh-200-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-16",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|fab:hw-c2-dclmh-250-450-printed-a": {
+    "part_number": "HW-C2-HW-DC-LINK-MODULE-HOLDER-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "DC-LINK-MODULE-HOLDER",
+    "revision": "A",
+    "description": "DC Link Module Holder - 250-450V Class",
+    "key": "c2|other|fab:hw-c2-dclmh-250-450-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-16",
+        "note": "created"
+      }
+    ]
   }
 }

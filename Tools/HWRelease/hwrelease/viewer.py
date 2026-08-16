@@ -104,7 +104,7 @@ main h2 {{ font-family: var(--font-brand); margin: 0 0 4px; }}
 </head>
 <body>
 <header>
-  <img src="{root}brand/logo.png" alt="OpenVVVF">
+  <a href="{root}index.html"><img src="{root}brand/logo.png" alt="OpenVVVF"></a>
   <h1><span class="sep">/</span>PCB Tool</h1>
 </header>
 <div class="layout">
@@ -271,7 +271,7 @@ tr:nth-child(even) {{ background: var(--surface); }}
 </head>
 <body>
 <header>
-  <img src="{root}brand/logo.png" alt="OpenVVVF">
+  <a href="{root}index.html"><img src="{root}brand/logo.png" alt="OpenVVVF"></a>
   <h1><span class="sep">/</span>BOM Tool</h1>
 </header>
 <main>
@@ -289,6 +289,8 @@ const MANIFEST = {manifest};
 const ROOT = "{root}";
 const VENDOR_LABELS = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "SendCutSend",
   digikey: "DigiKey", consolidated: "Consolidated", assembly: "Assembly", pcb: "PCBs"}};
+const PRICE_NAMES = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "SendCutSend",
+  digikey: "Digi-Key", assembly: "In-House Assembly", pcb: "PCB Fabrication"}};
 
 let state = {{chassis: null, rev: null, variant: "base", vendor: null}};
 
@@ -354,14 +356,18 @@ function renderVendors() {{
   const e = current();
   const box = document.getElementById("vendors");
   box.innerHTML = "";
-  document.getElementById("meta").innerHTML =
-    "Chassis " + e.chassis + " · Rev " + e.rev + " · source tag <code>" + e.source_tag + "</code>" +
-    (e.source_url ? ' · <a href="' + e.source_url + '" target="_blank" rel="noopener">source \\u2197</a>' : "");
   const map = boms();
+  const est = ((e.artifacts || {{}}).price_estimate) || {{}};
+  const estVendors = est.vendors || {{}};
+  let meta = "Chassis " + e.chassis + " · Rev " + e.rev + " · source tag <code>" + e.source_tag + "</code>" +
+    (e.source_url ? ' · <a href="' + e.source_url + '" target="_blank" rel="noopener">source \\u2197</a>' : "");
+  if (est.total)
+    meta += " · <strong>Est. total (" + (est.qty || 1) + " unit" + ((est.qty || 1) > 1 ? "s" : "") + "): $" + est.total + "</strong>";
+  document.getElementById("meta").innerHTML = meta;
   for (const [key, label] of Object.entries(VENDOR_LABELS)) {{
     if (!map[key]) continue;
     const b = document.createElement("button");
-    b.textContent = label;
+    b.textContent = label + (estVendors[PRICE_NAMES[key]] ? " · $" + estVendors[PRICE_NAMES[key]] : "");
     b.className = state.vendor === key ? "active" : "";
     b.onclick = () => {{ state.vendor = key; renderVendors(); loadPreview(); }};
     box.appendChild(b);

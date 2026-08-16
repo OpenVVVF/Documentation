@@ -23,6 +23,10 @@ def hw_repo(tmp_path):
     (boms / "mouser_bom.csv").write_text("pn,qty\nX,1\n")
     (boms / "sendcutsend_bom.csv").write_text("part,qty\nY,2\n")
     (boms / "Variants" / "standard" / "mouser_bom.csv").write_text("pn,qty\nZ,3\n")
+    (boms.parent / "Pricing_Report.md").write_text(
+        "# Report\n**Mouser subtotal:** $12.34\n"
+        "**McMaster-Carr subtotal:** $5.00\n"
+        "## Grand Total (1 unit): **$17.34**\n")
     subprocess.run(["git", "init", "-q", str(repo)], check=True)
     subprocess.run(["git", "-C", str(repo), "commit", "-q", "--allow-empty",
                     "-m", "init"], check=True,
@@ -84,6 +88,7 @@ def fake_kicad(monkeypatch):
     monkeypatch.setattr(core.kicad, "export_ibom", lambda pcb, out, gen: touch(out))
     monkeypatch.setattr(core.kicad, "find_ibom_generator", lambda roots: Path("/fake/gen.py"))
     monkeypatch.setattr(core, "fetch_tags", lambda repo: None)
+    monkeypatch.setattr(core, "regenerate_vendor_boms", lambda hw: False)
 
 
 def test_parse_rev(tmp_path):
@@ -120,6 +125,8 @@ def test_update_exports_each_revision_once(hw_repo, docs_root, fake_kicad):
     assert chassis["artifacts"]["vendor_boms"]["sendcutsend"] == "BOMs/sendcutsend_bom.csv"
     assert chassis["artifacts"]["variants"]["standard"]["mouser"] == "BOMs/Variants/standard/mouser_bom.csv"
     assert (docs_root / chassis["dir"] / "BOMs" / "mouser_bom.csv").is_file()
+    est = chassis["artifacts"]["price_estimate"]
+    assert est["total"] == "17.34" and est["vendors"]["Mouser"] == "12.34"
     entry = manifest["HW-C2-PCB-CTRL-A"]
     assert entry["source_tag"] == "hw-rev-a"
     assert entry["artifacts"]["ibom"] == "ibom.html"

@@ -181,7 +181,52 @@ def export_chassis_boms(chassis_dir: Path, out_dir: Path) -> dict:
                 variants[vdir.name] = _scan_bom_dir(vdir, out_dir)
     if variants:
         artifacts["variants"] = variants
+    report = chassis_dir / "FabricationData" / "Pricing_Report.md"
+    if report.is_file():
+        shutil.copy2(report, out_dir / "Pricing_Report.md")
+        artifacts["pricing_report"] = "Pricing_Report.md"
+        estimate = parse_price_estimate(report)
+        if estimate:
+            artifacts["price_estimate"] = estimate
     return artifacts
+
+
+def regenerate_vendor_boms(hardware_root: Path) -> bool:
+    """Regenerate vendor BOMs + pricing from the exported KiCad sources using
+    this repo's BOMManager, so exports never ship stale committed BOMs."""
+    try:
+        from bom_manager import generate
+        from bom_manager.context import build_context
+    except ImportError:
+        print("  warning: bom_manager not installed; copying committed BOMs")
+        return False
+    ctx = build_context(hardware_root=hardware_root, allow_prompt=False)
+    try:
+        rc = generate.run(["--no-prompt", "--variants", "--no-pcb-zips"], ctx)
+    except Exception as exc:  # generation failure must not kill the export
+        print(f"  warning: vendor BOM generation failed ({exc}); copying committed BOMs")
+        return False
+    if rc != 0:
+        print("  warning: vendor BOM generation failed; copying committed BOMs")
+        return False
+    return True
+
+
+def parse_price_estimate(report_path: Path) -> dict:
+    """Pull per-vendor subtotals and the grand total out of Pricing_Report.md."""
+    estimate: Dict[str, object] = {}
+    if not report_path.is_file():
+        return estimate
+    text = report_path.read_text(errors="replace")
+    vendors = {m.group(1): m.group(2)
+               for m in re.finditer(r"\*\*(.+?) subtotal:\*\* \$([\d,]+\.\d\d)", text)}
+    if vendors:
+        estimate["vendors"] = vendors
+    m = re.search(r"Grand Total \((\d+) unit.*?\$([\d,]+\.\d\d)", text)
+    if m:
+        estimate["qty"] = int(m.group(1))
+        estimate["total"] = m.group(2)
+    return estimate
 
 
 # -------------------------------------------------------------------- update
@@ -297,6 +342,7 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
             if not boards:
                 print(f"Tag {tag}: no boards found, skipped.")
                 continue
+            regenerate_vendor_boms(tmp_path / "Hardware")
             ibom_gen = kicad.find_ibom_generator(_ibom_search_roots(hw_repo))
             print(f"Tag {tag}: {len(boards)} board(s)"
                   + ("" if ibom_gen else " (iBOM generator not found)"))
