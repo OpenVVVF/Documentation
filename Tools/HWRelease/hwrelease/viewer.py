@@ -398,10 +398,14 @@ function renderVendors() {{
     meta += " · <strong>Est. total (" + (est.qty || 1) + " unit" + ((est.qty || 1) > 1 ? "s" : "") +
             ", " + state.variant + "): $" + varTotal + "</strong>";
   document.getElementById("meta").innerHTML = meta;
+  const varVend = ((est.variant_vendors || {{}})[state.variant]) || null;
+  const priceFor = key => state.variant === "base"
+    ? estVendors[PRICE_NAMES[key]]
+    : (varVend && varVend[key] !== undefined ? varVend[key] : estVendors[PRICE_NAMES[key]]);
   for (const [key, label] of Object.entries(VENDOR_LABELS)) {{
     if (!map[key]) continue;
     const b = document.createElement("button");
-    b.textContent = label + (estVendors[PRICE_NAMES[key]] ? " · $" + estVendors[PRICE_NAMES[key]] : "");
+    b.textContent = label + (priceFor(key) ? " · $" + priceFor(key) : "");
     b.className = state.vendor === key ? "active" : "";
     b.onclick = () => {{ state.vendor = key; renderVendors(); loadPreview(); }};
     box.appendChild(b);
@@ -417,6 +421,13 @@ function renderVendors() {{
     jlc.target = "_blank"; jlc.rel = "noopener";
     jlc.textContent = "Order PCBs at JLCPCB \\u2197";
     box.appendChild(jlc);
+  }}
+  if (map.sendcutsend) {{
+    const scs = document.createElement("a");
+    scs.href = "https://sendcutsend.com";
+    scs.target = "_blank"; scs.rel = "noopener";
+    scs.textContent = "Order parts at SendCutSend \\u2197";
+    box.appendChild(scs);
   }}
   if (state.vendor && map[state.vendor]) {{
     const a = document.createElement("a");

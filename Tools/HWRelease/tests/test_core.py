@@ -24,6 +24,11 @@ def hw_repo(tmp_path):
     (boms / "mouser_bom.csv").write_text("pn,qty\nX,1\n")
     (boms / "sendcutsend_bom.csv").write_text("part,qty\nY,2\n")
     (boms / "Variants" / "standard" / "mouser_bom.csv").write_text("pn,qty\nZ,3\n")
+    (boms / "Variants" / "standard" / "Consolidated_BOM.csv").write_text(
+        "Quantity,Order Qty,Pack Size,Leftover,Internal P/N,Description,"
+        "Customer Part No.,Manufacturer Part No.,Vendor,Vendor P/N,Unit Price,Line Total\n"
+        "1,1,,,X,M,PN,M,mouser,VP,10.00,10.00\n"
+        "2,2,,,Y,N,PN,N,mcmaster,VP,2.50,5.00\n")
     (boms.parent / "Pricing_Report.md").write_text(
         "# Report\n**Mouser subtotal:** $12.34\n"
         "**McMaster-Carr subtotal:** $5.00\n"
@@ -129,6 +134,7 @@ def test_update_exports_each_revision_once(hw_repo, docs_root, fake_kicad):
     est = chassis["artifacts"]["price_estimate"]
     assert est["total"] == "17.34" and est["vendors"]["Mouser"] == "12.34"
     assert est["variants"] == {"standard": "2,241.19"}
+    assert est["variant_vendors"]["standard"] == {"mcmaster": "5.00", "mouser": "10.00"}
     entry = manifest["HW-C2-PCB-CTRL-A"]
     assert entry["artifacts"]["fab_spec"] == "FabSpec.md"
     entry = manifest["HW-C2-PCB-CTRL-A"]

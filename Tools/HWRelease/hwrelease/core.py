@@ -165,6 +165,24 @@ def _scan_bom_dir(bom_dir: Path, base: Path) -> Dict[str, str]:
             if f.is_file()}
 
 
+def _variant_vendor_totals(consolidated: Path) -> Dict[str, float]:
+    """Sum Line Total per vendor from a variant Consolidated_BOM.csv."""
+    import csv as _csv
+
+    totals: Dict[str, float] = {}
+    if not consolidated.is_file():
+        return totals
+    with open(consolidated, newline="", errors="replace") as f:
+        for row in _csv.DictReader(f):
+            try:
+                amount = float(row["Line Total"])
+            except (TypeError, ValueError):
+                continue
+            vendor = (row.get("Vendor") or "unknown").strip()
+            totals[vendor] = totals.get(vendor, 0.0) + amount
+    return totals
+
+
 def export_chassis_boms(chassis_dir: Path, out_dir: Path) -> dict:
     """Copy FabricationData/BOMs/ (incl. Variants) into out_dir/BOMs."""
     src = chassis_dir / "FabricationData" / "BOMs"
@@ -177,10 +195,16 @@ def export_chassis_boms(chassis_dir: Path, out_dir: Path) -> dict:
     artifacts = {"vendor_boms": _scan_bom_dir(dest, out_dir)}
     variants_dir = dest / "Variants"
     variants = {}
+    variant_vendors: Dict[str, Dict[str, str]] = {}
     if variants_dir.is_dir():
         for vdir in sorted(variants_dir.iterdir()):
             if vdir.is_dir():
                 variants[vdir.name] = _scan_bom_dir(vdir, out_dir)
+                totals = _variant_vendor_totals(vdir / "Consolidated_BOM.csv")
+                if totals:
+                    variant_vendors[vdir.name] = {
+                        vendor: f"{amount:,.2f}" for vendor, amount in sorted(totals.items())
+                    }
     if variants:
         artifacts["variants"] = variants
     report = chassis_dir / "FabricationData" / "Pricing_Report.md"
@@ -190,6 +214,9 @@ def export_chassis_boms(chassis_dir: Path, out_dir: Path) -> dict:
         estimate = parse_price_estimate(report)
         if estimate:
             artifacts["price_estimate"] = estimate
+    if variant_vendors:
+        artifacts.setdefault("price_estimate", {})[
+            "variant_vendors"] = variant_vendors
     return artifacts
 
 
