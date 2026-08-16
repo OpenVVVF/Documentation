@@ -1,12 +1,14 @@
-"""Generate the PCB assembly viewer page from the release manifest.
+"""Generate the PCB Tool page from the release manifest.
 
-The viewer is a self-contained HTML file written to
-Docs/Tools/PCB-Assembly-Viewer/pcb-viewer.html. It lists every exported board
-by part number; selecting one shows the board renders and links to open the
-interactive assembly (iBOM) HTML, schematic PDF, BOM, gerbers, DRC, and STEP.
+The page is a self-contained HTML file written to
+Docs/Tools/PCB-Tool/pcb-tool.html. It lists every exported board by part
+number; selecting one shows the board renders, the interactive assembly (iBOM)
+embedded in an iframe (fullscreenable / openable in a new tab), and links to
+the schematic, BOM, gerbers, DRC, STEP, and the source tag in the hardware
+repository.
 
-Artifact links are relative to the built docgen site root (../../../ from the
-viewer page), where docgen copies Data/Releases alongside the documents.
+Artifact links are relative to the built docgen site root (../../ from the
+page), where docgen copies Data/Releases alongside the documents.
 """
 
 import json
@@ -15,7 +17,7 @@ from typing import Dict, Optional
 
 from . import core
 
-VIEWER_REL = Path("Docs") / "Tools" / "PCB-Assembly-Viewer" / "pcb-viewer.html"
+VIEWER_REL = Path("Docs") / "Tools" / "PCB-Tool" / "pcb-tool.html"
 
 # Depth of <section>/Tools/<name>/ below the built site root.
 _ROOT = "../../"
@@ -25,7 +27,7 @@ _PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PCB Assembly Viewer - OpenVVVF</title>
+<title>PCB Tool - OpenVVVF</title>
 <link rel="icon" type="image/svg+xml" href="{root}brand/icon.svg">
 <style>
 @font-face {{ font-family: "Saira"; src: url("{root}brand/fonts/Saira-400.ttf") format("truetype"); font-weight: 400; font-display: swap; }}
@@ -70,20 +72,28 @@ main {{ flex: 1; padding: 24px 28px; overflow-y: auto; }}
 main h2 {{ font-family: var(--font-brand); margin: 0 0 4px; }}
 .meta {{ color: var(--text-muted); font-size: 14px; margin-bottom: 18px; }}
 .actions {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }}
-.actions a {{
+.actions a, .actions button {{
   display: inline-block; padding: 9px 16px; border-radius: 6px; font-size: 14px;
-  text-decoration: none; border: 1px solid var(--border); color: var(--text); background: #fff;
+  text-decoration: none; border: 1px solid var(--border); color: var(--text);
+  background: #fff; cursor: pointer; font-family: var(--font-body);
 }}
 .actions a.primary {{ background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }}
 .actions a.primary:hover {{ background: var(--accent-dark); }}
-.actions a:hover {{ border-color: var(--accent); }}
-.renders {{ display: flex; flex-wrap: wrap; gap: 16px; }}
+.actions a:hover, .actions button:hover {{ border-color: var(--accent); }}
+.renders {{ display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }}
 .renders figure {{ margin: 0; }}
 .renders img {{
   max-width: 420px; width: 100%; border: 1px solid var(--border-light);
   border-radius: 8px; background: var(--surface-2);
 }}
 .renders figcaption {{ font-size: 13px; color: var(--text-muted); margin-top: 6px; text-align: center; }}
+.ibom-wrap {{
+  border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden;
+  background: #fff;
+}}
+.ibom-wrap:fullscreen {{ border-radius: 0; }}
+.ibom-wrap iframe {{ display: block; width: 100%; height: 70vh; border: 0; }}
+.ibom-wrap:fullscreen iframe {{ height: 100vh; }}
 .empty {{ color: var(--text-muted); margin-top: 40px; }}
 @media (max-width: 800px) {{
   .layout {{ flex-direction: column; }}
@@ -94,7 +104,7 @@ main h2 {{ font-family: var(--font-brand); margin: 0 0 4px; }}
 <body>
 <header>
   <img src="{root}brand/logo.png" alt="OpenVVVF">
-  <h1>OpenVVVF<span class="sep">/</span>PCB Assembly Viewer</h1>
+  <h1>OpenVVVF<span class="sep">/</span>PCB Tool</h1>
 </header>
 <div class="layout">
   <aside>
@@ -108,12 +118,11 @@ const MANIFEST = {manifest};
 const ROOT = "{root}";
 
 const ARTIFACTS = [
-  ["ibom", "Open Interactive Assembly \\u2197", "primary", true],
-  ["schematic_pdf", "Schematic PDF", "", true],
-  ["bom_csv", "BOM (CSV)", "", true],
-  ["gerber_zip", "Gerbers (ZIP)", "", true],
-  ["drc", "DRC Report", "", true],
-  ["step", "STEP Model", "", false],
+  ["schematic_pdf", "Schematic PDF", true],
+  ["bom_csv", "BOM (CSV)", true],
+  ["gerber_zip", "Gerbers (ZIP)", true],
+  ["drc", "DRC Report", true],
+  ["step", "STEP Model", false],
 ];
 
 function entries() {{
@@ -142,6 +151,18 @@ function renderList() {{
   }}
 }}
 
+function renderCaption(filename, board) {{
+  const m = filename.replace(/\\.png$/, "").slice(board.length);
+  if (m === "" || m === "-Front") return "Front";
+  if (m === "-Back") return "Back";
+  return m.replace(/^-/, "").replace(/-/g, " ");
+}}
+
+function renderSortKey(filename, board) {{
+  const c = renderCaption(filename, board);
+  return c === "Front" ? 0 : c === "Back" ? 1 : 2;
+}}
+
 function renderMain() {{
   const pn = location.hash.slice(1);
   const e = MANIFEST[pn];
@@ -153,21 +174,30 @@ function renderMain() {{
   html += '<div class="meta">' + e.board + " · Chassis " + e.chassis +
           " · Rev " + e.rev + " · source tag <code>" + e.source_tag + "</code></div>";
   html += '<div class="actions">';
-  for (const [key, label, cls, newTab] of ARTIFACTS) {{
+  if (a.ibom)
+    html += '<a class="primary" href="' + base + a.ibom + '" target="_blank" rel="noopener">Open Interactive Assembly \\u2197</a>';
+  if (a.ibom)
+    html += "<button onclick=\\"document.getElementById('ibom-wrap').requestFullscreen()\\">Fullscreen</button>";
+  if (e.source_url)
+    html += '<a href="' + e.source_url + '" target="_blank" rel="noopener">Open Source (' + e.source_tag + ') \\u2197</a>';
+  for (const [key, label, newTab] of ARTIFACTS) {{
     if (!a[key]) continue;
-    html += '<a class="' + cls + '" href="' + base + a[key] + '"' +
+    html += '<a href="' + base + a[key] + '"' +
             (newTab ? ' target="_blank" rel="noopener"' : ' download') + '>' + label + "</a>";
   }}
   html += "</div>";
   if (a.renders && a.renders.length) {{
+    const sorted = a.renders.slice().sort((x, y) => renderSortKey(x, e.board) - renderSortKey(y, e.board));
     html += '<div class="renders">';
-    for (const r of a.renders) {{
-      const cap = r.replace(e.board, "").replace(/[-.]/g, " ").replace(/png$/, "").trim() || "Render";
+    for (const r of sorted) {{
+      const cap = renderCaption(r, e.board);
       html += '<figure><a href="' + base + r + '" target="_blank" rel="noopener"><img src="' + base + r + '" alt="' + cap + '"></a>' +
               "<figcaption>" + cap + "</figcaption></figure>";
     }}
     html += "</div>";
   }}
+  if (a.ibom)
+    html += '<div class="ibom-wrap" id="ibom-wrap"><iframe src="' + base + a.ibom + '" title="Interactive assembly"></iframe></div>';
   main.innerHTML = html;
   renderList();
 }}

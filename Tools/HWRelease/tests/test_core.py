@@ -116,8 +116,8 @@ def test_update_exports_each_revision_once(hw_repo, docs_root, fake_kicad):
     assert entry["artifacts"]["renders"] == ["ControlBoard.png"]
     out = docs_root / entry["dir"]
     assert (out / "ibom.html").is_file()
-    assert (out / "schematic.pdf").is_file()
-    assert (out / "gerbers.zip").is_file()
+    assert (out / "HW-C2-PCB-CTRL-A-schematic.pdf").is_file()
+    assert (out / "HW-C2-PCB-CTRL-A-gerbers.zip").is_file()
 
     # second run: everything already exported, nothing changes
     before = manifest_path.read_text()
@@ -156,13 +156,13 @@ def test_build_viewer(hw_repo, docs_root, fake_kicad):
     from hwrelease import viewer
 
     manifest_path = docs_root / "Data" / "Releases" / "manifest.json"
-    out_path = docs_root / "Docs" / "Tools" / "PCB-Assembly-Viewer" / "pcb-viewer.html"
+    out_path = docs_root / "Docs" / "Tools" / "PCB-Tool" / "pcb-tool.html"
     core.update(hw_repo, only_tag="hw-rev-a", manifest_path=manifest_path)
     # update() already rebuilt the viewer; rebuild explicitly to check rc.
     assert viewer.build_viewer(manifest_path, out_path) == 0
     html = out_path.read_text()
     assert "HW-C2-PCB-CTRL-A" in html
-    assert "PCB Assembly Viewer" in html
+    assert "PCB Tool" in html
     assert "Open Interactive Assembly" in html
     # empty manifest -> error
     assert viewer.build_viewer(docs_root / "nope.json", out_path) == 1

@@ -32,11 +32,14 @@ versioned, per-board artifacts under `Data/Releases/`, indexed by part number
   `Config/Products.yaml` (`hardware_roots`).
 - `hwrelease list` — all exported boards grouped by revision.
 - `hwrelease show HW-C2-PCB-CTRL-A` — artifact paths for one part number.
-- `hwrelease build-viewer` — regenerate `Docs/Tools/PCB-Assembly-Viewer/pcb-viewer.html`
+- `hwrelease build-viewer` — regenerate `Docs/Tools/PCB-Tool/pcb-tool.html`
   from the manifest (runs automatically after `update` when new revisions were
-  exported). The viewer lists all boards by part number with renders and links
-  to the interactive assembly HTML and other artifacts; docgen copies
-  `Data/Releases/` into the built site.
+  exported). The PCB Tool page lists all boards by part number with renders,
+  an embedded interactive assembly view (fullscreen / open in new tab), links
+  to the part-number-named artifacts (`<pn>-schematic.pdf`, `<pn>-bom.csv`,
+  `<pn>-gerbers.zip`, `<pn>-drc.txt`, `<pn>.step`), and an "Open Source" link
+  to the hardware repo at the release tag. docgen copies `Data/Releases/`
+  into the built site.
 
 ## Requirements
 

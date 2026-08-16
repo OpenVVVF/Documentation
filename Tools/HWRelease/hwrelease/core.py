@@ -58,6 +58,19 @@ def archive_tag(hw_repo: Path, tag: str, dest: Path) -> bool:
     return (dest / "Hardware").is_dir() and r.returncode == 0
 
 
+def repo_web_url(hw_repo: Path) -> Optional[str]:
+    """HTTPS web URL of the hardware repo's origin (for source links)."""
+    r = git(hw_repo, "config", "--get", "remote.origin.url")
+    if r.returncode != 0:
+        return None
+    url = r.stdout.strip()
+    if url.startswith("git@"):  # git@github.com:owner/repo.git
+        url = "https://" + url[4:].replace(":", "/", 1)
+    if url.endswith(".git"):
+        url = url[:-4]
+    return url or None
+
+
 # ------------------------------------------------------------- board scanning
 
 def parse_rev(sch_path: Path) -> Optional[str]:
@@ -146,38 +159,45 @@ def _ibom_search_roots(hw_repo: Path) -> List[Path]:
     ]
 
 
-def export_board(board: Board, out_dir: Path, ibom_generator: Optional[Path]) -> dict:
-    """Generate all artifacts for one board into out_dir. Returns artifact map."""
+def export_board(board: Board, out_dir: Path, ibom_generator: Optional[Path],
+                 pn: str) -> dict:
+    """Generate all artifacts for one board into out_dir. Returns artifact map.
+
+    Files are named after the part number (e.g. HW-C2-PCB-CTRL-A-schematic.pdf)
+    except the interactive assembly (ibom.html) and the render PNGs.
+    """
+    if out_dir.exists():
+        shutil.rmtree(out_dir)  # generated data — start clean
     out_dir.mkdir(parents=True, exist_ok=True)
     artifacts: Dict[str, str] = {}
     marks = []
 
     if board.sch:
-        pdf = out_dir / "schematic.pdf"
+        pdf = out_dir / f"{pn}-schematic.pdf"
         ok = kicad.export_sch_pdf(board.sch, pdf)
         marks.append(f"pdf {'✓' if ok else '✗'}")
         if ok:
             artifacts["schematic_pdf"] = pdf.name
-        bom = out_dir / "bom.csv"
+        bom = out_dir / f"{pn}-bom.csv"
         ok = kicad.export_bom(board.sch, bom)
         marks.append(f"bom {'✓' if ok else '✗'}")
         if ok:
             artifacts["bom_csv"] = bom.name
 
     if board.pcb:
-        gz = out_dir / "gerbers.zip"
+        gz = out_dir / f"{pn}-gerbers.zip"
         ok = kicad.export_gerber_zip(board.pcb, gz)
         marks.append(f"gerbers {'✓' if ok else '✗'}")
         if ok:
             artifacts["gerber_zip"] = gz.name
-        drc = out_dir / "drc.txt"
+        drc = out_dir / f"{pn}-drc.txt"
         violations = kicad.run_drc(board.pcb, drc)
         marks.append("drc clean" if violations == 0 else
                      (f"drc {violations} error(s)" if violations is not None else "drc ✗"))
         if violations is not None:
             artifacts["drc"] = drc.name
             artifacts["drc_violations"] = violations
-        step = out_dir / f"{board.name}.step"
+        step = out_dir / f"{pn}.step"
         ok = kicad.export_step(board.pcb, step)
         marks.append(f"step {'✓' if ok else '✗'}")
         if ok:
@@ -213,6 +233,7 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
     manifest = load_manifest(manifest_path)
 
     fetch_tags(hw_repo)
+    web_url = repo_web_url(hw_repo)
     tags = [only_tag] if only_tag else list_tags(hw_repo, tag_pattern)
     if not tags:
         print(f"No tags matching '{tag_pattern}' in {hw_repo}.")
@@ -251,8 +272,8 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                     print(f"  {pn}: already exported, skipped.")
                     continue
                 out_dir = releases_dir / short / board.rev / board.name
-                artifacts = export_board(board, out_dir, ibom_gen)
-                manifest[pn] = {
+                artifacts = export_board(board, out_dir, ibom_gen, pn)
+                entry = {
                     "part_number": pn,
                     "chassis": short,
                     "board": board.name,
@@ -262,6 +283,9 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                     "dir": str(out_dir.relative_to(REPO_ROOT)),
                     "artifacts": artifacts,
                 }
+                if web_url:
+                    entry["source_url"] = f"{web_url}/tree/{tag}"
+                manifest[pn] = entry
                 new_count += 1
         save_manifest(manifest, manifest_path)
 

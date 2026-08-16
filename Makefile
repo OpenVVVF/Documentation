@@ -15,7 +15,7 @@ help:
 	@echo "  test-hwrelease  run HWRelease tests"
 	@echo "  hw-update    export new board revisions from InverterGen5 release tags"
 	@echo "  hw-list      list exported board revisions"
-	@echo "  hw-viewer    regenerate the PCB assembly viewer page"
+	@echo "  hw-viewer    regenerate the PCB Tool page"
 	@echo "  validate     validate documentation cross-references and frontmatter"
 	@echo "  site         build the static HTML documentation site"
 	@echo "  pdfs         build the site and generate per-document PDFs into site/pdfs"

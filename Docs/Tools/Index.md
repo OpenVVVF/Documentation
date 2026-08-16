@@ -26,7 +26,7 @@ This section documents the support tools and widgets that go with OpenVVVF hardw
 </div>
 
 <div class="card">
-<h3><a href="PCB-Assembly-Viewer/Index.md">PCB Assembly Viewer</a></h3>
+<h3><a href="PCB-Tool/Index.md">PCB Tool</a></h3>
 <p>Released PCBs by part number — renders, interactive assembly, schematics, and fabrication files.</p>
 </div>
 

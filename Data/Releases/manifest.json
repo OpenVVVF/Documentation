@@ -1,55 +1,57 @@
 {
   "HW-C2-PCB-CTRL-A": {
     "artifacts": {
-      "bom_csv": "bom.csv",
-      "drc": "drc.txt",
+      "bom_csv": "HW-C2-PCB-CTRL-A-bom.csv",
+      "drc": "HW-C2-PCB-CTRL-A-drc.txt",
       "drc_violations": 0,
-      "gerber_zip": "gerbers.zip",
+      "gerber_zip": "HW-C2-PCB-CTRL-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
         "ControlBoard-Back.png",
         "ControlBoard.png"
       ],
-      "schematic_pdf": "schematic.pdf",
-      "step": "ControlBoard.step"
+      "schematic_pdf": "HW-C2-PCB-CTRL-A-schematic.pdf",
+      "step": "HW-C2-PCB-CTRL-A.step"
     },
     "board": "ControlBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/ControlBoard",
-    "generated": "2026-08-16T20:03:04+00:00",
+    "generated": "2026-08-16T20:24:36+00:00",
     "part_number": "HW-C2-PCB-CTRL-A",
     "rev": "A",
-    "source_tag": "C2-A"
+    "source_tag": "C2-A",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
   },
   "HW-C2-PCB-DCBUSCAP-A": {
     "artifacts": {
-      "bom_csv": "bom.csv",
-      "drc": "drc.txt",
+      "bom_csv": "HW-C2-PCB-DCBUSCAP-A-bom.csv",
+      "drc": "HW-C2-PCB-DCBUSCAP-A-drc.txt",
       "drc_violations": 0,
-      "gerber_zip": "gerbers.zip",
+      "gerber_zip": "HW-C2-PCB-DCBUSCAP-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
         "DCBusCapacitorBoard-Back.png",
         "DCBusCapacitorBoard-Front.png",
         "DCBusCapacitorBoard.png"
       ],
-      "schematic_pdf": "schematic.pdf",
-      "step": "DCBusCapacitorBoard.step"
+      "schematic_pdf": "HW-C2-PCB-DCBUSCAP-A-schematic.pdf",
+      "step": "HW-C2-PCB-DCBUSCAP-A.step"
     },
     "board": "DCBusCapacitorBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusCapacitorBoard",
-    "generated": "2026-08-16T20:03:20+00:00",
+    "generated": "2026-08-16T20:24:53+00:00",
     "part_number": "HW-C2-PCB-DCBUSCAP-A",
     "rev": "A",
-    "source_tag": "C2-A"
+    "source_tag": "C2-A",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
   },
   "HW-C2-PCB-DCFLT-A": {
     "artifacts": {
-      "bom_csv": "bom.csv",
-      "drc": "drc.txt",
+      "bom_csv": "HW-C2-PCB-DCFLT-A-bom.csv",
+      "drc": "HW-C2-PCB-DCFLT-A-drc.txt",
       "drc_violations": 0,
-      "gerber_zip": "gerbers.zip",
+      "gerber_zip": "HW-C2-PCB-DCFLT-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
         "DCBusFilter-Back.png",
@@ -57,61 +59,64 @@
         "DCBusFilter-Front.png",
         "DCBusFilter.png"
       ],
-      "schematic_pdf": "schematic.pdf",
-      "step": "DCBusFilter.step"
+      "schematic_pdf": "HW-C2-PCB-DCFLT-A-schematic.pdf",
+      "step": "HW-C2-PCB-DCFLT-A.step"
     },
     "board": "DCBusFilter",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusFilter",
-    "generated": "2026-08-16T20:03:40+00:00",
+    "generated": "2026-08-16T20:25:12+00:00",
     "part_number": "HW-C2-PCB-DCFLT-A",
     "rev": "A",
-    "source_tag": "C2-A"
+    "source_tag": "C2-A",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
   },
   "HW-C2-PCB-GD-A": {
     "artifacts": {
-      "bom_csv": "bom.csv",
-      "drc": "drc.txt",
+      "bom_csv": "HW-C2-PCB-GD-A-bom.csv",
+      "drc": "HW-C2-PCB-GD-A-drc.txt",
       "drc_violations": 0,
-      "gerber_zip": "gerbers.zip",
+      "gerber_zip": "HW-C2-PCB-GD-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
         "GateDriver-Back.png",
         "GateDriver-Front.png",
         "GateDriver.png"
       ],
-      "schematic_pdf": "schematic.pdf",
-      "step": "GateDriver.step"
+      "schematic_pdf": "HW-C2-PCB-GD-A-schematic.pdf",
+      "step": "HW-C2-PCB-GD-A.step"
     },
     "board": "GateDriver",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/GateDriver",
-    "generated": "2026-08-16T20:04:00+00:00",
+    "generated": "2026-08-16T20:25:32+00:00",
     "part_number": "HW-C2-PCB-GD-A",
     "rev": "A",
-    "source_tag": "C2-A"
+    "source_tag": "C2-A",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
   },
   "HW-C2-PCB-IO-A": {
     "artifacts": {
-      "bom_csv": "bom.csv",
-      "drc": "drc.txt",
+      "bom_csv": "HW-C2-PCB-IO-A-bom.csv",
+      "drc": "HW-C2-PCB-IO-A-drc.txt",
       "drc_violations": 0,
-      "gerber_zip": "gerbers.zip",
+      "gerber_zip": "HW-C2-PCB-IO-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
         "IOBoard-Back.png",
         "IOBoard-Front.png",
         "IOBoard.png"
       ],
-      "schematic_pdf": "schematic.pdf",
-      "step": "IOBoard.step"
+      "schematic_pdf": "HW-C2-PCB-IO-A-schematic.pdf",
+      "step": "HW-C2-PCB-IO-A.step"
     },
     "board": "IOBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/IOBoard",
-    "generated": "2026-08-16T20:04:16+00:00",
+    "generated": "2026-08-16T20:25:48+00:00",
     "part_number": "HW-C2-PCB-IO-A",
     "rev": "A",
-    "source_tag": "C2-A"
+    "source_tag": "C2-A",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
   }
 }
