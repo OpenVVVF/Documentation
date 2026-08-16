@@ -96,6 +96,10 @@ main h2 {{ font-family: var(--font-brand); margin: 0 0 4px; }}
 .ibom-wrap iframe {{ display: block; width: 100%; height: 70vh; border: 0; }}
 .ibom-wrap:fullscreen iframe {{ height: 100vh; }}
 .empty {{ color: var(--text-muted); margin-top: 40px; }}
+.fabspec {{
+  max-width: 720px; border: 1px solid var(--border-light); border-radius: 8px;
+  background: var(--surface); padding: 4px 18px 12px; font-size: 14px;
+}}
 @media (max-width: 800px) {{
   .layout {{ flex-direction: column; }}
   aside {{ width: 100%; border-right: none; border-bottom: 1px solid var(--border-light); }}
@@ -200,8 +204,35 @@ function renderMain() {{
   }}
   if (a.ibom)
     html += '<div class="ibom-wrap" id="ibom-wrap"><iframe src="' + base + a.ibom + '" title="Interactive assembly"></iframe></div>';
+  if (a.fab_spec)
+    html += '<h3 style="margin-top:24px">Ordering specifications</h3><div class="fabspec" id="fabspec">Loading...</div>';
   main.innerHTML = html;
+  if (a.fab_spec)
+    fetch(base + a.fab_spec).then(r => r.text()).then(md => {{
+      document.getElementById("fabspec").innerHTML = mdLite(md);
+    }});
   renderList();
+}}
+
+function mdLite(md) {{
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const inline = s => esc(s).replace(/\\*\\*(.+?)\\*\\*/g, "<strong>$1</strong>")
+                            .replace(/`(.+?)`/g, "<code>$1</code>");
+  let html = "", inList = false;
+  for (const line of md.split("\\n")) {{
+    const t = line.trim();
+    const closeList = () => {{ if (inList) {{ html += "</ul>"; inList = false; }} }};
+    if (t.startsWith("## ")) {{ closeList(); html += "<h4>" + inline(t.slice(3)) + "</h4>"; }}
+    else if (t.startsWith("# ")) {{ closeList(); html += "<h4>" + inline(t.slice(2)) + "</h4>"; }}
+    else if (t.startsWith("- ")) {{
+      if (!inList) {{ html += "<ul>"; inList = true; }}
+      html += "<li>" + inline(t.slice(2)) + "</li>";
+    }}
+    else if (t === "") closeList();
+    else {{ closeList(); html += "<p>" + inline(t) + "</p>"; }}
+  }}
+  if (inList) html += "</ul>";
+  return html;
 }}
 
 window.addEventListener("hashchange", renderMain);
@@ -359,10 +390,13 @@ function renderVendors() {{
   const map = boms();
   const est = ((e.artifacts || {{}}).price_estimate) || {{}};
   const estVendors = est.vendors || {{}};
+  const estVariants = est.variants || {{}};
   let meta = "Chassis " + e.chassis + " · Rev " + e.rev + " · source tag <code>" + e.source_tag + "</code>" +
     (e.source_url ? ' · <a href="' + e.source_url + '" target="_blank" rel="noopener">source \\u2197</a>' : "");
-  if (est.total)
-    meta += " · <strong>Est. total (" + (est.qty || 1) + " unit" + ((est.qty || 1) > 1 ? "s" : "") + "): $" + est.total + "</strong>";
+  const varTotal = state.variant === "base" ? (est.total || estVariants.base) : estVariants[state.variant];
+  if (varTotal)
+    meta += " · <strong>Est. total (" + (est.qty || 1) + " unit" + ((est.qty || 1) > 1 ? "s" : "") +
+            ", " + state.variant + "): $" + varTotal + "</strong>";
   document.getElementById("meta").innerHTML = meta;
   for (const [key, label] of Object.entries(VENDOR_LABELS)) {{
     if (!map[key]) continue;
@@ -371,6 +405,18 @@ function renderVendors() {{
     b.className = state.vendor === key ? "active" : "";
     b.onclick = () => {{ state.vendor = key; renderVendors(); loadPreview(); }};
     box.appendChild(b);
+  }}
+  if (map.pcb) {{
+    const pcb = document.createElement("a");
+    pcb.href = "../PCB-Tool/pcb-tool.html";
+    pcb.target = "_blank"; pcb.rel = "noopener";
+    pcb.textContent = "View boards in PCB Tool \\u2197";
+    box.appendChild(pcb);
+    const jlc = document.createElement("a");
+    jlc.href = "https://jlcpcb.com";
+    jlc.target = "_blank"; jlc.rel = "noopener";
+    jlc.textContent = "Order PCBs at JLCPCB \\u2197";
+    box.appendChild(jlc);
   }}
   if (state.vendor && map[state.vendor]) {{
     const a = document.createElement("a");

@@ -18,6 +18,7 @@ def hw_repo(tmp_path):
     (board / "ControlBoard.kicad_sch").write_text('(kicad_sch (rev "A"))')
     (board / "ControlBoard.kicad_pcb").write_text('(kicad_pcb (rev "A"))')
     (repo / "Hardware" / "Chassis2" / "Boards" / "ControlBoard.png").write_bytes(b"png")
+    (board / "FabSpec.md").write_text("# Specs\n- 2 oz copper\n")
     boms = repo / "Hardware" / "Chassis2" / "FabricationData" / "BOMs"
     (boms / "Variants" / "standard").mkdir(parents=True)
     (boms / "mouser_bom.csv").write_text("pn,qty\nX,1\n")
@@ -88,7 +89,7 @@ def fake_kicad(monkeypatch):
     monkeypatch.setattr(core.kicad, "export_ibom", lambda pcb, out, gen: touch(out))
     monkeypatch.setattr(core.kicad, "find_ibom_generator", lambda roots: Path("/fake/gen.py"))
     monkeypatch.setattr(core, "fetch_tags", lambda repo: None)
-    monkeypatch.setattr(core, "regenerate_vendor_boms", lambda hw: False)
+    monkeypatch.setattr(core, "regenerate_vendor_boms", lambda hw: {"standard": "2,241.19"})
 
 
 def test_parse_rev(tmp_path):
@@ -127,6 +128,9 @@ def test_update_exports_each_revision_once(hw_repo, docs_root, fake_kicad):
     assert (docs_root / chassis["dir"] / "BOMs" / "mouser_bom.csv").is_file()
     est = chassis["artifacts"]["price_estimate"]
     assert est["total"] == "17.34" and est["vendors"]["Mouser"] == "12.34"
+    assert est["variants"] == {"standard": "2,241.19"}
+    entry = manifest["HW-C2-PCB-CTRL-A"]
+    assert entry["artifacts"]["fab_spec"] == "FabSpec.md"
     entry = manifest["HW-C2-PCB-CTRL-A"]
     assert entry["source_tag"] == "hw-rev-a"
     assert entry["artifacts"]["ibom"] == "ibom.html"

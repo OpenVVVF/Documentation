@@ -3,11 +3,17 @@
     "artifacts": {
       "price_estimate": {
         "qty": 1,
-        "total": "2198.58",
+        "total": "2299.88",
+        "variants": {
+          "base": "2,299.88",
+          "generous": "2,688.62",
+          "standard": "2,347.80"
+        },
         "vendors": {
           "Digi-Key": "46.98",
+          "In-House Assembly": "0.00",
           "McMaster-Carr": "163.63",
-          "Mouser": "1612.97",
+          "Mouser": "1714.27",
           "PCB Fabrication": "64.54",
           "SendCutSend": "310.46"
         }
@@ -34,6 +40,7 @@
         }
       },
       "vendor_boms": {
+        "assembly": "BOMs/assembly_bom.csv",
         "consolidated": "BOMs/Consolidated_BOM.csv",
         "digikey": "BOMs/digikey_bom.csv",
         "mcmaster": "BOMs/mcmaster_bom.csv",
@@ -44,7 +51,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A",
-    "generated": "2026-08-16T20:53:01+00:00",
+    "generated": "2026-08-16T21:02:04+00:00",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"

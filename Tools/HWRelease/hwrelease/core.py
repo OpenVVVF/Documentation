@@ -1,5 +1,7 @@
 """Release pipeline: tags -> KiCad exports -> Data/Releases + manifest."""
 
+import contextlib
+import io
 import json
 import re
 import shutil
@@ -191,25 +193,40 @@ def export_chassis_boms(chassis_dir: Path, out_dir: Path) -> dict:
     return artifacts
 
 
-def regenerate_vendor_boms(hardware_root: Path) -> bool:
+def regenerate_vendor_boms(hardware_root: Path) -> Optional[Dict[str, str]]:
     """Regenerate vendor BOMs + pricing from the exported KiCad sources using
-    this repo's BOMManager, so exports never ship stale committed BOMs."""
+    this repo's BOMManager, so exports never ship stale committed BOMs.
+
+    Returns {variant: total} price totals (e.g. {"bare minimum": "2,198.58",
+    "standard": "2,241.19"}), or None if generation was unavailable.
+    """
     try:
         from bom_manager import generate
         from bom_manager.context import build_context
     except ImportError:
         print("  warning: bom_manager not installed; copying committed BOMs")
-        return False
+        return None
     ctx = build_context(hardware_root=hardware_root, allow_prompt=False)
+    buf = io.StringIO()
     try:
-        rc = generate.run(["--no-prompt", "--variants", "--no-pcb-zips"], ctx)
+        with contextlib.redirect_stdout(buf):
+            rc = generate.run(["--no-prompt", "--variants", "--no-pcb-zips"], ctx)
     except Exception as exc:  # generation failure must not kill the export
         print(f"  warning: vendor BOM generation failed ({exc}); copying committed BOMs")
-        return False
+        return None
+    output = buf.getvalue()
+    print(output, end="")
     if rc != 0:
         print("  warning: vendor BOM generation failed; copying committed BOMs")
-        return False
-    return True
+        return None
+    totals: Dict[str, str] = {}
+    m = re.search(r"bare minimum \$([\d,]+\.\d\d)", output)
+    if m:
+        totals["base"] = m.group(1)
+    for m in re.finditer(r"^\s*(\w+)\s+\$([\d,]+\.\d\d) \(\+\$[\d,]+\.\d\d\)",
+                         output, re.MULTILINE):
+        totals[m.group(1)] = m.group(2)
+    return totals
 
 
 def parse_price_estimate(report_path: Path) -> dict:
@@ -303,6 +320,13 @@ def export_board(board: Board, out_dir: Path, ibom_generator: Optional[Path],
     if copied:
         artifacts["renders"] = copied
 
+    # Optional per-board ordering specs (2 oz copper, tapped holes, ...).
+    board_dir = (board.sch or board.pcb).parent
+    fab_spec = board_dir / "FabSpec.md"
+    if fab_spec.is_file():
+        shutil.copy2(fab_spec, out_dir / "FabSpec.md")
+        artifacts["fab_spec"] = "FabSpec.md"
+
     print(f"  {board.chassis}/{board.name} rev {board.rev}: {'  '.join(marks)}")
     return artifacts
 
@@ -343,12 +367,22 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                 print(f"Tag {tag}: no boards found, skipped.")
                 continue
             # BOMManager discovers board BOMs as <Board>.csv beside the KiCad
-            # project — export them from the schematics before generating.
+            # project (same for wiring harnesses) — export them from the
+            # schematics before generating.
             for board in boards:
                 if board.sch:
                     kicad.export_bom(board.sch,
                                      board.sch.parent / f"{board.name}.csv")
-            regenerate_vendor_boms(tmp_path / "Hardware")
+            for chassis_dir in sorted((tmp_path / "Hardware").iterdir()):
+                for hroot in ("Wiring", "Harnesses"):
+                    hdir = chassis_dir / hroot
+                    if not hdir.is_dir():
+                        continue
+                    for part_dir in sorted(hdir.iterdir()):
+                        sch = part_dir / f"{part_dir.name}.kicad_sch"
+                        if part_dir.is_dir() and sch.is_file():
+                            kicad.export_bom(sch, part_dir / f"{part_dir.name}.csv")
+            variant_totals = regenerate_vendor_boms(tmp_path / "Hardware")
             ibom_gen = kicad.find_ibom_generator(_ibom_search_roots(hw_repo))
             print(f"Tag {tag}: {len(boards)} board(s)"
                   + ("" if ibom_gen else " (iBOM generator not found)"))
@@ -395,6 +429,9 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                                                 out_dir)
                 if not artifacts:
                     continue
+                if variant_totals:
+                    artifacts.setdefault("price_estimate", {})[
+                        "variants"] = variant_totals
                 entry = {
                     "chassis": short,
                     "rev": rev,

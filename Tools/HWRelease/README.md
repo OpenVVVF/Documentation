@@ -32,14 +32,28 @@ versioned, per-board artifacts under `Data/Releases/`, indexed by part number
   `Config/Products.yaml` (`hardware_roots`).
 - `hwrelease list` — all exported boards grouped by revision.
 - `hwrelease show HW-C2-PCB-CTRL-A` — artifact paths for one part number.
-- `hwrelease build-viewer` — regenerate `Docs/Tools/PCB-Tool/pcb-tool.html`
-  from the manifest (runs automatically after `update` when new revisions were
-  exported). The PCB Tool page lists all boards by part number with renders,
-  an embedded interactive assembly view (fullscreen / open in new tab), links
-  to the part-number-named artifacts (`<pn>-schematic.pdf`, `<pn>-bom.csv`,
-  `<pn>-gerbers.zip`, `<pn>-drc.txt`, `<pn>.step`), and an "Open Source" link
-  to the hardware repo at the release tag. docgen copies `Data/Releases/`
-  into the built site.
+- `hwrelease build-viewer` — regenerate `Docs/Tools/PCB-Tool/pcb-tool.html` and
+  `Docs/Tools/BOM-Tool/bom-tool.html` from the manifest (runs automatically
+  after `update` when new revisions were exported). docgen copies
+  `Data/Releases/` into the built site.
+
+## Vendor BOMs and pricing
+
+`update` regenerates the chassis-level vendor BOMs (Mouser, McMaster-Carr,
+SendCutSend, DigiKey, assembly, PCB) with this repo's BOMManager `generate`
+against the exported tag — board and harness BOM CSVs are first exported from
+the KiCad schematics so nothing is missed. Prices come from the local price
+cache / vendor APIs per your BOMManager config; variant totals (base /
+standard / generous) are recorded in the manifest. If BOMManager or its deps
+are unavailable, the committed BOMs from the tag are copied instead (with a
+warning).
+
+## Board ordering specs (FabSpec.md)
+
+If a board directory in the hardware repo contains `FabSpec.md` (next to the
+`.kicad_pro`), it is copied into the release and rendered on the board's PCB
+Tool page as "Ordering specifications" — copper weight, surface finish, tapped
+holes, panelization, and other fab instructions.
 
 ## Requirements
 

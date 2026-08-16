@@ -1,10 +1,22 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-16T20:53:01.631357Z
+Generated: 2026-08-16T21:02:04.104422Z
 
 Base quantity: 1 unit(s)
 
 ---
+
+
+## In-House Assembly
+
+| Qty | Order | Internal P/N | Description | Part Number | Unit Price | Line Total | Source |
+|-----|-------|--------------|-------------|-------------|------------|------------|--------|
+| 1 |  | HW-C2-WH-TSBCM-A | CapacitorTempSenseHarness |  | N/A | N/A | manual |
+| 4 |  | HW-C2-WH-CS-A | CurrentSenseHarness |  | N/A | N/A | manual |
+| 1 |  | HW-C2-WH-GDVS-A | GDVSHarness |  | N/A | N/A | manual |
+| 2 |  | HW-C2-WH-TSIGBT-A | TempSenseHarness |  | N/A | N/A | manual |
+
+**In-House Assembly subtotal:** $0.00
 
 
 ## Digi-Key
@@ -55,8 +67,13 @@ Base quantity: 1 unit(s)
 | 1 |  | HW-C2-IC-STM32H723ZGT6-A | STM32H723ZGT6 | 511-STM32H723ZGT6 | $13.2500 | $13.25 | mouser_cart_import |
 | 1 |  | HW-C2-CONN-SSW-110-01-F-D-A | SSW-110-01-F-D | 200-SSW11001FD | $2.4100 | $2.41 | mouser_cart_import |
 | 1 |  | HW-C2-CONN-TSW-110-21-L-D-LL-A | TSW-110-21-L-D-LL | 200-TSW11021LDLL | $2.2700 | $2.27 | mouser_cart_import |
+| 8 |  | HW-C2-HW-0022011042-A | 0022011042 |  | N/A | N/A | manual |
+| 32 |  | HW-C2-HW-08-50-0113-A | 08-50-0113 |  | N/A | N/A | manual |
 | 4 |  | HW-C2-HW-22-04-1041-A | 22-04-1041 | 538-22-04-1041 | $0.8900 | $3.56 | mouser_cart_import |
+| 3 |  | HW-C2-HW-455-2266-ND-A | 455-2266-ND | 306-XHP-2 | $0.1000 | $0.30 | mouser_cart_import |
+| 25 |  | HW-C2-HW-464762-E-A | 464762-E | 305-464762 | $0.3970 | $9.93 | mouser_cart_import |
 | 5 |  | HW-C2-HW-524265-E-A | 524265-E | 305-524265-E | $7.8700 | $39.35 | mouser_cart_import |
+| 5 |  | HW-C2-HW-544959-E-A | 544959-E |  | N/A | N/A | manual |
 | 1 |  | HW-C2-HW-776231-1-A | 776231-1 | 571-776231-1 | $16.6900 | $16.69 | mouser_cart_import |
 | 8 |  | HW-C2-HW-971150581-A | 971150581 | 710-971150581 | $0.6000 | $4.80 | mouser_cart_import |
 | 8 |  | HW-C2-HW-971250581-A | 971250581 | 710-971250581 | $1.1000 | $8.80 | mouser_cart_import |
@@ -71,6 +88,8 @@ Base quantity: 1 unit(s)
 | 3 |  | HW-C2-HW-CM600DY-24T-A | CM600DY-24T | CM600DY-24T | $323.5000 | $970.50 | mouser_cart_import |
 | 1 |  | HW-C2-HW-DRDNB21D-7-A | DRDNB21D-7 | 621-DRDNB21D-7 | $0.5600 | $0.56 | mouser_cart_import |
 | 1 |  | HW-C2-HW-EC7BW-110S12-A | EC7BW-110S12 | 418-EC7BW-110S12 | $48.8600 | $48.86 | mouser_cart_import |
+| 12 |  | HW-C2-HW-FDFNYD1-110-5-A | FDFNYD1-110(5) | 161-FDFNYD1-1105 | $0.4800 | $5.76 | mouser_cart_import |
+| 4 |  | HW-C2-HW-LA37S600S05KM-A | LA37S600S05KM | 838-LA37S600S05KM | $19.9600 | $79.84 | mouser_cart_import |
 | 1 |  | HW-C2-HW-LT3080IQ-PBF-A | LT3080IQ#PBF | 584-LT3080IQ#PBF | $8.5400 | $8.54 | mouser_cart_import |
 | 2 |  | HW-C2-HW-LTST-C230CKT-A | LTST-C230CKT | 859-LTST-C230CKT | $0.4100 | $0.82 | mouser_cart_import |
 | 2 |  | HW-C2-HW-LTST-C230GKT-A | LTST-C230GKT | 859-LTST-C230GKT | $0.3600 | $0.72 | mouser_cart_import |
@@ -78,8 +97,10 @@ Base quantity: 1 unit(s)
 | 6 |  | HW-C2-HW-MGJ2D121509MPC-R7-A | MGJ2D121509MPC-R7 | 580-MGJ2D121509MPCR7 | $6.7700 | $40.62 | mouser_cart_import |
 | 6 |  | HW-C2-HW-MKP1848S61010JY5B-A | MKP1848S61010JY5B | 75-MKP1848S61010JY5B | $7.5400 | $45.24 | mouser_cart_import |
 | 2 |  | HW-C2-HW-MM3Z3V0ST1G-A | MM3Z3V0ST1G | 863-MM3Z3V0ST1G | $0.1700 | $0.34 | mouser_cart_import |
+| 1 |  | HW-C2-HW-NXFT15XH103FEAB021-A | NXFT15XH103FEAB021 | 81-NXFT15XH103FEAB21 | $0.3400 | $0.34 | mouser_cart_import |
 | 1 |  | HW-C2-HW-RD7-12S033R-A | RD7-12S033R | 737-RD7-12S033R | $6.7700 | $6.77 | mouser_cart_import |
 | 3 |  | HW-C2-HW-RKE-1205S_H-A | RKE-1205S_H | 919-RKE-1205S/H | $5.1700 | $15.51 | mouser_cart_import |
+| 2 |  | HW-C2-HW-RTS103C1R2M6L201-A | RTS103C1R2M6L201 | 527-RTS103C1R2M6L201 | $2.2700 | $4.54 | mouser_cart_import |
 | 2 |  | HW-C2-HW-S3N-A | S3N | 512-S3N | $0.6700 | $1.34 | mouser_cart_import |
 | 2 |  | HW-C2-HW-SSW-103-01-L-D-A | SSW-103-01-L-D | 200-SSW10301LD | $1.3400 | $2.68 | mouser_cart_import |
 | 1 |  | HW-C2-HW-SSW-104-01-L-D-A | SSW-104-01-L-D | 200-SSW10401LD | $1.6900 | $1.69 | mouser_cart_import |
@@ -87,6 +108,7 @@ Base quantity: 1 unit(s)
 | 1 |  | HW-C2-HW-SSW-110-01-F-D-A | SSW-110-01-F-D |  | N/A | N/A | manual |
 | 1 |  | HW-C2-HW-STS41A-AWLB-R3-A | STS41A-AWLB-R3 | 403-STS41A-AWLB-R3 | $1.1300 | $1.13 | mouser_cart_import |
 | 6 |  | HW-C2-HW-STTH112A-A | STTH112A | 511-STTH112A | $0.5900 | $3.54 | mouser_cart_import |
+| 6 |  | HW-C2-HW-SXH-001T-P0-6-A | SXH-001T-P0.6 | 306-SXH-001T-P0.6 | $0.1000 | $0.60 | mouser_cart_import |
 | 4 |  | HW-C2-HW-SZMMSZ4678T1G-A | SZMMSZ4678T1G | 863-SZMMSZ4678T1G | $0.4300 | $1.72 | mouser_cart_import |
 | 21 |  | HW-C2-HW-TESTPOINT-TH-RED-A | Testpoint TH, RED | 534-5000 | $0.2930 | $6.15 | mouser_cart_import |
 | 1 |  | HW-C2-HW-TPS389006ADJRTER-A | TPS389006ADJRTER | 595-TPS389006ADJRTER | $5.1000 | $5.10 | mouser_cart_import |
@@ -107,7 +129,7 @@ Base quantity: 1 unit(s)
 | 1 |  | HW-C2-RES-499K-A | 499kohm 1210 resistor | 667-ERJ-P14F4993U | $0.4400 | $0.44 | mouser_cart_import |
 | 16 |  | HW-C2-RES-250K-A | Thick Film Resistors - SMD 1/2watt 249Kohms 1% | 71-CRCW1210-249K-E3 | $0.0700 | $1.12 | mouser_cart_import |
 
-**Mouser subtotal:** $1612.97
+**Mouser subtotal:** $1714.27
 
 
 ## PCB Fabrication
@@ -139,17 +161,17 @@ Base quantity: 1 unit(s)
 
 ---
 
-## Grand Total (1 unit): **$2198.58**
+## Grand Total (1 unit): **$2299.88**
 
 
 ## Quantity Scaling
 
 | Quantity | Estimated Total |
 |----------|----------------|
-| 3 | $6455.27 |
-| 5 | $10719.89 |
-| 10 | $21384.03 |
-| 25 | $53413.64 |
+| 3 | $6759.18 |
+| 5 | $11226.41 |
+| 10 | $22397.08 |
+| 25 | $55946.26 |
 
 
 ## Pack Rounding & Stock
@@ -167,8 +189,15 @@ Base quantity: 1 unit(s)
 
 ## Unknown / Missing Prices
 
+- CapacitorTempSenseHarness (assembly)
+- CurrentSenseHarness (assembly)
+- GDVSHarness (assembly)
+- TempSenseHarness (assembly)
 - 1821A55 (mcmaster)
 - 91458A112 (mcmaster)
+- 0022011042 (mouser)
+- 08-50-0113 (mouser)
+- 544959-E (mouser)
 - SSW-110-01-F-D (mouser)
 - DC Link Module Holder - 200V Class (sendcutsend)
 - DC Link Module Holder - 250-450V Class (sendcutsend)
@@ -264,16 +293,12 @@ Base quantity: 1 unit(s)
 
 | Harness | Qty/Chassis | Rev | BOM CSV |
 |---------|-------------|-----|---------|
-| CapacitorTempSenseHarness | 1 | A | **no** |
-| CurrentSenseHarness | 1 | A | **no** |
-| GDVSHarness | 1 | A | **no** |
-| TempSenseHarness | 1 | A | **no** |
+| CapacitorTempSenseHarness | 1 | A | yes |
+| CurrentSenseHarness | 4 | A | yes |
+| GDVSHarness | 1 | A | yes |
+| TempSenseHarness | 2 | A | yes |
 
 **Not ready:**
 - fab part HW-C2-DCLMH-200-PRINTED-A: no price
 - fab part HW-C2-DCLMH-250-450-PRINTED-A: no price
-- harness CapacitorTempSenseHarness: no BOM CSV export (see its README)
-- harness CurrentSenseHarness: no BOM CSV export (see its README)
-- harness GDVSHarness: no BOM CSV export (see its README)
-- harness TempSenseHarness: no BOM CSV export (see its README)
 
