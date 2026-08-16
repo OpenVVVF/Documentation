@@ -19,6 +19,6 @@ OpenVVVF power stages are physical chassis/inverter assemblies that pair with th
 
 | Chassis | Form factor | Typical DC link | Continuous current | Status |
 |---------|-------------|-----------------|--------------------|--------|
-| **[C2 - Chassis Size 2](C2/Index.md)** | Mid-size | 140 V nominal / up to 450 V class | ~600 A | Implemented, under test |
+| **[C2 - Chassis Size 2](C2/Index.md)** | Mid-size | 150 / 200 / 400 V class, per DC-link capacitor selection | ~600 A | Implemented, under test |
 
 - If you are building or installing a C2 unit, start with the [C2 Integration Guide](C2/Integration-Guide/Index.md) or [C2 Assembly Guide](C2/Assembly-Guide/Index.md).
