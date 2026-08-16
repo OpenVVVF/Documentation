@@ -77,3 +77,15 @@ holes, panelization, and other fab instructions.
 ```sh
 make test-hwrelease
 ```
+
+## Roadmap / planned
+
+- **Ordering screenshots per board and per part** — the user will capture
+  screenshots of the JLCPCB / SendCutSend ordering flows. Convention (TBD):
+  images alongside `FabSpec.md` per board (PCB Tool) and per mechanical part
+  (BOM Tool / part explorer), exported into `Data/Releases/` and shown in the
+  tools so ordering settings are unambiguous.
+- **Mechanical parts explorer** — auto-discover mechanical parts (SendCutSend
+  sheet parts, McMaster hardware) from the hardware repo at export time and
+  give them their own tool page, like the PCB Tool: renders/screenshots,
+  specs, vendor links, prices.

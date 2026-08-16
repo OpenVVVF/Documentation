@@ -256,20 +256,24 @@ def regenerate_vendor_boms(hardware_root: Path) -> Optional[Dict[str, str]]:
     return totals
 
 
+def _fmt_amount(raw: str) -> str:
+    return f"{float(raw.replace(',', '')):,.2f}"
+
+
 def parse_price_estimate(report_path: Path) -> dict:
     """Pull per-vendor subtotals and the grand total out of Pricing_Report.md."""
     estimate: Dict[str, object] = {}
     if not report_path.is_file():
         return estimate
     text = report_path.read_text(errors="replace")
-    vendors = {m.group(1): m.group(2)
+    vendors = {m.group(1): _fmt_amount(m.group(2))
                for m in re.finditer(r"\*\*(.+?) subtotal:\*\* \$([\d,]+\.\d\d)", text)}
     if vendors:
         estimate["vendors"] = vendors
     m = re.search(r"Grand Total \((\d+) unit.*?\$([\d,]+\.\d\d)", text)
     if m:
         estimate["qty"] = int(m.group(1))
-        estimate["total"] = m.group(2)
+        estimate["total"] = _fmt_amount(m.group(2))
     return estimate
 
 

@@ -3,7 +3,7 @@
     "artifacts": {
       "price_estimate": {
         "qty": 1,
-        "total": "2299.88",
+        "total": "2,299.88",
         "variant_vendors": {
           "generous": {
             "digikey": "46.98",
@@ -29,7 +29,7 @@
           "Digi-Key": "46.98",
           "In-House Assembly": "0.00",
           "McMaster-Carr": "163.63",
-          "Mouser": "1714.27",
+          "Mouser": "1,714.27",
           "PCB Fabrication": "64.54",
           "SendCutSend": "310.46"
         }
@@ -67,7 +67,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A",
-    "generated": "2026-08-16T21:07:25+00:00",
+    "generated": "2026-08-16T21:12:05+00:00",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
