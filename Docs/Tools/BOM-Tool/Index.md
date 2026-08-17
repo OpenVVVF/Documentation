@@ -25,6 +25,10 @@ The BOM Tool serves the per-chassis vendor order BOMs exported from the hardware
 3. Click a vendor — **Mouser**, **McMaster-Carr**, **SendCutSend**, **DigiKey**, plus the consolidated, assembly (in-house harnesses), and PCB BOMs — to preview the CSV inline. Vendor buttons show their share of the cost estimate.
 4. Use **Download CSV** to save it for ordering (e.g. pasting into the vendor's BOM import). For boards, **View boards in PCB Tool** takes you to the per-board gerbers/specs, and **Order PCBs at JLCPCB** opens the fab.
 
+### Ordering walkthrough screenshots
+
+When a vendor is selected, the tool shows a step-by-step walkthrough of that vendor's upload/ordering flow below the buttons (for McMaster-Carr there's also a button that copies the order paste to the clipboard). The screenshots are hand-maintained: drop them next to this document as `ordering-<vendor>-<n>.png` (`n` = 1, 2, …; vendors: `mouser`, `digikey`, `mcmaster`, `sendcutsend`, `jlcpcb`). No regeneration is needed — they are picked up on the next site build.
+
 The estimate in the header reflects the selected variant (`base`, `standard`, `generous`).
 
 ## Where the data comes from

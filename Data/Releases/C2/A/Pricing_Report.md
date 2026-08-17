@@ -1,6 +1,6 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-16T21:12:05.405114Z
+Generated: 2026-08-17T00:23:50.094155Z
 
 Base quantity: 1 unit(s)
 

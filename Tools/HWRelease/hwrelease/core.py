@@ -156,6 +156,7 @@ _VENDOR_BOMS = {
     "Consolidated_BOM.csv": "consolidated",
     "assembly_bom.csv": "assembly",
     "pcb_bom.csv": "pcb",
+    "McMaster_Order_Paste.txt": "mcmaster_paste",
 }
 
 
@@ -192,6 +193,10 @@ def export_chassis_boms(chassis_dir: Path, out_dir: Path) -> dict:
     if dest.exists():
         shutil.rmtree(dest)
     shutil.copytree(src, dest)
+    # The base McMaster paste file lives next to BOMs/, not inside it.
+    base_paste = chassis_dir / "FabricationData" / "McMaster_Order_Paste.txt"
+    if base_paste.is_file():
+        shutil.copy2(base_paste, dest / "McMaster_Order_Paste.txt")
     artifacts = {"vendor_boms": _scan_bom_dir(dest, out_dir)}
     variants_dir = dest / "Variants"
     variants = {}

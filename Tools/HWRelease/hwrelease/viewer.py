@@ -298,6 +298,18 @@ th, td {{ border: 1px solid var(--border-light); padding: 6px 10px; text-align: 
 th {{ background: var(--surface); font-family: var(--font-brand); position: sticky; top: 0; }}
 tr:nth-child(even) {{ background: var(--surface); }}
 .empty {{ color: var(--text-muted); margin-top: 40px; }}
+.guide {{
+  flex-direction: column; gap: 14px; margin-bottom: 20px; max-width: 900px;
+}}
+.guide img {{
+  width: 100%; border: 1px solid var(--border-light); border-radius: 8px;
+  background: var(--surface-2);
+}}
+.guide .copy-paste {{
+  align-self: flex-start; padding: 9px 16px; border-radius: 6px; font-size: 14px;
+  border: 1px solid var(--border); background: #fff; cursor: pointer;
+}}
+.guide .copy-paste:hover {{ border-color: var(--accent); }}
 </style>
 </head>
 <body>
@@ -313,9 +325,46 @@ tr:nth-child(even) {{ background: var(--surface); }}
   </div>
   <div class="meta" id="meta"></div>
   <div class="vendors" id="vendors"></div>
+  <div class="guide" id="guide" style="display:none"></div>
   <div id="preview"><p class="empty">Pick a vendor BOM above to preview it.</p></div>
 </main>
 <script>
+// Ordering walkthrough screenshots: hand-maintained files next to this page,
+// named ordering-<vendor>-<n>.png (n = 1, 2, ...). Missing numbers are skipped.
+const ORDER_GUIDE_MAX_SHOTS = 8;
+
+function renderGuide() {{
+  const div = document.getElementById("guide");
+  div.innerHTML = "";
+  if (!state.vendor) {{ div.style.display = "none"; return; }}
+  let added = 0;
+  for (let n = 1; n <= ORDER_GUIDE_MAX_SHOTS; n++) {{
+    const img = document.createElement("img");
+    img.src = "ordering-" + state.vendor + "-" + n + ".png";
+    img.alt = state.vendor + " ordering step " + n;
+    img.onerror = () => img.remove();
+    img.onload = () => {{ div.style.display = "flex"; }};
+    div.appendChild(img);
+    added++;
+  }}
+  if (state.vendor === "mcmaster") {{
+    const e = current();
+    const map = boms();
+    if (map.mcmaster_paste) {{
+      const b = document.createElement("button");
+      b.className = "copy-paste";
+      b.textContent = "Copy McMaster order paste to clipboard";
+      b.onclick = async () => {{
+        const r = await fetch(ROOT + e.dir + "/" + map.mcmaster_paste);
+        await navigator.clipboard.writeText(await r.text());
+        b.textContent = "Copied!";
+        setTimeout(() => b.textContent = "Copy McMaster order paste to clipboard", 2000);
+      }};
+      div.appendChild(b);
+    }}
+  }}
+}}
+
 const MANIFEST = {manifest};
 const ROOT = "{root}";
 const VENDOR_LABELS = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "SendCutSend",
@@ -407,7 +456,7 @@ function renderVendors() {{
     const b = document.createElement("button");
     b.textContent = label + (priceFor(key) ? " · $" + priceFor(key) : "");
     b.className = state.vendor === key ? "active" : "";
-    b.onclick = () => {{ state.vendor = key; renderVendors(); loadPreview(); }};
+    b.onclick = () => {{ state.vendor = key; renderVendors(); renderGuide(); loadPreview(); }};
     box.appendChild(b);
   }}
   if (map.pcb) {{

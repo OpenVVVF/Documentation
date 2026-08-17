@@ -41,6 +41,7 @@
           "consolidated": "BOMs/Variants/generous/Consolidated_BOM.csv",
           "digikey": "BOMs/Variants/generous/digikey_bom.csv",
           "mcmaster": "BOMs/Variants/generous/mcmaster_bom.csv",
+          "mcmaster_paste": "BOMs/Variants/generous/McMaster_Order_Paste.txt",
           "mouser": "BOMs/Variants/generous/mouser_bom.csv",
           "pcb": "BOMs/Variants/generous/pcb_bom.csv",
           "sendcutsend": "BOMs/Variants/generous/sendcutsend_bom.csv"
@@ -50,6 +51,7 @@
           "consolidated": "BOMs/Variants/standard/Consolidated_BOM.csv",
           "digikey": "BOMs/Variants/standard/digikey_bom.csv",
           "mcmaster": "BOMs/Variants/standard/mcmaster_bom.csv",
+          "mcmaster_paste": "BOMs/Variants/standard/McMaster_Order_Paste.txt",
           "mouser": "BOMs/Variants/standard/mouser_bom.csv",
           "pcb": "BOMs/Variants/standard/pcb_bom.csv",
           "sendcutsend": "BOMs/Variants/standard/sendcutsend_bom.csv"
@@ -60,6 +62,7 @@
         "consolidated": "BOMs/Consolidated_BOM.csv",
         "digikey": "BOMs/digikey_bom.csv",
         "mcmaster": "BOMs/mcmaster_bom.csv",
+        "mcmaster_paste": "BOMs/McMaster_Order_Paste.txt",
         "mouser": "BOMs/mouser_bom.csv",
         "pcb": "BOMs/pcb_bom.csv",
         "sendcutsend": "BOMs/sendcutsend_bom.csv"
@@ -67,7 +70,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A",
-    "generated": "2026-08-16T21:12:05+00:00",
+    "generated": "2026-08-17T00:23:50+00:00",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
