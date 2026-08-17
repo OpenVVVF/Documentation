@@ -363,6 +363,19 @@ function renderVendors() {
     a.textContent = label;
     actions.appendChild(a);
   }
+  if (state.vendor === "pcb") {
+    // Per-board gerber zips from the board entries at this chassis/rev.
+    const boards = Object.values(MANIFEST).filter(
+      x => x.board && x.chassis === state.chassis && x.rev === state.rev &&
+           x.artifacts && x.artifacts.gerber_zip);
+    for (const b of boards) {
+      const a = document.createElement("a");
+      a.href = ROOT + b.dir + "/" + b.artifacts.gerber_zip;
+      a.download = "";
+      a.textContent = b.board + " gerbers";
+      actions.appendChild(a);
+    }
+  }
   if (state.vendor && map[state.vendor]) {
     const a = document.createElement("a");
     a.className = "download";
