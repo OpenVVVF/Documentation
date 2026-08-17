@@ -486,7 +486,7 @@ function toggleGuide() {{
 const MANIFEST = {manifest};
 const ROOT = "{root}";
 const VENDOR_LABELS = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "SendCutSend",
-  digikey: "DigiKey", pcb: "PCBs"}};
+  digikey: "DigiKey", pcb: "PCBs", printed: "3D Printed"}};
 const PRICE_NAMES = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "SendCutSend",
   digikey: "Digi-Key", assembly: "In-House Assembly", pcb: "PCB Fabrication"}};
 
@@ -599,7 +599,7 @@ function renderVendors() {{
             ", " + state.variant + "): $" + varTotal + "</strong>";
   document.getElementById("meta").innerHTML = meta;
   for (const [key, label] of Object.entries(VENDOR_LABELS)) {{
-    if (!map[key]) continue;
+    if (!map[key] && !(key === "printed" && mechParts("3d_print").length)) continue;
     const b = document.createElement("button");
     b.className = "vn" + (state.vendor === key ? " active" : "");
     b.innerHTML = label + (priceFor(key) ? "<small>$" + priceFor(key) + "</small>" : "");
@@ -656,14 +656,15 @@ async function loadPreview() {{
   const e = current();
   const map = boms();
   const div = document.getElementById("preview");
-  if (!state.vendor || !map[state.vendor]) return;
-  if (state.vendor === "sendcutsend") {{
-    // Spec cards carry everything for SendCutSend parts — skip the CSV table
-    // (it stays available via Download CSV).
-    div.innerHTML = mechCards() ||
-      '<p class="empty">No mechanical part exports for this revision.</p>';
+  if (!state.vendor) return;
+  if (state.vendor === "sendcutsend" || state.vendor === "printed") {{
+    // Spec cards carry everything for fabricated/printed parts — skip the
+    // CSV table (it stays available via Download CSV).
+    div.innerHTML = mechCards(state.vendor === "printed" ? "3d_print" : "laser_cut") ||
+      '<p class="empty">No part exports for this revision.</p>';
     return;
   }}
+  if (!map[state.vendor]) return;
   const r = await fetch(ROOT + e.dir + "/" + map[state.vendor]);
   const rows = parseCSV(await r.text());
   // On the PCBs view, append a gerber-zip download column and a notes column.
@@ -714,9 +715,20 @@ async function loadPreview() {{
   div.innerHTML = html;
 }}
 
-function mechCards() {{
-  const parts = Object.values(MANIFEST).filter(
-    x => x.mech && x.chassis === state.chassis && x.rev === state.rev);
+function mechParts(proc) {{
+  // proc: "laser_cut" | "3d_print" | null (all)
+  return Object.values(MANIFEST).filter(x => {{
+    if (!x.mech || x.chassis !== state.chassis || x.rev !== state.rev) return false;
+    if (!proc) return true;
+    const p = (x.artifacts.fab_spec || {{}}).process ||
+              (x.artifacts.info_fields || {{}}).Process || "";
+    const is3d = p === "3d_print" || p === "3D Printing";
+    return proc === "3d_print" ? is3d : !is3d;
+  }});
+}}
+
+function mechCards(proc) {{
+  const parts = mechParts(proc);
   if (!parts.length) return "";
   let html = '<div class="mech-cards">';
   for (const p of parts) {{
