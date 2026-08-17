@@ -725,7 +725,21 @@
     "manual_price": 46.98,
     "price_currency": "USD",
     "price_updated": "2026-07-17",
-    "notes": ""
+    "notes": "Superseded by mouser|951-gp1500-080-02 (Mouser-sponsored sourcing)."
+  },
+  "mouser|951-gp1500-080-02": {
+    "description": "Bergquist GP1500 thermal gap pad, 80x80mm",
+    "customer_part": "",
+    "type": "other",
+    "mouser_part": "951-GP1500-080-02",
+    "digikey_part": "",
+    "octopart_uid": "",
+    "mcmaster_part": "",
+    "sendcutsend_id": "",
+    "manual_price": "",
+    "price_currency": "USD",
+    "price_updated": "",
+    "notes": "Replaces DigiKey 3M156058-ND thermal pad."
   },
   "mouser|cm600dy-24t": {
     "description": "CM600DY-24T",
