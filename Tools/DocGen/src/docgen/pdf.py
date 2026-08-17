@@ -1,6 +1,7 @@
 """PDF generation for OpenVVVF documentation pages."""
 
 import io
+import re
 import shutil
 import subprocess
 import sys
@@ -34,14 +35,26 @@ def _stamp_running(
     Chromium's page margin boxes cannot render images and glue their rules
     to the content edge, so all running elements are drawn directly onto
     the PDF instead of via CSS. The cover page only gets a page number.
+
+    Also relativizes page-nav links: Chromium bakes them as absolute file://
+    URLs against the source HTML location; rewrite any link whose target is
+    a generated PDF to just the filename so it resolves beside the PDF.
     """
     from pypdf import PdfReader, PdfWriter
+    from pypdf.generic import NameObject, TextStringObject
     from reportlab.pdfgen import canvas
 
     logo_path = template_dir() / "brand" / "logo-grey.png"
     reader = PdfReader(str(pdf_path))
     writer = PdfWriter()
     for index, page in enumerate(reader.pages):
+        for annot in page.get("/Annots") or []:
+            action = annot.get_object().get("/A")
+            if action and action.get("/URI"):
+                uri = str(action["/URI"])
+                match = re.search(r"/([A-Za-z0-9-]+\.pdf)$", uri)
+                if match:
+                    action[NameObject("/URI")] = TextStringObject(match.group(1))
         width = float(page.mediabox.width)
         height = float(page.mediabox.height)
         buf = io.BytesIO()
@@ -130,6 +143,37 @@ def html_to_pdf(
         )
 
 
+_PAGER_LINK_RE = re.compile(r'<a class="page-nav-link[^>]*>')
+
+
+def _rewrite_pager_for_pdf(html: str) -> str:
+    """Point page-nav links at the target document's PDF instead of its HTML
+    page, so generated PDFs chain to each other when stored side by side."""
+
+    def fix(match: "re.Match[str]") -> str:
+        tag = match.group(0)
+        pdf = re.search(r'data-pdf="([^"]+)"', tag)
+        if not pdf:
+            return tag
+        return re.sub(r'href="[^"]*"', f'href="{pdf.group(1)}"', tag, count=1)
+
+    return _PAGER_LINK_RE.sub(fix, html)
+
+
+def _render_html_to_pdf(
+    html_path: Path, output_path: Path, chromium_path: Optional[str]
+) -> None:
+    """Render a document page to PDF via a temporary copy whose page-nav
+    links have been rewritten to PDF targets. The copy lives beside the
+    original so relative asset paths still resolve."""
+    tmp = html_path.with_name(html_path.stem + ".pdfgen.html")
+    tmp.write_text(_rewrite_pager_for_pdf(html_path.read_text(encoding="utf-8")), encoding="utf-8")
+    try:
+        html_to_pdf(tmp, output_path, chromium_path)
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
 def build_pdf(
     doc_id: str,
     docs_dir: Path,
@@ -151,7 +195,7 @@ def build_pdf(
         )
 
     output_path = output_dir / f"{doc_id}.pdf"
-    html_to_pdf(html_path, output_path, chromium_path)
+    _render_html_to_pdf(html_path, output_path, chromium_path)
     _stamp_running(
         output_path,
         f"/  Documentation  /  {doc.doctype or 'Document'}",
@@ -180,7 +224,7 @@ def build_all_pdfs(
             continue
         output_path = output_dir / f"{doc_id}.pdf"
         try:
-            html_to_pdf(html_path, output_path, chromium_path)
+            _render_html_to_pdf(html_path, output_path, chromium_path)
             _stamp_running(
                 output_path,
                 f"/  Documentation  /  {doc.doctype or 'Document'}",
@@ -214,10 +258,10 @@ def build_manual(
 ) -> Path:
     """Generate a single umbrella PDF for an index document and its chapters.
 
-    Takes the cover and info page from the index document, then appends the
-    content of every chapter document below it (in nav_order), skipping each
-    chapter's own cover/info pages. Running headers/footers and continuous
-    page numbers are stamped onto the merged result.
+    Takes the cover, info page, and content of the index document, then
+    appends the content of every chapter document below it (in nav_order),
+    skipping each chapter's own cover/info pages. Running headers/footers and
+    continuous page numbers are stamped onto the merged result.
     """
     import tempfile
 
@@ -250,10 +294,12 @@ def build_manual(
                     "Run 'docgen site' first."
                 )
             part = Path(tmp) / f"part-{i:03d}.pdf"
-            html_to_pdf(html_path, part, chromium_path)
+            _render_html_to_pdf(html_path, part, chromium_path)
             pages = PdfReader(str(part)).pages
             skip = min(_front_matter_pages(doc), len(pages))
-            for page in pages[skip:] if i > 0 else pages[:skip]:
+            # The index document contributes its cover, info page, and its
+            # own content; chapters contribute content only.
+            for page in pages if i == 0 else pages[skip:]:
                 writer.add_page(page)
 
         output_path = output_dir / f"{doc_id}-MANUAL.pdf"

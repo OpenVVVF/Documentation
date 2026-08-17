@@ -230,6 +230,54 @@ a:hover {
   font-size: 0.9em;
 }
 
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.page-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  max-width: 48%;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.page-nav-link:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.page-nav-link.next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.page-nav-link.disabled {
+  border: none;
+  padding: 0;
+}
+
+.page-nav-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+}
+
+.page-nav-title {
+  font-weight: 500;
+}
+
 .layout {
   padding: 2.5rem 1.5rem 2.5rem calc(var(--sidebar-width) + 2.5rem);
   transition: padding-left 0.25s ease;

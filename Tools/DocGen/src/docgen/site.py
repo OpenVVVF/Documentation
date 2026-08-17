@@ -631,6 +631,47 @@ def copy_assets(doc: Document, docs_dir: Path, output_dir: Path) -> None:
             shutil.copy2(asset, dst)
 
 
+def _page_nav(doc: Optional[Document], docs: List[Document], root: str) -> str:
+    """Render prev/next links between documents, ordered by nav_order.
+
+    Each link carries a data-pdf attribute with the target document's PDF
+    filename so the PDF generator can rewrite the links to chain PDFs.
+    """
+    if doc is None or not doc.doc_id or doc.doc_id == "OV-DOCS-INDEX":
+        return ""
+    ordered = sorted(
+        (
+            d
+            for d in docs
+            if d.doc_id and d.doc_id != "OV-DOCS-INDEX" and not _is_menu_only(d)
+        ),
+        key=lambda d: ((d.frontmatter or {}).get("nav_order", 0), d.title or ""),
+    )
+    ids = [d.doc_id for d in ordered]
+    if doc.doc_id not in ids:
+        return ""
+    i = ids.index(doc.doc_id)
+    prev_doc = ordered[i - 1] if i > 0 else None
+    next_doc = ordered[i + 1] if i < len(ordered) - 1 else None
+
+    def link(target: Optional[Document], label: str, cls: str) -> str:
+        if target is None:
+            return f'<span class="page-nav-link {cls} disabled"></span>'
+        return (
+            f'<a class="page-nav-link {cls}" href="{root}{target.url_path}" '
+            f'data-pdf="{target.doc_id}.pdf">'
+            f'<span class="page-nav-label">{label}</span>'
+            f'<span class="page-nav-title">{target.title}</span></a>'
+        )
+
+    return (
+        '<nav class="page-nav" aria-label="Page navigation">'
+        + link(prev_doc, "← Previous", "prev")
+        + link(next_doc, "Next →", "next")
+        + "</nav>"
+    )
+
+
 def render_page(
     title: str,
     body_html: str,
@@ -669,6 +710,7 @@ def render_page(
         doc and any(d is not doc and d.path.is_relative_to(doc.path.parent) for d in docs)
     )
     manual_url = f"{root}pdfs/{doc.doc_id}-MANUAL.pdf" if has_children else ""
+    pager = _page_nav(doc, docs, root)
 
     page = load_template("page.html")
     return page.format(
@@ -682,6 +724,7 @@ def render_page(
         cover=cover,
         pdf_url=pdf_url,
         manual_url=manual_url,
+        pager=pager,
     )
 
 
