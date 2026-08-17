@@ -8,7 +8,7 @@ applies_to:
 version: "0.2"
 date: "2026-08-17"
 description: Populate and solder the IO board for the OpenVVVF control module.
-nav_order: 131
+nav_order: 132
 normative_refs:
   - OV-CA-INDEX
   - OV-TOOLS-PCB-TOOL

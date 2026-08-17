@@ -5,7 +5,7 @@ title: Assembly Guide
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
-version: "0.3"
+version: "0.4"
 date: "2026-08-17"
 description: Assembly procedures for the OpenVVVF control module.
 nav_order: 130
@@ -17,15 +17,20 @@ This guide documents the build of the OpenVVVF control module, chapter by chapte
 
 ## Chapters
 
-1. [IO Board Assembly](IOBoard/Index.md) - populate and solder the control module IO board.
-2. [Gate Driver Assembly](GateDriver/Index.md) - populate and solder the control module gate driver board.
+Read the preparation chapter first — it covers the workspace, equipment, and parts verification every board build depends on.
+
+1. [Preparation](Preparation/Index.md) - workspace, equipment, and parts verification before any soldering.
+2. [IO Board Assembly](IOBoard/Index.md) - populate and solder the control module IO board.
+3. [Gate Driver Assembly](GateDriver/Index.md) - populate and solder the control module gate driver board.
+4. [Control Board Assembly](ControlBoard/Index.md) - populate and solder the main control board.
 
 ## Planned build order
 
 The physical build proceeds in roughly this order, and chapters follow it:
 
-1. IO board population
-2. Gate driver board population
-3. Main control board population
-4. Power board population
-5. Control module assembly and test
+1. Preparation - workspace, ESD setup, equipment, and parts verification
+2. IO board population
+3. Gate driver board population
+4. Control board population
+5. Power board population
+6. Control module assembly and test
