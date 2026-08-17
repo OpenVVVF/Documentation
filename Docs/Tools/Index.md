@@ -35,4 +35,9 @@ This section documents the support tools and widgets that go with OpenVVVF hardw
 <p>Vendor order BOMs (Mouser, McMaster-Carr, SendCutSend, DigiKey) per chassis, revision, and build variant.</p>
 </div>
 
+<div class="card">
+<h3><a href="HWRelease-System/Index.md">HWRelease System</a></h3>
+<p>How hardware releases flow from InverterGen5 tags into the tools — architecture and conventions.</p>
+</div>
+
 </div>

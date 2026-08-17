@@ -36,6 +36,13 @@ def hw_repo(tmp_path):
         "# Report\n**Mouser subtotal:** $12.34\n"
         "**McMaster-Carr subtotal:** $5.00\n"
         "## Grand Total (1 unit): **$17.34**\n")
+    mech = repo / "Hardware" / "Chassis2" / "Mechanical" / "Fab" / "HW-C2-DCLBB-A"
+    mech.mkdir(parents=True)
+    (mech / "info.txt").write_text("PartName=HW-C2-DCLBB-A\nMaterial=Copper\nUnitPrice=45.12\n")
+    (mech / "info.png").write_bytes(b"png")
+    (mech / "HW-C2-DCLBB-A.step").write_text("step")
+    (mech / "fab_spec.yaml").write_text(
+        'process: laser_cut\nmaterial: "Copper C110"\nservices:\n  bending: true\n')
     subprocess.run(["git", "init", "-q", str(repo)], check=True)
     subprocess.run(["git", "-C", str(repo), "commit", "-q", "--allow-empty",
                     "-m", "init"], check=True,
@@ -128,7 +135,14 @@ def test_update_exports_each_revision_once(hw_repo, docs_root, fake_kicad):
     rc = core.update(hw_repo, tag_pattern="hw-rev-*", manifest_path=manifest_path)
     assert rc == 0
     manifest = json.loads(manifest_path.read_text())
-    assert set(manifest) == {"HW-C2-PCB-CTRL-A", "HW-C2-PCB-CTRL-B", "CHASSIS-C2-A", "CHASSIS-C2-B"}
+    assert set(manifest) == {"HW-C2-PCB-CTRL-A", "HW-C2-PCB-CTRL-B",
+                             "CHASSIS-C2-A", "CHASSIS-C2-B", "HW-C2-DCLBB-A"}
+    mech = manifest["HW-C2-DCLBB-A"]
+    assert mech["mech"] is True
+    assert mech["artifacts"]["info_fields"]["Material"] == "Copper"
+    assert mech["artifacts"]["fab_spec"]["process"] == "laser_cut"
+    assert mech["artifacts"]["fab_spec"]["services"]["bending"] is True
+    assert (docs_root / mech["dir"] / "HW-C2-DCLBB-A.step").is_file()
     chassis = manifest["CHASSIS-C2-A"]
     assert chassis["artifacts"]["vendor_boms"]["mouser"] == "BOMs/mouser_bom.csv"
     assert chassis["artifacts"]["vendor_boms"]["sendcutsend"] == "BOMs/sendcutsend_bom.csv"
@@ -165,7 +179,7 @@ def test_update_only_tag(hw_repo, docs_root, fake_kicad):
     rc = core.update(hw_repo, only_tag="hw-rev-b", manifest_path=manifest_path)
     assert rc == 0
     manifest = json.loads(manifest_path.read_text())
-    assert set(manifest) == {"HW-C2-PCB-CTRL-B", "CHASSIS-C2-B"}
+    assert set(manifest) == {"HW-C2-PCB-CTRL-B", "CHASSIS-C2-B", "HW-C2-DCLBB-A"}
 
 
 def test_update_no_tags(hw_repo, docs_root, fake_kicad):

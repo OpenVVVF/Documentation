@@ -355,6 +355,19 @@ tr:nth-child(even) {{ background: var(--surface); }}
 .step-body {{ flex: 1; min-width: 0; }}
 .step-cap {{ margin: 4px 0 8px; font-size: 14px; }}
 .step-body img {{ width: 100%; border: 1px solid var(--border-light); border-radius: 8px; }}
+.mech-cards {{ display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; }}
+.mech-card {{
+  width: 300px; border: 1px solid var(--border-light); border-radius: 8px;
+  background: var(--surface); padding: 12px 14px; font-size: 13px;
+}}
+.mech-card img {{ width: 100%; border-radius: 6px; background: #fff;
+  border: 1px solid var(--border-light); }}
+.mech-card h4 {{ margin: 10px 0 4px; font-family: var(--font-brand); }}
+.mech-meta {{ color: var(--text-muted); margin-bottom: 8px; }}
+.mech-card ul {{ margin: 0 0 8px; padding-left: 18px; }}
+.mech-notes {{ color: var(--text-muted); margin-bottom: 8px; }}
+.mech-links {{ display: flex; gap: 12px; align-items: center; }}
+.mech-links a {{ color: var(--accent); }}
 @media (max-width: 800px) {{
   .layout {{ flex-direction: column; }}
   aside {{ width: 100%; border-right: none; border-bottom: 1px solid var(--border-light); }}
@@ -644,6 +657,8 @@ async function loadPreview() {{
   const map = boms();
   const div = document.getElementById("preview");
   if (!state.vendor || !map[state.vendor]) return;
+  let cardsHtml = "";
+  if (state.vendor === "sendcutsend") cardsHtml = mechCards();
   const r = await fetch(ROOT + e.dir + "/" + map[state.vendor]);
   const rows = parseCSV(await r.text());
   // On the PCBs view, append a gerber-zip download column and a notes column.
@@ -677,7 +692,46 @@ async function loadPreview() {{
   }}
   html += "</tbody></table>";
   if (rows.length > 501) html += '<p class="meta">Showing 500 of ' + (rows.length - 1) + " rows.</p>";
-  div.innerHTML = html;
+  div.innerHTML = cardsHtml + html;
+}}
+
+function mechCards() {{
+  const parts = Object.values(MANIFEST).filter(
+    x => x.mech && x.chassis === state.chassis && x.rev === state.rev);
+  if (!parts.length) return "";
+  let html = '<div class="mech-cards">';
+  for (const p of parts) {{
+    const a = p.artifacts || {{}};
+    const f = a.info_fields || {{}};
+    const spec = a.fab_spec || {{}};
+    const services = spec.services || {{}};
+    const base = ROOT + p.dir + "/";
+    html += '<div class="mech-card">';
+    if (a.image) html += '<img src="' + base + a.image + '" alt="' + p.part_number + '">';
+    html += "<h4>" + p.part_number + "</h4>";
+    const bits = [];
+    if (spec.material || f.Material) bits.push(spec.material || f.Material);
+    if (spec.thickness_mm || f.Thickness_mm) bits.push((spec.thickness_mm || f.Thickness_mm) + " mm");
+    if (spec.process) bits.push(spec.process);
+    else if (f.Process) bits.push(f.Process);
+    if (bits.length) html += '<div class="mech-meta">' + bits.join(" · ") + "</div>";
+    const svc = [];
+    for (const [name, val] of Object.entries(services)) {{
+      if (val === true) svc.push(name);
+      else if (Array.isArray(val))
+        for (const item of val)
+          svc.push(name + ": " + (typeof item === "string" ? item :
+            (item.thread || item.for || "") + " — " + (item.holes || "")));
+    }}
+    if (svc.length) html += "<ul>" + svc.map(s => "<li>" + s + "</li>").join("") + "</ul>";
+    const notes = spec.notes || [];
+    if (notes.length) html += '<div class="mech-notes">' + notes.join(" ") + "</div>";
+    html += '<div class="mech-links">';
+    if (a.step) html += '<a href="' + base + a.step + '" download>STEP</a>';
+    if (f.UnitPrice) html += "<span>$" + f.UnitPrice + " ea</span>";
+    html += "</div></div>";
+  }}
+  return html + "</div>";
 }}
 
 init();
@@ -708,5 +762,5 @@ def build_viewer(manifest_path: Optional[Path] = None,
     bom_path.parent.mkdir(parents=True, exist_ok=True)
     bom_path.write_text(render_bom_tool_html(manifest))
     print(f"Wrote {bom_path.relative_to(core.REPO_ROOT)} "
-          f"({sum(1 for e in manifest.values() if 'board' not in e)} chassis release(s))")
+          f"({sum(1 for e in manifest.values() if 'board' not in e and 'mech' not in e)} chassis release(s))")
     return 0

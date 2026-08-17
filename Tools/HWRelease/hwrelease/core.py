@@ -306,6 +306,54 @@ def load_fab_spec(board_dir: Path) -> Optional[dict]:
     return spec
 
 
+def parse_info_txt(path: Path) -> Dict[str, str]:
+    """Parse a SendCutSend-style info.txt (Key=value lines)."""
+    out: Dict[str, str] = {}
+    if not path.is_file():
+        return out
+    for line in path.read_text(errors="replace").splitlines():
+        if "=" in line:
+            k, v = line.split("=", 1)
+            out[k.strip()] = v.strip()
+    return out
+
+
+def export_mech_parts(chassis_dir: Path, out_dir: Path) -> List[dict]:
+    """Export fabricated mechanical parts (Mechanical/Fab/<part>/) -> Mech/.
+
+    Copies STEP, image, info.txt and reads fab_spec.yaml; returns one
+    artifacts dict per part.
+    """
+    fab_dir = chassis_dir / "Mechanical" / "Fab"
+    if not fab_dir.is_dir():
+        return []
+    parts = []
+    for part_dir in sorted(fab_dir.iterdir()):
+        if not part_dir.is_dir():
+            continue
+        dest = out_dir / "Mech" / part_dir.name
+        if dest.exists():
+            shutil.rmtree(dest)
+        dest.mkdir(parents=True)
+        artifacts: Dict[str, object] = {}
+        for step in part_dir.glob("*.step"):
+            shutil.copy2(step, dest / step.name)
+            artifacts["step"] = step.name
+        for img in part_dir.glob("*.png"):
+            shutil.copy2(img, dest / img.name)
+            artifacts["image"] = img.name
+        info = parse_info_txt(part_dir / "info.txt")
+        if info:
+            shutil.copy2(part_dir / "info.txt", dest / "info.txt")
+            artifacts["info"] = "info.txt"
+            artifacts["info_fields"] = info
+        spec_file = part_dir / "fab_spec.yaml"
+        if spec_file.is_file():
+            artifacts["fab_spec"] = yaml.safe_load(spec_file.read_text()) or {}
+        parts.append({"part": part_dir.name, "artifacts": artifacts})
+    return parts
+
+
 # -------------------------------------------------------------------- update
 
 def default_hw_repo() -> Path:
@@ -492,6 +540,27 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                 if variant_totals:
                     artifacts.setdefault("price_estimate", {})[
                         "variants"] = variant_totals
+                mech_parts = export_mech_parts(tmp_path / "Hardware" / chassis,
+                                               out_dir)
+                for mp in mech_parts:
+                    pn = mp["part"]
+                    if pn in manifest and not force:
+                        continue
+                    entry = {
+                        "mech": True,
+                        "part_number": pn,
+                        "chassis": short,
+                        "rev": rev,
+                        "source_tag": tag,
+                        "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                        "dir": str((out_dir / "Mech" / pn).relative_to(REPO_ROOT)),
+                        "artifacts": mp["artifacts"],
+                    }
+                    if web_url:
+                        entry["source_url"] = f"{web_url}/tree/{tag}"
+                    manifest[pn] = entry
+                if mech_parts:
+                    print(f"  {chassis} mech parts: {len(mech_parts)} exported")
                 entry = {
                     "chassis": short,
                     "rev": rev,
