@@ -8,7 +8,7 @@ applies_to:
 version: "1.1"
 date: "2026-08-13"
 description: Step-by-step procedure for mounting the IGBT half-bridge modules to the Chassis Size 2 heatspreader.
-nav_order: 224
+nav_order: 226
 normative_refs:
   - OV-C2-IG-INDEX
 ---

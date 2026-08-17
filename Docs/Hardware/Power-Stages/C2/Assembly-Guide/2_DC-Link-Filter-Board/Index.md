@@ -8,7 +8,7 @@ applies_to:
 version: "0.1"
 date: "2026-08-15"
 description: Populate and solder the DC-link filter PCB for the Chassis Size 2 power stage.
-nav_order: 228
+nav_order: 224
 normative_refs:
   - OV-C2-IG-INDEX
 ---

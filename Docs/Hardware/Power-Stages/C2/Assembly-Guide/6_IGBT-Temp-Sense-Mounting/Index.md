@@ -8,7 +8,7 @@ applies_to:
 version: "0.1"
 date: "2026-08-15"
 description: Mount the IGBT temperature sensors to the Chassis Size 2 heatspreader.
-nav_order: 226
+nav_order: 228
 normative_refs:
   - OV-C2-IG-INDEX
 ---

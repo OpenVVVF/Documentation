@@ -8,7 +8,7 @@ applies_to:
 version: "0.1"
 date: "2026-08-14"
 description: Build the IGBT temperature-sensor wiring harness for the Chassis Size 2 power stage.
-nav_order: 225
+nav_order: 227
 normative_refs:
   - OV-C2-IG-INDEX
 ---
