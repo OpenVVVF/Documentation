@@ -613,19 +613,6 @@ function renderVendors() {{
     a.textContent = label;
     actions.appendChild(a);
   }}
-  if (state.vendor === "pcb") {{
-    // Per-board gerber zips from the board entries at this chassis/rev.
-    const boards = Object.values(MANIFEST).filter(
-      x => x.board && x.chassis === state.chassis && x.rev === state.rev &&
-           x.artifacts && x.artifacts.gerber_zip);
-    for (const b of boards) {{
-      const a = document.createElement("a");
-      a.href = ROOT + b.dir + "/" + b.artifacts.gerber_zip;
-      a.download = "";
-      a.textContent = b.board + " gerbers";
-      actions.appendChild(a);
-    }}
-  }}
   if (state.vendor && map[state.vendor]) {{
     const a = document.createElement("a");
     a.className = "download";
@@ -659,12 +646,27 @@ async function loadPreview() {{
   if (!state.vendor || !map[state.vendor]) return;
   const r = await fetch(ROOT + e.dir + "/" + map[state.vendor]);
   const rows = parseCSV(await r.text());
+  // On the PCBs view, append a gerber-zip download column per board row.
+  let gerberFor = null;
+  if (state.vendor === "pcb") {{
+    gerberFor = {{}};
+    for (const b of Object.values(MANIFEST)) {{
+      if (b.board && b.chassis === state.chassis && b.rev === state.rev &&
+          b.artifacts && b.artifacts.gerber_zip)
+        gerberFor[b.part_number] = ROOT + b.dir + "/" + b.artifacts.gerber_zip;
+    }}
+  }}
   let html = "<table><thead><tr>";
   for (const h of rows[0]) html += "<th>" + h + "</th>";
+  if (gerberFor) html += "<th>Gerbers</th>";
   html += "</tr></thead><tbody>";
   for (const row of rows.slice(1, 501)) {{
     html += "<tr>";
     for (const c of row) html += "<td>" + c + "</td>";
+    if (gerberFor) {{
+      const url = gerberFor[row[1]];
+      html += "<td>" + (url ? '<a href="' + url + '" download>Download zip</a>' : "") + "</td>";
+    }}
     html += "</tr>";
   }}
   html += "</tbody></table>";
