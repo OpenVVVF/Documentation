@@ -298,8 +298,12 @@ th, td {{ border: 1px solid var(--border-light); padding: 6px 10px; text-align: 
 th {{ background: var(--surface); font-family: var(--font-brand); position: sticky; top: 0; }}
 tr:nth-child(even) {{ background: var(--surface); }}
 .empty {{ color: var(--text-muted); margin-top: 40px; }}
+#content {{ display: flex; gap: 24px; align-items: flex-start; }}
+#preview {{ flex: 1; min-width: 0; }}
+.guide-col {{ width: 400px; flex-shrink: 0; }}
 .guide {{
-  flex-direction: column; gap: 14px; margin-bottom: 20px; max-width: 900px;
+  flex-direction: column; gap: 14px; display: flex;
+  position: sticky; top: 16px; max-height: calc(100vh - 110px); overflow-y: auto;
 }}
 .guide img {{
   width: 100%; border: 1px solid var(--border-light); border-radius: 8px;
@@ -312,11 +316,16 @@ tr:nth-child(even) {{ background: var(--surface); }}
 .guide .copy-paste:hover {{ border-color: var(--accent); }}
 .guide.collapsed {{ display: none !important; }}
 #guide-toggle {{
-  margin: 24px 0 12px; padding: 8px 14px; border-radius: 6px; font-size: 13px;
+  margin: 0 0 12px; padding: 8px 14px; border-radius: 6px; font-size: 13px;
   border: 1px solid var(--border); background: var(--surface); cursor: pointer;
   color: var(--text-muted); font-family: var(--font-body);
 }}
 #guide-toggle:hover {{ border-color: var(--accent); color: var(--text); }}
+@media (max-width: 1100px) {{
+  #content {{ flex-direction: column; }}
+  .guide-col {{ width: 100%; }}
+  .guide {{ position: static; max-height: none; }}
+}}
 .guide-step {{ display: flex; gap: 14px; align-items: flex-start; }}
 .step-num {{
   flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
@@ -341,9 +350,13 @@ tr:nth-child(even) {{ background: var(--surface); }}
   </div>
   <div class="meta" id="meta"></div>
   <div class="vendors" id="vendors"></div>
-  <div id="preview"><p class="empty">Pick a vendor BOM above to preview it.</p></div>
-  <button id="guide-toggle" style="display:none" onclick="toggleGuide()">Hide ordering walkthrough</button>
-  <div class="guide" id="guide" style="display:none"></div>
+  <div id="content">
+    <div id="preview"><p class="empty">Pick a vendor BOM above to preview it.</p></div>
+    <div class="guide-col" id="guide-col" style="display:none">
+      <button id="guide-toggle" onclick="toggleGuide()">Hide walkthrough</button>
+      <div class="guide" id="guide"></div>
+    </div>
+  </div>
 </main>
 <script>
 // Ordering walkthrough: hand-maintained files next to this page,
@@ -363,8 +376,9 @@ function loadImg(src) {{
 
 async function renderGuide() {{
   const div = document.getElementById("guide");
+  const col = document.getElementById("guide-col");
   div.innerHTML = "";
-  if (!state.vendor) {{ div.style.display = "none"; return; }}
+  if (!state.vendor) {{ col.style.display = "none"; return; }}
   const vendor = state.vendor;
   for (let n = 1; n <= ORDER_GUIDE_MAX_STEPS; n++) {{
     const [img, cap] = await Promise.all([
@@ -408,10 +422,10 @@ async function renderGuide() {{
       div.appendChild(b);
     }}
   }}
-  div.style.display = div.children.length ? "flex" : "none";
+  div.style.display = "flex";
+  col.style.display = div.children.length ? "block" : "none";
   const toggle = document.getElementById("guide-toggle");
-  toggle.style.display = div.children.length ? "inline-block" : "none";
-  toggle.textContent = "Hide ordering walkthrough";
+  toggle.textContent = "Hide walkthrough";
   div.classList.remove("collapsed");
 }}
 
@@ -419,7 +433,7 @@ function toggleGuide() {{
   const div = document.getElementById("guide");
   const toggle = document.getElementById("guide-toggle");
   const collapsed = div.classList.toggle("collapsed");
-  toggle.textContent = collapsed ? "Show ordering walkthrough" : "Hide ordering walkthrough";
+  toggle.textContent = collapsed ? "Show walkthrough" : "Hide walkthrough";
 }}
 
 const MANIFEST = {manifest};

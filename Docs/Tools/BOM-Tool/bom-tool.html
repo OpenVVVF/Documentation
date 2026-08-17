@@ -48,8 +48,12 @@ th, td { border: 1px solid var(--border-light); padding: 6px 10px; text-align: l
 th { background: var(--surface); font-family: var(--font-brand); position: sticky; top: 0; }
 tr:nth-child(even) { background: var(--surface); }
 .empty { color: var(--text-muted); margin-top: 40px; }
+#content { display: flex; gap: 24px; align-items: flex-start; }
+#preview { flex: 1; min-width: 0; }
+.guide-col { width: 400px; flex-shrink: 0; }
 .guide {
-  flex-direction: column; gap: 14px; margin-bottom: 20px; max-width: 900px;
+  flex-direction: column; gap: 14px; display: flex;
+  position: sticky; top: 16px; max-height: calc(100vh - 110px); overflow-y: auto;
 }
 .guide img {
   width: 100%; border: 1px solid var(--border-light); border-radius: 8px;
@@ -62,11 +66,16 @@ tr:nth-child(even) { background: var(--surface); }
 .guide .copy-paste:hover { border-color: var(--accent); }
 .guide.collapsed { display: none !important; }
 #guide-toggle {
-  margin: 24px 0 12px; padding: 8px 14px; border-radius: 6px; font-size: 13px;
+  margin: 0 0 12px; padding: 8px 14px; border-radius: 6px; font-size: 13px;
   border: 1px solid var(--border); background: var(--surface); cursor: pointer;
   color: var(--text-muted); font-family: var(--font-body);
 }
 #guide-toggle:hover { border-color: var(--accent); color: var(--text); }
+@media (max-width: 1100px) {
+  #content { flex-direction: column; }
+  .guide-col { width: 100%; }
+  .guide { position: static; max-height: none; }
+}
 .guide-step { display: flex; gap: 14px; align-items: flex-start; }
 .step-num {
   flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
@@ -91,9 +100,13 @@ tr:nth-child(even) { background: var(--surface); }
   </div>
   <div class="meta" id="meta"></div>
   <div class="vendors" id="vendors"></div>
-  <div id="preview"><p class="empty">Pick a vendor BOM above to preview it.</p></div>
-  <button id="guide-toggle" style="display:none" onclick="toggleGuide()">Hide ordering walkthrough</button>
-  <div class="guide" id="guide" style="display:none"></div>
+  <div id="content">
+    <div id="preview"><p class="empty">Pick a vendor BOM above to preview it.</p></div>
+    <div class="guide-col" id="guide-col" style="display:none">
+      <button id="guide-toggle" onclick="toggleGuide()">Hide walkthrough</button>
+      <div class="guide" id="guide"></div>
+    </div>
+  </div>
 </main>
 <script>
 // Ordering walkthrough: hand-maintained files next to this page,
@@ -113,8 +126,9 @@ function loadImg(src) {
 
 async function renderGuide() {
   const div = document.getElementById("guide");
+  const col = document.getElementById("guide-col");
   div.innerHTML = "";
-  if (!state.vendor) { div.style.display = "none"; return; }
+  if (!state.vendor) { col.style.display = "none"; return; }
   const vendor = state.vendor;
   for (let n = 1; n <= ORDER_GUIDE_MAX_STEPS; n++) {
     const [img, cap] = await Promise.all([
@@ -158,10 +172,10 @@ async function renderGuide() {
       div.appendChild(b);
     }
   }
-  div.style.display = div.children.length ? "flex" : "none";
+  div.style.display = "flex";
+  col.style.display = div.children.length ? "block" : "none";
   const toggle = document.getElementById("guide-toggle");
-  toggle.style.display = div.children.length ? "inline-block" : "none";
-  toggle.textContent = "Hide ordering walkthrough";
+  toggle.textContent = "Hide walkthrough";
   div.classList.remove("collapsed");
 }
 
@@ -169,7 +183,7 @@ function toggleGuide() {
   const div = document.getElementById("guide");
   const toggle = document.getElementById("guide-toggle");
   const collapsed = div.classList.toggle("collapsed");
-  toggle.textContent = collapsed ? "Show ordering walkthrough" : "Hide ordering walkthrough";
+  toggle.textContent = collapsed ? "Show walkthrough" : "Hide walkthrough";
 }
 
 const MANIFEST = {"CHASSIS-C2-A": {"artifacts": {"price_estimate": {"qty": 1, "total": "2,299.88", "variant_vendors": {"generous": {"digikey": "46.98", "mcmaster": "189.18", "mouser": "1,971.23", "pcb": "129.08", "sendcutsend": "352.16"}, "standard": {"digikey": "46.98", "mcmaster": "178.51", "mouser": "1,747.30", "pcb": "64.54", "sendcutsend": "310.46"}}, "variants": {"base": "2,299.88", "generous": "2,688.62", "standard": "2,347.80"}, "vendors": {"Digi-Key": "46.98", "In-House Assembly": "0.00", "McMaster-Carr": "163.63", "Mouser": "1,714.27", "PCB Fabrication": "64.54", "SendCutSend": "310.46"}}, "pricing_report": "Pricing_Report.md", "variants": {"generous": {"assembly": "BOMs/Variants/generous/assembly_bom.csv", "consolidated": "BOMs/Variants/generous/Consolidated_BOM.csv", "digikey": "BOMs/Variants/generous/digikey_bom.csv", "mcmaster": "BOMs/Variants/generous/mcmaster_bom.csv", "mcmaster_paste": "BOMs/Variants/generous/McMaster_Order_Paste.txt", "mouser": "BOMs/Variants/generous/mouser_bom.csv", "pcb": "BOMs/Variants/generous/pcb_bom.csv", "sendcutsend": "BOMs/Variants/generous/sendcutsend_bom.csv"}, "standard": {"assembly": "BOMs/Variants/standard/assembly_bom.csv", "consolidated": "BOMs/Variants/standard/Consolidated_BOM.csv", "digikey": "BOMs/Variants/standard/digikey_bom.csv", "mcmaster": "BOMs/Variants/standard/mcmaster_bom.csv", "mcmaster_paste": "BOMs/Variants/standard/McMaster_Order_Paste.txt", "mouser": "BOMs/Variants/standard/mouser_bom.csv", "pcb": "BOMs/Variants/standard/pcb_bom.csv", "sendcutsend": "BOMs/Variants/standard/sendcutsend_bom.csv"}}, "vendor_boms": {"assembly": "BOMs/assembly_bom.csv", "consolidated": "BOMs/Consolidated_BOM.csv", "digikey": "BOMs/digikey_bom.csv", "mcmaster": "BOMs/mcmaster_bom.csv", "mcmaster_paste": "BOMs/McMaster_Order_Paste.txt", "mouser": "BOMs/mouser_bom.csv", "pcb": "BOMs/pcb_bom.csv", "sendcutsend": "BOMs/sendcutsend_bom.csv"}}, "chassis": "C2", "dir": "Data/Releases/C2/A", "generated": "2026-08-17T00:23:50+00:00", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-CTRL-A": {"artifacts": {"bom_csv": "HW-C2-PCB-CTRL-A-bom.csv", "drc": "HW-C2-PCB-CTRL-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-CTRL-A-gerbers.zip", "ibom": "ibom.html", "renders": ["ControlBoard-Back.png", "ControlBoard.png"], "schematic_pdf": "HW-C2-PCB-CTRL-A-schematic.pdf", "step": "HW-C2-PCB-CTRL-A.step"}, "board": "ControlBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/ControlBoard", "generated": "2026-08-16T20:24:36+00:00", "part_number": "HW-C2-PCB-CTRL-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-DCBUSCAP-A": {"artifacts": {"bom_csv": "HW-C2-PCB-DCBUSCAP-A-bom.csv", "drc": "HW-C2-PCB-DCBUSCAP-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-DCBUSCAP-A-gerbers.zip", "ibom": "ibom.html", "renders": ["DCBusCapacitorBoard-Back.png", "DCBusCapacitorBoard-Front.png", "DCBusCapacitorBoard.png"], "schematic_pdf": "HW-C2-PCB-DCBUSCAP-A-schematic.pdf", "step": "HW-C2-PCB-DCBUSCAP-A.step"}, "board": "DCBusCapacitorBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/DCBusCapacitorBoard", "generated": "2026-08-16T20:24:53+00:00", "part_number": "HW-C2-PCB-DCBUSCAP-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-DCFLT-A": {"artifacts": {"bom_csv": "HW-C2-PCB-DCFLT-A-bom.csv", "drc": "HW-C2-PCB-DCFLT-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-DCFLT-A-gerbers.zip", "ibom": "ibom.html", "renders": ["DCBusFilter-Back.png", "DCBusFilter-Back2.png", "DCBusFilter-Front.png", "DCBusFilter.png"], "schematic_pdf": "HW-C2-PCB-DCFLT-A-schematic.pdf", "step": "HW-C2-PCB-DCFLT-A.step"}, "board": "DCBusFilter", "chassis": "C2", "dir": "Data/Releases/C2/A/DCBusFilter", "generated": "2026-08-16T20:25:12+00:00", "part_number": "HW-C2-PCB-DCFLT-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-GD-A": {"artifacts": {"bom_csv": "HW-C2-PCB-GD-A-bom.csv", "drc": "HW-C2-PCB-GD-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-GD-A-gerbers.zip", "ibom": "ibom.html", "renders": ["GateDriver-Back.png", "GateDriver-Front.png", "GateDriver.png"], "schematic_pdf": "HW-C2-PCB-GD-A-schematic.pdf", "step": "HW-C2-PCB-GD-A.step"}, "board": "GateDriver", "chassis": "C2", "dir": "Data/Releases/C2/A/GateDriver", "generated": "2026-08-16T20:25:32+00:00", "part_number": "HW-C2-PCB-GD-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-IO-A": {"artifacts": {"bom_csv": "HW-C2-PCB-IO-A-bom.csv", "drc": "HW-C2-PCB-IO-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-IO-A-gerbers.zip", "ibom": "ibom.html", "renders": ["IOBoard-Back.png", "IOBoard-Front.png", "IOBoard.png"], "schematic_pdf": "HW-C2-PCB-IO-A-schematic.pdf", "step": "HW-C2-PCB-IO-A.step"}, "board": "IOBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/IOBoard", "generated": "2026-08-16T20:25:48+00:00", "part_number": "HW-C2-PCB-IO-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}};
