@@ -310,6 +310,13 @@ tr:nth-child(even) {{ background: var(--surface); }}
   border: 1px solid var(--border); background: #fff; cursor: pointer;
 }}
 .guide .copy-paste:hover {{ border-color: var(--accent); }}
+.guide.collapsed {{ display: none !important; }}
+#guide-toggle {{
+  margin: 24px 0 12px; padding: 8px 14px; border-radius: 6px; font-size: 13px;
+  border: 1px solid var(--border); background: var(--surface); cursor: pointer;
+  color: var(--text-muted); font-family: var(--font-body);
+}}
+#guide-toggle:hover {{ border-color: var(--accent); color: var(--text); }}
 .guide-step {{ display: flex; gap: 14px; align-items: flex-start; }}
 .step-num {{
   flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
@@ -334,8 +341,9 @@ tr:nth-child(even) {{ background: var(--surface); }}
   </div>
   <div class="meta" id="meta"></div>
   <div class="vendors" id="vendors"></div>
-  <div class="guide" id="guide" style="display:none"></div>
   <div id="preview"><p class="empty">Pick a vendor BOM above to preview it.</p></div>
+  <button id="guide-toggle" style="display:none" onclick="toggleGuide()">Hide ordering walkthrough</button>
+  <div class="guide" id="guide" style="display:none"></div>
 </main>
 <script>
 // Ordering walkthrough: hand-maintained files next to this page,
@@ -401,6 +409,17 @@ async function renderGuide() {{
     }}
   }}
   div.style.display = div.children.length ? "flex" : "none";
+  const toggle = document.getElementById("guide-toggle");
+  toggle.style.display = div.children.length ? "inline-block" : "none";
+  toggle.textContent = "Hide ordering walkthrough";
+  div.classList.remove("collapsed");
+}}
+
+function toggleGuide() {{
+  const div = document.getElementById("guide");
+  const toggle = document.getElementById("guide-toggle");
+  const collapsed = div.classList.toggle("collapsed");
+  toggle.textContent = collapsed ? "Show ordering walkthrough" : "Hide ordering walkthrough";
 }}
 
 const MANIFEST = {manifest};
