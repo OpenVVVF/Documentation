@@ -1,0 +1,1 @@
+On the Parts page, drop in or upload the part's STEP file (Download STEP above). One part at a time.

@@ -1,0 +1,1 @@
+Pick the material category, then the exact material from the part's spec card (e.g. Copper, 6061 T6 Aluminum).

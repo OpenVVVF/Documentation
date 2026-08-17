@@ -1,0 +1,1 @@
+Pick the thickness from the part's spec card (e.g. .187" / 4.7 mm for the bus bars).

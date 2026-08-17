@@ -408,8 +408,13 @@ async function loadPreview() {
   const map = boms();
   const div = document.getElementById("preview");
   if (!state.vendor || !map[state.vendor]) return;
-  let cardsHtml = "";
-  if (state.vendor === "sendcutsend") cardsHtml = mechCards();
+  if (state.vendor === "sendcutsend") {
+    // Spec cards carry everything for SendCutSend parts — skip the CSV table
+    // (it stays available via Download CSV).
+    div.innerHTML = mechCards() ||
+      '<p class="empty">No mechanical part exports for this revision.</p>';
+    return;
+  }
   const r = await fetch(ROOT + e.dir + "/" + map[state.vendor]);
   const rows = parseCSV(await r.text());
   // On the PCBs view, append a gerber-zip download column and a notes column.
@@ -457,7 +462,7 @@ async function loadPreview() {
   }
   html += "</tbody></table>";
   if (rows.length > 501) html += '<p class="meta">Showing 500 of ' + (rows.length - 1) + " rows.</p>";
-  div.innerHTML = cardsHtml + html;
+  div.innerHTML = html;
 }
 
 function mechCards() {
