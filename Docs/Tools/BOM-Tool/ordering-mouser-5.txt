@@ -1,1 +1,1 @@
-Assign the column categories so Mouser knows which is which: Mouser Part Number and Quantity (the CSV is already in Mouser's column order).
+Browse to the Mouser CSV you downloaded from this page and click Upload a file.

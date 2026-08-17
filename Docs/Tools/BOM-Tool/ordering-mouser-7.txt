@@ -1,1 +1,1 @@
-Review every line carefully: check stock and lifecycle, and make substitutions where a part is unavailable or deprecated.
+Set the options (BOM name, currency, RoHS filter) and click Process BOM.
