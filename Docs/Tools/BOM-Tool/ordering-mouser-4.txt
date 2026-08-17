@@ -1,0 +1,1 @@
+Choose Upload Spreadsheet and select the Mouser CSV you downloaded from this page.

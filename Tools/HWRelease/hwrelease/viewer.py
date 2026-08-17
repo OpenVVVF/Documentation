@@ -310,6 +310,15 @@ tr:nth-child(even) {{ background: var(--surface); }}
   border: 1px solid var(--border); background: #fff; cursor: pointer;
 }}
 .guide .copy-paste:hover {{ border-color: var(--accent); }}
+.guide-step {{ display: flex; gap: 14px; align-items: flex-start; }}
+.step-num {{
+  flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: #fff; font-weight: 700; font-size: 14px;
+  display: flex; align-items: center; justify-content: center; margin-top: 2px;
+}}
+.step-body {{ flex: 1; min-width: 0; }}
+.step-cap {{ margin: 4px 0 8px; font-size: 14px; }}
+.step-body img {{ width: 100%; border: 1px solid var(--border-light); border-radius: 8px; }}
 </style>
 </head>
 <body>
@@ -329,23 +338,51 @@ tr:nth-child(even) {{ background: var(--surface); }}
   <div id="preview"><p class="empty">Pick a vendor BOM above to preview it.</p></div>
 </main>
 <script>
-// Ordering walkthrough screenshots: hand-maintained files next to this page,
-// named ordering-<vendor>-<n>.png (n = 1, 2, ...). Missing numbers are skipped.
-const ORDER_GUIDE_MAX_SHOTS = 8;
+// Ordering walkthrough: hand-maintained files next to this page,
+// ordering-<vendor>-<n>.png (screenshot) + ordering-<vendor>-<n>.txt
+// (caption). Either may exist alone; the walkthrough stops at the first n
+// where neither exists.
+const ORDER_GUIDE_MAX_STEPS = 12;
 
-function renderGuide() {{
+function loadImg(src) {{
+  return new Promise(res => {{
+    const i = new Image();
+    i.onload = () => res(i);
+    i.onerror = () => res(null);
+    i.src = src;
+  }});
+}}
+
+async function renderGuide() {{
   const div = document.getElementById("guide");
   div.innerHTML = "";
   if (!state.vendor) {{ div.style.display = "none"; return; }}
-  let added = 0;
-  for (let n = 1; n <= ORDER_GUIDE_MAX_SHOTS; n++) {{
-    const img = document.createElement("img");
-    img.src = "ordering-" + state.vendor + "-" + n + ".png";
-    img.alt = state.vendor + " ordering step " + n;
-    img.onerror = () => img.remove();
-    img.onload = () => {{ div.style.display = "flex"; }};
-    div.appendChild(img);
-    added++;
+  const vendor = state.vendor;
+  for (let n = 1; n <= ORDER_GUIDE_MAX_STEPS; n++) {{
+    const [img, cap] = await Promise.all([
+      loadImg("ordering-" + vendor + "-" + n + ".png"),
+      fetch("ordering-" + vendor + "-" + n + ".txt")
+        .then(r => r.ok ? r.text() : null).catch(() => null),
+    ]);
+    if (!img && !cap) break;
+    if (state.vendor !== vendor) return;  // switched vendors mid-load
+    const step = document.createElement("div");
+    step.className = "guide-step";
+    const num = document.createElement("div");
+    num.className = "step-num";
+    num.textContent = n;
+    step.appendChild(num);
+    const body = document.createElement("div");
+    body.className = "step-body";
+    if (cap) {{
+      const p = document.createElement("p");
+      p.className = "step-cap";
+      p.textContent = cap.trim();
+      body.appendChild(p);
+    }}
+    if (img) body.appendChild(img);
+    step.appendChild(body);
+    div.appendChild(step);
   }}
   if (state.vendor === "mcmaster") {{
     const e = current();
@@ -363,6 +400,7 @@ function renderGuide() {{
       div.appendChild(b);
     }}
   }}
+  div.style.display = div.children.length ? "flex" : "none";
 }}
 
 const MANIFEST = {manifest};
@@ -401,7 +439,24 @@ function init() {{
   state.chassis = state.chassis || rel[0].chassis;
   fill(document.getElementById("chassis"), [...new Set(rel.map(e => e.chassis))].sort(), state.chassis);
   onChassis();
+  const h = location.hash.slice(1);
+  if (VENDOR_LABELS[h]) {{
+    state.vendor = h;
+    renderVendors();
+    renderGuide();
+    loadPreview();
+  }}
 }}
+
+window.addEventListener("hashchange", () => {{
+  const h = location.hash.slice(1);
+  if (VENDOR_LABELS[h] && h !== state.vendor) {{
+    state.vendor = h;
+    renderVendors();
+    renderGuide();
+    loadPreview();
+  }}
+}});
 
 function onChassis() {{
   state.chassis = document.getElementById("chassis").value;

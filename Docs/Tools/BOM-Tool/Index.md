@@ -27,7 +27,7 @@ The BOM Tool serves the per-chassis vendor order BOMs exported from the hardware
 
 ### Ordering walkthrough screenshots
 
-When a vendor is selected, the tool shows a step-by-step walkthrough of that vendor's upload/ordering flow below the buttons (for McMaster-Carr there's also a button that copies the order paste to the clipboard). The screenshots are hand-maintained: drop them next to this document as `ordering-<vendor>-<n>.png` (`n` = 1, 2, …; vendors: `mouser`, `digikey`, `mcmaster`, `sendcutsend`, `jlcpcb`). No regeneration is needed — they are picked up on the next site build.
+When a vendor is selected, the tool shows a step-by-step walkthrough of that vendor's upload/ordering flow below the buttons (for McMaster-Carr there's also a button that copies the order paste to the clipboard). The walkthrough is hand-maintained: drop files next to this document named `ordering-<vendor>-<n>.png` (screenshot) and `ordering-<vendor>-<n>.txt` (one-line caption), numbered in order (`n` = 1, 2, …; vendors: `mouser`, `digikey`, `mcmaster`, `sendcutsend`, `jlcpcb`). Either file may exist alone — steps without a screenshot show as text only. No regeneration is needed — they are picked up on the next site build.
 
 The estimate in the header reflects the selected variant (`base`, `standard`, `generous`).
 
