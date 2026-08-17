@@ -300,8 +300,17 @@ def write_variant_outputs(chassis: str, priced, base_output: Path, qty: int = 1)
 
         lines = [l for l, _ in tier_lines]
         vendors_present = set(l.primary_vendor() or "unknown" for l in lines)
+        written_csvs = set()
         for vendor in sorted(vendors_present):
-            write_vendor_csv(lines, vendor, out_dir / f"{vendor}_bom.csv", qty=1)
+            fname = f"{vendor}_bom.csv"
+            write_vendor_csv(lines, vendor, out_dir / fname, qty=1)
+            written_csvs.add(fname)
+        # Full runs own the variant directory too: drop stale vendor CSVs
+        # (e.g. a vendor removed from the design) so outputs never show
+        # stale state.
+        for stale in out_dir.glob("*_bom.csv"):
+            if stale.name not in written_csvs and stale.name != "Consolidated_BOM.csv":
+                stale.unlink()
         if "mcmaster" in vendors_present:
             write_mcmaster_order_paste(lines, out_dir / "McMaster_Order_Paste.txt", qty=1)
 

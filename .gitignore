@@ -49,3 +49,6 @@ site/
 # Hardware release exports are committed generated data
 !Data/Releases/**/*.pdf
 !Data/Releases/**/*.html
+
+# HWRelease temp extraction dirs (deleted after use)
+.hwrelease-tmp-*

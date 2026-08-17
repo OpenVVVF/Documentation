@@ -1,6 +1,6 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-17T01:42:10.578917Z
+Generated: 2026-08-17T02:11:11.071206Z
 
 Base quantity: 1 unit(s)
 
@@ -141,29 +141,29 @@ Base quantity: 1 unit(s)
 
 | Qty | Order | Internal P/N | Description | Part Number | Unit Price | Line Total | Source |
 |-----|-------|--------------|-------------|-------------|------------|------------|--------|
-| 2 |  | HW-C2-BB-DCLBB-A | HW-C2-DCLBB-A | HW-C2-DCLBB-A | $45.1200 | $90.24 | sendcutsend_folder |
-| 3 |  | HW-C2-BB-PBB-A | HW-C2-PBB-A | HW-C2-PBB-A | $17.0300 | $51.09 | sendcutsend_folder |
+| 2 |  | HW-C2-BB-DCLBB-A | HW-C2-DCLBB-A | HW-C2-DCLBB-A | $52.6400 | $105.28 | sendcutsend_folder |
+| 3 |  | HW-C2-BB-PBB-A | HW-C2-PBB-A | HW-C2-PBB-A | $20.3200 | $60.96 | sendcutsend_folder |
 | 1 |  | HW-C2-HW-DC-LINK-MODULE-HOLDER-A | DC Link Module Holder - 200V Class | DC Link Module Holder - 200V Class | N/A | N/A | sendcutsend_folder |
 | 1 |  | HW-C2-HW-DC-LINK-MODULE-HOLDER-A | DC Link Module Holder - 250-450V Class | DC Link Module Holder - 250-450V Class | N/A | N/A | sendcutsend_folder |
-| 1 |  | HW-C2-PLT-BSP-A | HW-C2-BSP-A | HW-C2-BSP-A | $144.4600 | $144.46 | sendcutsend_folder |
-| 1 |  | HW-C2-PLT-CHSP-A | HW-C2-CHSP-A | HW-C2-CHSP-A | $24.6700 | $24.67 | sendcutsend_folder |
+| 1 |  | HW-C2-PLT-BSP-A | HW-C2-BSP-A | HW-C2-BSP-A | $207.5400 | $207.54 | sendcutsend_folder |
+| 1 |  | HW-C2-PLT-CHSP-A | HW-C2-CHSP-A | HW-C2-CHSP-A | $42.6400 | $42.64 | sendcutsend_folder |
 
-**SendCutSend subtotal:** $310.46
+**SendCutSend subtotal:** $416.42
 
 
 ---
 
-## Grand Total (1 unit): **$2285.68**
+## Grand Total (1 unit): **$2391.64**
 
 
 ## Quantity Scaling
 
 | Quantity | Estimated Total |
 |----------|----------------|
-| 3 | $6716.58 |
-| 5 | $11155.41 |
-| 10 | $22255.08 |
-| 25 | $55591.26 |
+| 3 | $7034.46 |
+| 5 | $11685.21 |
+| 10 | $23314.68 |
+| 25 | $58240.26 |
 
 
 ## Pack Rounding & Stock
@@ -203,7 +203,7 @@ Base quantity: 1 unit(s)
 - **Material:** Copper
 - **Thickness:** 4.75 mm
 - **Finish:** Bending
-- **Unit Price:** $45.12
+- **Unit Price:** $52.64
 - **STEP:** `../Mechanical/Fab/HW-C2-DCLBB-A/HW-C2-DCLBB-A.step`
 
 ![HW-C2-DCLBB-A](../Mechanical/Fab/HW-C2-DCLBB-A/info.png)
@@ -215,7 +215,7 @@ Base quantity: 1 unit(s)
 - **Material:** Copper
 - **Thickness:** 4.75 mm
 - **Finish:** Bending
-- **Unit Price:** $17.03
+- **Unit Price:** $20.32
 - **STEP:** `../Mechanical/Fab/HW-C2-PBB-A/HW-C2-PBB-A.step`
 
 ![HW-C2-PBB-A](../Mechanical/Fab/HW-C2-PBB-A/info.png)
@@ -245,7 +245,7 @@ Base quantity: 1 unit(s)
 - **Material:** 6061 T6 Aluminum
 - **Thickness:** 9.52 mm
 - **Finish:** Deburring, Tapping
-- **Unit Price:** $144.46
+- **Unit Price:** $207.54
 - **STEP:** `../Mechanical/Fab/HW-C2-BSP-A/C2-HW-BSP-A.step`
 
 ![HW-C2-BSP-A](../Mechanical/Fab/HW-C2-BSP-A/info.png)
@@ -257,7 +257,7 @@ Base quantity: 1 unit(s)
 - **Material:** 6061 T6 Aluminum
 - **Thickness:** 3.17 mm
 - **Finish:** Deburring
-- **Unit Price:** $24.67
+- **Unit Price:** $42.64
 - **STEP:** `../Mechanical/Fab/HW-C2-CHSP-A/HW-C2-CHSP-A.step`
 
 ![HW-C2-CHSP-A](../Mechanical/Fab/HW-C2-CHSP-A/info.png)
@@ -276,12 +276,12 @@ Base quantity: 1 unit(s)
 
 | Fab Part | Rev | Qty | STEP | info.txt | Price | Spec |
 |----------|-----|-----|------|----------|-------|------|
-| HW-C2-BSP-A | A | 1 | yes | yes | $144.46 | 6061 T6 Aluminum / 9.52 mm / Sheet Cutting / Deburring, Tapping |
-| HW-C2-CHSP-A | A | 1 | yes | yes | $24.67 | 6061 T6 Aluminum / 3.17 mm / Sheet Cutting / Deburring |
-| HW-C2-DCLBB-A | A | 2 | yes | yes | $45.12 | Copper / 4.75 mm / Sheet Cutting / Bending |
+| HW-C2-BSP-A | A | 1 | yes | yes | $207.54 | 6061 T6 Aluminum / 9.52 mm / Sheet Cutting / Deburring, Tapping |
+| HW-C2-CHSP-A | A | 1 | yes | yes | $42.64 | 6061 T6 Aluminum / 3.17 mm / Sheet Cutting / Deburring |
+| HW-C2-DCLBB-A | A | 2 | yes | yes | $52.64 | Copper / 4.75 mm / Sheet Cutting / Bending |
 | HW-C2-DCLMH-200-PRINTED-A | A | 1 | yes | yes | **missing** | 35.50 mm / 3D Printing / as printed |
 | HW-C2-DCLMH-250-450-PRINTED-A | A | 1 | yes | yes | **missing** | 30.50 mm / 3D Printing / as printed |
-| HW-C2-PBB-A | A | 3 | yes | yes | $17.03 | Copper / 4.75 mm / Sheet Cutting / Bending |
+| HW-C2-PBB-A | A | 3 | yes | yes | $20.32 | Copper / 4.75 mm / Sheet Cutting / Bending |
 
 | Harness | Qty/Chassis | Rev | BOM CSV |
 |---------|-------------|-----|---------|

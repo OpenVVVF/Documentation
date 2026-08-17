@@ -462,10 +462,10 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
         if not force and only_tag is None and tag in known_tags:
             print(f"Tag {tag}: already in manifest, skipped.")
             continue
-        # Temp dir must live under $HOME (releases dir) — the KiCad flatpak
-        # sandbox cannot access /tmp.
-        with tempfile.TemporaryDirectory(prefix=f".tmp-{tag}-",
-                                         dir=releases_dir) as tmp:
+        # Temp dir must live under $HOME — the KiCad flatpak sandbox cannot
+        # access /tmp. Repo root works and is cleaned up automatically.
+        with tempfile.TemporaryDirectory(prefix=f".hwrelease-tmp-{tag}-",
+                                         dir=REPO_ROOT) as tmp:
             tmp_path = Path(tmp)
             if not archive_tag(hw_repo, tag, tmp_path):
                 print(f"Tag {tag}: no Hardware/ tree, skipped.")

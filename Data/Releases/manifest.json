@@ -3,32 +3,32 @@
     "artifacts": {
       "price_estimate": {
         "qty": 1,
-        "total": "2,285.68",
+        "total": "2,391.64",
         "variant_vendors": {
           "generous": {
             "mcmaster": "189.18",
             "mouser": "2,004.01",
             "pcb": "129.08",
-            "sendcutsend": "352.16"
+            "sendcutsend": "436.74"
           },
           "standard": {
             "mcmaster": "178.51",
             "mouser": "1,780.08",
             "pcb": "64.54",
-            "sendcutsend": "310.46"
+            "sendcutsend": "416.42"
           }
         },
         "variants": {
-          "base": "2,285.68",
-          "generous": "2,674.42",
-          "standard": "2,333.60"
+          "base": "2,391.64",
+          "generous": "2,759.00",
+          "standard": "2,439.56"
         },
         "vendors": {
           "In-House Assembly": "0.00",
           "McMaster-Carr": "163.63",
           "Mouser": "1,747.05",
           "PCB Fabrication": "64.54",
-          "SendCutSend": "310.46"
+          "SendCutSend": "416.42"
         }
       },
       "pricing_report": "Pricing_Report.md",
@@ -36,7 +36,6 @@
         "generous": {
           "assembly": "BOMs/Variants/generous/assembly_bom.csv",
           "consolidated": "BOMs/Variants/generous/Consolidated_BOM.csv",
-          "digikey": "BOMs/Variants/generous/digikey_bom.csv",
           "mcmaster": "BOMs/Variants/generous/mcmaster_bom.csv",
           "mcmaster_paste": "BOMs/Variants/generous/McMaster_Order_Paste.txt",
           "mouser": "BOMs/Variants/generous/mouser_bom.csv",
@@ -46,7 +45,6 @@
         "standard": {
           "assembly": "BOMs/Variants/standard/assembly_bom.csv",
           "consolidated": "BOMs/Variants/standard/Consolidated_BOM.csv",
-          "digikey": "BOMs/Variants/standard/digikey_bom.csv",
           "mcmaster": "BOMs/Variants/standard/mcmaster_bom.csv",
           "mcmaster_paste": "BOMs/Variants/standard/McMaster_Order_Paste.txt",
           "mouser": "BOMs/Variants/standard/mouser_bom.csv",
@@ -66,7 +64,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A",
-    "generated": "2026-08-17T01:44:05+00:00",
+    "generated": "2026-08-17T02:11:11+00:00",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
@@ -76,15 +74,18 @@
       "fab_spec": {
         "material": "6061 T6 Aluminum",
         "notes": [
-          "Deburr all edges",
-          ""
+          "Deburr all edges"
         ],
         "process": "laser_cut",
         "services": {
           "tapping": [
             {
-              "holes": "TODO: which holes, e.g. all \u23005.0 mm through-holes (4x)",
-              "thread": "TODO (e.g. M6x1.0)"
+              "holes": "all 0.1968\" (5.0 mm) holes",
+              "thread": "M6x1.0"
+            },
+            {
+              "holes": "all 0.1654\" (4.2 mm) holes",
+              "thread": "M5x0.8"
             }
           ]
         },
@@ -101,13 +102,13 @@
         "Process": "Sheet Cutting",
         "Qty": "1",
         "Thickness_mm": "9.52",
-        "UnitPrice": "144.46"
+        "UnitPrice": "207.54"
       },
       "step": "C2-HW-BSP-A.step"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-BSP-A",
-    "generated": "2026-08-17T01:44:05+00:00",
+    "generated": "2026-08-17T02:10:16+00:00",
     "mech": true,
     "part_number": "HW-C2-BSP-A",
     "rev": "A",
@@ -119,10 +120,17 @@
       "fab_spec": {
         "material": "6061 T6 Aluminum",
         "notes": [
-          "Deburr all edges",
-          ""
+          "Deburr all edges"
         ],
         "process": "laser_cut",
+        "services": {
+          "countersinking": [
+            {
+              "for": "0.411 / 0.199 / 82 deg",
+              "holes": "all 0.2166\" (5.5 mm) holes"
+            }
+          ]
+        },
         "thickness_mm": 3.17
       },
       "image": "info.png",
@@ -136,13 +144,13 @@
         "Process": "Sheet Cutting",
         "Qty": "1",
         "Thickness_mm": "3.17",
-        "UnitPrice": "24.67"
+        "UnitPrice": "42.64"
       },
       "step": "HW-C2-CHSP-A.step"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-CHSP-A",
-    "generated": "2026-08-17T01:44:05+00:00",
+    "generated": "2026-08-17T02:10:16+00:00",
     "mech": true,
     "part_number": "HW-C2-CHSP-A",
     "rev": "A",
@@ -173,13 +181,13 @@
         "Process": "Sheet Cutting",
         "Qty": "2",
         "Thickness_mm": "4.75",
-        "UnitPrice": "45.12"
+        "UnitPrice": "52.64"
       },
       "step": "HW-C2-DCLBB-A.step"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLBB-A",
-    "generated": "2026-08-17T01:44:05+00:00",
+    "generated": "2026-08-17T02:10:16+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLBB-A",
     "rev": "A",
@@ -212,7 +220,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLMH-200-PRINTED-A",
-    "generated": "2026-08-17T01:44:05+00:00",
+    "generated": "2026-08-17T02:10:16+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLMH-200-PRINTED-A",
     "rev": "A",
@@ -245,7 +253,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLMH-250-450-PRINTED-A",
-    "generated": "2026-08-17T01:44:05+00:00",
+    "generated": "2026-08-17T02:10:16+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLMH-250-450-PRINTED-A",
     "rev": "A",
@@ -276,13 +284,13 @@
         "Process": "Sheet Cutting",
         "Qty": "3",
         "Thickness_mm": "4.75",
-        "UnitPrice": "17.03"
+        "UnitPrice": "20.32"
       },
       "step": "HW-C2-PBB-A.step"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-PBB-A",
-    "generated": "2026-08-17T01:44:05+00:00",
+    "generated": "2026-08-17T02:10:16+00:00",
     "mech": true,
     "part_number": "HW-C2-PBB-A",
     "rev": "A",
@@ -313,7 +321,7 @@
     "board": "ControlBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/ControlBoard",
-    "generated": "2026-08-17T01:42:52+00:00",
+    "generated": "2026-08-17T02:09:01+00:00",
     "part_number": "HW-C2-PCB-CTRL-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -348,7 +356,7 @@
     "board": "DCBusCapacitorBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusCapacitorBoard",
-    "generated": "2026-08-17T01:43:08+00:00",
+    "generated": "2026-08-17T02:09:18+00:00",
     "part_number": "HW-C2-PCB-DCBUSCAP-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -380,7 +388,7 @@
     "board": "DCBusFilter",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusFilter",
-    "generated": "2026-08-17T01:43:28+00:00",
+    "generated": "2026-08-17T02:09:38+00:00",
     "part_number": "HW-C2-PCB-DCFLT-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -411,7 +419,7 @@
     "board": "GateDriver",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/GateDriver",
-    "generated": "2026-08-17T01:43:48+00:00",
+    "generated": "2026-08-17T02:09:57+00:00",
     "part_number": "HW-C2-PCB-GD-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -442,7 +450,7 @@
     "board": "IOBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/IOBoard",
-    "generated": "2026-08-17T01:44:05+00:00",
+    "generated": "2026-08-17T02:10:16+00:00",
     "part_number": "HW-C2-PCB-IO-A",
     "rev": "A",
     "source_tag": "C2-A",

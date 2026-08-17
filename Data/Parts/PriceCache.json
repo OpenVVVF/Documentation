@@ -212,42 +212,42 @@
   "sendcutsend:hw-c2-dclbb-a": {
     "vendor": "sendcutsend",
     "part_number": "HW-C2-DCLBB-A",
-    "unit_price": 45.12,
+    "unit_price": 52.64,
     "currency": "USD",
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T01:42:10.572218Z"
+    "last_updated": "2026-08-17T02:11:11.063488Z"
   },
   "sendcutsend:hw-c2-pbb-a": {
     "vendor": "sendcutsend",
     "part_number": "HW-C2-PBB-A",
-    "unit_price": 17.03,
+    "unit_price": 20.32,
     "currency": "USD",
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T01:42:10.572243Z"
+    "last_updated": "2026-08-17T02:11:11.063511Z"
   },
   "sendcutsend:hw-c2-bsp-a": {
     "vendor": "sendcutsend",
     "part_number": "HW-C2-BSP-A",
-    "unit_price": 144.46,
+    "unit_price": 207.54,
     "currency": "USD",
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T01:42:10.572495Z"
+    "last_updated": "2026-08-17T02:11:11.063773Z"
   },
   "sendcutsend:hw-c2-chsp-a": {
     "vendor": "sendcutsend",
     "part_number": "HW-C2-CHSP-A",
-    "unit_price": 24.67,
+    "unit_price": 42.64,
     "currency": "USD",
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T01:42:10.572504Z"
+    "last_updated": "2026-08-17T02:11:11.063798Z"
   },
   "mouser:80-c1210c104k1rac": {
     "vendor": "mouser",
