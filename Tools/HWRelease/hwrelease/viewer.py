@@ -469,6 +469,15 @@ const VENDOR_LABELS = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend
 const PRICE_NAMES = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "SendCutSend",
   digikey: "Digi-Key", assembly: "In-House Assembly", pcb: "PCB Fabrication"}};
 
+const ORDER_LINKS = {{
+  mouser: [["Upload at the Mouser BOM Tool \\u2197", "https://www.mouser.com/bom/"]],
+  digikey: [["Upload at DigiKey Lists \\u2197", "https://www.digikey.com/en/mylists/"]],
+  mcmaster: [["Order at McMaster-Carr \\u2197", "https://www.mcmaster.com/"]],
+  sendcutsend: [["Order parts at SendCutSend \\u2197", "https://sendcutsend.com/"]],
+  pcb: [["View boards in PCB Tool \\u2197", "../PCB-Tool/pcb-tool.html"],
+        ["Order PCBs at JLCPCB \\u2197", "https://jlcpcb.com/"]],
+}};
+
 let state = {{chassis: null, rev: null, variant: "base", vendor: null}};
 
 function releases() {{
@@ -578,24 +587,12 @@ function renderVendors() {{
   }}
   const actions = document.getElementById("actions");
   actions.innerHTML = "";
-  if (map.pcb) {{
-    const pcb = document.createElement("a");
-    pcb.href = "../PCB-Tool/pcb-tool.html";
-    pcb.target = "_blank"; pcb.rel = "noopener";
-    pcb.textContent = "View boards in PCB Tool \\u2197";
-    actions.appendChild(pcb);
-    const jlc = document.createElement("a");
-    jlc.href = "https://jlcpcb.com";
-    jlc.target = "_blank"; jlc.rel = "noopener";
-    jlc.textContent = "Order PCBs at JLCPCB \\u2197";
-    actions.appendChild(jlc);
-  }}
-  if (map.sendcutsend) {{
-    const scs = document.createElement("a");
-    scs.href = "https://sendcutsend.com";
-    scs.target = "_blank"; scs.rel = "noopener";
-    scs.textContent = "Order parts at SendCutSend \\u2197";
-    actions.appendChild(scs);
+  for (const [label, url] of (ORDER_LINKS[state.vendor] || [])) {{
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = label;
+    actions.appendChild(a);
   }}
   if (state.vendor && map[state.vendor]) {{
     const a = document.createElement("a");
