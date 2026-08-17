@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
-date: "2026-08-16"
+version: "0.2"
+date: "2026-08-17"
 description: Vendor order BOMs (Mouser, McMaster-Carr, SendCutSend, DigiKey) per chassis, revision, and build variant.
 nav_order: 603
 normative_refs:
@@ -17,6 +17,10 @@ normative_refs:
 # BOM Tool
 
 The BOM Tool serves the per-chassis vendor order BOMs exported from the hardware repository's release tags. Select a chassis, revision, and build variant, then preview or download the vendor BOM you need.
+
+![BOM Tool showing the Mouser order BOM with the ordering walkthrough](bom-tool-mouser-view.jpg)
+
+![BOM Tool showing fabricated parts with 3D previews and SendCutSend ordering](bom-tool-sendcutsend-view.jpg)
 
 ## Using the tool
 
