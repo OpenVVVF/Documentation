@@ -5,19 +5,20 @@ title: IO Board Assembly
 product_line: openvvvf
 applies_to:
   - openvvvf-control-module
-version: "0.1"
-date: "2026-08-15"
+version: "0.2"
+date: "2026-08-17"
 description: Populate and solder the IO board for the OpenVVVF control module.
 nav_order: 131
 normative_refs:
   - OV-CA-INDEX
+  - OV-TOOLS-PCB-TOOL
 ---
 
 # IO Board Assembly
 
 This guide covers populating and soldering the IO board for the OpenVVVF control module. It is written as general guidance for experienced assemblers; it does not describe every individual component placement.
 
-> **Important:** Use the interactive HTML assembly tool for this board. It shows the exact placement and orientation of every part and is the authoritative reference for the build. The steps below highlight key techniques and gotchas, but the tool should be followed for the full bill of materials and placement sequence.
+> **Important:** Use the PCB Tool for this board. Open the [PCB Tool](../../../../Tools/PCB-Tool/pcb-tool.html) (`OV-TOOLS-PCB-TOOL`), select the IO board part number, and use the embedded interactive assembly view. It shows the exact placement and orientation of every part and is the authoritative reference for the build. The steps below highlight key techniques and gotchas, but the tool should be followed for the full bill of materials and placement sequence.
 
 > **Errata:** Some parts may appear missing from the photographs in this guide. They were not available when the photos were taken; the parts list in the interactive BOM is the authoritative source.
 
@@ -31,7 +32,7 @@ This guide covers populating and soldering the IO board for the OpenVVVF control
 | Item | Qty | Notes |
 |------|-----|-------|
 | IO board PCB | 1 | Control module IO board |
-| Components per interactive BOM | as listed | See the HTML assembly tool for the full bill of materials |
+| Components per interactive BOM | as listed | See the PCB Tool for the full bill of materials |
 | Solder | as needed | Leaded or lead-free, flux-core |
 | Flux | as needed | No-clean or water-washable |
 | Temperature-controlled soldering iron | 1 | With tips suitable for SMD and through-hole work |
@@ -44,9 +45,13 @@ This guide covers populating and soldering the IO board for the OpenVVVF control
 
 ![IO board parts laid out for assembly](Layout-Parts.jpg)
 
-## Step 1 - Open the interactive assembly tool
+## Step 1 - Open the board in the PCB Tool
 
-Before placing any parts, open the interactive HTML assembly tool for the IO board. Keep it visible throughout the build; it is the primary reference for part values, placements, and orientations.
+Before placing any parts, open the board in the PCB Tool. Keep the interactive assembly view visible throughout the build; it is the primary reference for part values, placements, and orientations. Use **Fullscreen** for a larger view or **Open Interactive Assembly** to launch it in a new tab.
+
+<a class="tool-button" href="../../../../Tools/PCB-Tool/pcb-tool.html#HW-C2-PCB-IO-A">Open HW-C2-PCB-IO-A in the PCB Tool</a>
+
+![PCB Tool showing board renders and the interactive assembly view](../../../../Tools/PCB-Tool/pcb-tool-board-view.jpg)
 
 ![Interactive BOM open on a screen showing IO board placements](Get-Interactive-HTML-Assembly-Tool-Open.jpg)
 
@@ -94,7 +99,7 @@ When soldering headers and connectors, make sure each one is fully seated agains
 
 ## Step 7 - Mark progress in the interactive tool
 
-As each part or group of parts is placed and soldered, mark it off in the interactive assembly tool. This keeps track of what is done and prevents parts from being skipped.
+As each part or group of parts is placed and soldered, mark it off in the interactive assembly view in the PCB Tool. This keeps track of what is done and prevents parts from being skipped.
 
 ![Checking off completed placements in the interactive BOM](Check-Off-On-HTML-Assembly-Tool-Once-Done.jpg)
 

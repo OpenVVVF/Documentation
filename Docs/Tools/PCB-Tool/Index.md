@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
-date: "2026-08-16"
+version: "0.2"
+date: "2026-08-17"
 description: Browse released PCBs by part number — renders, interactive assembly, schematics, and fabrication files.
 nav_order: 602
 normative_refs:
@@ -17,6 +17,8 @@ normative_refs:
 # PCB Tool
 
 The PCB Tool lists every released board revision by part number (e.g. `HW-C2-PCB-CTRL-A`). Selecting a board shows its renders and the interactive assembly tool inline, plus the schematic, BOM, fabrication files, and a link to the hardware repository at the release tag — all generated from the hardware repository's release tags.
+
+![PCB Tool showing the gate driver board `HW-C2-PCB-GD-A` with renders and the interactive assembly view](pcb-tool-board-view.jpg)
 
 ## Using the tool
 
