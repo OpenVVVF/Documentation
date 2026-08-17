@@ -1,0 +1,1 @@
+Click Add gerber file and upload the board's gerber zip (Download zip in the table above).

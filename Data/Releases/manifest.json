@@ -66,7 +66,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A",
-    "generated": "2026-08-17T01:06:59+00:00",
+    "generated": "2026-08-17T01:26:16+00:00",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
@@ -76,6 +76,13 @@
       "bom_csv": "HW-C2-PCB-CTRL-A-bom.csv",
       "drc": "HW-C2-PCB-CTRL-A-drc.txt",
       "drc_violations": 0,
+      "fab_spec": {
+        "default_notes": [
+          "Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."
+        ],
+        "notes": [],
+        "options": {}
+      },
       "gerber_zip": "HW-C2-PCB-CTRL-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
@@ -88,7 +95,7 @@
     "board": "ControlBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/ControlBoard",
-    "generated": "2026-08-17T01:05:46+00:00",
+    "generated": "2026-08-17T01:25:03+00:00",
     "part_number": "HW-C2-PCB-CTRL-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -99,6 +106,17 @@
       "bom_csv": "HW-C2-PCB-DCBUSCAP-A-bom.csv",
       "drc": "HW-C2-PCB-DCBUSCAP-A-drc.txt",
       "drc_violations": 0,
+      "fab_spec": {
+        "default_notes": [
+          "Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."
+        ],
+        "notes": [
+          "2 oz outer copper required (high-current DC bus)."
+        ],
+        "options": {
+          "outer_copper": "2 oz"
+        }
+      },
       "gerber_zip": "HW-C2-PCB-DCBUSCAP-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
@@ -112,7 +130,7 @@
     "board": "DCBusCapacitorBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusCapacitorBoard",
-    "generated": "2026-08-17T01:06:02+00:00",
+    "generated": "2026-08-17T01:25:19+00:00",
     "part_number": "HW-C2-PCB-DCBUSCAP-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -123,6 +141,13 @@
       "bom_csv": "HW-C2-PCB-DCFLT-A-bom.csv",
       "drc": "HW-C2-PCB-DCFLT-A-drc.txt",
       "drc_violations": 0,
+      "fab_spec": {
+        "default_notes": [
+          "Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."
+        ],
+        "notes": [],
+        "options": {}
+      },
       "gerber_zip": "HW-C2-PCB-DCFLT-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
@@ -137,7 +162,7 @@
     "board": "DCBusFilter",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusFilter",
-    "generated": "2026-08-17T01:06:22+00:00",
+    "generated": "2026-08-17T01:25:39+00:00",
     "part_number": "HW-C2-PCB-DCFLT-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -148,6 +173,13 @@
       "bom_csv": "HW-C2-PCB-GD-A-bom.csv",
       "drc": "HW-C2-PCB-GD-A-drc.txt",
       "drc_violations": 0,
+      "fab_spec": {
+        "default_notes": [
+          "Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."
+        ],
+        "notes": [],
+        "options": {}
+      },
       "gerber_zip": "HW-C2-PCB-GD-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
@@ -161,7 +193,7 @@
     "board": "GateDriver",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/GateDriver",
-    "generated": "2026-08-17T01:06:42+00:00",
+    "generated": "2026-08-17T01:25:58+00:00",
     "part_number": "HW-C2-PCB-GD-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -172,6 +204,13 @@
       "bom_csv": "HW-C2-PCB-IO-A-bom.csv",
       "drc": "HW-C2-PCB-IO-A-drc.txt",
       "drc_violations": 0,
+      "fab_spec": {
+        "default_notes": [
+          "Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."
+        ],
+        "notes": [],
+        "options": {}
+      },
       "gerber_zip": "HW-C2-PCB-IO-A-gerbers.zip",
       "ibom": "ibom.html",
       "renders": [
@@ -185,7 +224,7 @@
     "board": "IOBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/IOBoard",
-    "generated": "2026-08-17T01:06:59+00:00",
+    "generated": "2026-08-17T01:26:16+00:00",
     "part_number": "HW-C2-PCB-IO-A",
     "rev": "A",
     "source_tag": "C2-A",

@@ -48,12 +48,22 @@ standard / generous) are recorded in the manifest. If BOMManager or its deps
 are unavailable, the committed BOMs from the tag are copied instead (with a
 warning).
 
-## Board ordering specs (FabSpec.md)
+## Board ordering specs (fab_spec.yaml)
 
-If a board directory in the hardware repo contains `FabSpec.md` (next to the
-`.kicad_pro`), it is copied into the release and rendered on the board's PCB
-Tool page as "Ordering specifications" — copper weight, surface finish, tapped
-holes, panelization, and other fab instructions.
+If a board directory in the hardware repo contains `fab_spec.yaml` (next to
+the `.kicad_pro`), it is recorded in the manifest and shown in the tools:
+
+```yaml
+options:            # settings to pick in the JLCPCB quote form
+  outer_copper: 2 oz
+notes:              # free-text per-board instructions
+  - "2 oz outer copper required (high-current DC bus)."
+```
+
+`Boards/fab_defaults.yaml` (same schema) holds chassis-wide notes merged into
+every board (e.g. serial-number barcode instructions). The PCB Tool renders
+options + notes as an "Ordering specifications" section; the BOM Tool's PCBs
+table shows the per-board notes in a Notes column.
 
 ## Requirements
 

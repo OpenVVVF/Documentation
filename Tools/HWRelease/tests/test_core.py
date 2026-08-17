@@ -18,7 +18,10 @@ def hw_repo(tmp_path):
     (board / "ControlBoard.kicad_sch").write_text('(kicad_sch (rev "A"))')
     (board / "ControlBoard.kicad_pcb").write_text('(kicad_pcb (rev "A"))')
     (repo / "Hardware" / "Chassis2" / "Boards" / "ControlBoard.png").write_bytes(b"png")
-    (board / "FabSpec.md").write_text("# Specs\n- 2 oz copper\n")
+    (board / "fab_spec.yaml").write_text(
+        'options:\n  outer_copper: 2 oz\nnotes:\n  - "2 oz copper"\n')
+    (repo / "Hardware" / "Chassis2" / "Boards" / "fab_defaults.yaml").write_text(
+        'notes:\n  - "2D serial 10x10mm"\n')
     boms = repo / "Hardware" / "Chassis2" / "FabricationData" / "BOMs"
     (boms / "Variants" / "standard").mkdir(parents=True)
     (boms / "mouser_bom.csv").write_text("pn,qty\nX,1\n")
@@ -136,7 +139,11 @@ def test_update_exports_each_revision_once(hw_repo, docs_root, fake_kicad):
     assert est["variants"] == {"standard": "2,241.19"}
     assert est["variant_vendors"]["standard"] == {"mcmaster": "5.00", "mouser": "10.00"}
     entry = manifest["HW-C2-PCB-CTRL-A"]
-    assert entry["artifacts"]["fab_spec"] == "FabSpec.md"
+    assert entry["artifacts"]["fab_spec"] == {
+        "options": {"outer_copper": "2 oz"},
+        "notes": ["2 oz copper"],
+        "default_notes": ["2D serial 10x10mm"],
+    }
     entry = manifest["HW-C2-PCB-CTRL-A"]
     assert entry["source_tag"] == "hw-rev-a"
     assert entry["artifacts"]["ibom"] == "ibom.html"

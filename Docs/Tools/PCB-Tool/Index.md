@@ -35,7 +35,7 @@ Direct links work too: append `#<part-number>` to the URL, e.g. `pcb-tool.html#H
 - **Gerbers (ZIP)** — fabrication package, gerbers + drill files (`<part-number>-gerbers.zip`).
 - **DRC report** — design-rule check result at release time (`<part-number>-drc.txt`).
 - **STEP model** — 3D board model (`<part-number>.step`).
-- **Ordering specifications** — if the hardware repo has a `FabSpec.md` beside the board's KiCad project (e.g. `Boards/ControlBoard/FabSpec.md`), it is shown on the page: copper weight, surface finish, which holes to tap, panelization, etc. This is where board-specific fab instructions live.
+- **Ordering specifications** — if the hardware repo has a `fab_spec.yaml` beside the board's KiCad project (e.g. `Boards/ControlBoard/fab_spec.yaml`), it is shown on the page as a spec table plus notes: copper weight, surface finish, tapped holes, etc. Chassis-wide notes that apply to every board (e.g. serial-number barcodes) live in `Boards/fab_defaults.yaml`.
 
 ## Where the data comes from
 

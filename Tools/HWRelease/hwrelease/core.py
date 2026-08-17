@@ -282,6 +282,30 @@ def parse_price_estimate(report_path: Path) -> dict:
     return estimate
 
 
+def load_fab_spec(board_dir: Path) -> Optional[dict]:
+    """Read a board's fab_spec.yaml, merged over Boards/fab_defaults.yaml.
+
+    Returns {"options": {...}, "notes": [...], "default_notes": [...]}
+    (board-specific vs. chassis-default notes), or None.
+    """
+    spec: Dict[str, object] = {"options": {}, "notes": [], "default_notes": []}
+    defaults_path = board_dir.parent / "fab_defaults.yaml"
+    board_path = board_dir / "fab_spec.yaml"
+    if not defaults_path.is_file() and not board_path.is_file():
+        return None
+    if defaults_path.is_file():
+        data = yaml.safe_load(defaults_path.read_text()) or {}
+        spec["options"].update(data.get("options") or {})
+        spec["default_notes"].extend(data.get("notes") or [])
+    if board_path.is_file():
+        data = yaml.safe_load(board_path.read_text()) or {}
+        spec["options"].update(data.get("options") or {})
+        spec["notes"].extend(data.get("notes") or [])
+    if not spec["options"] and not spec["notes"] and not spec["default_notes"]:
+        return None
+    return spec
+
+
 # -------------------------------------------------------------------- update
 
 def default_hw_repo() -> Path:
@@ -356,12 +380,12 @@ def export_board(board: Board, out_dir: Path, ibom_generator: Optional[Path],
     if copied:
         artifacts["renders"] = copied
 
-    # Optional per-board ordering specs (2 oz copper, tapped holes, ...).
+    # Optional per-board ordering specs (fab_spec.yaml beside the project),
+    # merged over chassis defaults (Boards/fab_defaults.yaml).
     board_dir = (board.sch or board.pcb).parent
-    fab_spec = board_dir / "FabSpec.md"
-    if fab_spec.is_file():
-        shutil.copy2(fab_spec, out_dir / "FabSpec.md")
-        artifacts["fab_spec"] = "FabSpec.md"
+    fab_spec = load_fab_spec(board_dir)
+    if fab_spec:
+        artifacts["fab_spec"] = fab_spec
 
     print(f"  {board.chassis}/{board.name} rev {board.rev}: {'  '.join(marks)}")
     return artifacts

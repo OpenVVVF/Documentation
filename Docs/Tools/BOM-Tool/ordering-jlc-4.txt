@@ -1,0 +1,1 @@
+Under Mark on PCB, choose 2D barcode (Serial Number).

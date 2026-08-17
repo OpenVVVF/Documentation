@@ -100,6 +100,12 @@ main h2 {{ font-family: var(--font-brand); margin: 0 0 4px; }}
   max-width: 720px; border: 1px solid var(--border-light); border-radius: 8px;
   background: var(--surface); padding: 4px 18px 12px; font-size: 14px;
 }}
+.fabspec table {{ border-collapse: collapse; margin: 10px 0; }}
+.fabspec th, .fabspec td {{
+  border: 1px solid var(--border-light); padding: 6px 12px; text-align: left;
+}}
+.fabspec th {{ background: var(--surface-2); font-family: var(--font-brand);
+  text-transform: capitalize; }}
 @media (max-width: 800px) {{
   .layout {{ flex-direction: column; }}
   aside {{ width: 100%; border-right: none; border-bottom: 1px solid var(--border-light); }}
@@ -204,35 +210,28 @@ function renderMain() {{
   }}
   if (a.ibom)
     html += '<div class="ibom-wrap" id="ibom-wrap"><iframe src="' + base + a.ibom + '" title="Interactive assembly"></iframe></div>';
-  if (a.fab_spec)
-    html += '<h3 style="margin-top:24px">Ordering specifications</h3><div class="fabspec" id="fabspec">Loading...</div>';
-  main.innerHTML = html;
-  if (a.fab_spec)
-    fetch(base + a.fab_spec).then(r => r.text()).then(md => {{
-      document.getElementById("fabspec").innerHTML = mdLite(md);
-    }});
-  renderList();
-}}
-
-function mdLite(md) {{
-  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  const inline = s => esc(s).replace(/\\*\\*(.+?)\\*\\*/g, "<strong>$1</strong>")
-                            .replace(/`(.+?)`/g, "<code>$1</code>");
-  let html = "", inList = false;
-  for (const line of md.split("\\n")) {{
-    const t = line.trim();
-    const closeList = () => {{ if (inList) {{ html += "</ul>"; inList = false; }} }};
-    if (t.startsWith("## ")) {{ closeList(); html += "<h4>" + inline(t.slice(3)) + "</h4>"; }}
-    else if (t.startsWith("# ")) {{ closeList(); html += "<h4>" + inline(t.slice(2)) + "</h4>"; }}
-    else if (t.startsWith("- ")) {{
-      if (!inList) {{ html += "<ul>"; inList = true; }}
-      html += "<li>" + inline(t.slice(2)) + "</li>";
+  if (a.fab_spec) {{
+    const spec = a.fab_spec;
+    const rows = Object.entries(spec.options || {{}});
+    const notes = (spec.notes || []).concat(spec.default_notes || []);
+    if (rows.length || notes.length) {{
+      html += '<h3 style="margin-top:24px">Ordering specifications</h3><div class="fabspec">';
+      if (rows.length) {{
+        html += "<table>";
+        for (const [k, v] of rows)
+          html += "<tr><th>" + k.replace(/_/g, " ") + "</th><td>" + v + "</td></tr>";
+        html += "</table>";
+      }}
+      if (notes.length) {{
+        html += "<ul>";
+        for (const n of notes) html += "<li>" + n + "</li>";
+        html += "</ul>";
+      }}
+      html += "</div>";
     }}
-    else if (t === "") closeList();
-    else {{ closeList(); html += "<p>" + inline(t) + "</p>"; }}
   }}
-  if (inList) html += "</ul>";
-  return html;
+  main.innerHTML = html;
+  renderList();
 }}
 
 window.addEventListener("hashchange", renderMain);
@@ -304,11 +303,12 @@ aside {{
 main {{ flex: 1; padding: 24px 28px; overflow-y: auto; }}
 .meta {{ color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }}
 .actions {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }}
-.actions a {{
+.actions a, .actions button {{
   display: inline-block; padding: 9px 16px; border-radius: 6px; font-size: 14px;
-  text-decoration: none; border: 1px solid var(--border); color: var(--text); background: #fff;
+  text-decoration: none; border: 1px solid var(--border); color: var(--text);
+  background: #fff; cursor: pointer; font-family: var(--font-body);
 }}
-.actions a:hover {{ border-color: var(--accent); }}
+.actions a:hover, .actions button:hover {{ border-color: var(--accent); }}
 .actions a.download {{ background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }}
 .actions a.download:hover {{ background: var(--accent-dark); }}
 table {{ border-collapse: collapse; width: 100%; font-size: 13px; }}
@@ -400,6 +400,10 @@ tr:nth-child(even) {{ background: var(--surface); }}
 // (caption). Either may exist alone; the walkthrough stops at the first n
 // where neither exists.
 const ORDER_GUIDE_MAX_STEPS = 12;
+// Walkthrough file key per vendor (files are ordering-<key>-<n>.png/.txt).
+const GUIDE_KEYS = {{pcb: "jlc"}};
+
+function guideKey() {{ return GUIDE_KEYS[state.vendor] || state.vendor; }}
 
 function loadImg(src) {{
   return new Promise(res => {{
@@ -415,7 +419,8 @@ async function renderGuide() {{
   const col = document.getElementById("guide-col");
   div.innerHTML = "";
   if (!state.vendor) {{ col.style.display = "none"; return; }}
-  const vendor = state.vendor;
+  const vendor = guideKey();
+  const selected = state.vendor;
   for (let n = 1; n <= ORDER_GUIDE_MAX_STEPS; n++) {{
     const [img, cap] = await Promise.all([
       loadImg("ordering-" + vendor + "-" + n + ".png"),
@@ -423,7 +428,7 @@ async function renderGuide() {{
         .then(r => r.ok ? r.text() : null).catch(() => null),
     ]);
     if (!img && !cap) break;
-    if (state.vendor !== vendor) return;  // switched vendors mid-load
+    if (state.vendor !== selected) return;  // switched vendors mid-load
     const step = document.createElement("div");
     step.className = "guide-step";
     const num = document.createElement("div");
@@ -441,22 +446,6 @@ async function renderGuide() {{
     if (img) body.appendChild(img);
     step.appendChild(body);
     div.appendChild(step);
-  }}
-  if (state.vendor === "mcmaster") {{
-    const e = current();
-    const map = boms();
-    if (map.mcmaster_paste) {{
-      const b = document.createElement("button");
-      b.className = "copy-paste";
-      b.textContent = "Copy McMaster order paste to clipboard";
-      b.onclick = async () => {{
-        const r = await fetch(ROOT + e.dir + "/" + map.mcmaster_paste);
-        await navigator.clipboard.writeText(await r.text());
-        b.textContent = "Copied!";
-        setTimeout(() => b.textContent = "Copy McMaster order paste to clipboard", 2000);
-      }};
-      div.appendChild(b);
-    }}
   }}
   div.style.display = "flex";
   col.style.display = div.children.length ? "block" : "none";
@@ -621,6 +610,17 @@ function renderVendors() {{
     a.textContent = "Download CSV";
     actions.appendChild(a);
   }}
+  if (state.vendor === "mcmaster" && map.mcmaster_paste) {{
+    const b = document.createElement("button");
+    b.textContent = "Copy order paste";
+    b.onclick = async () => {{
+      const r = await fetch(ROOT + e.dir + "/" + map.mcmaster_paste);
+      await navigator.clipboard.writeText(await r.text());
+      b.textContent = "Copied!";
+      setTimeout(() => b.textContent = "Copy order paste", 2000);
+    }};
+    actions.appendChild(b);
+  }}
 }}
 
 function parseCSV(text) {{
@@ -646,19 +646,24 @@ async function loadPreview() {{
   if (!state.vendor || !map[state.vendor]) return;
   const r = await fetch(ROOT + e.dir + "/" + map[state.vendor]);
   const rows = parseCSV(await r.text());
-  // On the PCBs view, append a gerber-zip download column per board row.
-  let gerberFor = null;
+  // On the PCBs view, append a gerber-zip download column and a notes column.
+  let gerberFor = null, notesFor = {{}};
   if (state.vendor === "pcb") {{
     gerberFor = {{}};
     for (const b of Object.values(MANIFEST)) {{
       if (b.board && b.chassis === state.chassis && b.rev === state.rev &&
-          b.artifacts && b.artifacts.gerber_zip)
-        gerberFor[b.part_number] = ROOT + b.dir + "/" + b.artifacts.gerber_zip;
+          b.artifacts) {{
+        if (b.artifacts.gerber_zip)
+          gerberFor[b.part_number] = ROOT + b.dir + "/" + b.artifacts.gerber_zip;
+        const spec = b.artifacts.fab_spec;
+        if (spec && (spec.notes || []).length)
+          notesFor[b.part_number] = spec.notes.join(" ");
+      }}
     }}
   }}
   let html = "<table><thead><tr>";
   for (const h of rows[0]) html += "<th>" + h + "</th>";
-  if (gerberFor) html += "<th>Gerbers</th>";
+  if (gerberFor) html += "<th>Gerbers</th><th>Notes</th>";
   html += "</tr></thead><tbody>";
   for (const row of rows.slice(1, 501)) {{
     html += "<tr>";
@@ -666,6 +671,7 @@ async function loadPreview() {{
     if (gerberFor) {{
       const url = gerberFor[row[1]];
       html += "<td>" + (url ? '<a href="' + url + '" download>Download zip</a>' : "") + "</td>";
+      html += "<td>" + (notesFor[row[1]] || "") + "</td>";
     }}
     html += "</tr>";
   }}

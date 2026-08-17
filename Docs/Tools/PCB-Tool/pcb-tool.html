@@ -75,6 +75,12 @@ main h2 { font-family: var(--font-brand); margin: 0 0 4px; }
   max-width: 720px; border: 1px solid var(--border-light); border-radius: 8px;
   background: var(--surface); padding: 4px 18px 12px; font-size: 14px;
 }
+.fabspec table { border-collapse: collapse; margin: 10px 0; }
+.fabspec th, .fabspec td {
+  border: 1px solid var(--border-light); padding: 6px 12px; text-align: left;
+}
+.fabspec th { background: var(--surface-2); font-family: var(--font-brand);
+  text-transform: capitalize; }
 @media (max-width: 800px) {
   .layout { flex-direction: column; }
   aside { width: 100%; border-right: none; border-bottom: 1px solid var(--border-light); }
@@ -94,7 +100,7 @@ main h2 { font-family: var(--font-brand); margin: 0 0 4px; }
   <main id="main"><p class="empty">Select a PCB on the left.</p></main>
 </div>
 <script>
-const MANIFEST = {"CHASSIS-C2-A": {"artifacts": {"price_estimate": {"qty": 1, "total": "2,285.68", "variant_vendors": {"generous": {"mcmaster": "189.18", "mouser": "2,004.01", "pcb": "129.08", "sendcutsend": "352.16"}, "standard": {"mcmaster": "178.51", "mouser": "1,780.08", "pcb": "64.54", "sendcutsend": "310.46"}}, "variants": {"base": "2,285.68", "generous": "2,674.42", "standard": "2,333.60"}, "vendors": {"In-House Assembly": "0.00", "McMaster-Carr": "163.63", "Mouser": "1,747.05", "PCB Fabrication": "64.54", "SendCutSend": "310.46"}}, "pricing_report": "Pricing_Report.md", "variants": {"generous": {"assembly": "BOMs/Variants/generous/assembly_bom.csv", "consolidated": "BOMs/Variants/generous/Consolidated_BOM.csv", "digikey": "BOMs/Variants/generous/digikey_bom.csv", "mcmaster": "BOMs/Variants/generous/mcmaster_bom.csv", "mcmaster_paste": "BOMs/Variants/generous/McMaster_Order_Paste.txt", "mouser": "BOMs/Variants/generous/mouser_bom.csv", "pcb": "BOMs/Variants/generous/pcb_bom.csv", "sendcutsend": "BOMs/Variants/generous/sendcutsend_bom.csv"}, "standard": {"assembly": "BOMs/Variants/standard/assembly_bom.csv", "consolidated": "BOMs/Variants/standard/Consolidated_BOM.csv", "digikey": "BOMs/Variants/standard/digikey_bom.csv", "mcmaster": "BOMs/Variants/standard/mcmaster_bom.csv", "mcmaster_paste": "BOMs/Variants/standard/McMaster_Order_Paste.txt", "mouser": "BOMs/Variants/standard/mouser_bom.csv", "pcb": "BOMs/Variants/standard/pcb_bom.csv", "sendcutsend": "BOMs/Variants/standard/sendcutsend_bom.csv"}}, "vendor_boms": {"assembly": "BOMs/assembly_bom.csv", "consolidated": "BOMs/Consolidated_BOM.csv", "mcmaster": "BOMs/mcmaster_bom.csv", "mcmaster_paste": "BOMs/McMaster_Order_Paste.txt", "mouser": "BOMs/mouser_bom.csv", "pcb": "BOMs/pcb_bom.csv", "sendcutsend": "BOMs/sendcutsend_bom.csv"}}, "chassis": "C2", "dir": "Data/Releases/C2/A", "generated": "2026-08-17T01:06:59+00:00", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-CTRL-A": {"artifacts": {"bom_csv": "HW-C2-PCB-CTRL-A-bom.csv", "drc": "HW-C2-PCB-CTRL-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-CTRL-A-gerbers.zip", "ibom": "ibom.html", "renders": ["ControlBoard-Back.png", "ControlBoard.png"], "schematic_pdf": "HW-C2-PCB-CTRL-A-schematic.pdf", "step": "HW-C2-PCB-CTRL-A.step"}, "board": "ControlBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/ControlBoard", "generated": "2026-08-17T01:05:46+00:00", "part_number": "HW-C2-PCB-CTRL-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-DCBUSCAP-A": {"artifacts": {"bom_csv": "HW-C2-PCB-DCBUSCAP-A-bom.csv", "drc": "HW-C2-PCB-DCBUSCAP-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-DCBUSCAP-A-gerbers.zip", "ibom": "ibom.html", "renders": ["DCBusCapacitorBoard-Back.png", "DCBusCapacitorBoard-Front.png", "DCBusCapacitorBoard.png"], "schematic_pdf": "HW-C2-PCB-DCBUSCAP-A-schematic.pdf", "step": "HW-C2-PCB-DCBUSCAP-A.step"}, "board": "DCBusCapacitorBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/DCBusCapacitorBoard", "generated": "2026-08-17T01:06:02+00:00", "part_number": "HW-C2-PCB-DCBUSCAP-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-DCFLT-A": {"artifacts": {"bom_csv": "HW-C2-PCB-DCFLT-A-bom.csv", "drc": "HW-C2-PCB-DCFLT-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-DCFLT-A-gerbers.zip", "ibom": "ibom.html", "renders": ["DCBusFilter-Back.png", "DCBusFilter-Back2.png", "DCBusFilter-Front.png", "DCBusFilter.png"], "schematic_pdf": "HW-C2-PCB-DCFLT-A-schematic.pdf", "step": "HW-C2-PCB-DCFLT-A.step"}, "board": "DCBusFilter", "chassis": "C2", "dir": "Data/Releases/C2/A/DCBusFilter", "generated": "2026-08-17T01:06:22+00:00", "part_number": "HW-C2-PCB-DCFLT-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-GD-A": {"artifacts": {"bom_csv": "HW-C2-PCB-GD-A-bom.csv", "drc": "HW-C2-PCB-GD-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-GD-A-gerbers.zip", "ibom": "ibom.html", "renders": ["GateDriver-Back.png", "GateDriver-Front.png", "GateDriver.png"], "schematic_pdf": "HW-C2-PCB-GD-A-schematic.pdf", "step": "HW-C2-PCB-GD-A.step"}, "board": "GateDriver", "chassis": "C2", "dir": "Data/Releases/C2/A/GateDriver", "generated": "2026-08-17T01:06:42+00:00", "part_number": "HW-C2-PCB-GD-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-IO-A": {"artifacts": {"bom_csv": "HW-C2-PCB-IO-A-bom.csv", "drc": "HW-C2-PCB-IO-A-drc.txt", "drc_violations": 0, "gerber_zip": "HW-C2-PCB-IO-A-gerbers.zip", "ibom": "ibom.html", "renders": ["IOBoard-Back.png", "IOBoard-Front.png", "IOBoard.png"], "schematic_pdf": "HW-C2-PCB-IO-A-schematic.pdf", "step": "HW-C2-PCB-IO-A.step"}, "board": "IOBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/IOBoard", "generated": "2026-08-17T01:06:59+00:00", "part_number": "HW-C2-PCB-IO-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}};
+const MANIFEST = {"CHASSIS-C2-A": {"artifacts": {"price_estimate": {"qty": 1, "total": "2,285.68", "variant_vendors": {"generous": {"mcmaster": "189.18", "mouser": "2,004.01", "pcb": "129.08", "sendcutsend": "352.16"}, "standard": {"mcmaster": "178.51", "mouser": "1,780.08", "pcb": "64.54", "sendcutsend": "310.46"}}, "variants": {"base": "2,285.68", "generous": "2,674.42", "standard": "2,333.60"}, "vendors": {"In-House Assembly": "0.00", "McMaster-Carr": "163.63", "Mouser": "1,747.05", "PCB Fabrication": "64.54", "SendCutSend": "310.46"}}, "pricing_report": "Pricing_Report.md", "variants": {"generous": {"assembly": "BOMs/Variants/generous/assembly_bom.csv", "consolidated": "BOMs/Variants/generous/Consolidated_BOM.csv", "digikey": "BOMs/Variants/generous/digikey_bom.csv", "mcmaster": "BOMs/Variants/generous/mcmaster_bom.csv", "mcmaster_paste": "BOMs/Variants/generous/McMaster_Order_Paste.txt", "mouser": "BOMs/Variants/generous/mouser_bom.csv", "pcb": "BOMs/Variants/generous/pcb_bom.csv", "sendcutsend": "BOMs/Variants/generous/sendcutsend_bom.csv"}, "standard": {"assembly": "BOMs/Variants/standard/assembly_bom.csv", "consolidated": "BOMs/Variants/standard/Consolidated_BOM.csv", "digikey": "BOMs/Variants/standard/digikey_bom.csv", "mcmaster": "BOMs/Variants/standard/mcmaster_bom.csv", "mcmaster_paste": "BOMs/Variants/standard/McMaster_Order_Paste.txt", "mouser": "BOMs/Variants/standard/mouser_bom.csv", "pcb": "BOMs/Variants/standard/pcb_bom.csv", "sendcutsend": "BOMs/Variants/standard/sendcutsend_bom.csv"}}, "vendor_boms": {"assembly": "BOMs/assembly_bom.csv", "consolidated": "BOMs/Consolidated_BOM.csv", "mcmaster": "BOMs/mcmaster_bom.csv", "mcmaster_paste": "BOMs/McMaster_Order_Paste.txt", "mouser": "BOMs/mouser_bom.csv", "pcb": "BOMs/pcb_bom.csv", "sendcutsend": "BOMs/sendcutsend_bom.csv"}}, "chassis": "C2", "dir": "Data/Releases/C2/A", "generated": "2026-08-17T01:26:16+00:00", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-CTRL-A": {"artifacts": {"bom_csv": "HW-C2-PCB-CTRL-A-bom.csv", "drc": "HW-C2-PCB-CTRL-A-drc.txt", "drc_violations": 0, "fab_spec": {"default_notes": ["Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."], "notes": [], "options": {}}, "gerber_zip": "HW-C2-PCB-CTRL-A-gerbers.zip", "ibom": "ibom.html", "renders": ["ControlBoard-Back.png", "ControlBoard.png"], "schematic_pdf": "HW-C2-PCB-CTRL-A-schematic.pdf", "step": "HW-C2-PCB-CTRL-A.step"}, "board": "ControlBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/ControlBoard", "generated": "2026-08-17T01:25:03+00:00", "part_number": "HW-C2-PCB-CTRL-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-DCBUSCAP-A": {"artifacts": {"bom_csv": "HW-C2-PCB-DCBUSCAP-A-bom.csv", "drc": "HW-C2-PCB-DCBUSCAP-A-drc.txt", "drc_violations": 0, "fab_spec": {"default_notes": ["Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."], "notes": ["2 oz outer copper required (high-current DC bus)."], "options": {"outer_copper": "2 oz"}}, "gerber_zip": "HW-C2-PCB-DCBUSCAP-A-gerbers.zip", "ibom": "ibom.html", "renders": ["DCBusCapacitorBoard-Back.png", "DCBusCapacitorBoard-Front.png", "DCBusCapacitorBoard.png"], "schematic_pdf": "HW-C2-PCB-DCBUSCAP-A-schematic.pdf", "step": "HW-C2-PCB-DCBUSCAP-A.step"}, "board": "DCBusCapacitorBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/DCBusCapacitorBoard", "generated": "2026-08-17T01:25:19+00:00", "part_number": "HW-C2-PCB-DCBUSCAP-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-DCFLT-A": {"artifacts": {"bom_csv": "HW-C2-PCB-DCFLT-A-bom.csv", "drc": "HW-C2-PCB-DCFLT-A-drc.txt", "drc_violations": 0, "fab_spec": {"default_notes": ["Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."], "notes": [], "options": {}}, "gerber_zip": "HW-C2-PCB-DCFLT-A-gerbers.zip", "ibom": "ibom.html", "renders": ["DCBusFilter-Back.png", "DCBusFilter-Back2.png", "DCBusFilter-Front.png", "DCBusFilter.png"], "schematic_pdf": "HW-C2-PCB-DCFLT-A-schematic.pdf", "step": "HW-C2-PCB-DCFLT-A.step"}, "board": "DCBusFilter", "chassis": "C2", "dir": "Data/Releases/C2/A/DCBusFilter", "generated": "2026-08-17T01:25:39+00:00", "part_number": "HW-C2-PCB-DCFLT-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-GD-A": {"artifacts": {"bom_csv": "HW-C2-PCB-GD-A-bom.csv", "drc": "HW-C2-PCB-GD-A-drc.txt", "drc_violations": 0, "fab_spec": {"default_notes": ["Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."], "notes": [], "options": {}}, "gerber_zip": "HW-C2-PCB-GD-A-gerbers.zip", "ibom": "ibom.html", "renders": ["GateDriver-Back.png", "GateDriver-Front.png", "GateDriver.png"], "schematic_pdf": "HW-C2-PCB-GD-A-schematic.pdf", "step": "HW-C2-PCB-GD-A.step"}, "board": "GateDriver", "chassis": "C2", "dir": "Data/Releases/C2/A/GateDriver", "generated": "2026-08-17T01:25:58+00:00", "part_number": "HW-C2-PCB-GD-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}, "HW-C2-PCB-IO-A": {"artifacts": {"bom_csv": "HW-C2-PCB-IO-A-bom.csv", "drc": "HW-C2-PCB-IO-A-drc.txt", "drc_violations": 0, "fab_spec": {"default_notes": ["Serial number: 2D barcode, 10x10mm \u2014 specify position when ordering."], "notes": [], "options": {}}, "gerber_zip": "HW-C2-PCB-IO-A-gerbers.zip", "ibom": "ibom.html", "renders": ["IOBoard-Back.png", "IOBoard-Front.png", "IOBoard.png"], "schematic_pdf": "HW-C2-PCB-IO-A-schematic.pdf", "step": "HW-C2-PCB-IO-A.step"}, "board": "IOBoard", "chassis": "C2", "dir": "Data/Releases/C2/A/IOBoard", "generated": "2026-08-17T01:26:16+00:00", "part_number": "HW-C2-PCB-IO-A", "rev": "A", "source_tag": "C2-A", "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"}};
 const ROOT = "../../";
 
 const ARTIFACTS = [
@@ -179,35 +185,28 @@ function renderMain() {
   }
   if (a.ibom)
     html += '<div class="ibom-wrap" id="ibom-wrap"><iframe src="' + base + a.ibom + '" title="Interactive assembly"></iframe></div>';
-  if (a.fab_spec)
-    html += '<h3 style="margin-top:24px">Ordering specifications</h3><div class="fabspec" id="fabspec">Loading...</div>';
-  main.innerHTML = html;
-  if (a.fab_spec)
-    fetch(base + a.fab_spec).then(r => r.text()).then(md => {
-      document.getElementById("fabspec").innerHTML = mdLite(md);
-    });
-  renderList();
-}
-
-function mdLite(md) {
-  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-                            .replace(/`(.+?)`/g, "<code>$1</code>");
-  let html = "", inList = false;
-  for (const line of md.split("\n")) {
-    const t = line.trim();
-    const closeList = () => { if (inList) { html += "</ul>"; inList = false; } };
-    if (t.startsWith("## ")) { closeList(); html += "<h4>" + inline(t.slice(3)) + "</h4>"; }
-    else if (t.startsWith("# ")) { closeList(); html += "<h4>" + inline(t.slice(2)) + "</h4>"; }
-    else if (t.startsWith("- ")) {
-      if (!inList) { html += "<ul>"; inList = true; }
-      html += "<li>" + inline(t.slice(2)) + "</li>";
+  if (a.fab_spec) {
+    const spec = a.fab_spec;
+    const rows = Object.entries(spec.options || {});
+    const notes = (spec.notes || []).concat(spec.default_notes || []);
+    if (rows.length || notes.length) {
+      html += '<h3 style="margin-top:24px">Ordering specifications</h3><div class="fabspec">';
+      if (rows.length) {
+        html += "<table>";
+        for (const [k, v] of rows)
+          html += "<tr><th>" + k.replace(/_/g, " ") + "</th><td>" + v + "</td></tr>";
+        html += "</table>";
+      }
+      if (notes.length) {
+        html += "<ul>";
+        for (const n of notes) html += "<li>" + n + "</li>";
+        html += "</ul>";
+      }
+      html += "</div>";
     }
-    else if (t === "") closeList();
-    else { closeList(); html += "<p>" + inline(t) + "</p>"; }
   }
-  if (inList) html += "</ul>";
-  return html;
+  main.innerHTML = html;
+  renderList();
 }
 
 window.addEventListener("hashchange", renderMain);
