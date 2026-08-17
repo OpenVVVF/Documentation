@@ -662,7 +662,7 @@ async function loadPreview() {{
   const r = await fetch(ROOT + e.dir + "/" + map[state.vendor]);
   const rows = parseCSV(await r.text());
   // On the PCBs view, append a gerber-zip download column and a notes column.
-  let gerberFor = null, notesFor = {{}};
+  let gerberFor = null, notesFor = {{}}, stepFor = null;
   if (state.vendor === "pcb") {{
     gerberFor = {{}};
     for (const b of Object.values(MANIFEST)) {{
@@ -676,9 +676,19 @@ async function loadPreview() {{
       }}
     }}
   }}
+  // On the SendCutSend view, append a STEP download column per mech part row.
+  if (state.vendor === "sendcutsend") {{
+    stepFor = [];
+    for (const p of Object.values(MANIFEST)) {{
+      if (p.mech && p.chassis === state.chassis && p.rev === state.rev &&
+          p.artifacts && p.artifacts.step)
+        stepFor.push([p.part_number, ROOT + p.dir + "/" + p.artifacts.step]);
+    }}
+  }}
   let html = "<table><thead><tr>";
   for (const h of rows[0]) html += "<th>" + h + "</th>";
   if (gerberFor) html += "<th>Gerbers</th><th>Notes</th>";
+  if (stepFor) html += "<th>STEP</th>";
   html += "</tr></thead><tbody>";
   for (const row of rows.slice(1, 501)) {{
     html += "<tr>";
@@ -687,6 +697,10 @@ async function loadPreview() {{
       const url = gerberFor[row[1]];
       html += "<td>" + (url ? '<a href="' + url + '" download>Download zip</a>' : "") + "</td>";
       html += "<td>" + (notesFor[row[1]] || "") + "</td>";
+    }}
+    if (stepFor) {{
+      const hit = stepFor.find(([pn]) => row.includes(pn));
+      html += "<td>" + (hit ? '<a href="' + hit[1] + '" download>Download STEP</a>' : "") + "</td>";
     }}
     html += "</tr>";
   }}
