@@ -41,6 +41,7 @@ def hw_repo(tmp_path):
     (mech / "info.txt").write_text("PartName=HW-C2-DCLBB-A\nMaterial=Copper\nUnitPrice=45.12\n")
     (mech / "info.png").write_bytes(b"png")
     (mech / "HW-C2-DCLBB-A.step").write_text("step")
+    (mech / "HW-C2-DCLBB-A.stl").write_text("stl")
     (mech / "fab_spec.yaml").write_text(
         'process: laser_cut\nmaterial: "Copper C110"\nservices:\n  bending: true\n')
     subprocess.run(["git", "init", "-q", str(repo)], check=True)
@@ -142,7 +143,22 @@ def test_update_exports_each_revision_once(hw_repo, docs_root, fake_kicad):
     assert mech["artifacts"]["info_fields"]["Material"] == "Copper"
     assert mech["artifacts"]["fab_spec"]["process"] == "laser_cut"
     assert mech["artifacts"]["fab_spec"]["services"]["bending"] is True
+    assert mech["artifacts"]["stl"] == "HW-C2-DCLBB-A.stl"
     assert (docs_root / mech["dir"] / "HW-C2-DCLBB-A.step").is_file()
+
+    # mech pruning: delete the part from the tree, retag, re-export
+    import subprocess as sp
+    import shutil as sh
+    sp.run(["git", "-C", str(hw_repo), "rm", "-rq",
+            "Hardware/Chassis2/Mechanical/Fab/HW-C2-DCLBB-A"], check=True)
+    sp.run(["git", "-C", str(hw_repo), "commit", "-q", "-m", "remove part"],
+           check=True, env=_git_env())
+    sp.run(["git", "-C", str(hw_repo), "tag", "-f", "hw-rev-a"], check=True)
+    rc = core.update(hw_repo, only_tag="hw-rev-a", force=True,
+                     manifest_path=manifest_path)
+    assert rc == 0
+    manifest = json.loads(manifest_path.read_text())
+    assert "HW-C2-DCLBB-A" not in manifest
     chassis = manifest["CHASSIS-C2-A"]
     assert chassis["artifacts"]["vendor_boms"]["mouser"] == "BOMs/mouser_bom.csv"
     assert chassis["artifacts"]["vendor_boms"]["sendcutsend"] == "BOMs/sendcutsend_bom.csv"

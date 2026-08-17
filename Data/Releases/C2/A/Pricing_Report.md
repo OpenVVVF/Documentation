@@ -1,6 +1,6 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-17T03:11:09.888373Z
+Generated: 2026-08-17T03:33:34.524064Z
 
 Base quantity: 1 unit(s)
 
@@ -146,7 +146,6 @@ Base quantity: 1 unit(s)
 | 2 |  | HW-C2-BB-DCLBB-A | HW-C2-DCLBB-A | HW-C2-DCLBB-A | $52.6400 | $105.28 | sendcutsend_folder |
 | 3 |  | HW-C2-BB-PBB-A | HW-C2-PBB-A | HW-C2-PBB-A | $20.3200 | $60.96 | sendcutsend_folder |
 | 1 |  | HW-C2-HW-DC-LINK-MODULE-HOLDER-A | DC Link Module Holder - 200V Class | DC Link Module Holder - 200V Class | N/A | N/A | sendcutsend_folder |
-| 1 |  | HW-C2-HW-DC-LINK-MODULE-HOLDER-A | DC Link Module Holder - 250-450V Class | DC Link Module Holder - 250-450V Class | N/A | N/A | sendcutsend_folder |
 | 1 |  | HW-C2-PLT-BSP-A | HW-C2-BSP-A | HW-C2-BSP-A | $207.5400 | $207.54 | sendcutsend_folder |
 | 1 |  | HW-C2-PLT-CHSP-A | HW-C2-CHSP-A | HW-C2-CHSP-A | $42.6400 | $42.64 | sendcutsend_folder |
 
@@ -196,7 +195,6 @@ Base quantity: 1 unit(s)
 - HW-C2-DCLSPCR-PRINTED-A (sendcutsend)
 - HW-C2-SHELL-PRINTED-A (sendcutsend)
 - DC Link Module Holder - 200V Class (sendcutsend)
-- DC Link Module Holder - 250-450V Class (sendcutsend)
 
 
 ## SendCutSend Part Details
@@ -210,6 +208,9 @@ Base quantity: 1 unit(s)
 - **Unit Price:** N/A
 - **STEP:** `../Mechanical/Fab/HW-C2-DCLSPCR-PRINTED-A/HW-C2-DCLSPCR-PRINTED-A.step`
 
+![HW-C2-DCLSPCR-PRINTED-A](../Mechanical/Fab/HW-C2-DCLSPCR-PRINTED-A/info.png)
+
+
 ### HW-C2-SHELL-PRINTED-A
 
 - **Qty (per unit):** 1
@@ -218,6 +219,9 @@ Base quantity: 1 unit(s)
 - **Finish:** N/A
 - **Unit Price:** N/A
 - **STEP:** `../Mechanical/Fab/HW-C2-SHELL-PRINTED-A/HW-C2-SHELL-PRINTED-A.step`
+
+![HW-C2-SHELL-PRINTED-A](../Mechanical/Fab/HW-C2-SHELL-PRINTED-A/info.png)
+
 
 ### HW-C2-DCLBB-A
 
@@ -252,14 +256,8 @@ Base quantity: 1 unit(s)
 - **Unit Price:** N/A
 - **STEP:** `../Mechanical/Fab/HW-C2-DCLMH-200-PRINTED-A/HW-C2-DCLMH-200-PRINTED-A.step`
 
-### DC Link Module Holder - 250-450V Class
+![DC Link Module Holder - 200V Class](../Mechanical/Fab/HW-C2-DCLMH-200-PRINTED-A/info.png)
 
-- **Qty (per unit):** 1
-- **Material:** 
-- **Thickness:** 30.50 mm
-- **Finish:** as printed
-- **Unit Price:** N/A
-- **STEP:** `../Mechanical/Fab/HW-C2-DCLMH-250-450-PRINTED-A/HW-C2-DCLMH-250-450-PRINTED-A.step`
 
 ### HW-C2-BSP-A
 
@@ -302,7 +300,6 @@ Base quantity: 1 unit(s)
 | HW-C2-CHSP-A | A | 1 | yes | yes | $42.64 | 6061 T6 Aluminum / 3.17 mm / Sheet Cutting / Deburring |
 | HW-C2-DCLBB-A | A | 2 | yes | yes | $52.64 | Copper / 4.75 mm / Sheet Cutting / Bending |
 | HW-C2-DCLMH-200-PRINTED-A | A | 1 | yes | yes | **missing** | 35.50 mm / 3D Printing / as printed |
-| HW-C2-DCLMH-250-450-PRINTED-A | A | 1 | yes | yes | **missing** | 30.50 mm / 3D Printing / as printed |
 | HW-C2-DCLSPCR-PRINTED-A | A | 1 | yes | **no** | **missing** |  |
 | HW-C2-PBB-A | A | 3 | yes | yes | $20.32 | Copper / 4.75 mm / Sheet Cutting / Bending |
 | HW-C2-SHELL-PRINTED-A | A | 1 | yes | **no** | **missing** |  |
@@ -316,7 +313,6 @@ Base quantity: 1 unit(s)
 
 **Not ready:**
 - fab part HW-C2-DCLMH-200-PRINTED-A: no price
-- fab part HW-C2-DCLMH-250-450-PRINTED-A: no price
 - fab part HW-C2-DCLSPCR-PRINTED-A: info.txt missing (import sendcutsend or fill by hand)
 - fab part HW-C2-DCLSPCR-PRINTED-A: no price
 - fab part HW-C2-SHELL-PRINTED-A: info.txt missing (import sendcutsend or fill by hand)

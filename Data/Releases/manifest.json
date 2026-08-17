@@ -64,7 +64,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A",
-    "generated": "2026-08-17T03:13:20+00:00",
+    "generated": "2026-08-17T03:35:52+00:00",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
@@ -105,11 +105,12 @@
         "Thickness_mm": "9.52",
         "UnitPrice": "207.54"
       },
-      "step": "HW-C2-BSP-A.step"
+      "step": "HW-C2-BSP-A.step",
+      "stl": "HW-C2-BSP-A.stl"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-BSP-A",
-    "generated": "2026-08-17T03:13:20+00:00",
+    "generated": "2026-08-17T03:35:52+00:00",
     "mech": true,
     "part_number": "HW-C2-BSP-A",
     "rev": "A",
@@ -148,11 +149,12 @@
         "Thickness_mm": "3.17",
         "UnitPrice": "42.64"
       },
-      "step": "HW-C2-CHSP-A.step"
+      "step": "HW-C2-CHSP-A.step",
+      "stl": "HW-C2-CHSP-A.stl"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-CHSP-A",
-    "generated": "2026-08-17T03:13:20+00:00",
+    "generated": "2026-08-17T03:35:52+00:00",
     "mech": true,
     "part_number": "HW-C2-CHSP-A",
     "rev": "A",
@@ -186,11 +188,12 @@
         "Thickness_mm": "4.75",
         "UnitPrice": "52.64"
       },
-      "step": "HW-C2-DCLBB-A.step"
+      "step": "HW-C2-DCLBB-A.step",
+      "stl": "HW-C2-DCLBB-A.stl"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLBB-A",
-    "generated": "2026-08-17T03:13:20+00:00",
+    "generated": "2026-08-17T03:35:52+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLBB-A",
     "rev": "A",
@@ -200,14 +203,15 @@
   "HW-C2-DCLMH-200-PRINTED-A": {
     "artifacts": {
       "fab_spec": {
-        "material": "TODO (e.g. PETG / ABS / PA-CF)",
+        "material": "Nylon (PA12 or PA6/66, solid)",
         "notes": [
-          "TODO: printer settings (layer height, infill, orientation)",
+          "100% infill (solid).",
           "PLACEHOLDER: 200V-class 3D-printed variant placeholder; 35.5 mm tall caps. Replace with actual design before release."
         ],
         "process": "3d_print"
       },
       "holes": "holes.json",
+      "image": "info.png",
       "info": "info.txt",
       "info_fields": {
         "Dimensions_in": "6.000x3.000 in",
@@ -220,58 +224,36 @@
         "Thickness_mm": "35.50",
         "UnitPrice": ""
       },
-      "step": "HW-C2-DCLMH-200-PRINTED-A.step"
+      "step": "HW-C2-DCLMH-200-PRINTED-A.step",
+      "stl": "HW-C2-DCLMH-200-PRINTED-A.stl"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLMH-200-PRINTED-A",
-    "generated": "2026-08-17T03:13:20+00:00",
+    "generated": "2026-08-17T03:35:52+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLMH-200-PRINTED-A",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
   },
-  "HW-C2-DCLMH-250-450-PRINTED-A": {
+  "HW-C2-DCLSPCR-PRINTED-A": {
     "artifacts": {
       "fab_spec": {
-        "material": "TODO (e.g. PETG / ABS / PA-CF)",
+        "material": "Nylon (PA12 or PA6/66, solid)",
         "notes": [
-          "TODO: printer settings (layer height, infill, orientation)",
-          "PLACEHOLDER: 250-450V-class 3D-printed variant placeholder; shorter geometry to match higher-voltage cap height (~5mm shorter than 200V variant). Replace with actual design before release."
+          "100% infill (solid).",
+          "TODO: layer height / orientation if critical."
         ],
         "process": "3d_print"
       },
-      "info": "info.txt",
-      "info_fields": {
-        "Dimensions_in": "6.000x3.000 in",
-        "Finish": "as printed",
-        "Material": "",
-        "Notes": "250-450V-class 3D-printed variant placeholder; shorter geometry to match higher-voltage cap height (~5mm shorter than 200V variant). Replace with actual design before release.",
-        "PartName": "DC Link Module Holder - 250-450V Class",
-        "Process": "3D Printing",
-        "Qty": "1",
-        "Thickness_mm": "30.50",
-        "UnitPrice": ""
-      },
-      "step": "HW-C2-DCLMH-250-450-PRINTED-A.step"
-    },
-    "chassis": "C2",
-    "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLMH-250-450-PRINTED-A",
-    "generated": "2026-08-17T03:13:20+00:00",
-    "mech": true,
-    "part_number": "HW-C2-DCLMH-250-450-PRINTED-A",
-    "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
-  },
-  "HW-C2-DCLSPCR-PRINTED-A": {
-    "artifacts": {
       "holes": "holes.json",
-      "step": "HW-C2-DCLSPCR-PRINTED-A.step"
+      "image": "info.png",
+      "step": "HW-C2-DCLSPCR-PRINTED-A.step",
+      "stl": "HW-C2-DCLSPCR-PRINTED-A.stl"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLSPCR-PRINTED-A",
-    "generated": "2026-08-17T03:13:20+00:00",
+    "generated": "2026-08-17T03:35:52+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLSPCR-PRINTED-A",
     "rev": "A",
@@ -305,11 +287,12 @@
         "Thickness_mm": "4.75",
         "UnitPrice": "20.32"
       },
-      "step": "HW-C2-PBB-A.step"
+      "step": "HW-C2-PBB-A.step",
+      "stl": "HW-C2-PBB-A.stl"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-PBB-A",
-    "generated": "2026-08-17T03:13:20+00:00",
+    "generated": "2026-08-17T03:35:52+00:00",
     "mech": true,
     "part_number": "HW-C2-PBB-A",
     "rev": "A",
@@ -340,7 +323,7 @@
     "board": "ControlBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/ControlBoard",
-    "generated": "2026-08-17T03:11:51+00:00",
+    "generated": "2026-08-17T03:34:16+00:00",
     "part_number": "HW-C2-PCB-CTRL-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -375,7 +358,7 @@
     "board": "DCBusCapacitorBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusCapacitorBoard",
-    "generated": "2026-08-17T03:12:08+00:00",
+    "generated": "2026-08-17T03:34:33+00:00",
     "part_number": "HW-C2-PCB-DCBUSCAP-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -407,7 +390,7 @@
     "board": "DCBusFilter",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusFilter",
-    "generated": "2026-08-17T03:12:27+00:00",
+    "generated": "2026-08-17T03:34:52+00:00",
     "part_number": "HW-C2-PCB-DCFLT-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -438,7 +421,7 @@
     "board": "GateDriver",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/GateDriver",
-    "generated": "2026-08-17T03:12:47+00:00",
+    "generated": "2026-08-17T03:35:11+00:00",
     "part_number": "HW-C2-PCB-GD-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -469,7 +452,7 @@
     "board": "IOBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/IOBoard",
-    "generated": "2026-08-17T03:13:04+00:00",
+    "generated": "2026-08-17T03:35:28+00:00",
     "part_number": "HW-C2-PCB-IO-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -477,12 +460,22 @@
   },
   "HW-C2-SHELL-PRINTED-A": {
     "artifacts": {
+      "fab_spec": {
+        "material": "Nylon (PA12 or PA6/66, solid)",
+        "notes": [
+          "100% infill (solid).",
+          "TODO: layer height / orientation if critical."
+        ],
+        "process": "3d_print"
+      },
       "holes": "holes.json",
-      "step": "HW-C2-SHELL-PRINTED-A.step"
+      "image": "info.png",
+      "step": "HW-C2-SHELL-PRINTED-A.step",
+      "stl": "HW-C2-SHELL-PRINTED-A.stl"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-SHELL-PRINTED-A",
-    "generated": "2026-08-17T03:13:20+00:00",
+    "generated": "2026-08-17T03:35:52+00:00",
     "mech": true,
     "part_number": "HW-C2-SHELL-PRINTED-A",
     "rev": "A",

@@ -339,6 +339,9 @@ def export_mech_parts(chassis_dir: Path, out_dir: Path) -> List[dict]:
         for step in part_dir.glob("*.step"):
             shutil.copy2(step, dest / step.name)
             artifacts["step"] = step.name
+        for stl in part_dir.glob("*.stl"):
+            shutil.copy2(stl, dest / stl.name)
+            artifacts["stl"] = stl.name
         for img in part_dir.glob("*.png"):
             shutil.copy2(img, dest / img.name)
             artifacts["image"] = img.name
@@ -551,6 +554,8 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                 if extracted:
                     print(f"  {chassis} model extraction: {len(extracted)} part(s) "
                           f"from FCStd")
+                    n_img = fcextract.render_images(tmp_path / "Hardware" / chassis)
+                    print(f"  {chassis} model renders: {n_img} image(s)")
                     for w in fcextract.check_mcmaster(tmp_path / "Hardware" / chassis):
                         print(w)
                     for w in fcextract.check_part_qty(tmp_path / "Hardware" / chassis):
@@ -586,6 +591,14 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                     manifest[pn] = entry
                 if mech_parts:
                     print(f"  {chassis} mech parts: {len(mech_parts)} exported")
+                # Prune mech entries that vanished from the hardware tree.
+                seen = {mp["part"] for mp in mech_parts}
+                for pn in [k for k, v in manifest.items()
+                           if v.get("mech") and v.get("chassis") == short
+                           and v.get("source_tag") == tag and k not in seen]:
+                    del manifest[pn]
+                    shutil.rmtree(out_dir / "Mech" / pn, ignore_errors=True)
+                    print(f"  {pn}: no longer in the hardware tree, pruned")
                 entry = {
                     "chassis": short,
                     "rev": rev,

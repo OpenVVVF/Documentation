@@ -760,6 +760,8 @@ function mechCards(proc) {{
     const notes = spec.notes || [];
     if (notes.length) html += '<div class="mech-notes">' + notes.join(" ") + "</div>";
     html += '<div class="mech-links">';
+    if (a.stl) html += '<a href="stl-viewer.html?file=' + ROOT + p.dir + "/" + a.stl +
+                       '" target="_blank" rel="noopener">3D view \\u2197</a>';
     if (a.step) html += '<a href="' + base + a.step + '" download>STEP</a>';
     if (f.UnitPrice) html += "<span>$" + f.UnitPrice + " ea</span>";
     html += "</div></div>";

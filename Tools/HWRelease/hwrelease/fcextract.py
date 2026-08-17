@@ -28,6 +28,7 @@ import sys
 
 import FreeCAD as App
 import Import
+import Mesh
 
 pn_re = re.compile(r"(HW-[A-Z0-9]+(?:-[A-Z0-9]+)*?)(?:\d{3})?\s*$")
 mc_re = re.compile(r"^(\d{4,6}[A-Z]\d{2,4})[_\s]")
@@ -76,6 +77,7 @@ for obj in doc.Objects:
     out_dir = f"{out_root}/{pn}"
     __import__("os").makedirs(out_dir, exist_ok=True)
     Import.export(shapes, f"{out_dir}/{pn}.step")
+    Mesh.export(shapes, f"{out_dir}/{pn}.stl")
     holes = {}
     for o in shapes:
         for d, n in hole_diameters(o.Shape).items():
@@ -113,6 +115,100 @@ def _freecad(args: List[str], timeout: int = 1800) -> Optional[subprocess.Comple
         return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
     except FileNotFoundError:
         return None
+
+
+# Runs inside headless Blender — renders each <pn>.stl under the fab dir from
+# two isometric angles: <pn>/info.png (front) and <pn>/info-back.png.
+_RENDER_SCRIPT = r"""
+import math
+import sys
+from pathlib import Path
+
+import bpy
+
+fab = Path(sys.argv[sys.argv.index("--") + 1])
+ANGLES = [("info.png", 45.0), ("info-back.png", 225.0)]
+
+
+def render(stl: Path, out: Path, azimuth_deg: float) -> None:
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    bpy.ops.wm.stl_import(filepath=str(stl))
+    obj = bpy.context.selected_objects[0]
+
+    # Center on origin, sit on Z=0.
+    import mathutils
+    bb = [obj.matrix_world @ mathutils.Vector(c) for c in obj.bound_box]
+    lo = mathutils.Vector((min(v.x for v in bb), min(v.y for v in bb), min(v.z for v in bb)))
+    hi = mathutils.Vector((max(v.x for v in bb), max(v.y for v in bb), max(v.z for v in bb)))
+    center = (lo + hi) / 2
+    obj.location -= center
+    size = max(hi.x - lo.x, hi.y - lo.y, hi.z - lo.z)
+
+    cam_data = bpy.data.cameras.new("cam")
+    cam = bpy.data.objects.new("cam", cam_data)
+    bpy.context.collection.objects.link(cam)
+    az = math.radians(azimuth_deg)
+    el = math.radians(30)
+    dist = size * 2.2
+    cam.location = (dist * math.cos(el) * math.cos(az),
+                    dist * math.cos(el) * math.sin(az),
+                    dist * math.sin(el))
+    direction = -cam.location.normalized()
+    cam.rotation_euler = direction.to_track_quat("-Z", "Y").to_euler()
+    bpy.context.scene.camera = cam
+
+    sun = bpy.data.objects.new("sun", bpy.data.lights.new("sun", "SUN"))
+    sun.rotation_euler = (math.radians(45), 0, math.radians(30))
+    bpy.context.collection.objects.link(sun)
+
+    scene = bpy.context.scene
+    scene.render.engine = "BLENDER_WORKBENCH"
+    scene.display.shading.light = "STUDIO"
+    scene.display.shading.color_type = "MATERIAL"
+    scene.render.resolution_x = 800
+    scene.render.resolution_y = 600
+    scene.render.film_transparent = False
+    scene.world = bpy.data.worlds.new("world")
+    scene.world.color = (1, 1, 1)
+    scene.render.filepath = str(out)
+    bpy.ops.render.render(write_still=True)
+    print("rendered", out.name)
+
+
+for part_dir in sorted(fab.iterdir()):
+    if not part_dir.is_dir():
+        continue
+    stls = list(part_dir.glob("*.stl"))
+    if not stls:
+        continue
+    for name, az in ANGLES:
+        try:
+            render(stls[0], part_dir / name, az)
+        except Exception as exc:
+            print("render failed", part_dir.name, name, exc)
+"""
+
+
+def render_images(chassis_dir: Path) -> int:
+    """Render each fabricated part's STL to info.png (+info-back.png) with
+    headless Blender. Returns the number of images rendered."""
+    fab_dir = chassis_dir / "Mechanical" / "Fab"
+    if not fab_dir.is_dir():
+        return 0
+    with tempfile.NamedTemporaryFile(
+            "w", suffix=".py", dir=chassis_dir, delete=False) as f:
+        f.write(_RENDER_SCRIPT)
+        script = Path(f.name)
+    cmd = ["flatpak", "run", "--command=blender", "org.blender.Blender",
+           "-b", "--factory-startup", "-P", str(script), "--", str(fab_dir)]
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
+    except FileNotFoundError:
+        script.unlink(missing_ok=True)
+        return 0
+    finally:
+        script.unlink(missing_ok=True)
+    return r.stdout.count("rendered ")
 
 
 def find_fcstd(chassis_dir: Path) -> Optional[Path]:
