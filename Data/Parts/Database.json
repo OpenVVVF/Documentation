@@ -736,10 +736,10 @@
     "octopart_uid": "",
     "mcmaster_part": "",
     "sendcutsend_id": "",
-    "manual_price": "",
+    "manual_price": 32.78,
     "price_currency": "USD",
-    "price_updated": "",
-    "notes": "Replaces DigiKey 3M156058-ND thermal pad."
+    "price_updated": "2026-08-16",
+    "notes": "Replaces DigiKey 3M156058-ND thermal pad. Qty breaks: 10@27.95, 25@26.94, 50@26.44 (Mouser, 2026-08-16)."
   },
   "mouser|cm600dy-24t": {
     "description": "CM600DY-24T",

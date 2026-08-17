@@ -275,24 +275,42 @@ header {{
 header img {{ height: 28px; }}
 header h1 {{ font-family: var(--font-brand); font-size: 20px; font-weight: 700; margin: 0; }}
 header h1 .sep {{ color: var(--text-muted); font-weight: 400; margin: 0 6px; }}
-main {{ padding: 24px 28px; max-width: 1400px; }}
-.controls {{ display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }}
-.controls label {{ font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 4px; }}
-.controls select {{
-  padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px;
-  font-size: 14px; background: #fff; min-width: 160px;
+.layout {{ display: flex; min-height: calc(100vh - 54px); }}
+aside {{
+  width: 300px; flex-shrink: 0; border-right: 1px solid var(--border-light);
+  background: var(--surface); padding: 12px; overflow-y: auto;
 }}
-.vendors {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }}
-.vendors button, .vendors a {{
-  padding: 9px 16px; border-radius: 6px; font-size: 14px; cursor: pointer;
-  border: 1px solid var(--border); background: #fff; color: var(--text);
-  text-decoration: none; font-family: var(--font-body);
+.sel {{ margin-bottom: 12px; }}
+.sel label {{
+  display: block; font-family: var(--font-brand); font-weight: 700; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 4px;
 }}
-.vendors button:hover, .vendors a:hover {{ border-color: var(--accent); }}
-.vendors button.active {{ border-color: var(--accent); background: #fff5f6; box-shadow: inset 0 -3px 0 var(--accent); }}
-.vendors a.download {{ background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }}
-.vendors a.download:hover {{ background: var(--accent-dark); }}
+.sel select {{
+  width: 100%; padding: 8px 10px; border: 1px solid var(--border);
+  border-radius: 6px; font-size: 14px; background: #fff;
+}}
+.vendors-label {{
+  font-family: var(--font-brand); font-weight: 700; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin: 16px 4px 6px;
+}}
+.vn {{
+  display: block; width: 100%; text-align: left; cursor: pointer;
+  padding: 8px 10px; margin-bottom: 4px; border: 1px solid var(--border-light);
+  border-radius: 6px; background: #fff; font-size: 13px;
+}}
+.vn small {{ display: block; color: var(--text-muted); }}
+.vn:hover {{ border-color: var(--accent); }}
+.vn.active {{ border-color: var(--accent); background: #fff5f6; box-shadow: inset 3px 0 0 var(--accent); }}
+main {{ flex: 1; padding: 24px 28px; overflow-y: auto; }}
 .meta {{ color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }}
+.actions {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }}
+.actions a {{
+  display: inline-block; padding: 9px 16px; border-radius: 6px; font-size: 14px;
+  text-decoration: none; border: 1px solid var(--border); color: var(--text); background: #fff;
+}}
+.actions a:hover {{ border-color: var(--accent); }}
+.actions a.download {{ background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }}
+.actions a.download:hover {{ background: var(--accent-dark); }}
 table {{ border-collapse: collapse; width: 100%; font-size: 13px; }}
 th, td {{ border: 1px solid var(--border-light); padding: 6px 10px; text-align: left; }}
 th {{ background: var(--surface); font-family: var(--font-brand); position: sticky; top: 0; }}
@@ -300,7 +318,7 @@ tr:nth-child(even) {{ background: var(--surface); }}
 .empty {{ color: var(--text-muted); margin-top: 40px; }}
 #content {{ display: flex; gap: 24px; align-items: flex-start; }}
 #preview {{ flex: 1; min-width: 0; }}
-.guide-col {{ width: 400px; flex-shrink: 0; }}
+.guide-col {{ width: 560px; flex-shrink: 0; }}
 .guide {{
   flex-direction: column; gap: 14px; display: flex;
   position: sticky; top: 16px; max-height: calc(100vh - 110px); overflow-y: auto;
@@ -321,11 +339,6 @@ tr:nth-child(even) {{ background: var(--surface); }}
   color: var(--text-muted); font-family: var(--font-body);
 }}
 #guide-toggle:hover {{ border-color: var(--accent); color: var(--text); }}
-@media (max-width: 1100px) {{
-  #content {{ flex-direction: column; }}
-  .guide-col {{ width: 100%; }}
-  .guide {{ position: static; max-height: none; }}
-}}
 .guide-step {{ display: flex; gap: 14px; align-items: flex-start; }}
 .step-num {{
   flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
@@ -335,6 +348,15 @@ tr:nth-child(even) {{ background: var(--surface); }}
 .step-body {{ flex: 1; min-width: 0; }}
 .step-cap {{ margin: 4px 0 8px; font-size: 14px; }}
 .step-body img {{ width: 100%; border: 1px solid var(--border-light); border-radius: 8px; }}
+@media (max-width: 800px) {{
+  .layout {{ flex-direction: column; }}
+  aside {{ width: 100%; border-right: none; border-bottom: 1px solid var(--border-light); }}
+}}
+@media (max-width: 1200px) {{
+  #content {{ flex-direction: column; }}
+  .guide-col {{ width: 100%; }}
+  .guide {{ position: static; max-height: none; }}
+}}
 </style>
 </head>
 <body>
@@ -342,22 +364,26 @@ tr:nth-child(even) {{ background: var(--surface); }}
   <a href="{root}index.html"><img src="{root}brand/logo.png" alt="OpenVVVF"></a>
   <h1><span class="sep">/</span>BOM Tool</h1>
 </header>
-<main>
-  <div class="controls">
-    <div><label>Chassis</label><select id="chassis" onchange="onChassis()"></select></div>
-    <div><label>Revision</label><select id="rev" onchange="onRev()"></select></div>
-    <div><label>Variant</label><select id="variant" onchange="onVariant()"></select></div>
-  </div>
-  <div class="meta" id="meta"></div>
-  <div class="vendors" id="vendors"></div>
-  <div id="content">
-    <div id="preview"><p class="empty">Pick a vendor BOM above to preview it.</p></div>
-    <div class="guide-col" id="guide-col" style="display:none">
-      <button id="guide-toggle" onclick="toggleGuide()">Hide walkthrough</button>
-      <div class="guide" id="guide"></div>
+<div class="layout">
+  <aside>
+    <div class="sel"><label>Chassis</label><select id="chassis" onchange="onChassis()"></select></div>
+    <div class="sel"><label>Revision</label><select id="rev" onchange="onRev()"></select></div>
+    <div class="sel"><label>Variant</label><select id="variant" onchange="onVariant()"></select></div>
+    <div class="vendors-label">Vendors</div>
+    <div id="vendors"></div>
+  </aside>
+  <main>
+    <div class="meta" id="meta"></div>
+    <div class="actions" id="actions"></div>
+    <div id="content">
+      <div id="preview"><p class="empty">Select a vendor on the left to preview its BOM.</p></div>
+      <div class="guide-col" id="guide-col" style="display:none">
+        <button id="guide-toggle" onclick="toggleGuide()">Hide walkthrough</button>
+        <div class="guide" id="guide"></div>
+      </div>
     </div>
-  </div>
-</main>
+  </main>
+</div>
 <script>
 // Ordering walkthrough: hand-maintained files next to this page,
 // ordering-<vendor>-<n>.png (screenshot) + ordering-<vendor>-<n>.txt
@@ -512,6 +538,9 @@ function onVariant() {{
   state.variant = document.getElementById("variant").value;
   state.vendor = null;
   renderVendors();
+  renderGuide();
+  document.getElementById("preview").innerHTML =
+    '<p class="empty">Select a vendor on the left to preview its BOM.</p>';
 }}
 
 function boms() {{
@@ -528,6 +557,10 @@ function renderVendors() {{
   const est = ((e.artifacts || {{}}).price_estimate) || {{}};
   const estVendors = est.vendors || {{}};
   const estVariants = est.variants || {{}};
+  const varVend = ((est.variant_vendors || {{}})[state.variant]) || null;
+  const priceFor = key => state.variant === "base"
+    ? estVendors[PRICE_NAMES[key]]
+    : (varVend && varVend[key] !== undefined ? varVend[key] : estVendors[PRICE_NAMES[key]]);
   let meta = "Chassis " + e.chassis + " · Rev " + e.rev + " · source tag <code>" + e.source_tag + "</code>" +
     (e.source_url ? ' · <a href="' + e.source_url + '" target="_blank" rel="noopener">source \\u2197</a>' : "");
   const varTotal = state.variant === "base" ? (est.total || estVariants.base) : estVariants[state.variant];
@@ -535,36 +568,34 @@ function renderVendors() {{
     meta += " · <strong>Est. total (" + (est.qty || 1) + " unit" + ((est.qty || 1) > 1 ? "s" : "") +
             ", " + state.variant + "): $" + varTotal + "</strong>";
   document.getElementById("meta").innerHTML = meta;
-  const varVend = ((est.variant_vendors || {{}})[state.variant]) || null;
-  const priceFor = key => state.variant === "base"
-    ? estVendors[PRICE_NAMES[key]]
-    : (varVend && varVend[key] !== undefined ? varVend[key] : estVendors[PRICE_NAMES[key]]);
   for (const [key, label] of Object.entries(VENDOR_LABELS)) {{
     if (!map[key]) continue;
     const b = document.createElement("button");
-    b.textContent = label + (priceFor(key) ? " · $" + priceFor(key) : "");
-    b.className = state.vendor === key ? "active" : "";
+    b.className = "vn" + (state.vendor === key ? " active" : "");
+    b.innerHTML = label + (priceFor(key) ? "<small>$" + priceFor(key) + "</small>" : "");
     b.onclick = () => {{ state.vendor = key; renderVendors(); renderGuide(); loadPreview(); }};
     box.appendChild(b);
   }}
+  const actions = document.getElementById("actions");
+  actions.innerHTML = "";
   if (map.pcb) {{
     const pcb = document.createElement("a");
     pcb.href = "../PCB-Tool/pcb-tool.html";
     pcb.target = "_blank"; pcb.rel = "noopener";
     pcb.textContent = "View boards in PCB Tool \\u2197";
-    box.appendChild(pcb);
+    actions.appendChild(pcb);
     const jlc = document.createElement("a");
     jlc.href = "https://jlcpcb.com";
     jlc.target = "_blank"; jlc.rel = "noopener";
     jlc.textContent = "Order PCBs at JLCPCB \\u2197";
-    box.appendChild(jlc);
+    actions.appendChild(jlc);
   }}
   if (map.sendcutsend) {{
     const scs = document.createElement("a");
     scs.href = "https://sendcutsend.com";
     scs.target = "_blank"; scs.rel = "noopener";
     scs.textContent = "Order parts at SendCutSend \\u2197";
-    box.appendChild(scs);
+    actions.appendChild(scs);
   }}
   if (state.vendor && map[state.vendor]) {{
     const a = document.createElement("a");
@@ -572,7 +603,7 @@ function renderVendors() {{
     a.href = ROOT + e.dir + "/" + map[state.vendor];
     a.download = "";
     a.textContent = "Download CSV";
-    box.appendChild(a);
+    actions.appendChild(a);
   }}
 }}
 
