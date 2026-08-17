@@ -1,6 +1,6 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-17T03:03:11.243360Z
+Generated: 2026-08-17T03:11:09.888373Z
 
 Base quantity: 1 unit(s)
 
@@ -268,7 +268,7 @@ Base quantity: 1 unit(s)
 - **Thickness:** 9.52 mm
 - **Finish:** Deburring, Tapping
 - **Unit Price:** $207.54
-- **STEP:** `../Mechanical/Fab/HW-C2-BSP-A/C2-HW-BSP-A.step`
+- **STEP:** `../Mechanical/Fab/HW-C2-BSP-A/HW-C2-BSP-A.step`
 
 ![HW-C2-BSP-A](../Mechanical/Fab/HW-C2-BSP-A/info.png)
 

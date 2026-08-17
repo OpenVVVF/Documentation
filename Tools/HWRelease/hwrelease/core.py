@@ -553,6 +553,8 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                           f"from FCStd")
                     for w in fcextract.check_mcmaster(tmp_path / "Hardware" / chassis):
                         print(w)
+                    for w in fcextract.check_part_qty(tmp_path / "Hardware" / chassis):
+                        print(w)
                     mech_parts = export_mech_parts(tmp_path / "Hardware" / chassis,
                                                    out_dir)
                 for mp in mech_parts:

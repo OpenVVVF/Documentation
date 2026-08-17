@@ -217,7 +217,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T03:03:11.234446Z"
+    "last_updated": "2026-08-17T03:11:09.880070Z"
   },
   "sendcutsend:hw-c2-pbb-a": {
     "vendor": "sendcutsend",
@@ -227,7 +227,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T03:03:11.234460Z"
+    "last_updated": "2026-08-17T03:11:09.880089Z"
   },
   "sendcutsend:hw-c2-bsp-a": {
     "vendor": "sendcutsend",
@@ -237,7 +237,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T03:03:11.234905Z"
+    "last_updated": "2026-08-17T03:11:09.880412Z"
   },
   "sendcutsend:hw-c2-chsp-a": {
     "vendor": "sendcutsend",
@@ -247,7 +247,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T03:03:11.234918Z"
+    "last_updated": "2026-08-17T03:11:09.880422Z"
   },
   "mouser:80-c1210c104k1rac": {
     "vendor": "mouser",

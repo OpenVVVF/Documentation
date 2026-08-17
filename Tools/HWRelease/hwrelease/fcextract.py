@@ -57,6 +57,7 @@ def hole_diameters(shape):
 
 parts = []
 seen = set()
+qty = {}
 for obj in doc.Objects:
     if obj.TypeId not in ("PartDesign::Body", "App::DocumentObjectGroup"):
         continue
@@ -64,6 +65,8 @@ for obj in doc.Objects:
     if not m:
         continue
     pn = re.sub(r"([A-Z]+)\d{3}$", r"\1", m.group(1))  # strip instance suffix
+    key = "bodies" if obj.TypeId == "PartDesign::Body" else "groups"
+    qty.setdefault(pn, {"bodies": 0, "groups": 0})[key] += 1
     if pn in seen:  # instance duplicates (...001, ...002) — one part per PN
         continue
     seen.add(pn)
@@ -95,6 +98,9 @@ for obj in doc.Objects:
         entry["qty"] += 1
 with open(f"{out_root}/mcmaster_model.json", "w") as f:
     json.dump(mcmaster, f, sort_keys=True)
+with open(f"{out_root}/model_parts.json", "w") as f:
+    json.dump({pn: (q["bodies"] or q["groups"]) for pn, q in sorted(qty.items())},
+              f, sort_keys=True)
 
 doc and App.closeDocument(doc.Name)
 print("PARTS_JSON=" + json.dumps(sorted(parts)))
@@ -178,6 +184,30 @@ def check_mcmaster(chassis_dir: Path) -> List[str]:
         if pn not in bom:
             warnings.append(f"  warning: McMaster {pn}: {m['qty']}x in the model "
                             f"but missing from MechanicalBOM.txt")
+    return warnings
+
+
+def check_part_qty(chassis_dir: Path) -> List[str]:
+    """Cross-check fabricated-part quantities (info.txt Qty) against the
+    model's instance counts (model_parts.json)."""
+    model_path = chassis_dir / "Mechanical" / "Fab" / "model_parts.json"
+    if not model_path.is_file():
+        return []
+    model = json.loads(model_path.read_text())
+    from .core import parse_info_txt  # lazy: core imports this module lazily
+    fab_dir = chassis_dir / "Mechanical" / "Fab"
+    warnings = []
+    for pn, model_qty in sorted(model.items()):
+        info = parse_info_txt(fab_dir / pn / "info.txt")
+        if not info.get("Qty"):
+            continue
+        try:
+            bom_qty = int(info["Qty"])
+        except ValueError:
+            continue
+        if bom_qty != model_qty:
+            warnings.append(f"  warning: {pn}: info.txt Qty={bom_qty} but "
+                            f"{model_qty} instance(s) in the model")
     return warnings
 
 

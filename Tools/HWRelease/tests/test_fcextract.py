@@ -42,3 +42,14 @@ def test_check_mcmaster(tmp_path):
     assert any("94669A190" in w and "not found" in w for w in warnings)
     assert not any("91292A134" in w for w in warnings)
     assert fcextract.check_mcmaster(tmp_path / "nope") == []
+
+
+def test_check_part_qty(tmp_path):
+    fab = tmp_path / "Mechanical" / "Fab"
+    (fab / "HW-C2-PBB-A").mkdir(parents=True)
+    (fab / "model_parts.json").write_text(json.dumps({"HW-C2-PBB-A": 3}))
+    (fab / "HW-C2-PBB-A" / "info.txt").write_text("Qty=3\n")
+    assert fcextract.check_part_qty(tmp_path) == []
+    (fab / "HW-C2-PBB-A" / "info.txt").write_text("Qty=2\n")
+    warnings = fcextract.check_part_qty(tmp_path)
+    assert len(warnings) == 1 and "PBB" in warnings[0]
