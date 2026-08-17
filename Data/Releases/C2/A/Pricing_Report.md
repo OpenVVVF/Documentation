@@ -1,6 +1,6 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-17T02:11:11.071206Z
+Generated: 2026-08-17T03:03:11.243360Z
 
 Base quantity: 1 unit(s)
 
@@ -141,6 +141,8 @@ Base quantity: 1 unit(s)
 
 | Qty | Order | Internal P/N | Description | Part Number | Unit Price | Line Total | Source |
 |-----|-------|--------------|-------------|-------------|------------|------------|--------|
+| 1 |  | HW-C2-3DP-DCLSPCR-PRINTED-A | HW-C2-DCLSPCR-PRINTED-A | HW-C2-DCLSPCR-PRINTED-A | N/A | N/A | sendcutsend_folder |
+| 1 |  | HW-C2-3DP-SHELL-PRINTED-A | HW-C2-SHELL-PRINTED-A | HW-C2-SHELL-PRINTED-A | N/A | N/A | sendcutsend_folder |
 | 2 |  | HW-C2-BB-DCLBB-A | HW-C2-DCLBB-A | HW-C2-DCLBB-A | $52.6400 | $105.28 | sendcutsend_folder |
 | 3 |  | HW-C2-BB-PBB-A | HW-C2-PBB-A | HW-C2-PBB-A | $20.3200 | $60.96 | sendcutsend_folder |
 | 1 |  | HW-C2-HW-DC-LINK-MODULE-HOLDER-A | DC Link Module Holder - 200V Class | DC Link Module Holder - 200V Class | N/A | N/A | sendcutsend_folder |
@@ -191,11 +193,31 @@ Base quantity: 1 unit(s)
 - 08-50-0113 (mouser)
 - 544959-E (mouser)
 - SSW-110-01-F-D (mouser)
+- HW-C2-DCLSPCR-PRINTED-A (sendcutsend)
+- HW-C2-SHELL-PRINTED-A (sendcutsend)
 - DC Link Module Holder - 200V Class (sendcutsend)
 - DC Link Module Holder - 250-450V Class (sendcutsend)
 
 
 ## SendCutSend Part Details
+
+### HW-C2-DCLSPCR-PRINTED-A
+
+- **Qty (per unit):** 1
+- **Material:** N/A
+- **Thickness:** N/A mm
+- **Finish:** N/A
+- **Unit Price:** N/A
+- **STEP:** `../Mechanical/Fab/HW-C2-DCLSPCR-PRINTED-A/HW-C2-DCLSPCR-PRINTED-A.step`
+
+### HW-C2-SHELL-PRINTED-A
+
+- **Qty (per unit):** 1
+- **Material:** N/A
+- **Thickness:** N/A mm
+- **Finish:** N/A
+- **Unit Price:** N/A
+- **STEP:** `../Mechanical/Fab/HW-C2-SHELL-PRINTED-A/HW-C2-SHELL-PRINTED-A.step`
 
 ### HW-C2-DCLBB-A
 
@@ -281,7 +303,9 @@ Base quantity: 1 unit(s)
 | HW-C2-DCLBB-A | A | 2 | yes | yes | $52.64 | Copper / 4.75 mm / Sheet Cutting / Bending |
 | HW-C2-DCLMH-200-PRINTED-A | A | 1 | yes | yes | **missing** | 35.50 mm / 3D Printing / as printed |
 | HW-C2-DCLMH-250-450-PRINTED-A | A | 1 | yes | yes | **missing** | 30.50 mm / 3D Printing / as printed |
+| HW-C2-DCLSPCR-PRINTED-A | A | 1 | yes | **no** | **missing** |  |
 | HW-C2-PBB-A | A | 3 | yes | yes | $20.32 | Copper / 4.75 mm / Sheet Cutting / Bending |
+| HW-C2-SHELL-PRINTED-A | A | 1 | yes | **no** | **missing** |  |
 
 | Harness | Qty/Chassis | Rev | BOM CSV |
 |---------|-------------|-----|---------|
@@ -293,4 +317,8 @@ Base quantity: 1 unit(s)
 **Not ready:**
 - fab part HW-C2-DCLMH-200-PRINTED-A: no price
 - fab part HW-C2-DCLMH-250-450-PRINTED-A: no price
+- fab part HW-C2-DCLSPCR-PRINTED-A: info.txt missing (import sendcutsend or fill by hand)
+- fab part HW-C2-DCLSPCR-PRINTED-A: no price
+- fab part HW-C2-SHELL-PRINTED-A: info.txt missing (import sendcutsend or fill by hand)
+- fab part HW-C2-SHELL-PRINTED-A: no price
 

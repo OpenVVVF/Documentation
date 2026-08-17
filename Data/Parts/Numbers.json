@@ -1977,5 +1977,39 @@
         "note": "created"
       }
     ]
+  },
+  "c2|3dprint|fab:hw-c2-dclspcr-printed-a": {
+    "part_number": "HW-C2-3DP-DCLSPCR-PRINTED-A",
+    "category": "3dprint",
+    "category_prefix": "3DP",
+    "descriptor": "DCLSPCR-PRINTED",
+    "revision": "A",
+    "description": "HW-C2-DCLSPCR-PRINTED-A",
+    "key": "c2|3dprint|fab:hw-c2-dclspcr-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|3dprint|fab:hw-c2-shell-printed-a": {
+    "part_number": "HW-C2-3DP-SHELL-PRINTED-A",
+    "category": "3dprint",
+    "category_prefix": "3DP",
+    "descriptor": "SHELL-PRINTED",
+    "revision": "A",
+    "description": "HW-C2-SHELL-PRINTED-A",
+    "key": "c2|3dprint|fab:hw-c2-shell-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
   }
 }

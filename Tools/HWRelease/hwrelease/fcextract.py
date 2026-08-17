@@ -29,7 +29,8 @@ import sys
 import FreeCAD as App
 import Import
 
-pn_re = re.compile(r"(HW-[A-Z0-9]+(?:-[A-Z0-9]+)*)\s*$")
+pn_re = re.compile(r"(HW-[A-Z0-9]+(?:-[A-Z0-9]+)*?)(?:\d{3})?\s*$")
+mc_re = re.compile(r"^(\d{4,6}[A-Z]\d{2,4})[_\s]")
 fcstd, out_root = sys.argv[2], sys.argv[3]
 doc = App.openDocument(fcstd)
 
@@ -55,13 +56,17 @@ def hole_diameters(shape):
     return diams
 
 parts = []
+seen = set()
 for obj in doc.Objects:
     if obj.TypeId not in ("PartDesign::Body", "App::DocumentObjectGroup"):
         continue
     m = pn_re.search(obj.Label)
     if not m:
         continue
-    pn = m.group(1)
+    pn = re.sub(r"([A-Z]+)\d{3}$", r"\1", m.group(1))  # strip instance suffix
+    if pn in seen:  # instance duplicates (...001, ...002) — one part per PN
+        continue
+    seen.add(pn)
     shapes = [o for o in members(obj) if hasattr(o, "Shape") and not o.Shape.isNull()]
     if not shapes:
         continue
@@ -75,6 +80,21 @@ for obj in doc.Objects:
     with open(f"{out_dir}/holes.json", "w") as f:
         json.dump({str(k): v for k, v in sorted(holes.items())}, f)
     parts.append(pn)
+
+# McMaster hardware: labels like "91292A134_18-8 Stainless ... Screw001".
+# Quantity per part number = number of instances in the model.
+mcmaster = {}
+for obj in doc.Objects:
+    if obj.TypeId != "Part::Feature":
+        continue
+    m = mc_re.match(obj.Label)
+    if m:
+        mc = m.group(1)
+        desc = re.sub(r"\d+$", "", obj.Label)
+        entry = mcmaster.setdefault(mc, {"qty": 0, "description": desc})
+        entry["qty"] += 1
+with open(f"{out_root}/mcmaster_model.json", "w") as f:
+    json.dump(mcmaster, f, sort_keys=True)
 
 doc and App.closeDocument(doc.Name)
 print("PARTS_JSON=" + json.dumps(sorted(parts)))
@@ -127,6 +147,38 @@ def extract_parts(chassis_dir: Path) -> List[str]:
         if line.startswith("PARTS_JSON="):
             return json.loads(line[len("PARTS_JSON="):])
     return []
+
+
+def check_mcmaster(chassis_dir: Path) -> List[str]:
+    """Cross-check MechanicalBOM.txt McMaster lines against the model's
+    instance counts (mcmaster_model.json from extract_parts)."""
+    model_path = chassis_dir / "Mechanical" / "Fab" / "mcmaster_model.json"
+    bom_path = chassis_dir / "Mechanical" / "MechanicalBOM.txt"
+    if not model_path.is_file() or not bom_path.is_file():
+        return []
+    model = json.loads(model_path.read_text())
+    bom: Dict[str, int] = {}
+    for line in bom_path.read_text(errors="replace").splitlines()[1:]:
+        fields = [f.strip() for f in line.split(",")]
+        if len(fields) >= 3 and fields[1].lower() == "mcmaster" and fields[2]:
+            try:
+                bom[fields[2]] = bom.get(fields[2], 0) + int(fields[0])
+            except ValueError:
+                pass
+    warnings = []
+    for pn, qty in sorted(bom.items()):
+        m = model.get(pn)
+        if m is None:
+            warnings.append(f"  warning: McMaster {pn}: {qty}x in MechanicalBOM.txt "
+                            f"but not found in the model")
+        elif m["qty"] != qty:
+            warnings.append(f"  warning: McMaster {pn}: {qty}x in MechanicalBOM.txt "
+                            f"but {m['qty']}x in the model")
+    for pn, m in sorted(model.items()):
+        if pn not in bom:
+            warnings.append(f"  warning: McMaster {pn}: {m['qty']}x in the model "
+                            f"but missing from MechanicalBOM.txt")
+    return warnings
 
 
 # ------------------------------------------------------- spec vs. model check

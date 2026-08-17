@@ -64,7 +64,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A",
-    "generated": "2026-08-17T02:11:11+00:00",
+    "generated": "2026-08-17T03:05:20+00:00",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
@@ -108,7 +108,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-BSP-A",
-    "generated": "2026-08-17T02:10:16+00:00",
+    "generated": "2026-08-17T03:05:20+00:00",
     "mech": true,
     "part_number": "HW-C2-BSP-A",
     "rev": "A",
@@ -133,6 +133,7 @@
         },
         "thickness_mm": 3.17
       },
+      "holes": "holes.json",
       "image": "info.png",
       "info": "info.txt",
       "info_fields": {
@@ -150,7 +151,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-CHSP-A",
-    "generated": "2026-08-17T02:10:16+00:00",
+    "generated": "2026-08-17T03:05:20+00:00",
     "mech": true,
     "part_number": "HW-C2-CHSP-A",
     "rev": "A",
@@ -170,6 +171,7 @@
         },
         "thickness_mm": 4.75
       },
+      "holes": "holes.json",
       "image": "info.png",
       "info": "info.txt",
       "info_fields": {
@@ -187,7 +189,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLBB-A",
-    "generated": "2026-08-17T02:10:16+00:00",
+    "generated": "2026-08-17T03:05:20+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLBB-A",
     "rev": "A",
@@ -204,6 +206,7 @@
         ],
         "process": "3d_print"
       },
+      "holes": "holes.json",
       "info": "info.txt",
       "info_fields": {
         "Dimensions_in": "6.000x3.000 in",
@@ -220,7 +223,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLMH-200-PRINTED-A",
-    "generated": "2026-08-17T02:10:16+00:00",
+    "generated": "2026-08-17T03:05:20+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLMH-200-PRINTED-A",
     "rev": "A",
@@ -253,9 +256,23 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLMH-250-450-PRINTED-A",
-    "generated": "2026-08-17T02:10:16+00:00",
+    "generated": "2026-08-17T03:05:20+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLMH-250-450-PRINTED-A",
+    "rev": "A",
+    "source_tag": "C2-A",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+  },
+  "HW-C2-DCLSPCR-PRINTED-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "step": "HW-C2-DCLSPCR-PRINTED-A.step"
+    },
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLSPCR-PRINTED-A",
+    "generated": "2026-08-17T03:05:20+00:00",
+    "mech": true,
+    "part_number": "HW-C2-DCLSPCR-PRINTED-A",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
@@ -273,6 +290,7 @@
         },
         "thickness_mm": 4.75
       },
+      "holes": "holes.json",
       "image": "info.png",
       "info": "info.txt",
       "info_fields": {
@@ -290,7 +308,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-PBB-A",
-    "generated": "2026-08-17T02:10:16+00:00",
+    "generated": "2026-08-17T03:05:20+00:00",
     "mech": true,
     "part_number": "HW-C2-PBB-A",
     "rev": "A",
@@ -321,7 +339,7 @@
     "board": "ControlBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/ControlBoard",
-    "generated": "2026-08-17T02:09:01+00:00",
+    "generated": "2026-08-17T03:03:53+00:00",
     "part_number": "HW-C2-PCB-CTRL-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -356,7 +374,7 @@
     "board": "DCBusCapacitorBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusCapacitorBoard",
-    "generated": "2026-08-17T02:09:18+00:00",
+    "generated": "2026-08-17T03:04:09+00:00",
     "part_number": "HW-C2-PCB-DCBUSCAP-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -388,7 +406,7 @@
     "board": "DCBusFilter",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusFilter",
-    "generated": "2026-08-17T02:09:38+00:00",
+    "generated": "2026-08-17T03:04:29+00:00",
     "part_number": "HW-C2-PCB-DCFLT-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -419,7 +437,7 @@
     "board": "GateDriver",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/GateDriver",
-    "generated": "2026-08-17T02:09:57+00:00",
+    "generated": "2026-08-17T03:04:48+00:00",
     "part_number": "HW-C2-PCB-GD-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -450,8 +468,22 @@
     "board": "IOBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/IOBoard",
-    "generated": "2026-08-17T02:10:16+00:00",
+    "generated": "2026-08-17T03:05:05+00:00",
     "part_number": "HW-C2-PCB-IO-A",
+    "rev": "A",
+    "source_tag": "C2-A",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+  },
+  "HW-C2-SHELL-PRINTED-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "step": "HW-C2-SHELL-PRINTED-A.step"
+    },
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/A/Mech/HW-C2-SHELL-PRINTED-A",
+    "generated": "2026-08-17T03:05:20+00:00",
+    "mech": true,
+    "part_number": "HW-C2-SHELL-PRINTED-A",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"

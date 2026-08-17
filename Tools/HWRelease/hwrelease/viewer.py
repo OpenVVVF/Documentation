@@ -722,7 +722,8 @@ function mechParts(proc) {{
     if (!proc) return true;
     const p = (x.artifacts.fab_spec || {{}}).process ||
               (x.artifacts.info_fields || {{}}).Process || "";
-    const is3d = p === "3d_print" || p === "3D Printing";
+    const is3d = p === "3d_print" || p === "3D Printing" ||
+                 x.part_number.includes("-PRINTED-");
     return proc === "3d_print" ? is3d : !is3d;
   }});
 }}

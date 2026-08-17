@@ -551,6 +551,8 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                 if extracted:
                     print(f"  {chassis} model extraction: {len(extracted)} part(s) "
                           f"from FCStd")
+                    for w in fcextract.check_mcmaster(tmp_path / "Hardware" / chassis):
+                        print(w)
                     mech_parts = export_mech_parts(tmp_path / "Hardware" / chassis,
                                                    out_dir)
                 for mp in mech_parts:
@@ -559,6 +561,10 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                             tmp_path / "Hardware" / chassis / "Mechanical" / "Fab"
                             / mp["part"] / "holes.json"):
                         print(w)
+                    if extracted and "info" not in mp["artifacts"] \
+                            and "fab_spec" not in mp["artifacts"]:
+                        print(f"  note: {mp['part']} came from the model and has no "
+                              f"info.txt/fab_spec.yaml yet")
                 for mp in mech_parts:
                     pn = mp["part"]
                     if pn in manifest and not force:

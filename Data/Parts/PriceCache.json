@@ -217,7 +217,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T02:11:11.063488Z"
+    "last_updated": "2026-08-17T03:03:11.234446Z"
   },
   "sendcutsend:hw-c2-pbb-a": {
     "vendor": "sendcutsend",
@@ -227,7 +227,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T02:11:11.063511Z"
+    "last_updated": "2026-08-17T03:03:11.234460Z"
   },
   "sendcutsend:hw-c2-bsp-a": {
     "vendor": "sendcutsend",
@@ -237,7 +237,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T02:11:11.063773Z"
+    "last_updated": "2026-08-17T03:03:11.234905Z"
   },
   "sendcutsend:hw-c2-chsp-a": {
     "vendor": "sendcutsend",
@@ -247,7 +247,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T02:11:11.063798Z"
+    "last_updated": "2026-08-17T03:03:11.234918Z"
   },
   "mouser:80-c1210c104k1rac": {
     "vendor": "mouser",
@@ -1208,5 +1208,25 @@
     "source": "manual",
     "url": "",
     "last_updated": "2026-08-17T01:05:03.489517Z"
+  },
+  "sendcutsend:hw-c2-dclspcr-printed-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-DCLSPCR-PRINTED-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-17T03:03:11.234401Z"
+  },
+  "sendcutsend:hw-c2-shell-printed-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-SHELL-PRINTED-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-17T03:03:11.234425Z"
   }
 }
