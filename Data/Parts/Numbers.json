@@ -2011,5 +2011,107 @@
         "note": "created"
       }
     ]
+  },
+  "c2|mechanical|mcmaster|6926k352": {
+    "part_number": "HW-C2-MECH-6926K352-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "6926K352",
+    "revision": "A",
+    "description": "6926K352",
+    "key": "c2|mechanical|mcmaster|6926k352",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|6926k56": {
+    "part_number": "HW-C2-MECH-6926K56-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "6926K56",
+    "revision": "A",
+    "description": "6926K56",
+    "key": "c2|mechanical|mcmaster|6926k56",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|7381k23": {
+    "part_number": "HW-C2-MECH-7381K23-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "7381K23",
+    "revision": "A",
+    "description": "7381K23",
+    "key": "c2|mechanical|mcmaster|7381k23",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|91292a108": {
+    "part_number": "HW-C2-MECH-91292A108-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "91292A108",
+    "revision": "A",
+    "description": "91292A108",
+    "key": "c2|mechanical|mcmaster|91292a108",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|94180a351": {
+    "part_number": "HW-C2-MECH-94180A351-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "94180A351",
+    "revision": "A",
+    "description": "94180A351",
+    "key": "c2|mechanical|mcmaster|94180a351",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|96738a257": {
+    "part_number": "HW-C2-MECH-96738A257-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "96738A257",
+    "revision": "A",
+    "description": "96738A257",
+    "key": "c2|mechanical|mcmaster|96738a257",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
   }
 }

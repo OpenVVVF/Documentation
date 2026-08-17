@@ -251,6 +251,42 @@ def extract_parts(chassis_dir: Path) -> List[str]:
     return []
 
 
+def merge_mcmaster(chassis_dir: Path) -> List[str]:
+    """Merge model-harvested McMaster hardware into MechanicalBOM.txt.
+
+    Model instance counts win for modeled parts; lines for parts not in the
+    model (consumables, unmodeled hardware) are kept as-is; model-only parts
+    are appended. Returns human-readable notes about what changed.
+    """
+    model_path = chassis_dir / "Mechanical" / "Fab" / "mcmaster_model.json"
+    bom_path = chassis_dir / "Mechanical" / "MechanicalBOM.txt"
+    if not model_path.is_file() or not bom_path.is_file():
+        return []
+    model = json.loads(model_path.read_text())
+    lines = bom_path.read_text(errors="replace").splitlines()
+    header = lines[0] if lines else "Qty,Vendor,PN,Description"
+    kept, changed, notes = [], {}, []
+    seen = set()
+    for line in lines[1:]:
+        fields = [f.strip() for f in line.split(",")]
+        if len(fields) >= 3 and fields[1].lower() == "mcmaster" and fields[2] in model:
+            pn = fields[2]
+            qty = model[pn]["qty"]
+            if str(qty) != fields[0]:
+                notes.append(f"  mcmaster {pn}: qty {fields[0]} -> {qty} (from model)")
+            kept.append(f"{qty},McMaster,{pn},{fields[3] if len(fields) > 3 else ''}")
+            seen.add(pn)
+        else:
+            kept.append(line)
+    for pn, entry in sorted(model.items()):
+        if pn not in seen:
+            kept.append(f"{entry['qty']},McMaster,{pn},{entry['description']}")
+            notes.append(f"  mcmaster {pn}: added {entry['qty']}x (from model)")
+    if notes:
+        bom_path.write_text("\n".join([header] + kept) + "\n")
+    return notes
+
+
 def check_mcmaster(chassis_dir: Path) -> List[str]:
     """Cross-check MechanicalBOM.txt McMaster lines against the model's
     instance counts (mcmaster_model.json from extract_parts)."""

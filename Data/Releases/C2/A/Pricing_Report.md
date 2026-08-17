@@ -1,6 +1,6 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-17T03:33:34.524064Z
+Generated: 2026-08-17T03:54:52.679422Z
 
 Base quantity: 1 unit(s)
 
@@ -24,20 +24,26 @@ Base quantity: 1 unit(s)
 | Qty | Order | Internal P/N | Description | Part Number | Unit Price | Line Total | Source |
 |-----|-------|--------------|-------------|-------------|------------|------------|--------|
 | 1 |  | HW-C2-MECH-1821A55-A | 1821A55 | 1821A55 | N/A | N/A | mcmaster_scrape |
+| 8 |  | HW-C2-MECH-6926K352-A | 6926K352 | 6926K352 | N/A | N/A | mcmaster_scrape |
+| 3 |  | HW-C2-MECH-6926K56-A | 6926K56 | 6926K56 | N/A | N/A | mcmaster_scrape |
+| 1 |  | HW-C2-MECH-7381K23-A | 7381K23 | 7381K23 | N/A | N/A | mcmaster_scrape |
 | 8 | 1 pack x 100 (left 92) | HW-C2-MECH-90128A232-A | 90128A232 | 90128A232 | $10.5500/pk | $10.55 | mcmaster_order_import |
 | 5 | 1 pack x 50 (left 45) | HW-C2-MECH-90225A102-A | 90225A102 | 90225A102 | $12.8000/pk | $12.80 | mcmaster_order_import |
+| 4 |  | HW-C2-MECH-91292A108-A | 91292A108 | 91292A108 | N/A | N/A | mcmaster_scrape |
 | 18 | 1 pack x 50 (left 32) | HW-C2-MECH-91292A134-A | 91292A134 | 91292A134 | $11.7200/pk | $11.72 | mcmaster_order_import |
 | 4 | 1 pack x 50 (left 46) | HW-C2-MECH-91294A220-A | 91294A220 | 91294A220 | $12.7400/pk | $12.74 | mcmaster_order_import |
 | 1 |  | HW-C2-MECH-91458A112-A | 91458A112 | 91458A112 | N/A | N/A | mcmaster_scrape |
 | 6 | 1 pack x 25 (left 19) | HW-C2-MECH-91502A180-A | 91502A180 | 91502A180 | $19.6500/pk | $19.65 | mcmaster_order_import |
 | 6 | 1 pack x 10 (left 4) | HW-C2-MECH-91502A183-A | 91502A183 | 91502A183 | $17.2700/pk | $17.27 | mcmaster_order_import |
+| 4 |  | HW-C2-MECH-94180A351-A | 94180A351 | 94180A351 | N/A | N/A | mcmaster_scrape |
 | 6 |  | HW-C2-MECH-94669A190-A | 94669A190 | 94669A190 | $1.3900 | $8.34 | mcmaster_order_import |
 | 6 |  | HW-C2-MECH-94669A196-A | 94669A196 | 94669A196 | $2.9600 | $17.76 | mcmaster_order_import |
-| 6 |  | HW-C2-MECH-94669A199-A | 94669A199 | 94669A199 | $3.1000 | $18.60 | mcmaster_order_import |
-| 6 |  | HW-C2-MECH-94669A202-A | 94669A202 | 94669A202 | $3.2200 | $19.32 | mcmaster_order_import |
+| 12 |  | HW-C2-MECH-94669A199-A | 94669A199 | 94669A199 | $3.1000 | $37.20 | mcmaster_order_import |
+| 2 |  | HW-C2-MECH-94669A202-A | 94669A202 | 94669A202 | $3.2200 | $6.44 | mcmaster_order_import |
+| 12 |  | HW-C2-MECH-96738A257-A | 96738A257 | 96738A257 | N/A | N/A | mcmaster_scrape |
 | 25 | 1 pack x 25 (left 0) | HW-C2-MECH-98044A224-A | 98044A224 | 98044A224 | $14.8800/pk | $14.88 | mcmaster_order_import |
 
-**McMaster-Carr subtotal:** $163.63
+**McMaster-Carr subtotal:** $169.35
 
 
 ## Mouser
@@ -154,17 +160,17 @@ Base quantity: 1 unit(s)
 
 ---
 
-## Grand Total (1 unit): **$2391.64**
+## Grand Total (1 unit): **$2397.36**
 
 
 ## Quantity Scaling
 
 | Quantity | Estimated Total |
 |----------|----------------|
-| 3 | $7034.46 |
-| 5 | $11685.21 |
-| 10 | $23314.68 |
-| 25 | $58240.26 |
+| 3 | $7051.62 |
+| 5 | $11713.81 |
+| 10 | $23371.88 |
+| 25 | $58383.26 |
 
 
 ## Pack Rounding & Stock
@@ -187,7 +193,13 @@ Base quantity: 1 unit(s)
 - GDVSHarness (assembly)
 - TempSenseHarness (assembly)
 - 1821A55 (mcmaster)
+- 6926K352 (mcmaster)
+- 6926K56 (mcmaster)
+- 7381K23 (mcmaster)
+- 91292A108 (mcmaster)
 - 91458A112 (mcmaster)
+- 94180A351 (mcmaster)
+- 96738A257 (mcmaster)
 - 0022011042 (mouser)
 - 08-50-0113 (mouser)
 - 544959-E (mouser)

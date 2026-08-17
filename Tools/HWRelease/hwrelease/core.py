@@ -497,6 +497,22 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                         sch = part_dir / f"{part_dir.name}.kicad_sch"
                         if part_dir.is_dir() and sch.is_file():
                             kicad.export_bom(sch, part_dir / f"{part_dir.name}.csv")
+            from . import fcextract
+            extracted_by_chassis = {}
+            for chassis_dir in sorted((tmp_path / "Hardware").iterdir()):
+                if not chassis_dir.is_dir():
+                    continue
+                extracted = fcextract.extract_parts(chassis_dir)
+                if extracted:
+                    print(f"  {chassis_dir.name} model extraction: "
+                          f"{len(extracted)} part(s) from FCStd")
+                    n_img = fcextract.render_images(chassis_dir)
+                    print(f"  {chassis_dir.name} model renders: {n_img} image(s)")
+                    for w in fcextract.check_mcmaster(chassis_dir):
+                        print(w)
+                    for note in fcextract.merge_mcmaster(chassis_dir):
+                        print(note)
+                    extracted_by_chassis[chassis_dir.name] = extracted
             variant_totals = regenerate_vendor_boms(tmp_path / "Hardware")
             ibom_gen = kicad.find_ibom_generator(_ibom_search_roots(hw_repo))
             print(f"Tag {tag}: {len(boards)} board(s)"
@@ -549,19 +565,10 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                         "variants"] = variant_totals
                 mech_parts = export_mech_parts(tmp_path / "Hardware" / chassis,
                                                out_dir)
-                from . import fcextract
-                extracted = fcextract.extract_parts(tmp_path / "Hardware" / chassis)
+                extracted = extracted_by_chassis.get(chassis, [])
                 if extracted:
-                    print(f"  {chassis} model extraction: {len(extracted)} part(s) "
-                          f"from FCStd")
-                    n_img = fcextract.render_images(tmp_path / "Hardware" / chassis)
-                    print(f"  {chassis} model renders: {n_img} image(s)")
-                    for w in fcextract.check_mcmaster(tmp_path / "Hardware" / chassis):
-                        print(w)
                     for w in fcextract.check_part_qty(tmp_path / "Hardware" / chassis):
                         print(w)
-                    mech_parts = export_mech_parts(tmp_path / "Hardware" / chassis,
-                                                   out_dir)
                 for mp in mech_parts:
                     for w in fcextract.check_spec_holes(
                             mp["part"], mp["artifacts"].get("fab_spec"),

@@ -53,3 +53,25 @@ def test_check_part_qty(tmp_path):
     (fab / "HW-C2-PBB-A" / "info.txt").write_text("Qty=2\n")
     warnings = fcextract.check_part_qty(tmp_path)
     assert len(warnings) == 1 and "PBB" in warnings[0]
+
+
+def test_merge_mcmaster(tmp_path):
+    mech = tmp_path / "Mechanical"
+    (mech / "Fab").mkdir(parents=True)
+    (mech / "Fab" / "mcmaster_model.json").write_text(json.dumps({
+        "91292A134": {"qty": 18, "description": "screw"},
+        "6926K352": {"qty": 8, "description": "nut"},
+    }))
+    bom = mech / "MechanicalBOM.txt"
+    bom.write_text("Qty,Vendor,PN,Description\n"
+                   "6,McMaster,91292A134,\n"
+                   "1,McMaster,1821A55,Dielectric grease\n"
+                   "3,Mouser,CM600DY-24T,IGBT module\n")
+    notes = fcextract.merge_mcmaster(tmp_path)
+    text = bom.read_text()
+    assert "18,McMaster,91292A134," in text
+    assert "8,McMaster,6926K352,nut" in text
+    assert "1,McMaster,1821A55,Dielectric grease" in text
+    assert "3,Mouser,CM600DY-24T" in text
+    assert any("qty 6 -> 18" in n for n in notes)
+    assert any("added 8x" in n for n in notes)

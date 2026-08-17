@@ -1,5 +1,5 @@
 ** Drc report for GateDriver.kicad_pcb **
-** Created on 2026-08-16T20:35:05 **
+** Created on 2026-08-16T20:56:24 **
 ** Report includes: Errors **
 
 ** Found 0 DRC violations **
