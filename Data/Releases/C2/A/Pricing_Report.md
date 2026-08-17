@@ -1,6 +1,6 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-17T03:54:52.679422Z
+Generated: 2026-08-17T19:49:56.484494Z
 
 Base quantity: 1 unit(s)
 
@@ -25,7 +25,7 @@ Base quantity: 1 unit(s)
 |-----|-------|--------------|-------------|-------------|------------|------------|--------|
 | 1 |  | HW-C2-MECH-1821A55-A | 1821A55 | 1821A55 | N/A | N/A | mcmaster_scrape |
 | 8 |  | HW-C2-MECH-6926K352-A | 6926K352 | 6926K352 | N/A | N/A | mcmaster_scrape |
-| 3 |  | HW-C2-MECH-6926K56-A | 6926K56 | 6926K56 | N/A | N/A | mcmaster_scrape |
+| 5 |  | HW-C2-MECH-6926K56-A | 6926K56 | 6926K56 | N/A | N/A | mcmaster_scrape |
 | 1 |  | HW-C2-MECH-7381K23-A | 7381K23 | 7381K23 | N/A | N/A | mcmaster_scrape |
 | 8 | 1 pack x 100 (left 92) | HW-C2-MECH-90128A232-A | 90128A232 | 90128A232 | $10.5500/pk | $10.55 | mcmaster_order_import |
 | 5 | 1 pack x 50 (left 45) | HW-C2-MECH-90225A102-A | 90225A102 | 90225A102 | $12.8000/pk | $12.80 | mcmaster_order_import |
@@ -147,7 +147,7 @@ Base quantity: 1 unit(s)
 
 | Qty | Order | Internal P/N | Description | Part Number | Unit Price | Line Total | Source |
 |-----|-------|--------------|-------------|-------------|------------|------------|--------|
-| 1 |  | HW-C2-3DP-DCLSPCR-PRINTED-A | HW-C2-DCLSPCR-PRINTED-A | HW-C2-DCLSPCR-PRINTED-A | N/A | N/A | sendcutsend_folder |
+| 6 |  | HW-C2-3DP-DCLSPCR-PRINTED-A | HW-C2-DCLSPCR-PRINTED-A | HW-C2-DCLSPCR-PRINTED-A | N/A | N/A | sendcutsend_folder |
 | 1 |  | HW-C2-3DP-SHELL-PRINTED-A | HW-C2-SHELL-PRINTED-A | HW-C2-SHELL-PRINTED-A | N/A | N/A | sendcutsend_folder |
 | 2 |  | HW-C2-BB-DCLBB-A | HW-C2-DCLBB-A | HW-C2-DCLBB-A | $52.6400 | $105.28 | sendcutsend_folder |
 | 3 |  | HW-C2-BB-PBB-A | HW-C2-PBB-A | HW-C2-PBB-A | $20.3200 | $60.96 | sendcutsend_folder |
@@ -213,10 +213,10 @@ Base quantity: 1 unit(s)
 
 ### HW-C2-DCLSPCR-PRINTED-A
 
-- **Qty (per unit):** 1
-- **Material:** N/A
-- **Thickness:** N/A mm
-- **Finish:** N/A
+- **Qty (per unit):** 6
+- **Material:** Nylon (PA12 or PA6/66, solid)
+- **Thickness:**  mm
+- **Finish:** as printed
 - **Unit Price:** N/A
 - **STEP:** `../Mechanical/Fab/HW-C2-DCLSPCR-PRINTED-A/HW-C2-DCLSPCR-PRINTED-A.step`
 
@@ -226,9 +226,9 @@ Base quantity: 1 unit(s)
 ### HW-C2-SHELL-PRINTED-A
 
 - **Qty (per unit):** 1
-- **Material:** N/A
-- **Thickness:** N/A mm
-- **Finish:** N/A
+- **Material:** Nylon (PA12 or PA6/66, solid)
+- **Thickness:**  mm
+- **Finish:** as printed
 - **Unit Price:** N/A
 - **STEP:** `../Mechanical/Fab/HW-C2-SHELL-PRINTED-A/HW-C2-SHELL-PRINTED-A.step`
 
@@ -312,9 +312,9 @@ Base quantity: 1 unit(s)
 | HW-C2-CHSP-A | A | 1 | yes | yes | $42.64 | 6061 T6 Aluminum / 3.17 mm / Sheet Cutting / Deburring |
 | HW-C2-DCLBB-A | A | 2 | yes | yes | $52.64 | Copper / 4.75 mm / Sheet Cutting / Bending |
 | HW-C2-DCLMH-200-PRINTED-A | A | 1 | yes | yes | **missing** | 35.50 mm / 3D Printing / as printed |
-| HW-C2-DCLSPCR-PRINTED-A | A | 1 | yes | **no** | **missing** |  |
+| HW-C2-DCLSPCR-PRINTED-A | A | 6 | yes | yes | **missing** | Nylon (PA12 or PA6/66, solid) / 3D Printing / as printed |
 | HW-C2-PBB-A | A | 3 | yes | yes | $20.32 | Copper / 4.75 mm / Sheet Cutting / Bending |
-| HW-C2-SHELL-PRINTED-A | A | 1 | yes | **no** | **missing** |  |
+| HW-C2-SHELL-PRINTED-A | A | 1 | yes | yes | **missing** | Nylon (PA12 or PA6/66, solid) / 3D Printing / as printed |
 
 | Harness | Qty/Chassis | Rev | BOM CSV |
 |---------|-------------|-----|---------|
@@ -325,8 +325,6 @@ Base quantity: 1 unit(s)
 
 **Not ready:**
 - fab part HW-C2-DCLMH-200-PRINTED-A: no price
-- fab part HW-C2-DCLSPCR-PRINTED-A: info.txt missing (import sendcutsend or fill by hand)
 - fab part HW-C2-DCLSPCR-PRINTED-A: no price
-- fab part HW-C2-SHELL-PRINTED-A: info.txt missing (import sendcutsend or fill by hand)
 - fab part HW-C2-SHELL-PRINTED-A: no price
 
