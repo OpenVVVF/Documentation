@@ -217,7 +217,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T00:23:50.085484Z"
+    "last_updated": "2026-08-17T01:05:03.489357Z"
   },
   "sendcutsend:hw-c2-pbb-a": {
     "vendor": "sendcutsend",
@@ -227,7 +227,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T00:23:50.085517Z"
+    "last_updated": "2026-08-17T01:05:03.489376Z"
   },
   "sendcutsend:hw-c2-bsp-a": {
     "vendor": "sendcutsend",
@@ -237,7 +237,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T00:23:50.085896Z"
+    "last_updated": "2026-08-17T01:05:03.489703Z"
   },
   "sendcutsend:hw-c2-chsp-a": {
     "vendor": "sendcutsend",
@@ -247,7 +247,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T00:23:50.085908Z"
+    "last_updated": "2026-08-17T01:05:03.489712Z"
   },
   "mouser:80-c1210c104k1rac": {
     "vendor": "mouser",
@@ -1198,5 +1198,15 @@
     "source": "sendcutsend_folder",
     "url": "",
     "last_updated": "2026-08-16T20:47:52.157191Z"
+  },
+  "mouser:951-gp1500-080-02": {
+    "vendor": "mouser",
+    "part_number": "951-GP1500-080-02",
+    "unit_price": 32.78,
+    "currency": "USD",
+    "stock": "",
+    "source": "manual",
+    "url": "",
+    "last_updated": "2026-08-17T01:05:03.489517Z"
   }
 }

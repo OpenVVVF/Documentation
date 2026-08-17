@@ -1960,5 +1960,22 @@
         "note": "created"
       }
     ]
+  },
+  "c2|other|mouser|951-gp1500-080-02": {
+    "part_number": "HW-C2-HW-BERGQUIST-GP1500-THERMAL-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "BERGQUIST-GP1500-THERMAL",
+    "revision": "A",
+    "description": "Bergquist GP1500 thermal gap pad, 80x80mm",
+    "key": "c2|other|mouser|951-gp1500-080-02",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
   }
 }

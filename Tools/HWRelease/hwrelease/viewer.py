@@ -339,6 +339,13 @@ tr:nth-child(even) {{ background: var(--surface); }}
   color: var(--text-muted); font-family: var(--font-body);
 }}
 #guide-toggle:hover {{ border-color: var(--accent); color: var(--text); }}
+.guide-bar {{ display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }}
+.guide-bar #guide-toggle {{ margin: 0; }}
+#guide-order-link {{
+  padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
+  background: var(--accent); border: 1px solid var(--accent); color: #fff; text-decoration: none;
+}}
+#guide-order-link:hover {{ background: var(--accent-dark); }}
 .guide-step {{ display: flex; gap: 14px; align-items: flex-start; }}
 .step-num {{
   flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
@@ -378,7 +385,10 @@ tr:nth-child(even) {{ background: var(--surface); }}
     <div id="content">
       <div id="preview"><p class="empty">Select a vendor on the left to preview its BOM.</p></div>
       <div class="guide-col" id="guide-col" style="display:none">
-        <button id="guide-toggle" onclick="toggleGuide()">Hide walkthrough</button>
+        <div class="guide-bar">
+          <button id="guide-toggle" onclick="toggleGuide()">Hide walkthrough</button>
+          <a id="guide-order-link" target="_blank" rel="noopener" style="display:none"></a>
+        </div>
         <div class="guide" id="guide"></div>
       </div>
     </div>
@@ -453,6 +463,15 @@ async function renderGuide() {{
   const toggle = document.getElementById("guide-toggle");
   toggle.textContent = "Hide walkthrough";
   div.classList.remove("collapsed");
+  const orderLink = document.getElementById("guide-order-link");
+  const ext = (ORDER_LINKS[state.vendor] || []).find(([, url]) => url.startsWith("http"));
+  if (ext) {{
+    orderLink.textContent = ext[0];
+    orderLink.href = ext[1];
+    orderLink.style.display = "inline-block";
+  }} else {{
+    orderLink.style.display = "none";
+  }}
 }}
 
 function toggleGuide() {{

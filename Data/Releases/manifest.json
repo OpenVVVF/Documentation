@@ -3,33 +3,30 @@
     "artifacts": {
       "price_estimate": {
         "qty": 1,
-        "total": "2,299.88",
+        "total": "2,285.68",
         "variant_vendors": {
           "generous": {
-            "digikey": "46.98",
             "mcmaster": "189.18",
-            "mouser": "1,971.23",
+            "mouser": "2,004.01",
             "pcb": "129.08",
             "sendcutsend": "352.16"
           },
           "standard": {
-            "digikey": "46.98",
             "mcmaster": "178.51",
-            "mouser": "1,747.30",
+            "mouser": "1,780.08",
             "pcb": "64.54",
             "sendcutsend": "310.46"
           }
         },
         "variants": {
-          "base": "2,299.88",
-          "generous": "2,688.62",
-          "standard": "2,347.80"
+          "base": "2,285.68",
+          "generous": "2,674.42",
+          "standard": "2,333.60"
         },
         "vendors": {
-          "Digi-Key": "46.98",
           "In-House Assembly": "0.00",
           "McMaster-Carr": "163.63",
-          "Mouser": "1,714.27",
+          "Mouser": "1,747.05",
           "PCB Fabrication": "64.54",
           "SendCutSend": "310.46"
         }
@@ -60,7 +57,6 @@
       "vendor_boms": {
         "assembly": "BOMs/assembly_bom.csv",
         "consolidated": "BOMs/Consolidated_BOM.csv",
-        "digikey": "BOMs/digikey_bom.csv",
         "mcmaster": "BOMs/mcmaster_bom.csv",
         "mcmaster_paste": "BOMs/McMaster_Order_Paste.txt",
         "mouser": "BOMs/mouser_bom.csv",
@@ -70,7 +66,7 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A",
-    "generated": "2026-08-17T00:23:50+00:00",
+    "generated": "2026-08-17T01:06:59+00:00",
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
@@ -92,7 +88,7 @@
     "board": "ControlBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/ControlBoard",
-    "generated": "2026-08-16T20:24:36+00:00",
+    "generated": "2026-08-17T01:05:46+00:00",
     "part_number": "HW-C2-PCB-CTRL-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -116,7 +112,7 @@
     "board": "DCBusCapacitorBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusCapacitorBoard",
-    "generated": "2026-08-16T20:24:53+00:00",
+    "generated": "2026-08-17T01:06:02+00:00",
     "part_number": "HW-C2-PCB-DCBUSCAP-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -141,7 +137,7 @@
     "board": "DCBusFilter",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusFilter",
-    "generated": "2026-08-16T20:25:12+00:00",
+    "generated": "2026-08-17T01:06:22+00:00",
     "part_number": "HW-C2-PCB-DCFLT-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -165,7 +161,7 @@
     "board": "GateDriver",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/GateDriver",
-    "generated": "2026-08-16T20:25:32+00:00",
+    "generated": "2026-08-17T01:06:42+00:00",
     "part_number": "HW-C2-PCB-GD-A",
     "rev": "A",
     "source_tag": "C2-A",
@@ -189,7 +185,7 @@
     "board": "IOBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/IOBoard",
-    "generated": "2026-08-16T20:25:48+00:00",
+    "generated": "2026-08-17T01:06:59+00:00",
     "part_number": "HW-C2-PCB-IO-A",
     "rev": "A",
     "source_tag": "C2-A",

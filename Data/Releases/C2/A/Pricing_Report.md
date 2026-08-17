@@ -1,6 +1,6 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-17T00:23:50.094155Z
+Generated: 2026-08-17T01:05:03.497067Z
 
 Base quantity: 1 unit(s)
 
@@ -17,15 +17,6 @@ Base quantity: 1 unit(s)
 | 2 |  | HW-C2-WH-TSIGBT-A | TempSenseHarness |  | N/A | N/A | manual |
 
 **In-House Assembly subtotal:** $0.00
-
-
-## Digi-Key
-
-| Qty | Order | Internal P/N | Description | Part Number | Unit Price | Line Total | Source |
-|-----|-------|--------------|-------------|-------------|------------|------------|--------|
-| 1 |  | HW-C2-HW-3M156058-ND-A | 3M156058-ND | 3M156058-ND | $46.9800 | $46.98 | digikey_cart_import |
-
-**Digi-Key subtotal:** $46.98
 
 
 ## McMaster-Carr
@@ -84,6 +75,7 @@ Base quantity: 1 unit(s)
 | 3 |  | HW-C2-HW-B2B-XH-AM_LF__SN_-A | B2B-XH-AM_LF__SN_ | 306-B2B-XH-AMLFSNP | $0.1000 | $0.30 | mouser_cart_import |
 | 12 |  | HW-C2-HW-B58031U9254M062-A | B58031U9254M062 | 871-B58031U9254M062 | $4.6500 | $55.80 | mouser_cart_import |
 | 12 |  | HW-C2-HW-BAT54WS-7-F-A | BAT54WS-7-F | 621-BAT54WS-F | $0.1240 | $1.49 | mouser_cart_import |
+| 1 |  | HW-C2-HW-BERGQUIST-GP1500-THERMAL-A | Bergquist GP1500 thermal gap pad, 80x80mm | 951-GP1500-080-02 | $32.7800 | $32.78 | manual |
 | 5 |  | HW-C2-HW-BTS462TATMA1-A | BTS462TATMA1 | 726-BTS462TATMA1 | $2.6600 | $13.30 | mouser_cart_import |
 | 3 |  | HW-C2-HW-CM600DY-24T-A | CM600DY-24T | CM600DY-24T | $323.5000 | $970.50 | mouser_cart_import |
 | 1 |  | HW-C2-HW-DRDNB21D-7-A | DRDNB21D-7 | 621-DRDNB21D-7 | $0.5600 | $0.56 | mouser_cart_import |
@@ -129,7 +121,7 @@ Base quantity: 1 unit(s)
 | 1 |  | HW-C2-RES-499K-A | 499kohm 1210 resistor | 667-ERJ-P14F4993U | $0.4400 | $0.44 | mouser_cart_import |
 | 16 |  | HW-C2-RES-250K-A | Thick Film Resistors - SMD 1/2watt 249Kohms 1% | 71-CRCW1210-249K-E3 | $0.0700 | $1.12 | mouser_cart_import |
 
-**Mouser subtotal:** $1714.27
+**Mouser subtotal:** $1747.05
 
 
 ## PCB Fabrication
@@ -161,17 +153,17 @@ Base quantity: 1 unit(s)
 
 ---
 
-## Grand Total (1 unit): **$2299.88**
+## Grand Total (1 unit): **$2285.68**
 
 
 ## Quantity Scaling
 
 | Quantity | Estimated Total |
 |----------|----------------|
-| 3 | $6759.18 |
-| 5 | $11226.41 |
-| 10 | $22397.08 |
-| 25 | $55946.26 |
+| 3 | $6716.58 |
+| 5 | $11155.41 |
+| 10 | $22255.08 |
+| 25 | $55591.26 |
 
 
 ## Pack Rounding & Stock
