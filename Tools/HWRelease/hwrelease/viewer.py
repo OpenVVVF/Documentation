@@ -484,7 +484,7 @@ function toggleGuide() {{
 const MANIFEST = {manifest};
 const ROOT = "{root}";
 const VENDOR_LABELS = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "SendCutSend",
-  digikey: "DigiKey", consolidated: "Consolidated", assembly: "Assembly", pcb: "PCBs"}};
+  digikey: "DigiKey", pcb: "PCBs"}};
 const PRICE_NAMES = {{mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "SendCutSend",
   digikey: "Digi-Key", assembly: "In-House Assembly", pcb: "PCB Fabrication"}};
 
