@@ -350,6 +350,10 @@ def export_mech_parts(chassis_dir: Path, out_dir: Path) -> List[dict]:
         spec_file = part_dir / "fab_spec.yaml"
         if spec_file.is_file():
             artifacts["fab_spec"] = yaml.safe_load(spec_file.read_text()) or {}
+        holes_file = part_dir / "holes.json"
+        if holes_file.is_file():
+            shutil.copy2(holes_file, dest / "holes.json")
+            artifacts["holes"] = "holes.json"
         parts.append({"part": part_dir.name, "artifacts": artifacts})
     return parts
 
@@ -542,6 +546,19 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                         "variants"] = variant_totals
                 mech_parts = export_mech_parts(tmp_path / "Hardware" / chassis,
                                                out_dir)
+                from . import fcextract
+                extracted = fcextract.extract_parts(tmp_path / "Hardware" / chassis)
+                if extracted:
+                    print(f"  {chassis} model extraction: {len(extracted)} part(s) "
+                          f"from FCStd")
+                    mech_parts = export_mech_parts(tmp_path / "Hardware" / chassis,
+                                                   out_dir)
+                for mp in mech_parts:
+                    for w in fcextract.check_spec_holes(
+                            mp["part"], mp["artifacts"].get("fab_spec"),
+                            tmp_path / "Hardware" / chassis / "Mechanical" / "Fab"
+                            / mp["part"] / "holes.json"):
+                        print(w)
                 for mp in mech_parts:
                     pn = mp["part"]
                     if pn in manifest and not force:

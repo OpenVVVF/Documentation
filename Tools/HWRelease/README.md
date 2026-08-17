@@ -68,9 +68,24 @@ table shows the per-board notes in a Notes column.
 ## Requirements
 
 - KiCad via flatpak (`org.kicad.KiCad`) or `kicad-cli` on PATH.
+- FreeCAD via flatpak (`org.freecad.FreeCAD`) — used for mechanical-part
+  extraction (optional; skipped with a warning if absent).
 - `InteractiveHtmlBom` in `../InverterGen5/Hardware/BOMManager/.venv` or this
   repo's `.venv` (only needed for the interactive assembly HTML; skipped with a
   warning otherwise).
+
+## FreeCAD extraction
+
+On `update`, each chassis's `Mechanical/*.FCStd` is opened headlessly
+(`freecadcmd` flatpak). Every `PartDesign::Body` / `App::DocumentObjectGroup`
+whose **label ends with the exact part number** (`HW-...`) is exported:
+
+- `<pn>.step` — fresh STEP, overwriting the manually exported one,
+- `holes.json` — cylindrical-hole diameter histogram (mm).
+
+Tap/countersink diameters in `fab_spec.yaml` are validated against the model's
+holes and mismatches are printed as warnings. Keep model labels exact —
+e.g. `HW-C2-BSP-A`, `PhaseBusBars-HW-C2-PBB-A`.
 
 ## Conventions
 

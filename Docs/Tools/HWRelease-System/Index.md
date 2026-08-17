@@ -49,10 +49,11 @@ fab_defaults.yaml┘                     │
 
 1. In InverterGen5: make changes (bump `(rev "X")` in a board's `.kicad_sch`/`.kicad_pcb`, edit specs), commit, push, and create a GitHub release (which creates a tag, e.g. `C2-A`).
 2. Here: run `make hw-update` (= `hwrelease update`). It fetches tags, and for each tag not yet in the manifest:
-   - Exports the tag's `Hardware/` tree via `git archive` into a temp dir under `Data/Releases/` (the KiCad flatpak cannot read `/tmp`; the hardware repo's working tree is never touched).
+   - Exports the tag's `Hardware/` tree via `git archive` into a temp dir (the hardware repo's working tree is never touched).
    - Reads each board's revision from `(rev "X")` in its KiCad files.
    - Exports board BOM CSVs (`<Board>.csv` beside each project, boards *and* wiring harnesses) — BOMManager discovers BOMs from these files, so this step must happen before generation.
    - Regenerates the chassis vendor BOMs with this repo's BOMManager (`generate --variants`), so BOMs and prices are always built from the tag's sources, never copied stale.
+   - Extracts fabricated parts from the FreeCAD model (`Mechanical/*.FCStd`): per part (Body/Group labeled with the exact part number) a fresh STEP and a `holes.json` diameter histogram, followed by a spec-vs-model hole check.
    - Exports per-board artifacts (named `<part-number>-<kind>.<ext>`) and mechanical parts.
    - Updates `Data/Releases/manifest.json` and regenerates both tool pages.
 3. Commit `Data/Releases/` and the generated pages.
@@ -111,7 +112,7 @@ These files in InverterGen5 drive the tools; keep them current:
 
 ## Planned (roadmap)
 
-- **FreeCAD auto-extraction**: emit `fab_spec.yaml` files and part images directly from `InverterMechanical.FCStd` via headless `freecadcmd`, keyed by part name plus a BOM spreadsheet in the model (material/thickness aliases). The yaml schema above is the extraction target — hand-written today, machine-generated tomorrow, with diff warnings on mismatch (e.g. hole-count vs. tapping spec).
+- **FreeCAD auto-extraction (implemented, first slice)**: on every `hwrelease update`, a headless `freecadcmd` pass opens the chassis `Mechanical/*.FCStd`, finds every Body/Group whose **label ends with the exact part number** (`HW-...`), and exports `<pn>.step` + `holes.json` (cylindrical-hole diameter histogram) into `Mechanical/Fab/<pn>/`. Tap/countersink diameters in each part's `fab_spec.yaml` are then checked against the model's actual holes, with warnings on mismatch. Keep labels exact — the extractor keys on them, no translation layer. Next: render card images from the model, and fill `fab_spec.yaml` fields from model properties.
 - **Build configurations**: voltage-class builds (200V / 250V / 300V / 450V) that swap both electrical parts (Mouser lines) and mechanical parts (heatspreader, printed holders) — a Build dropdown beside Variant, driven by part-number mappings in `Config/Products.yaml`.
 - **Mechanical parts explorer**: a dedicated tool page for mech parts (the manifest entries and spec cards are the seed).
 
