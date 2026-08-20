@@ -5,17 +5,20 @@ title: DC Link Thermal Analysis
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.0"
-date: "2026-07-13"
+version: "1.1"
+date: "2026-08-20"
 description: DC-link capacitor bank standoff heat-path and thermal resistance analysis for Chassis Size 2.
 nav_order: 242
 normative_refs:
   - OV-C2-DD-INDEX
+  - OV-C2-DD-THERMAL
 ---
 
 # Thermal Analysis - DC Link Module Standoff Heat Path
 
 Heat load at rated ripple was calculated to be 40 W across all capacitors.
+
+> **Open item (v1.1) - addressed by `OV-C2-DD-DCLINK-RIPPLE` v0.1:** the derivation of the 40 W figure is not recorded in this document, and the ripple-current rating of the 60-can bank had not been checked against the 600 A RMS operating point. `OV-C2-DD-DCLINK-RIPPLE` derives the bank ripple current (0.511 A RMS per A of phase current at m = 1, cos phi = 0.8) and checks it against the Nichicon UCS datasheet ratings: the 200 V bank is ripple-limited above ~320 A RMS phase current, and at 600 A the per-can ripple is 1.8 - 1.9x rating with a computed bank loss of 239 - 274 W (subject to the [ASM] ESR ratio there). The 40 W figure corresponds to ~240 A operation; it is about right at part load and optimistic by ~6 - 7x at 600 A. Note, however, that the ripple loss is generated in the can hot-spot and is partly rejected by convection/radiation, which this conduction-only model neglects, so the +40.1 K rise (even rescaled) is an upper bound; the designer's field experience is that the cans run much cooler than this model predicts. Until the ESR measurement and dyno correlation in `OV-C2-DD-DCLINK-RIPPLE` open items land, every absolute plate temperature in this document carries an unquantified upward bias risk. [ASM]
 
 ## Nomenclature
 
@@ -161,6 +164,26 @@ $$\Delta T_{spread} = 40 \times 0.385 = \mathbf{15.4 \ ^\circ\text{C}}$$
 | With thermal paste | **~80 °C** |
 | Dry metal-to-metal | **~87 °C** |
 
+The table above assumes a 40 °C heatsink base. Under inverter load the heatsink surface is much warmer than that; because the 40.1 K rise is a series resistance to the heatsink, the plate tracks the local heatsink surface 1:1. See the next subsection.
+
+### Plate temperature at the inverter operating points (v1.1)
+
+`OV-C2-DD-THERMAL` v1.1 derives the maximum heatsink surface temperature $T_s$ for each operating point (heatsink sized to the 85 °C module-baseplate limit, 40 °C ambient, $R_G = 2.7 \ \Omega$ gate drive). Adding the +40.1 K paste-path rise:
+
+| Operating point (600 A unless noted) | Max $T_s$ (°C) | Plate temperature (°C) | FSR-08 90 °C derate | FSR-08 105 °C SSO / capacitor rating |
+|-----------|----------------------------|----------------------------|----------------------------|----------------------------|
+| 320 V / 2 kHz | 68.2 | **108.3** | exceeds | **exceeds** |
+| 320 V / 6 kHz (max continuous) | 63.2 | **103.3** | exceeds | marginal |
+| 320 V / 8 kHz (upper bound) | 60.7 | **100.8** | exceeds | within |
+| 140 V / 2 kHz | 69.6 | **109.7** | exceeds | **exceeds** |
+| 140 V / 6 kHz | 67.4 | **107.5** | exceeds | **exceeds** |
+| 300 A / 320 V / 2 kHz | 78.0 | **118.1** | exceeds | **exceeds** |
+| 300 A / 320 V / 6 kHz | 75.2 | **115.3** | exceeds | **exceeds** |
+
+Two cautions on interpretation (see `OV-C2-DD-THERMAL` §6.3 for the full discussion): the 6–8 kHz rows look better only because those points demand a stronger heatsink (4.7 / 3.7 mK/W vs 7.3 mK/W); against a fixed 0.006 K/W margin-target heatsink the 320 V plate temperatures are ≈ 103 / 110 / 113 °C at 2 / 6 / 8 kHz. And the 300 A rows assume a heatsink sized only for 300 A.
+
+**Consequence:** with the present standoff/plate path, the DC-link plate model sits at or above the FSR-08 90 °C derate threshold at every full-load operating point, and above the 105 °C SSO threshold (the capacitor temperature rating) at several. Continuous 600 A RMS is not supported by this thermal model without one of: plate-thermocouple validation during the full-load dyno (the model neglects convection/radiation, so the real rise should be below +40.1 K; thermal test plan T-05 bounds it), an improved plate thermal path (§ Recommendations, item 5), or a derated continuous envelope that keeps the plate under 90 °C. [ASM] - plate-to-capacitor-can thermal coupling is unmodeled; the capacitor NTC reading vs plate temperature must be correlated on the dyno.
+
 **450 V capacitor-only upgrade:** The 450 V upgrade is a single part-number swap to 60&times; Nichicon UCS2W680MHD 68 &micro;F / 450 V capacitors (4.08 mF total). These parts are 5 mm shorter than the 200 V UCS2D331MHD, so the standoff length is reduced by 5 mm (from 55 mm to 50 mm). The same 13 mm OD aluminium standoff thermal path applies, with marginally lower conduction resistance due to the shorter length.
 
 ---
@@ -211,7 +234,17 @@ Six standoffs provides adequate margin; eight would be better but is not require
 - Contact resistivity values are typical estimates; actual values depend on surface finish, flatness, and clamping pressure.
 - Heat generation is assumed uniform across the aluminium plate. Localised hot spots will increase peak temperatures.
 - Radiation and natural convection from the plate are neglected; in reality they provide additional heat rejection, so actual plate temperature may be slightly lower.
-- Ambient / heatsink base temperature is assumed constant at 40 °C; if the heatsink warms up under load, the absolute plate temperature rises proportionally.
+- Ambient / heatsink base temperature is assumed constant at 40 °C; if the heatsink warms up under load, the absolute plate temperature rises proportionally. This is not hypothetical: at the 600 A inverter operating points the heatsink surface reaches 60–78 °C (`OV-C2-DD-THERMAL` v1.1), putting the plate in the FSR-08 derate/SSO band - see "Plate temperature at the inverter operating points" above.
+- The 40 W heat load is under review (open item at the top of this document); if the bank ripple check shows a higher loss, all $\Delta T$ values scale linearly with heat load.
+
+---
+
+## Revision History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0 | 2026-07-13 | Initial release. |
+| 1.1 | 2026-08-20 | Engineering revision. Added normative reference to `OV-C2-DD-THERMAL`. Flagged the 40 W ripple heat load as an open item: derivation not recorded and the 60-can bank ripple rating at 600 A RMS not yet checked (bank may be ripple-limited; heat load may be higher). New subsection "Plate temperature at the inverter operating points" integrates the v1.1 heatsink surface temperatures from `OV-C2-DD-THERMAL` (plate = $T_s$ + 40.1 K): the plate exceeds the FSR-08 90 °C derate threshold at every full-load point and the 105 °C SSO / capacitor rating at several, making the DC-link plate the binding constraint on the 600 A continuous claim. Assumptions updated accordingly. |
 
 ---
 
