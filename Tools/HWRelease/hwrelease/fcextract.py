@@ -236,6 +236,10 @@ def extract_parts(chassis_dir: Path) -> List[str]:
         script = Path(f.name)
     try:
         r = _freecad([str(script), str(fcstd), str(fab_dir)])
+    except subprocess.TimeoutExpired:
+        print("  warning: FreeCAD extraction timed out; skipping model "
+              "extraction", file=sys.stderr)
+        return []
     finally:
         script.unlink(missing_ok=True)
     if r is None:
@@ -253,7 +257,8 @@ def extract_parts(chassis_dir: Path) -> List[str]:
 
 # Runs inside freecadcmd. Exports every visible solid in the document (each
 # object's global placement is honored by Import.export/Mesh.export) as one
-# whole-assembly STEP + STL.
+# whole-assembly STEP + STL. The STL (fast) is written first so a STEP timeout
+# still leaves the viewable model on disk.
 _ASM_SCRIPT = r"""
 import sys
 
@@ -268,18 +273,23 @@ shapes = [o for o in doc.Objects
           and o.Shape.Solids
           and getattr(o, "Visibility", True)]
 if shapes:
-    Import.export(shapes, step_out)
     Mesh.export(shapes, stl_out)
+    Import.export(shapes, step_out)
 doc and App.closeDocument(doc.Name)
 print("ASSEMBLY_OK" if shapes else "NO_SHAPES")
 """
+
+# Assembly STEP export can be very slow on large models; give it more room
+# than the per-part extraction. On timeout the already-written STL is kept.
+_ASM_TIMEOUT = 3600
 
 
 def export_assembly(chassis_dir: Path) -> bool:
     """Export the whole chassis model to Mechanical/assembly.step|stl.
 
-    Writes into the (temp) hardware tree. Returns True when both files were
-    produced, False if FreeCAD/FCStd is unavailable or the export failed.
+    Writes into the (temp) hardware tree. Returns True when the STL was
+    produced (the STEP is a bonus: a STEP timeout keeps the STL), False if
+    FreeCAD/FCStd is unavailable or no STL landed on disk.
     """
     fcstd = find_fcstd(chassis_dir)
     if fcstd is None:
@@ -292,7 +302,16 @@ def export_assembly(chassis_dir: Path) -> bool:
     try:
         r = _freecad([str(script), str(fcstd),
                       str(mech_dir / "assembly.step"),
-                      str(mech_dir / "assembly.stl")])
+                      str(mech_dir / "assembly.stl")],
+                     timeout=_ASM_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        if (mech_dir / "assembly.stl").is_file():
+            print("  warning: assembly STEP export timed out; "
+                  "keeping STL only", file=sys.stderr)
+            return True
+        print("  warning: assembly export timed out before the STL "
+              "was written", file=sys.stderr)
+        return False
     finally:
         script.unlink(missing_ok=True)
     if r is None:
@@ -303,8 +322,7 @@ def export_assembly(chassis_dir: Path) -> bool:
         tail = (r.stderr or r.stdout).strip().splitlines()[-3:]
         print(f"  FreeCAD assembly export failed: {tail}", file=sys.stderr)
         return False
-    return (mech_dir / "assembly.step").is_file() \
-        and (mech_dir / "assembly.stl").is_file()
+    return (mech_dir / "assembly.stl").is_file()
 
 
 def merge_mcmaster(chassis_dir: Path) -> List[str]:

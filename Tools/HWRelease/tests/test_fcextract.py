@@ -118,3 +118,53 @@ def test_export_assembly_success(tmp_path, monkeypatch):
     assert fcextract.export_assembly(tmp_path) is True
     assert (mech / "assembly.step").is_file()
     assert (mech / "assembly.stl").is_file()
+
+
+def _mk_fcstd(tmp_path):
+    mech = tmp_path / "Mechanical"
+    mech.mkdir()
+    (mech / "m.FCStd").write_bytes(b"x")
+    return mech
+
+
+def test_export_assembly_timeout_no_stl(tmp_path, monkeypatch, capsys):
+    import subprocess
+    _mk_fcstd(tmp_path)
+
+    def raise_timeout(args, **kw):
+        raise subprocess.TimeoutExpired(args, kw.get("timeout"))
+
+    monkeypatch.setattr(fcextract, "_freecad", raise_timeout)
+    assert fcextract.export_assembly(tmp_path) is False
+    err = capsys.readouterr().err
+    assert "timed out" in err
+    assert not (tmp_path / "Mechanical" / "assembly.stl").exists()
+
+
+def test_export_assembly_timeout_keeps_stl(tmp_path, monkeypatch, capsys):
+    import subprocess
+    from pathlib import Path
+    mech = _mk_fcstd(tmp_path)
+
+    def slow_step(args, **kw):
+        # STL (fast) is written before the STEP export hangs.
+        Path(args[3]).write_text("stl")
+        raise subprocess.TimeoutExpired(args, kw.get("timeout"))
+
+    monkeypatch.setattr(fcextract, "_freecad", slow_step)
+    assert fcextract.export_assembly(tmp_path) is True
+    assert (mech / "assembly.stl").is_file()
+    assert not (mech / "assembly.step").exists()
+    assert "keeping STL only" in capsys.readouterr().err
+
+
+def test_extract_parts_timeout(tmp_path, monkeypatch, capsys):
+    import subprocess
+    _mk_fcstd(tmp_path)
+
+    def raise_timeout(args, **kw):
+        raise subprocess.TimeoutExpired(args, kw.get("timeout"))
+
+    monkeypatch.setattr(fcextract, "_freecad", raise_timeout)
+    assert fcextract.extract_parts(tmp_path) == []
+    assert "timed out" in capsys.readouterr().err
