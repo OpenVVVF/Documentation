@@ -1,13 +1,13 @@
 ---
 doctype: Test Plan
 doc_id: OV-TEST-THERMAL-PLAN
-title: Thermal Test Plan (DIY Chamber)
+title: Thermal Test Plan
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.0"
+version: "1.1"
 date: "2026-08-20"
-description: Bench thermal validation of the C2 inverter using a DIY styrofoam-cooler thermal chamber; verifies the heatsink and DC-link thermal design claims and the FSR-08 derate/SSO thresholds.
+description: Bench thermal validation of the C2 inverter using a thermal chamber built from a styrofoam cooler; verifies the heatsink and DC-link thermal design claims and the FSR-08 derate/SSO thresholds.
 nav_order: 373
 normative_refs:
   - OV-C2-DD-THERMAL
@@ -16,9 +16,9 @@ normative_refs:
   - OV-TEST-FAULT-INJECTION
 ---
 
-# Thermal Test Plan (DIY Chamber)
+# Thermal Test Plan
 
-This document is the thermal test plan for the Chassis Size 2 (C2) traction inverter. It defines test cases that can be executed with a DIY thermal chamber built from a styrofoam cooler, plus standard bench instrumentation. It verifies the thermal design claims made in the C2 design documents [OV-C2-DD-THERMAL](../../../Hardware/Power-Stages/C2/Design-Documents/Thermal-Analysis/Index.md) and [OV-C2-DD-DCLINK-THERMAL](../../../Hardware/Power-Stages/C2/Design-Documents/DC-Link-Thermal/Index.md), and the temperature derate / safe-state-off (SSO) thresholds of FSR-08 in [OV-SAF-HARA-CORE](../../HARA/Core/Index.md).
+This document is the thermal test plan for the Chassis Size 2 (C2) traction inverter. It defines test cases that can be executed with a thermal chamber built from a styrofoam cooler, plus standard bench instrumentation. It verifies the thermal design claims made in the C2 design documents [OV-C2-DD-THERMAL](../../../Hardware/Power-Stages/C2/Design-Documents/Thermal-Analysis/Index.md) and [OV-C2-DD-DCLINK-THERMAL](../../../Hardware/Power-Stages/C2/Design-Documents/DC-Link-Thermal/Index.md), and the temperature derate / safe-state-off (SSO) thresholds of FSR-08 in [OV-SAF-HARA-CORE](../../HARA/Core/Index.md).
 
 This plan is filed directly under `Testing/` because it spans the Hardware domain (physical thermal characterization of the power stage) and firmware behavior verification (derating, SSO, NTC telemetry). The DUT is the C2 power stage; the control module is not under test here, but it supplies the firmware NTC telemetry (two IGBT NTCs, one DC-link capacitor NTC) that T-02 through T-06 correlate against the reference probes. Test execution records and evidence are maintained separately per the same evidence framework as [OV-TEST-FAULT-INJECTION](../Fault-Injection-Test-Plan/Index.md): each execution campaign produces a dated `Test Report` document filed as a sibling of this plan, referencing it by doc_id and test ID. Evidence reports are immutable once released; this plan's status tables are the living roll-up.
 
@@ -34,7 +34,7 @@ This plan is filed directly under `Testing/` because it spans the Hardware domai
 
 Where a design-doc number is an unvalidated estimate, that is stated explicitly in the acceptance criteria. In particular, OV-C2-DD-THERMAL is marked "design estimate ... to be validated by test" and the DC-link +40.1 K rise is a 1-D analytical result with a stated ±20 % spreading uncertainty.
 
-## The DIY Thermal Chamber
+## Test Chamber
 
 ### Construction
 

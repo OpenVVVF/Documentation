@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.2"
+version: "0.3"
 date: "2026-08-20"
 description: Vibration test plan for the C2 inverter assembly based on MIL-STD-810H Method 514.8 Category 4 wheeled-vehicle random vibration, with a low-cost screening alternative.
 nav_order: 372
@@ -36,10 +36,9 @@ Verify that the C2 power-stage and control assembly survive road-induced random 
 ## Normative basis
 
 - MIL-STD-810H, Method 514.8 (Vibration), Category 4: composite wheeled vehicle vibration exposure. Category 4 applies to materiel transported by or installed in wheeled vehicles traversing highways and cross-country terrain; it is the appropriate category for a road-vehicle traction inverter.
-- Because the first application profile is a motorcycle, the following motorcycle-relevant considerations also apply and shall be folded into the fixture and profile selection:
-  - Single-track vehicles transmit higher shock and vibration through unsprung or lightly-damped structure, and engine orders add narrowband content on top of the random road profile.
-  - Mounting orientation on a motorcycle is often not horizontal; the worst-case axis assignment shall follow the actual vehicle installation.
-  - The motorcycle installation may exceed Category 4 composite wheeled-vehicle levels. If so, the installation shall be measured and the profile tailored from the measured data rather than relaxed below Category 4.
+- The following installation considerations shall be folded into the fixture and profile selection:
+  - Mounting orientation in the vehicle is often not horizontal; the worst-case axis assignment shall follow the actual vehicle installation.
+  - A specific vehicle installation may exceed Category 4 composite wheeled-vehicle levels (for example where the assembly is mounted to unsprung or lightly-damped structure, or where engine orders add narrowband content on top of the random road profile). If so, the installation shall be measured and the profile tailored from the measured data rather than relaxed below Category 4.
 
 The qualification profile and the screening profile are defined in the Vibration profiles section below; verify all values against the current standard before test as noted there.
 
@@ -59,7 +58,7 @@ The assembly shall be production-representative in mass and center of gravity. A
 
 - Mount the assembly to the fixture using the same hard-mount scheme as the vehicle installation: same mounting points, same fastener class, same torque, same interface stiffness (no rubber isolation unless the vehicle uses it).
 - The fixture shall be rigid across the test bandwidth: up to at least 500 Hz plus margin for a Category 4 qualification run, and up to at least 2000 Hz if the minimum-integrity screening profile below is used. Its first resonance shall be above the applicable test bandwidth or well damped. A welded or thick-plate machined fixture is acceptable.
-- Orientation shall match the vehicle installation. For the motorcycle application, use the actual installation attitude; otherwise mount in the standard horizontal attitude and record it.
+- Orientation shall match the vehicle installation attitude; record the attitude used.
 - The fixture shall bolt to the shaker head or slip table at enough points to avoid fixture rocking modes.
 
 ## Instrumentation
@@ -104,7 +103,7 @@ Overall level: approximately 1.04 g RMS. Straight-line segments on log-log axes 
 
 ### Axes
 
-All three orthogonal axes shall be tested. Axis assignment shall follow the vehicle installation: for the motorcycle application, vertical, lateral, and longitudinal as installed. Record the assignment in the test report.
+All three orthogonal axes shall be tested. Axis assignment shall follow the vehicle installation: vertical, lateral, and longitudinal as installed in the vehicle. Record the assignment in the test report.
 
 ## Low-cost screening without a shaker
 
