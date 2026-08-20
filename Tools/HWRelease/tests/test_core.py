@@ -268,10 +268,12 @@ def docs_root_c3(tmp_path, monkeypatch):
 
 
 def _fake_assembly(chassis_dir):
-    mech = chassis_dir / "Mechanical"
-    (mech / "assembly.step").write_text("step")
-    (mech / "assembly.stl").write_text("stl")
-    return True
+    asm = chassis_dir / "Mechanical" / "Assembly"
+    asm.mkdir(parents=True, exist_ok=True)
+    (asm / "Frame.stl").write_text("stl")
+    (asm / "Frame.step").write_text("step")
+    (asm / "Hardware.stl").write_text("stl")  # partial: no STEP
+    return ["Frame", "Hardware"]
 
 
 def test_update_boardless_chassis(hw_repo_mech_only, docs_root_c3, fake_kicad,
@@ -288,20 +290,32 @@ def test_update_boardless_chassis(hw_repo_mech_only, docs_root_c3, fake_kicad,
     assert set(manifest) == {"CHASSIS-C3-hw-c3"}  # rev falls back to the tag
     entry = manifest["CHASSIS-C3-hw-c3"]
     assert entry["chassis"] == "C3"
-    assert entry["artifacts"]["assembly_step"] == "assembly.step"
-    assert entry["artifacts"]["assembly_stl"] == "assembly.stl"
+    asm = entry["artifacts"]["assembly"]
+    assert asm["stl"] == ["Assembly/Frame.stl", "Assembly/Hardware.stl"]
+    assert asm["step"] == ["Assembly/Frame.step"]  # partial: Hardware has none
     out = docs_root_c3 / entry["dir"]
-    assert (out / "assembly.step").is_file()
-    assert (out / "assembly.stl").is_file()
+    assert (out / "Assembly" / "Frame.stl").is_file()
+    assert (out / "Assembly" / "Frame.step").is_file()
+    assert (out / "Assembly" / "Hardware.stl").is_file()
     # boardless chassis gets no variant price totals
     assert "price_estimate" not in entry["artifacts"]
+
+    # stale monolithic assembly files from older exports are cleaned up
+    (out / "assembly.stl").write_text("old")
+    (out / "assembly.step").write_text("old")
+    rc = core.update(hw_repo_mech_only, only_tag="hw-c3", force=True,
+                     manifest_path=manifest_path)
+    assert rc == 0
+    assert not (out / "assembly.stl").exists()
+    assert not (out / "assembly.step").exists()
+    assert (out / "Assembly" / "Frame.stl").is_file()
 
 
 def test_update_boardless_chassis_no_content(hw_repo_mech_only, docs_root_c3,
                                              fake_kicad, monkeypatch):
     """FCStd present but FreeCAD unavailable -> no entry, clean skip."""
     from hwrelease import fcextract
-    monkeypatch.setattr(fcextract, "export_assembly", lambda d: False)
+    monkeypatch.setattr(fcextract, "export_assembly", lambda d: [])
     monkeypatch.setattr(fcextract, "extract_parts", lambda d: [])
     manifest_path = docs_root_c3 / "Data" / "Releases" / "manifest.json"
     rc = core.update(hw_repo_mech_only, tag_pattern="hw-*",

@@ -503,7 +503,7 @@ let state = {{chassis: null, rev: null, variant: "base", vendor: null}};
 
 function releases() {{
   return Object.values(MANIFEST).filter(e => !e.board && e.artifacts &&
-    (e.artifacts.vendor_boms || e.artifacts.assembly_stl));
+    (e.artifacts.vendor_boms || e.artifacts.assembly));
 }}
 
 function fill(sel, values, current) {{
@@ -594,12 +594,15 @@ function renderVendors() {{
     : (varVend && varVend[key] !== undefined ? varVend[key] : estVendors[PRICE_NAMES[key]]);
   let meta = "Chassis " + e.chassis + " · Rev " + e.rev + " · source tag <code>" + e.source_tag + "</code>" +
     (e.source_url ? ' · <a href="' + e.source_url + '" target="_blank" rel="noopener">source \\u2197</a>' : "");
-  const asm = e.artifacts || {{}};
-  if (asm.assembly_stl)
-    meta += ' · <a href="stl-viewer.html?file=' + ROOT + e.dir + "/" + asm.assembly_stl +
+  const asm = (e.artifacts || {{}}).assembly || {{}};
+  if (asm.stl && asm.stl.length)
+    meta += ' · <a href="stl-viewer.html?files=' +
+            asm.stl.map(f => ROOT + e.dir + "/" + f).join(",") +
             '" target="_blank" rel="noopener">3D assembly view \\u2197</a>';
-  if (asm.assembly_step)
-    meta += ' · <a href="' + ROOT + e.dir + "/" + asm.assembly_step + '" download>assembly STEP</a>';
+  if (asm.step)
+    for (const f of asm.step)
+      meta += ' · <a href="' + ROOT + e.dir + "/" + f + '" download>' +
+              f.split("/").pop().replace(/\\.step$/, "") + ' STEP</a>';
   const varTotal = state.variant === "base" ? (est.total || estVariants.base) : estVariants[state.variant];
   if (varTotal)
     meta += " · <strong>Est. total (" + (est.qty || 1) + " unit" + ((est.qty || 1) > 1 ? "s" : "") +

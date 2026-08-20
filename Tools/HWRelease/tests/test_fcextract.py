@@ -78,46 +78,24 @@ def test_merge_mcmaster(tmp_path):
 
 
 def test_export_assembly_no_fcstd(tmp_path):
-    assert fcextract.export_assembly(tmp_path) is False
+    assert fcextract.export_assembly(tmp_path) == []
 
 
 def test_export_assembly_flatpak_missing(tmp_path, monkeypatch, capsys):
-    mech = tmp_path / "Mechanical"
-    mech.mkdir()
-    (mech / "m.FCStd").write_bytes(b"x")
+    _mk_fcstd(tmp_path)
     monkeypatch.setattr(fcextract, "_freecad", lambda args, **kw: None)
-    assert fcextract.export_assembly(tmp_path) is False
+    assert fcextract.export_assembly(tmp_path) == []
     assert "freecad flatpak not found" in capsys.readouterr().err
 
 
 def test_export_assembly_failure(tmp_path, monkeypatch, capsys):
     import subprocess
-    mech = tmp_path / "Mechanical"
-    mech.mkdir()
-    (mech / "m.FCStd").write_bytes(b"x")
+    _mk_fcstd(tmp_path)
     monkeypatch.setattr(fcextract, "_freecad",
                         lambda args, **kw: subprocess.CompletedProcess(
                             args, 1, "", "boom"))
-    assert fcextract.export_assembly(tmp_path) is False
+    assert fcextract.export_assembly(tmp_path) == []
     assert "assembly export failed" in capsys.readouterr().err
-
-
-def test_export_assembly_success(tmp_path, monkeypatch):
-    import subprocess
-    from pathlib import Path
-    mech = tmp_path / "Mechanical"
-    mech.mkdir()
-    (mech / "m.FCStd").write_bytes(b"x")
-
-    def fake_freecad(args, **kw):
-        Path(args[2]).write_text("step")
-        Path(args[3]).write_text("stl")
-        return subprocess.CompletedProcess(args, 0, "ASSEMBLY_OK", "")
-
-    monkeypatch.setattr(fcextract, "_freecad", fake_freecad)
-    assert fcextract.export_assembly(tmp_path) is True
-    assert (mech / "assembly.step").is_file()
-    assert (mech / "assembly.stl").is_file()
 
 
 def _mk_fcstd(tmp_path):
@@ -125,6 +103,31 @@ def _mk_fcstd(tmp_path):
     mech.mkdir()
     (mech / "m.FCStd").write_bytes(b"x")
     return mech
+
+
+def _write_sub(asm_dir, name, step=True):
+    from pathlib import Path
+    asm_dir = Path(asm_dir)
+    asm_dir.mkdir(parents=True, exist_ok=True)
+    (asm_dir / f"{name}.stl").write_text("stl")
+    if step:
+        (asm_dir / f"{name}.step").write_text("step")
+
+
+def test_export_assembly_success(tmp_path, monkeypatch):
+    import subprocess
+    mech = _mk_fcstd(tmp_path)
+
+    def fake_freecad(args, **kw):
+        _write_sub(args[2], "Frame")
+        _write_sub(args[2], "Hardware")
+        return subprocess.CompletedProcess(
+            args, 0, 'ASSEMBLY_JSON=["Frame", "Hardware"]', "")
+
+    monkeypatch.setattr(fcextract, "_freecad", fake_freecad)
+    assert fcextract.export_assembly(tmp_path) == ["Frame", "Hardware"]
+    assert (mech / "Assembly" / "Frame.stl").is_file()
+    assert (mech / "Assembly" / "Hardware.step").is_file()
 
 
 def test_export_assembly_timeout_no_stl(tmp_path, monkeypatch, capsys):
@@ -135,27 +138,29 @@ def test_export_assembly_timeout_no_stl(tmp_path, monkeypatch, capsys):
         raise subprocess.TimeoutExpired(args, kw.get("timeout"))
 
     monkeypatch.setattr(fcextract, "_freecad", raise_timeout)
-    assert fcextract.export_assembly(tmp_path) is False
+    assert fcextract.export_assembly(tmp_path) == []
     err = capsys.readouterr().err
     assert "timed out" in err
-    assert not (tmp_path / "Mechanical" / "assembly.stl").exists()
+    assert not (tmp_path / "Mechanical" / "Assembly").exists()
 
 
-def test_export_assembly_timeout_keeps_stl(tmp_path, monkeypatch, capsys):
+def test_export_assembly_timeout_keeps_completed(tmp_path, monkeypatch, capsys):
     import subprocess
-    from pathlib import Path
     mech = _mk_fcstd(tmp_path)
 
-    def slow_step(args, **kw):
-        # STL (fast) is written before the STEP export hangs.
-        Path(args[3]).write_text("stl")
+    def slow_export(args, **kw):
+        # First subassembly fully done, second has its STL but the STEP
+        # export hangs; the third never started.
+        _write_sub(args[2], "Frame")
+        _write_sub(args[2], "Shell", step=False)
         raise subprocess.TimeoutExpired(args, kw.get("timeout"))
 
-    monkeypatch.setattr(fcextract, "_freecad", slow_step)
-    assert fcextract.export_assembly(tmp_path) is True
-    assert (mech / "assembly.stl").is_file()
-    assert not (mech / "assembly.step").exists()
-    assert "keeping STL only" in capsys.readouterr().err
+    monkeypatch.setattr(fcextract, "_freecad", slow_export)
+    assert fcextract.export_assembly(tmp_path) == ["Frame", "Shell"]
+    assert (mech / "Assembly" / "Frame.step").is_file()
+    assert (mech / "Assembly" / "Shell.stl").is_file()
+    assert not (mech / "Assembly" / "Shell.step").exists()
+    assert "keeping 2 completed subassembly(ies)" in capsys.readouterr().err
 
 
 def test_extract_parts_timeout(tmp_path, monkeypatch, capsys):

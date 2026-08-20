@@ -33,8 +33,8 @@ fab_defaults.yaml┘                     │
                                        ├─ BOMManager generate (per chassis):
                                        │    vendor BOMs, variants, pricing
                                        ├─ mech-part export (Mechanical/Fab)
-                                       ├─ whole-assembly export
-                                       │    (Mechanical/assembly.step|.stl)
+                                       ├─ per-subassembly export
+                                       │    (Mechanical/Assembly/<name>.step|.stl)
                                        ▼
                                  Data/Releases/<chassis>/<rev>/...
                                  Data/Releases/manifest.json
@@ -55,7 +55,7 @@ fab_defaults.yaml┘                     │
    - Reads each board's revision from `(rev "X")` in its KiCad files.
    - Exports board BOM CSVs (`<Board>.csv` beside each project, boards *and* wiring harnesses): BOMManager discovers BOMs from these files, so this step must happen before generation.
    - Regenerates the chassis vendor BOMs with this repo's BOMManager (`generate --variants`), so BOMs and prices are always built from the tag's sources, never copied stale.
-   - Extracts fabricated parts from the FreeCAD model (`Mechanical/*.FCStd`): per part (Body/Group labeled with the exact part number; `...001` instance suffixes deduplicated) a fresh STEP, STL, Blender renders, and a `holes.json` diameter histogram, followed by a spec-vs-model hole check. It also harvests McMaster hardware (labels like `91292A134_...Screw001` are counted per part number, **merged into `MechanicalBOM.txt`** (model count wins for modeled parts; unmodeled lines like consumables are kept; model-only parts are appended), then cross-checked with warnings) and counts instances per fabricated part (`model_parts.json`), cross-checked against each part's `info.txt` quantity. The same pass exports every visible solid in the document as one whole-assembly model (`Mechanical/assembly.step` + `assembly.stl`), copied into the chassis release dir. A chassis with no boards (mechanical concept only, e.g. Chassis3) is exported too whenever it has a `Mechanical/*.FCStd` or `Mechanical/Fab/`; its `CHASSIS-<short>-<rev>` entry falls back to the tag name as rev.
+   - Extracts fabricated parts from the FreeCAD model (`Mechanical/*.FCStd`): per part (Body/Group labeled with the exact part number; `...001` instance suffixes deduplicated) a fresh STEP, STL, Blender renders, and a `holes.json` diameter histogram, followed by a spec-vs-model hole check. It also harvests McMaster hardware (labels like `91292A134_...Screw001` are counted per part number, **merged into `MechanicalBOM.txt`** (model count wins for modeled parts; unmodeled lines like consumables are kept; model-only parts are appended), then cross-checked with warnings) and counts instances per fabricated part (`model_parts.json`), cross-checked against each part's `info.txt` quantity. The same pass exports the model per subassembly: each top-level group/body becomes `Mechanical/Assembly/<label>.stl` + `<label>.step` (loose hardware instances are grouped into a shared `Hardware` subassembly), copied into the chassis release dir as `Assembly/`; on a STEP-export timeout, completed subassemblies are kept. A chassis with no boards (mechanical concept only, e.g. Chassis3) is exported too whenever it has a `Mechanical/*.FCStd` or `Mechanical/Fab/`; its `CHASSIS-<short>-<rev>` entry falls back to the tag name as rev.
    - Exports per-board artifacts (named `<part-number>-<kind>.<ext>`) and mechanical parts.
    - Updates `Data/Releases/manifest.json` and regenerates both tool pages.
 3. Commit `Data/Releases/` and the generated pages.
@@ -67,7 +67,7 @@ Already-exported revisions are skipped; `hwrelease update --tag <T> --force` reg
 Single source of truth for the tools. Three entry kinds:
 
 - **Boards**: key `HW-<chassis>-PCB-<desc>-<rev>` (e.g. `HW-C2-PCB-CTRL-A`): artifacts map (`ibom`, `schematic_pdf`, `bom_csv`, `gerber_zip`, `drc`, `step`, `renders`, `fab_spec`), plus `source_tag`/`source_url`.
-- **Chassis releases**: key `CHASSIS-<chassis>-<rev>`: `vendor_boms` (CSV paths per vendor), `variants` (spares tiers), `price_estimate` (vendor subtotals, grand total, per-variant totals and per-variant vendor subtotals), `pricing_report`, and `assembly_step`/`assembly_stl` (whole-model export from the chassis FCStd, when present; the BOM Tool links a 3D assembly view). Entries exist whenever the chassis has vendor BOMs, mech parts, or an assembly model, so mechanical-only chassis (no boards) appear too.
+- **Chassis releases**: key `CHASSIS-<chassis>-<rev>`: `vendor_boms` (CSV paths per vendor), `variants` (spares tiers), `price_estimate` (vendor subtotals, grand total, per-variant totals and per-variant vendor subtotals), `pricing_report`, and `assembly` (per-subassembly export from the chassis FCStd: `stl`/`step` path lists under `Assembly/`; a subassembly may lack its STEP after a timeout. The BOM Tool links a combined 3D assembly view from the STLs and one STEP download per subassembly). Entries exist whenever the chassis has vendor BOMs, mech parts, or an assembly model, so mechanical-only chassis (no boards) appear too.
 - **Mechanical parts**: key = part number (e.g. `HW-C2-DCLBB-A`), with `mech: true`: `step`, `image`, `info`/`info_fields` (from SendCutSend cart imports), `fab_spec`.
 
 ## Conventions (hardware repo)

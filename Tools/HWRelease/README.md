@@ -83,11 +83,14 @@ whose **label ends with the exact part number** (`HW-...`) is exported:
 - `<pn>.step`: fresh STEP, overwriting the manually exported one,
 - `holes.json`: cylindrical-hole diameter histogram (mm).
 
-The same pass also exports every visible solid in the document as one
-whole-assembly model, `Mechanical/assembly.step` + `Mechanical/assembly.stl`,
-which are copied into the chassis release dir and recorded in the `CHASSIS-*`
-manifest entry (`assembly_step` / `assembly_stl`); the BOM Tool links a 3D
-assembly view from them.
+The same pass also exports the model per subassembly: each top-level group or
+body becomes `Mechanical/Assembly/<label>.stl` + `<label>.step` (loose
+hardware instances are grouped into a shared `Hardware` subassembly; labels
+are sanitized for filenames). The tree is copied into the chassis release dir
+as `Assembly/` and recorded in the `CHASSIS-*` manifest entry
+(`assembly.stl` / `assembly.step` path lists); the BOM Tool links a combined
+3D assembly view from the STLs and one STEP download per subassembly. On a
+STEP-export timeout, completed subassemblies are kept.
 
 Tap/countersink diameters in `fab_spec.yaml` are validated against the model's
 holes and mismatches are printed as warnings. Keep model labels exact,
