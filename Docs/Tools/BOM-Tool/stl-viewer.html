@@ -38,13 +38,13 @@ header .pn { color: #5a5a5a; font-size: 14px; }
   <h1><span class="sep">/</span>3D Part Viewer</h1>
   <span class="pn" id="pn"></span>
   <div id="toolbar">
-    <button id="btnDims" title="Show bounding-box dimensions">Dimensions</button>
-    <button id="btnMeasure" title="Measure: click two points on the model">Measure</button>
-    <button id="btnClear" title="Clear measurement">Clear</button>
-    <button id="btnGrid" title="Toggle grid and axes">Grid</button>
-    <button id="btnWire" title="Toggle wireframe">Wireframe</button>
-    <button id="btnReset" title="Reset view">Reset</button>
-    <button id="btnShot" title="Download PNG screenshot">Screenshot</button>
+    <button id="btnDims" title="Show bounding-box dimensions" disabled>Dimensions</button>
+    <button id="btnMeasure" title="Measure: click two points on the model" disabled>Measure</button>
+    <button id="btnClear" title="Clear measurement" disabled>Clear</button>
+    <button id="btnGrid" title="Toggle grid and axes" disabled>Grid</button>
+    <button id="btnEdges" title="Toggle feature-edge view" disabled>Edges</button>
+    <button id="btnReset" title="Reset view" disabled>Reset</button>
+    <button id="btnShot" title="Download PNG screenshot" disabled>Screenshot</button>
   </div>
 </header>
 <canvas id="view"></canvas>
@@ -56,13 +56,14 @@ header .pn { color: #5a5a5a; font-size: 14px; }
 <script>
 const params = new URLSearchParams(location.search);
 const file = params.get("file");
-document.getElementById("pn").textContent = file ? file.split("/").pop().replace(/\.stl$/, "") : "";
+document.getElementById("pn").textContent = file ? file.split("/").pop().replace(/\.stl$/i, "") : "";
 if (!file) {
   document.getElementById("err").style.display = "block";
   document.getElementById("err").textContent = "No ?file= parameter given.";
 } else {
   const canvas = document.getElementById("view");
   const renderer = new THREE.WebGLRenderer({canvas, antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(window.devicePixelRatio);
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xf8f9fa);
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 10000);
@@ -79,19 +80,23 @@ if (!file) {
     camera.updateProjectionMatrix();
   }
   window.addEventListener("resize", resize);
+  resize();
 
   // Toolbar buttons
   const btnDims = document.getElementById("btnDims");
   const btnMeasure = document.getElementById("btnMeasure");
   const btnClear = document.getElementById("btnClear");
   const btnGrid = document.getElementById("btnGrid");
-  const btnWire = document.getElementById("btnWire");
+  const btnEdges = document.getElementById("btnEdges");
   const btnReset = document.getElementById("btnReset");
   const btnShot = document.getElementById("btnShot");
   const info = document.getElementById("info");
 
+  // STL files from CAD are Z-up, so this viewer treats Z as height (H).
+  // The model is centered at the origin after load; meshBox/meshSize are in
+  // that centered coordinate frame.
   let mesh = null;
-  let meshSize = new THREE.Vector3();
+  let meshSize = new THREE.Vector3(1, 1, 1);
   let meshBox = null;
   let homePosition = null;
   let homeTarget = new THREE.Vector3();
@@ -99,9 +104,22 @@ if (!file) {
   let gridHelper = null;
   let axesHelper = null;
   let gridOn = false;
+  let edges = null;
   let measureGroup = null;
   let measureMode = false;
   let measurePoint = null;
+
+  // Dispose every geometry/material/texture under a group so toggles and
+  // clears do not leak GPU resources.
+  function disposeObject(root) {
+    root.traverse(o => {
+      if (o.geometry) o.geometry.dispose();
+      if (o.material) {
+        if (o.material.map) o.material.map.dispose();
+        o.material.dispose();
+      }
+    });
+  }
 
   // Text label as a camera-facing sprite using a canvas texture.
   function makeLabel(text) {
@@ -153,7 +171,7 @@ if (!file) {
     return g;
   }
 
-  // Dimension lines along the bounding-box X, Y, Z edges (axes X=width, Y=depth, Z=height).
+  // Dimension lines along the bounding-box X, Y, Z edges (X=width, Y=depth, Z=height).
   function buildDims() {
     dimGroup = new THREE.Group();
     const bb = meshBox, off = meshSize.length() * 0.06 || 3;
@@ -173,12 +191,15 @@ if (!file) {
     scene.add(dimGroup);
   }
 
+  // GridHelper lies in the XZ plane by default; rotate it into the XY plane
+  // (Z-up) and drop it to the model's lowest Z so it sits centered underneath.
   function buildGrid() {
     const span = meshSize.length() || 100;
     gridHelper = new THREE.GridHelper(span * 2, 20, 0xadb5bd, 0xdee2e6);
-    gridHelper.position.y = meshBox.min.y;
+    gridHelper.rotation.x = Math.PI / 2;
+    gridHelper.position.z = meshBox.min.z;
     axesHelper = new THREE.AxesHelper(span * 0.5);
-    axesHelper.position.y = meshBox.min.y;
+    axesHelper.position.z = meshBox.min.z;
     gridHelper.visible = axesHelper.visible = false;
     scene.add(gridHelper);
     scene.add(axesHelper);
@@ -193,8 +214,23 @@ if (!file) {
     return s;
   }
 
+  // Remove the measurement graphics but keep measurePoint state.
+  function removeMeasureGroup() {
+    if (measureGroup) {
+      scene.remove(measureGroup);
+      disposeObject(measureGroup);
+      measureGroup = null;
+    }
+  }
+
+  // Full clear: graphics plus pending first point.
+  function clearMeasurement() {
+    removeMeasureGroup();
+    measurePoint = null;
+  }
+
   function drawMeasurement(a, b) {
-    clearMeasurement();
+    removeMeasureGroup();
     measureGroup = new THREE.Group();
     const g = new THREE.BufferGeometry().setFromPoints([a, b]);
     const line = new THREE.Line(g, new THREE.LineBasicMaterial({color: 0xc41e3a, depthTest: false}));
@@ -208,19 +244,14 @@ if (!file) {
     scene.add(measureGroup);
   }
 
-  function clearMeasurement() {
-    if (measureGroup) {
-      scene.remove(measureGroup);
-      measureGroup = null;
-    }
-    measurePoint = null;
-  }
-
   function setMeasureMode(on) {
     measureMode = on;
     btnMeasure.classList.toggle("active", on);
     canvas.classList.toggle("measuring", on);
-    if (!on) measurePoint = null;
+    if (!on) {
+      measurePoint = null; // drop a pending first point; keep finished lines
+      downPos = null;
+    }
   }
 
   btnDims.addEventListener("click", () => {
@@ -235,10 +266,10 @@ if (!file) {
     if (gridHelper) gridHelper.visible = axesHelper.visible = gridOn;
     btnGrid.classList.toggle("active", gridOn);
   });
-  btnWire.addEventListener("click", () => {
-    if (!mesh) return;
-    mesh.material.wireframe = !mesh.material.wireframe;
-    btnWire.classList.toggle("active", mesh.material.wireframe);
+  btnEdges.addEventListener("click", () => {
+    if (!edges) return;
+    edges.visible = !edges.visible;
+    btnEdges.classList.toggle("active", edges.visible);
   });
   btnReset.addEventListener("click", () => {
     if (!homePosition) return;
@@ -261,12 +292,14 @@ if (!file) {
   const raycaster = new THREE.Raycaster();
   let downPos = null;
   canvas.addEventListener("pointerdown", e => {
-    if (measureMode) downPos = [e.clientX, e.clientY];
+    if (measureMode && e.button === 0) downPos = [e.clientX, e.clientY];
   });
   canvas.addEventListener("pointerup", e => {
-    if (!measureMode || !downPos || !mesh) return;
-    const dx = e.clientX - downPos[0], dy = e.clientY - downPos[1];
+    if (e.button !== 0) return;
+    const dp = downPos;
     downPos = null;
+    if (!measureMode || !dp || !mesh) return;
+    const dx = e.clientX - dp[0], dy = e.clientY - dp[1];
     if (dx * dx + dy * dy > 25) return; // was a drag, not a click
     const r = canvas.getBoundingClientRect();
     const ndc = new THREE.Vector2(
@@ -276,14 +309,17 @@ if (!file) {
     const hit = raycaster.intersectObject(mesh)[0];
     if (!hit) return;
     if (!measurePoint) {
+      // First click: store the point, then show a lone marker.
+      removeMeasureGroup();
       measurePoint = hit.point.clone();
-      clearMeasurement();
       measureGroup = new THREE.Group();
       measureGroup.add(makeMarker(measurePoint));
       scene.add(measureGroup);
     } else {
-      drawMeasurement(measurePoint, hit.point.clone());
+      // Second click: draw the full measurement and reset for the next pair.
+      const a = measurePoint;
       measurePoint = null;
+      drawMeasurement(a, hit.point.clone());
     }
   });
 
@@ -292,22 +328,34 @@ if (!file) {
     const bb = geometry.boundingBox;
     const center = bb.getCenter(new THREE.Vector3());
     geometry.translate(-center.x, -center.y, -center.z);
-    const size = bb.getSize(new THREE.Vector3()).length();
+    meshSize = bb.getSize(new THREE.Vector3());
+    const size = meshSize.length();
     mesh = new THREE.Mesh(geometry,
       new THREE.MeshStandardMaterial({color: 0x8a9099, metalness: 0.15, roughness: 0.75}));
     scene.add(mesh);
-    camera.position.set(size * 0.6, size * 0.45, size * 0.7);
+    // Feature-edge overlay: only sharp edges above the threshold angle,
+    // instead of wireframe's per-triangle spam.
+    edges = new THREE.LineSegments(
+      new THREE.EdgesGeometry(geometry, 40),
+      new THREE.LineBasicMaterial({color: 0x343a40}));
+    edges.visible = false;
+    scene.add(edges);
+    // Fit the bounding-box diagonal to the vertical FOV (with a small margin),
+    // keeping the same pleasing camera direction as before.
+    const fitDist = (size / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * 1.15;
+    camera.position.set(0.6, 0.45, 0.7).normalize().multiplyScalar(fitDist);
     controls.target.set(0, 0, 0);
     controls.update();
     homePosition = camera.position.clone();
     homeTarget = controls.target.clone();
-    meshSize = bb.getSize(new THREE.Vector3());
     meshBox = bb.clone().translate(center.clone().negate());
     buildDims();
     buildGrid();
     gridOn = true;
     gridHelper.visible = axesHelper.visible = true;
     btnGrid.classList.add("active");
+    [btnDims, btnMeasure, btnClear, btnGrid, btnEdges, btnReset, btnShot]
+      .forEach(b => { b.disabled = false; });
     info.style.display = "block";
     info.textContent = "W " + meshSize.x.toFixed(1) + "  x  D " +
       meshSize.y.toFixed(1) + "  x  H " + meshSize.z.toFixed(1) + " mm";
