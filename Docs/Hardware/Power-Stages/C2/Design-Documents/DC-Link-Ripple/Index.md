@@ -5,9 +5,9 @@ title: DC Link Capacitor Ripple Current and Thermal Load
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "0.1"
+version: "0.2"
 date: "2026-08-20"
-description: Derivation of the C2 DC-link capacitor bank RMS ripple current and per-can ESR heating across the operating envelope, with ripple-rating check against the Nichicon UCS datasheet.
+description: Derivation of the C2 DC-link capacitor bank RMS ripple current and per-can ESR heating across the operating envelope, ripple-rating check against the Nichicon UCS datasheet, and three-branch (ceramic/film/electrolytic) ripple current sharing analysis.
 nav_order: 243
 normative_refs:
   - OV-C2-DD-DCLINK-THERMAL
@@ -63,6 +63,78 @@ $$I_{can,rms} = \frac{0.511 \cdot I_{phase,rms}}{60}$$
 - **Modulation-index dependence.** At fixed bus voltage and reduced output voltage ($m < 1$) the ripple factor per amp of phase current is *higher* (the $-9m/16$ term shrinks): at $m = 0.5$, $\cos\varphi = 0.8$ the factor is 0.557. The envelope here is evaluated at the worst-case rated point $m = 1.0$ per `OV-C2-DD-THERMAL`; a constant-volts-per-hertz traction drive at partial speed sees similar or slightly higher ripple per amp.
 - **Dead time and device non-idealities** shift the ripple by a few percent and are neglected.
 - **Third-harmonic injection / discontinuous PWM.** The Kolar & Round result is for continuous center-aligned modulation. DPWM schemes reduce the capacitor RMS current by roughly 10 - 20 % at high $m$; SPWM without third-harmonic injection increases it slightly at $m > 0.9$. SVPWM is assumed per the firmware design. [EST]
+- **Single-bank assumption.** The formula gives the ripple current injected into the whole DC-link capacitor network. v0.1 assigned all of it to the electrolytic bank; the real DC link has three parallel branches (ceramics, film, electrolytics behind the rod standoffs), and the split between them is derived in the "Ripple current sharing" section below. The injected total is unchanged.
+
+## DC-link structure and ripple current sharing
+
+### Real structure (hardware designer input, 2026-08)
+
+The DC link is three capacitor branches in parallel at the IGBT terminals:
+
+1. **Ceramics:** 12x TDK/EPCOS CeraLink B58031U9254M062 (4 per half-bridge), sandwiched directly between the IGBT module terminals. These own the commutation edge and the highest-frequency content.
+2. **Film:** 6x Vishay MKP1848S DC-Link (2 per half-bridge), ~80 - 90 µF total, on a film-cap board mounted upside-down directly on the busbars, right at the IGBT terminals.
+3. **Electrolytics:** the 60-can Nichicon UCS bank on the DC-link capacitor board *above* the film board, connected through the aluminium rod standoffs (~40 mm rods, go-return path). These rods are also the thermal standoffs of `OV-C2-DD-DCLINK-THERMAL`.
+
+Stack geometry: see the DCBusFilter renders in `Data/Releases/C2/A/DCBusFilter/` (snubber/film board with the ceramic capacitors wedged between the busbars and the film caps, U/V/W module interface).
+
+### Branch component data
+
+| Parameter | Ceramic branch | Film branch | Mark |
+|---|---|---|---|
+| Part | TDK CeraLink B58031U9254M062 (LP, 900 V) | Vishay MKP1848S DC-Link, 500 V class | [DS] |
+| Count | 12 (4 per half-bridge) | 6 (2 per half-bridge) | [ASM] layout |
+| Capacitance | 250 nF nom / **130 nF effective** each (1.56 µF total) | **15 µF each (90 µF total)** assumed | ceramic [DS]; film [DS] series table, fitted value [ASM] |
+| Rated ripple | 5 A rms each @ 100 kHz, 85 °C | 7 A rms each @ 10 kHz, 85 °C (4-pin) | [DS] |
+| ESR | ~40 mΩ each (CeraLink class typical) | 5 mΩ typ each @ 10 kHz (4-pin) | ceramic [ASM]; film [DS] |
+| ESL | 3 nH each | < 1 nH per mm lead spacing (pitch 37.5 mm); 20 nH mounted assumed | ceramic [DS]; film ESL [ASM] |
+
+Sources: [TDK product page B58031U9254M062](https://product.tdk.com/en/search/capacitor/ceramic/ceralink/info?part_no=B58031U9254M062) (250 nF nominal / 130 nF effective, 900 V rated, ESL 3 nH, 5 A rms @ 100 kHz); [Vishay MKP1848S DC-Link catalog 26010, rev. 26-Mar-2024](https://www.vishay.com/docs/26010/mkp1848sdclink.pdf) (electrical data table: 500 V / 15 µF / h = 15 mm 4-pin `MKP1848S61550JP*B`: $I_{RMS}$ 7 A @ 10 kHz / 85 °C, ESR 5 mΩ typ @ 10 kHz, tan δ ≤ 110e-4, $I_{peak}$ 225 A, dV/dt 15 V/µs; quick reference: self-inductance < 1 nH per mm of lead spacing; $U_{OPDC}$ at 105 °C = 350 V for the 500 V class, which covers the 320 V bus). The fitted film capacitance is [ASM]: 6 x 15 µF = 90 µF matches the designer's "~80 µF total" within the series' standard values (a 13 µF intermediate value would give 78 µF; the branch-impedance results below shift by < 10 % either way).
+
+### Electrolytic branch inductance (rod standoffs)
+
+The electrolytic bank sits behind the aluminium rods, so its branch carries the rod loop inductance in series. Go-return pair of parallel round conductors:
+
+$$L_{pair} = \frac{\mu_0}{\pi} \cdot l \cdot \ln\frac{s}{r}$$
+
+with $l = 40$ mm one-way rod length, $r = 6.5$ mm rod radius (13 mm OD standoff, `OV-C2-DD-DCLINK-THERMAL` geometry), and $s$ the go-return rod spacing, estimated at 50 mm nominal from the thermal-doc spreading-cell radius and the renders (rods distributed across the module footprint): $L_{pair} = 4\times10^{-7} \cdot 0.04 \cdot \ln(50/6.5) = \mathbf{32.6\ nH}$ nominal, 24.5 - 43.7 nH for $s$ = 30 - 100 mm. With 6 rods arranged as 3 go-return pairs in parallel (one per phase module [ASM]) and ~10 nH of electrolytic-board/can-bank ESL [ASM]:
+
+$$L_{branch} \approx \frac{32.6}{3} + 10 \approx \mathbf{21\ nH\ nominal,\ sweep\ 10 - 100\ nH\ [ASM]}$$
+
+*Replace with a measured branch inductance (impedance analyzer at the electrolytic-board terminals, or a VNA/ringdown measurement on the assembled stack) when hardware is available.*
+
+### Branch impedances and the current split
+
+Each branch is modeled as its series R-L-C (bank-level, paralleled parts):
+
+- **Electrolytic:** $Z_{ely} = ESR(f)/60 + j(\omega L_{branch} - 1/\omega C_{bank})$, $C_{bank} = 19.8$ mF
+- **Film:** $Z_{film} = 5\text{ m}\Omega/6 + j(\omega \cdot 20\text{ nH}/6 - 1/\omega \cdot 90\ \mu\text{F})$
+- **Ceramic:** $Z_{cer} = 40\text{ m}\Omega/12 + j(\omega \cdot 3\text{ nH}/12 - 1/\omega \cdot 1.56\ \mu\text{F})$
+
+The injected ripple current divides between the three parallel branches in proportion to admittance. At 6 kHz the magnitudes are approximately $|Z_{ely}| \approx 2.7\ \text{m}\Omega$, $|Z_{film}| \approx 295\ \text{m}\Omega$, $|Z_{cer}| \approx 17\ \Omega$: the 90 µF film bank, sized for commutation support rather than bulk RMS, presents ~100x the electrolytic branch impedance at switching frequency. Note also that the electrolytic branch series-resonates ($L_{branch}$ vs 19.8 mF) at ~7.8 kHz nominal, right in the PWM band, so the rod inductance does not decouple the cans at 2 - 8 kHz.
+
+**Resulting split at 600 A RMS phase current (307 A RMS injected):**
+
+| $f_{sw}$ | Electrolytic (A) | share | per-can (A) | x UCS rating | Film (A) | share | x film rating | Ceramic (A) | share |
+|---|---|---|---|---|---|---|---|---|---|
+| 2 kHz | 305.4 | 99.6 % | 5.09 | 1.90 | 1.6 | 0.5 % | 0.04 | 0.03 | < 0.1 % |
+| 6 kHz | 306.1 | 99.8 % | 5.10 | 1.81 | 2.8 | 0.9 % | 0.07 | 0.05 | < 0.1 % |
+| 8 kHz | 306.8 | ~100 % | 5.11 | 1.78 | 3.5 | 1.2 % | 0.08 | 0.06 | < 0.1 % |
+
+(Shares can locally reach ~100 % for one branch because branches exchange reactive current near resonances; the electrolytic share at 8 kHz is 100.0 % within rounding. The film/electrolytic impedance crossover sits at ~108 kHz nominal, 53 - 168 kHz over the $L_{branch}$ sweep - the LC resonance of the film capacitance with the rod inductance; above it the film and then the ceramics own the spectrum. A caveat follows from that resonance: switching harmonics landing near the crossover see a parallel LC between the film bank and the rod inductance, which can locally amplify ripple current circulating between those two branches; none of the 2/6/8 kHz fundamental sidebands are near it.)
+
+![Branch impedance vs frequency](DCLinkRippleBranchImpedance.png)
+
+![Ripple current share vs frequency](DCLinkRippleBranchShare.png)
+
+### Consequence of sharing for the electrolytic bank
+
+**Verified, and the expected rescue does not materialize:** at 2 - 8 kHz the film + ceramic branches divert only ~0.5 - 1.2 % of the ripple, so the per-can electrolytic ripple is 5.09 - 5.11 A at 600 A, still **1.78 - 1.90x the UCS rating**, essentially identical to the v0.1 single-bank model. The film and ceramic branches are doing their real job - the commutation edge and the > ~100 kHz content - but they cannot relieve the cans of the switching-frequency RMS because their capacitance is 220x / 12700x smaller. The per-can comparison with and without sharing is plotted below; the curves are indistinguishable except near 300 A where they cross the rating line.
+
+![Per-can electrolytic ripple with and without branch sharing](DCLinkRipplePerCanShared.png)
+
+The film caps themselves are comfortably within rating (3.5 A vs 42 A bank rating at 8 kHz, < 10 %), consistent with MKP1848S being built for exactly this DC-link role; the ceramics carry < 0.1 A at switching frequency and their 5 A @ 100 kHz rating addresses the commutation-edge content, which this RMS model does not resolve. The ceramic branch is therefore kept qualitative: it owns the nH-loop commutation edge at the module terminals.
+
+**On the designer's field observation (cans run cooler than the conduction-only model predicts):** branch sharing is *not* the explanation - the cans genuinely carry ~99 % of the switching ripple. The explanation stands where v0.1 put it: (a) the [ASM] ESR ratio may overstate the loss (all loss numbers scale linearly with it), (b) the source/battery impedance absorbs a real share of the ripple before it reaches the capacitor network at all (the Kolar & Round formula is a stiff-source upper bound), and (c) the cans reject a large fraction of their heat by convection and radiation from the can surface, which the conduction-only plate model neglects. Items 1 - 3 in Open items cover the measurements needed to quantify (a) and (b).
 
 ## Capacitor datasheet data
 
@@ -96,7 +168,7 @@ $$P_{can} = I_{can,rms}^2 \cdot ESR(f_{sw}) \qquad P_{bank} = 60 \cdot P_{can}$$
 
 ## Results
 
-Per-can ripple current is the same for both banks (same 60-way split of the same 0.511 A/A bank ripple). The ripple spectrum sits at the switching frequency and its sidebands, so each $f_{sw}$ row uses the corresponding $k(f)$ and $ESR(f)$.
+Per-can ripple current is the same for both banks (same 60-way split of the same 0.511 A/A bank ripple). The ripple spectrum sits at the switching frequency and its sidebands, so each $f_{sw}$ row uses the corresponding $k(f)$ and $ESR(f)$. The table below uses the full injected ripple (no branch sharing); per the sharing analysis above, the film and ceramic branches divert only ~0.5 - 1.2 % at 2 - 8 kHz, so these numbers are also the after-sharing values within 1 % (see the sharing table for the exact split).
 
 | $I_{phase}$ (A rms) | $f_{sw}$ | $I_{can}$ (A rms) | Bank A rated ripple (A) | Bank A x rating | Bank A $P_{bank}$ (W) | Bank B rated ripple (A) | Bank B x rating | Bank B $P_{bank}$ (W) |
 |---|---|---|---|---|---|---|---|---|
@@ -133,7 +205,7 @@ Bus voltage (140 / 320 / 400 V class) does not appear in the table because at th
 - 332 A RMS at 6 kHz
 - 336 A RMS at 8 kHz
 
-At the 600 A RMS design point the per-can ripple is 5.11 A against a rated 2.67 - 2.87 A, i.e. **1.8 - 1.9x the datasheet rating** at all three switching frequencies. A prior review estimated ~3x at 600 A / 2 kHz; the derived value is lower (1.91x) mainly because the review did not credit the datasheet frequency coefficient. The conclusion stands: **continuous 600 A RMS exceeds the capacitor ripple rating of the 200 V bank.** At 300 A the bank is at 0.89 - 0.96x rating, just inside the envelope. Note the check is performed at the 105 °C rating; cans running cooler have additional thermal headroom that Nichicon does not quantify for UCS (no temperature coefficient published), so no credit is taken for it. [EST]
+At the 600 A RMS design point the per-can ripple is 5.11 A against a rated 2.67 - 2.87 A, i.e. **1.8 - 1.9x the datasheet rating** at all three switching frequencies (5.09 - 5.11 A and 1.78 - 1.90x after the v0.2 three-branch sharing - the film and ceramic branches divert ~1 % at switching frequency, so the verdict is unchanged by sharing). A prior review estimated ~3x at 600 A / 2 kHz; the derived value is lower (1.91x) mainly because the review did not credit the datasheet frequency coefficient. The conclusion stands: **continuous 600 A RMS exceeds the capacitor ripple rating of the 200 V bank.** At 300 A the bank is at 0.89 - 0.96x rating, just inside the envelope. Note the check is performed at the 105 °C rating; cans running cooler have additional thermal headroom that Nichicon does not quantify for UCS (no temperature coefficient published), so no credit is taken for it. [EST]
 
 **Bank B (450 V, 4.08 mF) is not ripple-viable at traction currents.** The 68 µF / 450 V can is rated 1.575 A at 100 kHz (1.31 - 1.40 A at 2 - 8 kHz); the same 60-way split puts 1.3x rating on it already at 200 A phase current, 2.6x at 400 A, and 3.7 - 3.9x at 600 A, with computed bank losses of 1.4 - 1.6 kW at 600 A. The 450 V single-part-number swap described in `OV-C2-DD-DCLINK-THERMAL` fixes the voltage rating but not the ripple rating; a 400 V-class bus at high current needs a different capacitor selection (more cans, larger cans, or film capacitors). [EST]
 
@@ -162,6 +234,8 @@ The lifetime model below uses the industry-standard Arrhenius 10 K doubling rule
 
 - Ripple current formula: Kolar & Round closed form, stiff DC source, continuous center-aligned SVPWM, sinusoidal current; see the caveat list in the derivation section.
 - Equal current sharing between 60 parallel cans (matched parts, symmetric layout). Layout asymmetry raises the ripple on the best-coupled cans above the average. [ASM]
+- Branch sharing model: each branch is a lumped series R-L-C; mutual coupling between the film board and the electrolytic board, the busbar inductance between them (small - the boards are stacked directly), and the exact fitted film capacitance (15 µF assumed of the "~80 µF total") are [ASM]. The branch split is insensitive to these at the 1 % level at 2 - 8 kHz because the impedance ratio is ~100x; the crossover frequency (~108 kHz nominal) is more sensitive and carries the full 10 - 100 nH sweep uncertainty.
+- Electrolytic branch inductance 21 nH nominal (rod pair formula + parallel pairs + board ESL), sweep 10 - 100 nH [ASM]; replace with a measured value. Even at 1 µH (50x nominal) the film share at 6 kHz would only rise to ~12 %, so the sharing conclusion is robust to this uncertainty.
 - $ESR_{100k} = 0.15 \times ESR_{120Hz,max}$ is the dominant uncertainty (±50 % would not be surprising); **replace with measured ESR at the switching frequency** and re-run `plots.py`. Loss and lifetime numbers scale linearly with it; the ripple-*current* numbers and the x-rating factors do not depend on it.
 - Ripple is assumed concentrated at $f_{sw}$ sidebands for the frequency-coefficient lookup; spreading the spectrum (e.g. interleaving) moves effective ESR down modestly. [EST]
 - Temperature coefficient of rated ripple is not published for UCS; all rating checks use the 105 °C rating with no credit for cooler operation.
@@ -174,12 +248,15 @@ The lifetime model below uses the industry-standard Arrhenius 10 K doubling rule
 3. Dyno: correlate capacitor NTC reading with can case and plate temperature at the 300 A and 600 A operating points (thermal test plan T-05); use it to calibrate the can hot-spot estimate.
 4. Decide the ripple-limited operating envelope: per this analysis Bank A supports ~320 A RMS continuous at full ripple rating; 600 A RMS requires either source-ripple sharing measured in item 2 to be large, a capacitor bank change, or acceptance of reduced capacitor life at elevated hot-spot temperature.
 5. Bank B (450 V): re-select capacitors for the 400 V-class bus; the UCS2W680MHD swap is not ripple-viable above ~150 A RMS phase current.
+6. Measure the electrolytic branch inductance at the rod-standoff interface (impedance analyzer or ringdown on the assembled stack) and confirm the fitted MKP1848S part value; replace the 21 nH / 90 µF [ASM] values. Also confirm the parallel-LC peaking near the film/electrolytic crossover (~53 - 168 kHz) does not coincide with a strong switching harmonic cluster.
+7. If the commutation-edge behavior is ever in question (overshoot, ringing), extend the sharing model into the 100 kHz - 10 MHz range with measured busbar/ceramic loop inductances; the CeraLink parts' 5 A @ 100 kHz rating is the relevant limit there.
 
 ## Revision History
 
 | Version | Date | Changes |
 |---------|------|---------|
 | 0.1 | 2026-08-20 | Initial release. Derives the DC-link ripple current (Kolar & Round closed form, factor 0.511 at $m=1$, $\cos\varphi=0.8$), computes per-can ripple and $I^2 \cdot ESR$ heating for the 60x UCS2D331MHD (200 V) and 60x UCS2W680MHD (450 V) banks against the Nichicon UCS catalog (CAT.8100N) ratings, and closes the 40 W open item from `OV-C2-DD-DCLINK-THERMAL` v1.1: 40 W matches ~240 A operation; computed bank loss at 600 A is 239 - 274 W (Bank A). Bank A is ripple-limited above ~320 A RMS; Bank B is not ripple-viable at traction currents. |
+| 0.2 | 2026-08-20 | Three-branch ripple current sharing added per the designer's real DC-link structure (12x CeraLink B58031U9254M062 at the IGBT terminals, 6x Vishay MKP1848S ~90 µF film on the busbar board, 60-can UCS bank behind the ~40 mm aluminium rod standoffs). Rod go-return inductance derived (32.6 nH per pair nominal; ~21 nH branch with 3 parallel pairs + board ESL, sweep 10 - 100 nH [ASM]). Result: at 2 - 8 kHz the film/ceramic branches divert only ~0.5 - 1.2 % of the 307 A RMS ripple (film/electrolytic impedance crossover ~108 kHz; above that the film and ceramics own the spectrum), so the per-can electrolytic ripple is 5.09 - 5.11 A at 600 A, still 1.78 - 1.90x the UCS rating - the v0.1 ripple-limited conclusion is unchanged. Film bank is at < 10 % of its own ripple rating. New figures: branch impedance vs frequency, branch share vs frequency, per-can ripple with/without sharing. The "cans run cool" field observation is attributed to ESR uncertainty, source ripple share, and convective cooling, not to branch sharing. |
 
 ---
 
