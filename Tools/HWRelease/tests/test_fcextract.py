@@ -75,3 +75,46 @@ def test_merge_mcmaster(tmp_path):
     assert "3,Mouser,CM600DY-24T" in text
     assert any("qty 6 -> 18" in n for n in notes)
     assert any("added 8x" in n for n in notes)
+
+
+def test_export_assembly_no_fcstd(tmp_path):
+    assert fcextract.export_assembly(tmp_path) is False
+
+
+def test_export_assembly_flatpak_missing(tmp_path, monkeypatch, capsys):
+    mech = tmp_path / "Mechanical"
+    mech.mkdir()
+    (mech / "m.FCStd").write_bytes(b"x")
+    monkeypatch.setattr(fcextract, "_freecad", lambda args, **kw: None)
+    assert fcextract.export_assembly(tmp_path) is False
+    assert "freecad flatpak not found" in capsys.readouterr().err
+
+
+def test_export_assembly_failure(tmp_path, monkeypatch, capsys):
+    import subprocess
+    mech = tmp_path / "Mechanical"
+    mech.mkdir()
+    (mech / "m.FCStd").write_bytes(b"x")
+    monkeypatch.setattr(fcextract, "_freecad",
+                        lambda args, **kw: subprocess.CompletedProcess(
+                            args, 1, "", "boom"))
+    assert fcextract.export_assembly(tmp_path) is False
+    assert "assembly export failed" in capsys.readouterr().err
+
+
+def test_export_assembly_success(tmp_path, monkeypatch):
+    import subprocess
+    from pathlib import Path
+    mech = tmp_path / "Mechanical"
+    mech.mkdir()
+    (mech / "m.FCStd").write_bytes(b"x")
+
+    def fake_freecad(args, **kw):
+        Path(args[2]).write_text("step")
+        Path(args[3]).write_text("stl")
+        return subprocess.CompletedProcess(args, 0, "ASSEMBLY_OK", "")
+
+    monkeypatch.setattr(fcextract, "_freecad", fake_freecad)
+    assert fcextract.export_assembly(tmp_path) is True
+    assert (mech / "assembly.step").is_file()
+    assert (mech / "assembly.stl").is_file()

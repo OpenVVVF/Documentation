@@ -8,7 +8,7 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-16"
-description: How hardware releases flow from InverterGen5 git tags into the PCB Tool, BOM Tool, and Data/Releases — and the conventions that drive them.
+description: How hardware releases flow from InverterGen5 git tags into the PCB Tool, BOM Tool, and Data/Releases, and the conventions that drive them.
 nav_order: 604
 normative_refs:
   - OV-TOOLS-INDEX
@@ -33,6 +33,8 @@ fab_defaults.yaml┘                     │
                                        ├─ BOMManager generate (per chassis):
                                        │    vendor BOMs, variants, pricing
                                        ├─ mech-part export (Mechanical/Fab)
+                                       ├─ whole-assembly export
+                                       │    (Mechanical/assembly.step|.stl)
                                        ▼
                                  Data/Releases/<chassis>/<rev>/...
                                  Data/Releases/manifest.json
@@ -51,9 +53,9 @@ fab_defaults.yaml┘                     │
 2. Here: run `make hw-update` (= `hwrelease update`). It fetches tags, and for each tag not yet in the manifest:
    - Exports the tag's `Hardware/` tree via `git archive` into a temp dir (the hardware repo's working tree is never touched).
    - Reads each board's revision from `(rev "X")` in its KiCad files.
-   - Exports board BOM CSVs (`<Board>.csv` beside each project, boards *and* wiring harnesses) — BOMManager discovers BOMs from these files, so this step must happen before generation.
+   - Exports board BOM CSVs (`<Board>.csv` beside each project, boards *and* wiring harnesses): BOMManager discovers BOMs from these files, so this step must happen before generation.
    - Regenerates the chassis vendor BOMs with this repo's BOMManager (`generate --variants`), so BOMs and prices are always built from the tag's sources, never copied stale.
-   - Extracts fabricated parts from the FreeCAD model (`Mechanical/*.FCStd`): per part (Body/Group labeled with the exact part number; `...001` instance suffixes deduplicated) a fresh STEP, STL, Blender renders, and a `holes.json` diameter histogram, followed by a spec-vs-model hole check. It also harvests McMaster hardware — labels like `91292A134_...Screw001` are counted per part number, **merged into `MechanicalBOM.txt`** (model count wins for modeled parts; unmodeled lines like consumables are kept; model-only parts are appended), then cross-checked with warnings — and counts instances per fabricated part (`model_parts.json`), cross-checked against each part's `info.txt` quantity.
+   - Extracts fabricated parts from the FreeCAD model (`Mechanical/*.FCStd`): per part (Body/Group labeled with the exact part number; `...001` instance suffixes deduplicated) a fresh STEP, STL, Blender renders, and a `holes.json` diameter histogram, followed by a spec-vs-model hole check. It also harvests McMaster hardware (labels like `91292A134_...Screw001` are counted per part number, **merged into `MechanicalBOM.txt`** (model count wins for modeled parts; unmodeled lines like consumables are kept; model-only parts are appended), then cross-checked with warnings) and counts instances per fabricated part (`model_parts.json`), cross-checked against each part's `info.txt` quantity. The same pass exports every visible solid in the document as one whole-assembly model (`Mechanical/assembly.step` + `assembly.stl`), copied into the chassis release dir. A chassis with no boards (mechanical concept only, e.g. Chassis3) is exported too whenever it has a `Mechanical/*.FCStd` or `Mechanical/Fab/`; its `CHASSIS-<short>-<rev>` entry falls back to the tag name as rev.
    - Exports per-board artifacts (named `<part-number>-<kind>.<ext>`) and mechanical parts.
    - Updates `Data/Releases/manifest.json` and regenerates both tool pages.
 3. Commit `Data/Releases/` and the generated pages.
@@ -64,23 +66,23 @@ Already-exported revisions are skipped; `hwrelease update --tag <T> --force` reg
 
 Single source of truth for the tools. Three entry kinds:
 
-- **Boards** — key `HW-<chassis>-PCB-<desc>-<rev>` (e.g. `HW-C2-PCB-CTRL-A`): artifacts map (`ibom`, `schematic_pdf`, `bom_csv`, `gerber_zip`, `drc`, `step`, `renders`, `fab_spec`), plus `source_tag`/`source_url`.
-- **Chassis releases** — key `CHASSIS-<chassis>-<rev>`: `vendor_boms` (CSV paths per vendor), `variants` (spares tiers), `price_estimate` (vendor subtotals, grand total, per-variant totals and per-variant vendor subtotals), `pricing_report`.
-- **Mechanical parts** — key = part number (e.g. `HW-C2-DCLBB-A`), with `mech: true`: `step`, `image`, `info`/`info_fields` (from SendCutSend cart imports), `fab_spec`.
+- **Boards**: key `HW-<chassis>-PCB-<desc>-<rev>` (e.g. `HW-C2-PCB-CTRL-A`): artifacts map (`ibom`, `schematic_pdf`, `bom_csv`, `gerber_zip`, `drc`, `step`, `renders`, `fab_spec`), plus `source_tag`/`source_url`.
+- **Chassis releases**: key `CHASSIS-<chassis>-<rev>`: `vendor_boms` (CSV paths per vendor), `variants` (spares tiers), `price_estimate` (vendor subtotals, grand total, per-variant totals and per-variant vendor subtotals), `pricing_report`, and `assembly_step`/`assembly_stl` (whole-model export from the chassis FCStd, when present; the BOM Tool links a 3D assembly view). Entries exist whenever the chassis has vendor BOMs, mech parts, or an assembly model, so mechanical-only chassis (no boards) appear too.
+- **Mechanical parts**: key = part number (e.g. `HW-C2-DCLBB-A`), with `mech: true`: `step`, `image`, `info`/`info_fields` (from SendCutSend cart imports), `fab_spec`.
 
 ## Conventions (hardware repo)
 
 These files in InverterGen5 drive the tools; keep them current:
 
-- `Boards/fab_defaults.yaml` — chassis-wide ordering notes merged into every board (e.g. serial-number barcode rule).
-- `Boards/<Board>/fab_spec.yaml` — per-board fab options and notes:
+- `Boards/fab_defaults.yaml`: chassis-wide ordering notes merged into every board (e.g. serial-number barcode rule).
+- `Boards/<Board>/fab_spec.yaml`: per-board fab options and notes:
   ```yaml
   options:            # JLCPCB quote-form settings
     outer_copper: 2 oz
   notes:
     - "2 oz outer copper required (high-current DC bus)."
   ```
-- `Mechanical/Fab/<part>/fab_spec.yaml` — per-part ordering spec:
+- `Mechanical/Fab/<part>/fab_spec.yaml`: per-part ordering spec:
   ```yaml
   process: laser_cut        # or 3d_print
   material: "Copper C110"
@@ -97,12 +99,12 @@ These files in InverterGen5 drive the tools; keep them current:
     - "Deburr both sides"
   ```
   For `3d_print`, use `material`/print notes instead (layer height, infill, orientation). Holes are referenced by drill diameter so a future FreeCAD extractor can verify specs against the model.
-- `Mechanical/Fab/<part>/info.txt` — auto-imported SendCutSend cart record (price, dims); do not hand-edit.
+- `Mechanical/Fab/<part>/info.txt`: auto-imported SendCutSend cart record (price, dims); do not hand-edit.
 
 ## Conventions (this repo)
 
 - Ordering walkthroughs live next to `Docs/Tools/BOM-Tool/Index.md` as `ordering-<vendor>-<n>.png` + optional `ordering-<vendor>-<n>.txt` caption (vendors: `mouser`, `digikey`, `mcmaster`, `sendcutsend`, `jlc`). Steps stop at the first missing `n`. The PCBs vendor uses the `jlc` files.
-- `Data/Releases/` is committed generated data — never hand-edit; regenerate with `--force`.
+- `Data/Releases/` is committed generated data: never hand-edit; regenerate with `--force`.
 - Tool pages are generated (`hwrelease build-viewer`); edit `Tools/HWRelease/hwrelease/viewer.py`, not the HTML.
 
 ## The tools
@@ -113,7 +115,7 @@ These files in InverterGen5 drive the tools; keep them current:
 ## Planned (roadmap)
 
 - **FreeCAD auto-extraction (implemented, first slice)**: on every `hwrelease update`, a headless `freecadcmd` pass opens the chassis `Mechanical/*.FCStd`, finds every Body/Group whose **label ends with the exact part number** (`HW-...`), and exports `<pn>.step`, `<pn>.stl`, and `holes.json` (cylindrical-hole diameter histogram) into `Mechanical/Fab/<pn>/`. A headless **Blender** pass then renders `info.png` + `info-back.png` per part from the STLs (no GUI, two isometric angles). Tap/countersink diameters in each part's `fab_spec.yaml` are checked against the model's actual holes, with warnings on mismatch. Instance counts are harvested for both McMaster hardware and fabricated parts and cross-checked against `MechanicalBOM.txt` / `info.txt` quantities. Mech entries that vanish from the tree are pruned from the manifest. Next: fill `fab_spec.yaml` fields from model properties.
-- **Build configurations**: voltage-class builds (200V / 250V / 300V / 450V) that swap both electrical parts (Mouser lines) and mechanical parts (heatspreader, printed holders) — a Build dropdown beside Variant, driven by part-number mappings in `Config/Products.yaml`.
+- **Build configurations**: voltage-class builds (200V / 250V / 300V / 450V) that swap both electrical parts (Mouser lines) and mechanical parts (heatspreader, printed holders): a Build dropdown beside Variant, driven by part-number mappings in `Config/Products.yaml`.
 - **Mechanical parts explorer**: a dedicated tool page for mech parts (the manifest entries and spec cards are the seed).
 
 ## Maintenance cheatsheet
@@ -125,4 +127,4 @@ These files in InverterGen5 drive the tools; keep them current:
 | Chassis-wide fab note | `Boards/fab_defaults.yaml` |
 | Mech part spec (tap/countersink/bend/print) | `Mechanical/Fab/<part>/fab_spec.yaml` |
 | Vendor ordering walkthrough | `Docs/Tools/BOM-Tool/ordering-<vendor>-<n>.{png,txt}` |
-| Part prices | BOMManager (`Data/Parts/PriceCache.json` / vendor APIs) — regenerate via `hwrelease update` |
+| Part prices | BOMManager (`Data/Parts/PriceCache.json` / vendor APIs): regenerate via `hwrelease update` |

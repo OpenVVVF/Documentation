@@ -6,7 +6,7 @@ whose label ends with a part number (HW-...), and exports per part:
 - <pn>.step   (STEP model, into Mechanical/Fab/<pn>/)
 - holes.json  (cylindrical-hole diameter histogram in mm, for spec checking)
 
-The extractor keys on labels only — no translation layer. Rename bodies/groups
+The extractor keys on labels only: no translation layer. Rename bodies/groups
 in the model so the label ends with the exact part number.
 """
 
@@ -68,7 +68,7 @@ for obj in doc.Objects:
     pn = re.sub(r"([A-Z]+)\d{3}$", r"\1", m.group(1))  # strip instance suffix
     key = "bodies" if obj.TypeId == "PartDesign::Body" else "groups"
     qty.setdefault(pn, {"bodies": 0, "groups": 0})[key] += 1
-    if pn in seen:  # instance duplicates (...001, ...002) — one part per PN
+    if pn in seen:  # instance duplicates (...001, ...002): one part per PN
         continue
     seen.add(pn)
     shapes = [o for o in members(obj) if hasattr(o, "Shape") and not o.Shape.isNull()]
@@ -117,7 +117,7 @@ def _freecad(args: List[str], timeout: int = 1800) -> Optional[subprocess.Comple
         return None
 
 
-# Runs inside headless Blender — renders each <pn>.stl under the fab dir from
+# Runs inside headless Blender. Renders each <pn>.stl under the fab dir from
 # two isometric angles: <pn>/info.png (front) and <pn>/info-back.png.
 _RENDER_SCRIPT = r"""
 import math
@@ -249,6 +249,62 @@ def extract_parts(chassis_dir: Path) -> List[str]:
         if line.startswith("PARTS_JSON="):
             return json.loads(line[len("PARTS_JSON="):])
     return []
+
+
+# Runs inside freecadcmd. Exports every visible solid in the document (each
+# object's global placement is honored by Import.export/Mesh.export) as one
+# whole-assembly STEP + STL.
+_ASM_SCRIPT = r"""
+import sys
+
+import FreeCAD as App
+import Import
+import Mesh
+
+fcstd, step_out, stl_out = sys.argv[2], sys.argv[3], sys.argv[4]
+doc = App.openDocument(fcstd)
+shapes = [o for o in doc.Objects
+          if hasattr(o, "Shape") and not o.Shape.isNull()
+          and o.Shape.Solids
+          and getattr(o, "Visibility", True)]
+if shapes:
+    Import.export(shapes, step_out)
+    Mesh.export(shapes, stl_out)
+doc and App.closeDocument(doc.Name)
+print("ASSEMBLY_OK" if shapes else "NO_SHAPES")
+"""
+
+
+def export_assembly(chassis_dir: Path) -> bool:
+    """Export the whole chassis model to Mechanical/assembly.step|stl.
+
+    Writes into the (temp) hardware tree. Returns True when both files were
+    produced, False if FreeCAD/FCStd is unavailable or the export failed.
+    """
+    fcstd = find_fcstd(chassis_dir)
+    if fcstd is None:
+        return False
+    mech_dir = chassis_dir / "Mechanical"
+    with tempfile.NamedTemporaryFile(
+            "w", suffix=".py", dir=chassis_dir, delete=False) as f:
+        f.write(_ASM_SCRIPT)
+        script = Path(f.name)
+    try:
+        r = _freecad([str(script), str(fcstd),
+                      str(mech_dir / "assembly.step"),
+                      str(mech_dir / "assembly.stl")])
+    finally:
+        script.unlink(missing_ok=True)
+    if r is None:
+        print("  freecad flatpak not found; skipping assembly export",
+              file=sys.stderr)
+        return False
+    if r.returncode != 0:
+        tail = (r.stderr or r.stdout).strip().splitlines()[-3:]
+        print(f"  FreeCAD assembly export failed: {tail}", file=sys.stderr)
+        return False
+    return (mech_dir / "assembly.step").is_file() \
+        and (mech_dir / "assembly.stl").is_file()
 
 
 def merge_mcmaster(chassis_dir: Path) -> List[str]:

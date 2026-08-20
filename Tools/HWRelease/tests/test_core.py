@@ -234,3 +234,97 @@ def test_build_viewer(hw_repo, docs_root, fake_kicad):
     assert "Mouser" in bom_html
     # empty manifest -> error
     assert viewer.build_viewer(docs_root / "nope.json", out_path) == 1
+
+
+@pytest.fixture
+def hw_repo_mech_only(tmp_path):
+    """A hardware repo whose only content is a Chassis3 FreeCAD model."""
+    repo = tmp_path / "InverterGen5"
+    mech = repo / "Hardware" / "Chassis3" / "Mechanical"
+    mech.mkdir(parents=True)
+    (mech / "InverterMechanical.FCStd").write_bytes(b"fcstd")
+    subprocess.run(["git", "init", "-q", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-q", "-m", "mech"],
+                   check=True, env=_git_env())
+    subprocess.run(["git", "-C", str(repo), "tag", "hw-c3"], check=True)
+    return repo
+
+
+@pytest.fixture
+def docs_root_c3(tmp_path, monkeypatch):
+    """A fake docs repo root registering Chassis3 (short code C3)."""
+    root = tmp_path / "docs"
+    (root / "Config").mkdir(parents=True)
+    (root / "Config" / "Products.yaml").write_text(
+        "product_line: openvvvf\n"
+        "chassis:\n"
+        "  Chassis3:\n"
+        "    short_code: C3\n")
+    (root / "Data" / "Parts").mkdir(parents=True)
+    (root / "Data" / "Parts" / "Descriptors.json").write_text("{}")
+    monkeypatch.setattr(core, "REPO_ROOT", root)
+    return root
+
+
+def _fake_assembly(chassis_dir):
+    mech = chassis_dir / "Mechanical"
+    (mech / "assembly.step").write_text("step")
+    (mech / "assembly.stl").write_text("stl")
+    return True
+
+
+def test_update_boardless_chassis(hw_repo_mech_only, docs_root_c3, fake_kicad,
+                                  monkeypatch):
+    """A chassis with no boards but a FCStd still gets a CHASSIS entry."""
+    from hwrelease import fcextract
+    monkeypatch.setattr(fcextract, "export_assembly", _fake_assembly)
+    monkeypatch.setattr(fcextract, "extract_parts", lambda d: [])
+    manifest_path = docs_root_c3 / "Data" / "Releases" / "manifest.json"
+    rc = core.update(hw_repo_mech_only, tag_pattern="hw-*",
+                     manifest_path=manifest_path)
+    assert rc == 0
+    manifest = json.loads(manifest_path.read_text())
+    assert set(manifest) == {"CHASSIS-C3-hw-c3"}  # rev falls back to the tag
+    entry = manifest["CHASSIS-C3-hw-c3"]
+    assert entry["chassis"] == "C3"
+    assert entry["artifacts"]["assembly_step"] == "assembly.step"
+    assert entry["artifacts"]["assembly_stl"] == "assembly.stl"
+    out = docs_root_c3 / entry["dir"]
+    assert (out / "assembly.step").is_file()
+    assert (out / "assembly.stl").is_file()
+    # boardless chassis gets no variant price totals
+    assert "price_estimate" not in entry["artifacts"]
+
+
+def test_update_boardless_chassis_no_content(hw_repo_mech_only, docs_root_c3,
+                                             fake_kicad, monkeypatch):
+    """FCStd present but FreeCAD unavailable -> no entry, clean skip."""
+    from hwrelease import fcextract
+    monkeypatch.setattr(fcextract, "export_assembly", lambda d: False)
+    monkeypatch.setattr(fcextract, "extract_parts", lambda d: [])
+    manifest_path = docs_root_c3 / "Data" / "Releases" / "manifest.json"
+    rc = core.update(hw_repo_mech_only, tag_pattern="hw-*",
+                     manifest_path=manifest_path)
+    assert rc == 0
+    # skipped before the manifest is ever written
+    assert not manifest_path.exists() \
+        or json.loads(manifest_path.read_text()) == {}
+
+
+def test_update_no_boards_no_mech(hw_repo_mech_only, docs_root_c3, fake_kicad):
+    """A tag with neither boards nor mechanical content is skipped early."""
+    (hw_repo_mech_only / "Hardware" / "Chassis3" / "Mechanical"
+     / "InverterMechanical.FCStd").unlink()
+    subprocess.run(["git", "-C", str(hw_repo_mech_only), "add", "-A"], check=True)
+    subprocess.run(["git", "-C", str(hw_repo_mech_only), "commit", "-q",
+                    "-m", "drop model"], check=True, env=_git_env())
+    subprocess.run(["git", "-C", str(hw_repo_mech_only), "tag", "-f", "hw-c3"],
+                   check=True)
+    manifest_path = docs_root_c3 / "Data" / "Releases" / "manifest.json"
+    rc = core.update(hw_repo_mech_only, tag_pattern="hw-*",
+                     manifest_path=manifest_path)
+    assert rc == 0
+    # skipped before the manifest is ever written
+    assert not manifest_path.exists() \
+        or json.loads(manifest_path.read_text()) == {}
