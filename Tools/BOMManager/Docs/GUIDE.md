@@ -1,4 +1,4 @@
-# BOM Manager — Usage Guide
+# BOM Manager - Usage Guide
 
 The fab-time tool for this project. It collects the BOM from your KiCad
 boards, wiring harnesses, mechanical hardware, and fabricated parts; helps you
@@ -14,7 +14,7 @@ pip install -r requirements-dev.txt   # pytest, for the test suite
 python3 -m pytest tests/              # sanity check
 ```
 
-`Config.yaml` (vendor API keys) is optional — everything works on manual
+`Config.yaml` (vendor API keys) is optional: everything works on manual
 prices and pasted cart/order imports.
 
 ## The shell
@@ -25,7 +25,7 @@ python3 bom.py status     # one-shot (any command works this way)
 ```
 
 Everything below is a shell command. The shell remembers your chassis
-(`chassis <name>` to switch) and never dies on a bad command — fix and retry.
+(`chassis <name>` to switch) and never dies on a bad command; fix and retry.
 
 ## Daily loop: parts, prices, packs, stock
 
@@ -47,7 +47,7 @@ Rules of thumb:
   size; ordering does `ceil((need − stock) / pack_size)`.
 - Prices are per **order unit** (per piece normally, per pack when packed).
 - The query for price/pack/stock is a vendor PN, internal PN, or description
-  text — a picker appears when it's ambiguous.
+  text; a picker appears when it's ambiguous.
 
 ## MechanicalBOM.txt is owned by the tool
 
@@ -60,7 +60,7 @@ mech set 94669A199 6
 mech rm 94669A199
 ```
 
-Board-level parts and harness parts do **not** belong here — those come from
+Board-level parts and harness parts do **not** belong here; those come from
 KiCad.
 
 ## Boards
@@ -69,7 +69,7 @@ Export each board's BOM **from the schematic editor** (Eeschema → Tools →
 Generate BOM) as `Boards/<Board>/<Board>.csv` (beside the project). Both the
 classic `Id;Designator;Footprint;Quantity;Designation` format and the KiCad
 10 `Reference,Qty,Value,DNP,...` export work; DNP/excluded rows are skipped.
-`Fab/` holds gerbers/drill — those get zipped for the fab house.
+`Fab/` holds gerbers/drill; those get zipped for the fab house.
 
 Parts covered elsewhere (e.g. a connector that ships with a harness) should
 be **Exclude from BOM** in the schematic so they aren't double-ordered.
@@ -91,7 +91,7 @@ new harness GDVSHarness     # scaffolds folder + README + descriptor
 - Components (connectors, crimps, wire) consolidate into the BOM like any
   other part; the harness itself appears as a `HW-C2-WH-...` assembly line.
 - **Descriptor** comes from `new harness`, from the folder name when it's
-  IPN-shaped (`HW-C2-WH-GD-A` or `HW-C2-WH-GD` — adopted with no prompt), or
+  IPN-shaped (`HW-C2-WH-GD-A` or `HW-C2-WH-GD`, adopted with no prompt), or
   from a one-time prompt otherwise.
 - **Building several per chassis?** The schematic documents ONE harness; add
   `info.txt` with `Qty=4` next to the CSV. The assembly line and all
@@ -119,8 +119,8 @@ release
 runs the full generate and prints an upload checklist. It also writes
 **spares variants** under `FabricationData/BOMs/Variants/`:
 
-- `standard/` — cheap parts (crimps, housings, passives) +25% (min +2)
-- `generous/` — cheap parts +50% (min +5), **and** +1 each on medium parts
+- `standard/`: cheap parts (crimps, housings, passives) +25% (min +2)
+- `generous/`: cheap parts +50% (min +5), **and** +1 each on medium parts
   ($1–$30: STM32s, NCV57100 gate drivers, gate-drive supplies)
 
 Very expensive parts (IGBTs) and in-house assemblies are never spared. Each
@@ -137,7 +137,7 @@ Consolidated BOM; the tier totals print for comparison.
 
 ## Importing real prices back
 
-After carts/orders exist, import them — prices land in the local cache **and**
+After carts/orders exist, import them; prices land in the local cache **and**
 the committed part database (so cost history survives a fresh clone):
 
 ```text
@@ -159,11 +159,11 @@ rev list
 rev bump DCLBB --note "widen mounting holes"
 ```
 
-- Internal PNs (`HW-C2-BB-DCLBB-A`) are identity-keyed — editing descriptions
+- Internal PNs (`HW-C2-BB-DCLBB-A`) are identity-keyed; editing descriptions
   or friendly names never renumbers anything.
 - Bumping writes `Rev=` into a fab part's `info.txt` and records history
   (rev, date, note) in `Numbers.json`. **Folders and files are never
-  renamed** — CAD and vendor links keep working.
+  renamed**, so CAD and vendor links keep working.
 - For PCBs, the rev on the silkscreen is yours to maintain: bump in the tool
   and update the silk text in the same sitting, so boards say what they are.
 - When you bump, re-export vendor-facing artifacts (STEP, PDFs) with the new
@@ -179,7 +179,7 @@ re-exports everything from KiCad and rebuilds the BOM:
 
 - each board: BOM CSV (`sch export bom`), gerbers + drill into `Fab/`,
   board STEP model, and a DRC report at `FabricationData/DRC/<Board>.txt`
-  (**errors only** — warnings are suppressed for now; counts printed per board)
+  (**errors only**; warnings are suppressed for now; counts printed per board)
 - each harness: BOM CSV from its schematic
 - then a normal `generate` runs
 
@@ -203,9 +203,9 @@ project docs, same format as `Docs/HARA.pdf`):
 - Per harness: divider → schematic
 - **Design documents**: every document in `Docs/` (HARA, TARA, SWAD, Manual,
   analyses) is a part with its own IPN (`HW-C2-DOC-...`), compiled into the
-  package — the PDF you ship with the device.
+  package: the PDF you ship with the device.
 
-**Labels** — `FabricationData/Labels.pdf` (or `label` to regenerate alone):
+**Labels**: `FabricationData/Labels.pdf` (or `label` to regenerate alone):
 two high-voltage warning labels, a chassis ID label (serial/date/inspector),
 and a grid of per-assembly labels in the `InverterGen5 C2` convention
 (name, IPN, rev, qty).
@@ -223,7 +223,7 @@ bundled `.venv` python when one exists, so dependencies always resolve.
 
 ## Assembly HTML (iBOM)
 
-`release` also writes `FabricationData/Assembly/<Board>.html` per board — an
+`release` also writes `FabricationData/Assembly/<Board>.html` per board: an
 interactive assembly view (click a BOM line to highlight its parts on the
 board, front/back views). Open in any browser; great for hand-stuffing.
 
@@ -233,7 +233,7 @@ The release PDF's **Cost by Assembly** section breaks the BOM down per
 sub-assembly (each board, each harness, each fab part, chassis hardware) with
 parts counts and per-assembly cost.
 
-`FabricationData/QC_Forms.pdf` — one printable page per sub-assembly: header
+`FabricationData/QC_Forms.pdf`: one printable page per sub-assembly: header
 (IPN, rev, qty per chassis), a checkbox parts list with per-assembly
 quantities, an inspection checklist (per assembly kind), and a
 sign-off block (assembled / inspected / signatures) for the assembler.

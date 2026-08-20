@@ -16,6 +16,6 @@ normative_refs:
 
 # Control Board Assembly
 
-This chapter will cover populating and soldering the main control board for the OpenVVVF control module. It is currently being written — the build is in progress and photographs are being taken.
+This chapter will cover populating and soldering the main control board for the OpenVVVF control module. It is currently being written. The build is in progress and photographs are being taken.
 
 In the meantime, follow the same general approach as the earlier chapters: prepare the workspace per [Preparation](../Preparation/Index.md), open the board in the PCB Tool, populate smallest-first, observe polarity, and verify against the interactive BOM.

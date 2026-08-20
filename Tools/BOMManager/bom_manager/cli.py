@@ -16,7 +16,7 @@ from .importers import digikey, jlcpcb, mcmaster, mouser, sendcutsend
 from .pricing import PriceInfo, line_total
 
 BANNER = (
-    "BOM Manager — type 'help' for commands, 'quit' to exit.\n"
+    "BOM Manager - type 'help' for commands, 'quit' to exit.\n"
     "Fab-time loop: mech add -> price -> generate -> order -> import -> stock"
 )
 
@@ -204,10 +204,10 @@ class BomShell(cmd.Cmd):
             if mech.ensure_db_entry(self.ctx.db, row):
                 self.ctx.db.save()
             print(f"{'Added' if created else 'Updated'}: {row.qty} x {row.vendor} {row.pn}"
-                  + (f" — {row.description}" if row.description else ""))
+                  + (f" - {row.description}" if row.description else ""))
             price, _, _ = mech.row_price(self.ctx, row)
             if price is None:
-                print(f"  No price known yet — set one with: price {row.pn} <usd>")
+                print(f"  No price known yet; set one with: price {row.pn} <usd>")
         elif cmd_name == "set":
             if len(rest) != 2:
                 print("Usage: mech set <pn> <qty>")
@@ -248,7 +248,7 @@ class BomShell(cmd.Cmd):
         if not rows:
             print(f"{path}: no rows. Add one with: mech add <vendor> <pn> <qty> [desc]")
             return
-        print(f"{path} — {len(rows)} row(s)\n")
+        print(f"{path} - {len(rows)} row(s)\n")
         print(f"  {'Qty':>4}  {'Vendor':<11} {'PN':<18} {'Price':>10}  Description")
         print(f"  {'---':>4}  {'------':<11} {'--':<18} {'-----':>10}  -----------")
         for r in rows:
@@ -391,7 +391,7 @@ class BomShell(cmd.Cmd):
             line.pack_size = size
             line.on_hand = self.ctx.inventory.get(line.footprint, line.designation)
             need = line.quantity
-            msg += f" — need {need} -> order {line.packs_needed(need)} pack(s), {line.leftover(need)} left"
+            msg += f" - need {need} -> order {line.packs_needed(need)} pack(s), {line.leftover(need)} left"
         print(msg)
 
     def do_stock(self, arg):
@@ -432,7 +432,7 @@ class BomShell(cmd.Cmd):
         print(f"{match.label()}: {n} on hand" + (" (cleared)" if n == 0 else ""))
 
     def do_exclude(self, arg):
-        """Exclude a part from the BOM (marks it DNO — do not order): exclude <query>
+        """Exclude a part from the BOM (marks it DNO, do not order): exclude <query>
         Note: this replaces the part's database entry. 'include <query>' undoes it.
         """
         query = arg.strip()
@@ -543,7 +543,7 @@ class BomShell(cmd.Cmd):
             entry = self.ctx.db.lookup("PCB", board)
             if entry is None:
                 entry = {
-                    # Description must stay exactly the board name — descriptor
+                    # Description must stay exactly the board name; descriptor
                     # and IPN registry keys derive from it.
                     "description": board,
                     "customer_part": "",
@@ -618,7 +618,7 @@ class BomShell(cmd.Cmd):
         if len(matches) > 1:
             print("Multiple part numbers match:")
             for j, e in enumerate(matches, 1):
-                print(f"  {j}. {e['part_number']} — {e.get('description', '')}")
+                print(f"  {j}. {e['part_number']} - {e.get('description', '')}")
             try:
                 ans = input(f"Select 1-{len(matches)} (blank to cancel): ").strip()
             except EOFError:
@@ -646,7 +646,7 @@ class BomShell(cmd.Cmd):
                 total += line_total(line, price)
         pending = addpart.needs_attention(self.ctx, self.chassis)
         stock = self.ctx.inventory.all_entries()
-        print(f"Chassis: {self.chassis or '(none — use: chassis <name>)'}")
+        print(f"Chassis: {self.chassis or '(none, use: chassis <name>)'}")
         print(f"BOM lines: {len(lines)} ({priced_count} with prices, ~${total:.2f} known cost)")
         print(f"Needs attention: {len(pending)} (run: add)")
         reasons = {}
@@ -659,12 +659,12 @@ class BomShell(cmd.Cmd):
             status = fab.collect(self.ctx, self.chassis)
             problems = status.problems
             print(f"Fabrication: {len(status.boards)} board(s), {len(status.parts)} fab part(s), "
-                  f"{len(status.harnesses)} harness(es) — {len(problems)} not ready (run: fab)")
+                  f"{len(status.harnesses)} harness(es) - {len(problems)} not ready (run: fab)")
 
     def do_regen(self, arg):
         """Re-export everything from KiCad: board BOM CSVs, gerbers + drill
         into Fab/, DRC reports (FabricationData/DRC/), board STEP models,
-        harness BOMs — then run generate. Usage: regen [--board X,Y]
+        harness BOMs, then run generate. Usage: regen [--board X,Y]
         """
         from . import regen
         board_filter = None
@@ -676,7 +676,7 @@ class BomShell(cmd.Cmd):
 
     def do_release(self, arg):
         """Build the full release package: all vendor BOMs + order files, price
-        report scaled at 1/2/3/5/10 units, PCB zips, and Release_Report.pdf —
+        report scaled at 1/2/3/5/10 units, PCB zips, and Release_Report.pdf:
         cover, order summary, fabrication package, per-board divider +
         schematic + PCB layer plots, per-harness divider + schematic."""
         from . import release

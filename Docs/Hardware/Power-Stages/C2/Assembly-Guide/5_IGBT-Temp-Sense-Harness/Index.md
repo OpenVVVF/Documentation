@@ -84,7 +84,7 @@ Place one terminal into the correct die of the crimping tool. Insert a stripped 
 
 ## Step 5 - Pull-test each crimp
 
-Grip the wire and the terminal and pull firmly. A good crimp on 28 AWG wire should withstand at least 5 N (roughly 1.1 lb). If the insulation stretches and the bare copper slides out of the crimp, the conductor crimp has failed — cut it off and redo it.
+Grip the wire and the terminal and pull firmly. A good crimp on 28 AWG wire should withstand at least 5 N (roughly 1.1 lb). If the insulation stretches and the bare copper slides out of the crimp, the conductor crimp has failed. Cut it off and redo it.
 
 ![Performing a pull test on a freshly crimped terminal](Crimp-Pulltest.jpg)
 

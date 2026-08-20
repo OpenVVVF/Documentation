@@ -135,7 +135,7 @@ def _footer(canvas, doc, chassis):
     canvas.saveState()
     canvas.setFont(BASE_FONT, 8)
     canvas.setFillColor(GREY)
-    canvas.drawString(MARGIN, 10 * mm, "InverterGen5 C2 — Hardware Release")
+    canvas.drawString(MARGIN, 10 * mm, "InverterGen5 C2 - Hardware Release")
     canvas.drawCentredString(PAGE[0] / 2, 10 * mm, "")
     canvas.drawRightString(PAGE[0] - MARGIN, 10 * mm, f"{doc.page}")
     canvas.restoreState()
@@ -161,7 +161,7 @@ def _draw_swoosh(canvas, doc):
 def _cover(story, ctx, chassis, priced, grand_total, scaling):
     priced_count = sum(1 for e in priced if e["price"].unit_price is not None)
     story.append(Spacer(1, 1.1 * inch))
-    story.append(_para("INVERTERGEN5 C2 — HARDWARE RELEASE REPORT", size=10, color=ACCENT, bold=True))
+    story.append(_para("INVERTERGEN5 C2 - HARDWARE RELEASE REPORT", size=10, color=ACCENT, bold=True))
     story.append(Spacer(1, 0.16 * inch))
     story.append(_para("Traction Inverter", size=26, bold=True, style="Title"))
     story.append(Spacer(1, 0.42 * inch))
@@ -180,17 +180,17 @@ def _cover(story, ctx, chassis, priced, grand_total, scaling):
     story.append(_table(rows, [32 * mm, 48 * mm], size=10))
     story.append(Spacer(1, 2.2 * inch))
     story.extend(_rule(thickness=1.4, space_after=4))
-    story.append(_para("University of California, Santa Cruz — Corzine Lab", size=8, color=GREY))
+    story.append(_para("University of California, Santa Cruz - Corzine Lab", size=8, color=GREY))
     story.append(PageBreak())
 
 
 def _toc(story, chassis, boards, harnesses, documents=None):
     _section_header(story, "Contents")
     entries = ["Order Summary", "Fabrication Package"]
-    entries += [f"{b} — schematic & PCB layers" for b in boards]
-    entries += [f"{h} — wiring harness" for h in harnesses]
+    entries += [f"{b} - schematic & PCB layers" for b in boards]
+    entries += [f"{h} - wiring harness" for h in harnesses]
     if documents:
-        entries += [f"{t} — design document" for t in documents]
+        entries += [f"{t} - design document" for t in documents]
     for i, e in enumerate(entries, 1):
         story.append(Spacer(1, 3))
         story.append(_para(f"{i}.  {e}", size=10))
@@ -415,7 +415,7 @@ def _drc_pdf(path: Path, ctx, chassis: str, board: str, max_lines: int = 14) -> 
 
     doc = SimpleDocTemplate(str(path), pagesize=PAGE, leftMargin=MARGIN, rightMargin=MARGIN)
     story = []
-    story.append(_para(f"DRC — {board}", size=14, bold=True, style="Heading1"))
+    story.append(_para(f"DRC - {board}", size=14, bold=True, style="Heading1"))
     story.extend(_rule())
     if errors == 0:
         story.append(_para("No DRC errors (warnings suppressed).", size=10))
@@ -510,7 +510,7 @@ def build(ctx: Context, chassis: str, out_pdf: Path, kicad_layers: bool = True) 
                 if not imgs:
                     imgs = sorted(boards_dir.glob(f"{name}*.png")) + sorted(board_dir.glob(f"{name}*.png"))
                 div = workdir / f"div_{name}.pdf"
-                _divider_pdf(div, title, ipn, "printed circuit board — schematic and PCB layers",
+                _divider_pdf(div, title, ipn, "printed circuit board - schematic and PCB layers",
                              [], imgs, chassis)
                 parts.append(div)
                 if kicad_layers and pcb.is_file():
@@ -543,7 +543,7 @@ def build(ctx: Context, chassis: str, out_pdf: Path, kicad_layers: bool = True) 
                 ipn = ipn_of(lambda l: l.vendor_hint == "assembly" and l.designation == part_dir.name)
                 title = fab.friendly_name(part_dir, "Wiring Harness")
                 div = workdir / f"div_{part_dir.name}.pdf"
-                _divider_pdf(div, title, ipn, "wiring harness — schematic", [], [], chassis)
+                _divider_pdf(div, title, ipn, "wiring harness - schematic", [], [], chassis)
                 parts.append(div)
                 parts.append(sch_pdf)
 
@@ -551,12 +551,12 @@ def build(ctx: Context, chassis: str, out_pdf: Path, kicad_layers: bool = True) 
         if docs:
             sec_div = workdir / "div_documents.pdf"
             _divider_pdf(sec_div, "Design Documents", "",
-                         "project documentation — safety, security, manual, analyses",
+                         "project documentation - safety, security, manual, analyses",
                          [], [], chassis)
             parts.append(sec_div)
             for info in docs:
                 div = workdir / f"div_doc_{info.slug}.pdf"
-                _divider_pdf(div, info.title, info.ipn, f"design document — rev {info.rev}",
+                _divider_pdf(div, info.title, info.ipn, f"design document - rev {info.rev}",
                              [], [], chassis)
                 parts.append(div)
                 compiled = workdir / f"doc_{info.slug}.pdf"

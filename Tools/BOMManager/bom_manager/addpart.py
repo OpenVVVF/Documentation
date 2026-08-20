@@ -243,7 +243,7 @@ def ensure_entry(ctx: Context, match: PartMatch) -> dict:
         "price_updated": None,
         "notes": "",
     }
-    # Vendor-list rows (MechanicalBOM) carry the PN in the designation — seed
+    # Vendor-list rows (MechanicalBOM) carry the PN in the designation; seed
     # the matching vendor field so imports and lookups attach cleanly.
     if match.line:
         hint = (match.line.vendor_hint or "").lower()
@@ -259,7 +259,7 @@ def needs_attention(ctx: Context, chassis: Optional[str] = None) -> List[Tuple[s
     """Live lines that need human input, with a reason for each.
 
     Fabricated parts (SendCutSend folders) and PCB fab lines are priced via
-    info.txt / fab prices, not vendor PNs — they're only flagged when unpriced.
+    info.txt / fab prices, not vendor PNs; they're only flagged when unpriced.
     """
     out = []
     for ch, line in collect_lines(ctx, chassis):
@@ -291,7 +291,7 @@ def add_wizard(ctx: Context, chassis: Optional[str] = None) -> int:
     """Walk through lines that need attention and add DB entries for them."""
     pending = needs_attention(ctx, chassis)
     if not pending:
-        print("Nothing needs attention — every BOM line has a database entry and a price/PN.")
+        print("Nothing needs attention - every BOM line has a database entry and a price/PN.")
         return 0
 
     print(f"\n{len(pending)} line(s) need attention:\n")

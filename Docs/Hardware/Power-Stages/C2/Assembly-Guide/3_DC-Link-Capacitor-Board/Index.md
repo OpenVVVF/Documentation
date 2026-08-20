@@ -76,7 +76,7 @@ From the solder side, grip the leads of each capacitor and pull gently while pre
 
 To keep the capacitors from shifting, solder one lead of each capacitor first. A single tack joint per capacitor is enough to lock the part in place; the remaining lead is soldered in the next step.
 
-> **Tip:** Work on one lead polarity at a time — for example, tack all the negative leads first, moving across the board in one direction, then repeat with the positive leads. Keep the capacitor bodies resting on the bench so they stay fully seated and do not fall out when the solder melts.
+> **Tip:** Work on one lead polarity at a time: for example, tack all the negative leads first, moving across the board in one direction, then repeat with the positive leads. Keep the capacitor bodies resting on the bench so they stay fully seated and do not fall out when the solder melts.
 
 ![Tack-soldering one lead of each capacitor to lock them in place](SolderingOneSideCapacitor.jpg)
 
@@ -90,7 +90,7 @@ Solder the second lead of every capacitor. Aim for a shiny, concave fillet that 
 
 ## Step 7 - Trim and reflow the leads
 
-Trim each capacitor lead close to the solder joint with flush cutters, then immediately reflow the solder with the iron for a moment to heal any micro-fractures caused by the mechanical shock. Do not trim the leads before soldering — it is too easy to cut them too short, leaving insufficient lead to form a reliable joint.
+Trim each capacitor lead close to the solder joint with flush cutters, then immediately reflow the solder with the iron for a moment to heal any micro-fractures caused by the mechanical shock. Do not trim the leads before soldering; it is too easy to cut them too short, leaving insufficient lead to form a reliable joint.
 
 > **Tip:** Reflow one polarity at a time, working across the board in one direction before switching to the other leg. Keep the capacitor bodies resting on the bench so they remain fully seated and do not drop out when the joint is reheated.
 
@@ -102,7 +102,7 @@ Leave a smooth solder dome with no sharp protrusions, and collect the clipped le
 
 ## Step 8 - Clean the flux residue
 
-Wipe the solder side of the board with lint-free wipes and isopropyl alcohol to remove flux residue. Do not use an ultrasonic cleaner on this assembly — the vibrations can damage the internal welds and seals of aluminum electrolytic capacitors.
+Wipe the solder side of the board with lint-free wipes and isopropyl alcohol to remove flux residue. Do not use an ultrasonic cleaner on this assembly: the vibrations can damage the internal welds and seals of aluminum electrolytic capacitors.
 
 ## Step 9 - Mark the board variant
 

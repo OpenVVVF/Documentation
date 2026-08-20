@@ -70,7 +70,7 @@ def _export_step(pcb: Path, out_step: Path) -> bool:
 
 
 def _run_drc(pcb: Path, out_txt: Path) -> Optional[int]:
-    """Run DRC (errors only — warnings are suppressed for now), write the
+    """Run DRC (errors only, warnings are suppressed for now), write the
     report, return the error count (None on failure)."""
     out_txt.parent.mkdir(parents=True, exist_ok=True)
     r = _kicad(["pcb", "drc", str(pcb), "--refill-zones", "--severity-error", "-o", str(out_txt)])

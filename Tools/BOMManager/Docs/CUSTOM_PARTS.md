@@ -9,7 +9,7 @@ prices.
 
 ### The mechanical list
 
-`Hardware/<Chassis>/Mechanical/MechanicalBOM.txt` is owned by the tool — add
+`Hardware/<Chassis>/Mechanical/MechanicalBOM.txt` is owned by the tool; add
 and change rows from the shell instead of editing by hand:
 
 ```text
@@ -22,7 +22,7 @@ bom> mech rm 94669A199
 The file stays a plain CSV (`Qty,Vendor,PN,Description`), sorted and
 deduplicated on every change. Any vendor string works (`McMaster`, `Digikey`,
 `Mitsubishi`, ...). Set prices with `price <pn> <usd>`, and if the part comes
-in a box, `pack <pn> 25 <box price>` — ordering then counts packs, not pieces.
+in a box, `pack <pn> 25 <box price>`; ordering then counts packs, not pieces.
 
 ## SendCutSend Fabricated Parts
 
@@ -70,7 +70,7 @@ Notes=Tin plate ends after forming
 | UnitPrice | USD per part |
 | Process | e.g., `Sheet Cutting` |
 | Notes | Design notes, tolerances, etc. |
-| Rev | Managed by the tool (`rev bump`) — do not edit by hand. |
+| Rev | Managed by the tool (`rev bump`); do not edit by hand. |
 
 Each part gets an internal part number such as `HW-C2-BB-DCLBB-A`
 (see `PART_NUMBERING.md`).
@@ -87,7 +87,7 @@ bom> import sendcutsend cart.txt --dry-run
 
 The importer matches cart filenames to existing folders regardless of token
 order (`C2_HW_BSP_A.step` matches `HW-C2-BSP-A`), creates missing folders, and
-writes/updates each `info.txt` — including the quoted price.
+writes/updates each `info.txt`, including the quoted price.
 
 ### Revisions
 

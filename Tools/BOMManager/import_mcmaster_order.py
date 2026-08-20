@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deprecated shim — use `python3 bom.py import mcmaster` instead."""
+"""Deprecated shim: use `python3 bom.py import mcmaster` instead."""
 
 import sys
 from pathlib import Path

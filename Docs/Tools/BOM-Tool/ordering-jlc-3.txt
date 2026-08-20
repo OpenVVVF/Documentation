@@ -1,1 +1,1 @@
-JLCPCB auto-detects the layers and dimensions. Set the remaining options from the board's ordering specs (Notes column / PCB Tool) — e.g. 2 oz copper for DCBusCapacitorBoard.
+JLCPCB auto-detects the layers and dimensions. Set the remaining options from the board's ordering specs (Notes column / PCB Tool), e.g. 2 oz copper for DCBusCapacitorBoard.

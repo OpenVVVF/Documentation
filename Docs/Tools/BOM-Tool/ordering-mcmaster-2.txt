@@ -1,1 +1,1 @@
-A paste box appears — it accepts most formats (part number + quantity per line).
+A paste box appears; it accepts most formats (part number + quantity per line).

@@ -17,7 +17,7 @@ This guide documents the build of the OpenVVVF control module, chapter by chapte
 
 ## Chapters
 
-Read the preparation chapter first — it covers the workspace, equipment, and parts verification every board build depends on.
+Read the preparation chapter first: it covers the workspace, equipment, and parts verification every board build depends on.
 
 1. [Preparation](Preparation/Index.md) - workspace, equipment, and parts verification before any soldering.
 2. [IO Board Assembly](IOBoard/Index.md) - populate and solder the control module IO board.

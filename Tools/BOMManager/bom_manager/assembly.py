@@ -20,7 +20,7 @@ def _generator_script() -> Path:
     for sp in sorted(_VENV_SITE.glob("python3*/site-packages/InteractiveHtmlBom/generate_interactive_bom.py")):
         return sp
     raise FileNotFoundError(
-        "InteractiveHtmlBom not found in .venv — run: .venv/bin/pip install InteractiveHtmlBom"
+        "InteractiveHtmlBom not found in .venv - run: .venv/bin/pip install InteractiveHtmlBom"
     )
 
 

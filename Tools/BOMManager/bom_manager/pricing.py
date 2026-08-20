@@ -171,7 +171,7 @@ class PricingEngine:
     def _lookup_sendcutsend(self, line: BomLine, refresh: bool) -> PriceInfo:
         part_name = line.sendcutsend_id or line.designation.split("|")[0].strip()
 
-        # info.txt is the source of truth and wins over any cached price —
+        # info.txt is the source of truth and wins over any cached price;
         # a fresh cart import or manual edit must never be masked by the cache.
         unit_price_meta = line.metadata.get("UnitPrice", "")
         if unit_price_meta:

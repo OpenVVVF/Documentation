@@ -16,7 +16,7 @@ normative_refs:
 
 # Review Checks
 
-This chapter will cover the pre-power review checks: verifying torque witness marks, connector seating and polarity, insulation and clearances, and a full workmanship inspection against this guide. It is currently being written — the build is in progress and photographs are being taken.
+This chapter will cover the pre-power review checks: verifying torque witness marks, connector seating and polarity, insulation and clearances, and a full workmanship inspection against this guide. It is currently being written. The build is in progress and photographs are being taken.
 
 > **Safety**
 > - Do not power the inverter until all assembly, torque, and inspection steps are complete.

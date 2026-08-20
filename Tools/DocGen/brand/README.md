@@ -5,7 +5,7 @@ assets used by the site/PDF pipeline live in `../src/docgen/templates/brand/`.
 
 **Single source of truth:** the wordmark is typeset from the vendored Saira
 fonts by `openvvvf_wordmark_gen.py`. Every logo asset (site header, footer,
-PDF cover, stamped PDF footer) is generated from this one script — do not
+PDF cover, stamped PDF footer) is generated from this one script; do not
 add traced or hand-drawn variants.
 
 Regenerate the wordmark variants (Pillow + numpy only):

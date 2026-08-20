@@ -98,7 +98,7 @@ Lay the two DC-link bus bars across the tops of the IGBT modules. They are not f
 
 ## Step 5 - Lower the DC-link filter board into place
 
-Carefully lower the DC-link filter board straight down onto the spacers and DC-link bus bars. Avoid sliding it sideways — any lateral movement will smear the thermal paste and can short the bus bars against the wrong pads.
+Carefully lower the DC-link filter board straight down onto the spacers and DC-link bus bars. Avoid sliding it sideways: any lateral movement will smear the thermal paste and can short the bus bars against the wrong pads.
 
 ![Lowering the DC-link filter board onto the spacers and bus bars](Allign-DC-Filter-Board.jpg)
 
@@ -138,7 +138,7 @@ Drop one screw into each phase bus bar so it is ready to be tightened.
 
 ## Step 9 - Hand-tighten the phase bus-bar screws
 
-Hand-tighten each phase bus-bar screw only. Do not torque these screws now — they will be revisited and fully tightened once the rest of the assembly is bolted down and everything is aligned.
+Hand-tighten each phase bus-bar screw only. Do not torque these screws now; they will be revisited and fully tightened once the rest of the assembly is bolted down and everything is aligned.
 
 > **Warning:** Do not use a power driver or apply significant torque at this stage. The assembly is still delicate and the final clamp-up happens later.
 

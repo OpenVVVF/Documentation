@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deprecated shim — the interactive shell replaces this tool.
+"""Deprecated shim: the interactive shell replaces this tool.
 
 Use `python3 bom.py` and its commands: parts, add, price, pack, stock,
 exclude, mech, rev, fab.

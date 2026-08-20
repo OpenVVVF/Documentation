@@ -80,7 +80,7 @@ def _build_cover(meta: dict, fallback_title: str, ipn: str, rev: str) -> str:
         f"<div class='cover'><div class='cover-kicker'>{doctype}</div>"
         f"<div class='cover-title'>{title}</div>"
         f"<div class='cover-meta'>{''.join(rows)}</div>"
-        f"<hr class='cover-rule'><div class='cover-lab'>University of California, Santa Cruz — Corzine Lab</div></div>"
+        f"<hr class='cover-rule'><div class='cover-lab'>University of California, Santa Cruz - Corzine Lab</div></div>"
     )
 
 

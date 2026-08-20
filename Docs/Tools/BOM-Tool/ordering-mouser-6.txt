@@ -1,1 +1,1 @@
-On the Mapping step, assign the column categories so Mouser knows which is which: Mouser Part Number and Quantity (usually auto-detected — the CSV is already in Mouser's column order). Then click Next.
+On the Mapping step, assign the column categories so Mouser knows which is which: Mouser Part Number and Quantity (usually auto-detected, since the CSV is already in Mouser's column order). Then click Next.

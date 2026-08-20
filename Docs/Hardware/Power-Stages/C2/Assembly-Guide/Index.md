@@ -17,7 +17,7 @@ normative_refs:
 
 This guide documents the build of a Chassis Size 2 inverter, chapter by chapter, in the order the physical assembly is performed. Chapters are published as each build phase is documented, so this index grows alongside the physical unit.
 
-Read the preparation chapter first — it covers the workspace, equipment, and parts verification every chapter depends on.
+Read the preparation chapter first: it covers the workspace, equipment, and parts verification every chapter depends on.
 
 ## Chapters
 
@@ -48,7 +48,7 @@ The physical build proceeds in roughly this order, and chapters follow it:
 4. IGBT mounting
 5. IGBT temperature-sensor wiring harnesses
 6. IGBT temperature-sensor mounting
-7. Bottom stack assembly — spacers, bus bars, and filter board mounting; then set the stack aside
+7. Bottom stack assembly: spacers, bus bars, and filter board mounting; then set the stack aside
 8. DC-link capacitor module assembly
 9. DC-link capacitor module mounting
 10. Control assembly mounting

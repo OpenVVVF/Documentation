@@ -16,7 +16,7 @@ normative_refs:
 
 # Control Assembly Mounting
 
-This chapter will cover mounting the assembled and tested control module (see the Control Assembly assembly guide, `OV-CA-AG-INDEX`) into the C2 chassis and making its mechanical and electrical connections. It is currently being written — the build is in progress and photographs are being taken.
+This chapter will cover mounting the assembled and tested control module (see the Control Assembly assembly guide, `OV-CA-AG-INDEX`) into the C2 chassis and making its mechanical and electrical connections. It is currently being written. The build is in progress and photographs are being taken.
 
 > **Safety**
 > - Do not power the inverter until all assembly, torque, and inspection steps are complete.

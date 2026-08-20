@@ -1,6 +1,6 @@
 """Printable labels: high-voltage warnings and per-assembly part labels.
 
-Output: FabricationData/Labels.pdf — a page of HV warning labels, a chassis
+Output: FabricationData/Labels.pdf - a page of HV warning labels, a chassis
 ID label, and a grid of per-assembly labels (name, IPN, rev, qty) in the
 InverterGen5 C2 convention.
 """
@@ -26,11 +26,11 @@ HV_YELLOW = colors.HexColor("#F5C518")
 def _hv_label(width):
     inner = [
         [_para("HIGH VOLTAGE", size=22, bold=True, align=1)],
-        [_para("DC LINK BUS — UP TO 350 VDC", size=12, bold=True, align=1)],
+        [_para("DC LINK BUS - UP TO 350 VDC", size=12, bold=True, align=1)],
         [_para("800 V-class design. The capacitor bank holds charge for hours after power-down. "
                "Verify bus voltage with a meter and discharge through a power resistor before service.",
                size=9, align=1)],
-        [_para(f"{BRAND} · UC Santa Cruz — Corzine Lab", size=8, color=GREY, align=1)],
+        [_para(f"{BRAND} · UC Santa Cruz - Corzine Lab", size=8, color=GREY, align=1)],
     ]
     t = Table(inner, colWidths=[width])
     t.setStyle(TableStyle([
@@ -49,7 +49,7 @@ def _part_label(g, width):
     inner = [
         [_para(BRAND, size=7, color=GREY, bold=True)],
         [_para(g.title or g.name, size=12, bold=True)],
-        [_para(f"{g.ipn or '—'}  ·  Rev {g.rev or 'A'}  ·  qty {g.qty_per_chassis}", size=9)],
+        [_para(f"{g.ipn or '-'}  ·  Rev {g.rev or 'A'}  ·  qty {g.qty_per_chassis}", size=9)],
     ]
     t = Table(inner, colWidths=[width])
     t.setStyle(TableStyle([
@@ -66,7 +66,7 @@ def _part_label(g, width):
 def _chassis_label(width):
     inner = [
         [_para(BRAND, size=8, color=GREY, bold=True)],
-        [_para("Traction Inverter — Chassis 2", size=14, bold=True)],
+        [_para("Traction Inverter - Chassis 2", size=14, bold=True)],
         [_para("Serial No.  ______________", size=10)],
         [_para("Assembled:  ______________      Inspected:  ______________", size=10)],
     ]

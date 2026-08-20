@@ -55,7 +55,7 @@ Before placing any parts, open the board in the PCB Tool. Keep the interactive a
 
 ## Step 2 - Start with the smallest components
 
-Populate the board from smallest to largest. The gate driver board is dominated by small surface-mount decoupling capacitors and resistors — solder all of these first, then work up to the ICs and diodes, and do the through-hole connectors last. If the connectors are soldered first, they physically block access to the SMD pads and make rework much harder.
+Populate the board from smallest to largest. The gate driver board is dominated by small surface-mount decoupling capacitors and resistors. Solder all of these first, then work up to the ICs and diodes, and do the through-hole connectors last. If the connectors are soldered first, they physically block access to the SMD pads and make rework much harder.
 
 ![Gate driver board partway through SMD population, top side](Intermediary-Top-1.jpg)
 
@@ -71,7 +71,7 @@ A microscope or good bench magnifier makes a large difference when placing the i
 
 Pay close attention to polarity marks on the PCB silkscreen.
 
-- For diodes, align the cathode bar on the package with the longer line on the diode symbol. This board carries many small signal diodes and high-voltage rectifier diodes — check every one.
+- For diodes, align the cathode bar on the package with the longer line on the diode symbol. This board carries many small signal diodes and high-voltage rectifier diodes, so check every one.
 - For ICs, align the pin-1 dot or notch on the package with the dot/bar marked on the board. Reversed driver ICs will be destroyed on first power-up.
 - For polarized capacitors, align the positive lead with the `+` mark and the long-bar pad on the silkscreen.
 
@@ -87,7 +87,7 @@ The board has a marked isolation barrier between the control side and the high-v
 
 ## Step 6 - Solder connectors fully seated
 
-When soldering the board-to-board and gate-output connectors, make sure each one is fully seated against the board before soldering any pins. Tack one pin, check that the connector is flat and perpendicular, then solder the remaining pins. Confirm orientation against the CAD model in the PCB Tool if there is any doubt — some connectors mount on the side opposite from what you might expect.
+When soldering the board-to-board and gate-output connectors, make sure each one is fully seated against the board before soldering any pins. Tack one pin, check that the connector is flat and perpendicular, then solder the remaining pins. Confirm orientation against the CAD model in the PCB Tool if there is any doubt: some connectors mount on the side opposite from what you might expect.
 
 ## Step 7 - Mark progress in the interactive tool
 

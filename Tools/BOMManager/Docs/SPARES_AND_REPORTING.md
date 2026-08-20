@@ -56,9 +56,9 @@ python3 bom.py generate --qty 1 --extra-qtys 2,5,10,25,50
 
 Each line shows where the price came from:
 
-- `mouser_api`, `digikey_api`, `octopart_api` — live lookup (needs API keys).
-- `mouser_cart_import`, `mcmaster_order_import`, `jlcpcb_order_import` — pasted cart/order imports.
-- `sendcutsend_folder` — the part's `info.txt`.
-- `manual` — set by hand in the shell (`price`, `pack`, `fab pcb-price`).
-- `cache` — from `PriceCache.json`.
-- `unknown` — no price found; listed in the report for follow-up.
+- `mouser_api`, `digikey_api`, `octopart_api`: live lookup (needs API keys).
+- `mouser_cart_import`, `mcmaster_order_import`, `jlcpcb_order_import`: pasted cart/order imports.
+- `sendcutsend_folder`: the part's `info.txt`.
+- `manual`: set by hand in the shell (`price`, `pack`, `fab pcb-price`).
+- `cache`: from `PriceCache.json`.
+- `unknown`: no price found; listed in the report for follow-up.

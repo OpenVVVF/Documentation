@@ -133,15 +133,15 @@ def assembly_costs(ctx: Context, groups: List[AssemblyGroup]) -> List[dict]:
 
 _INSPECTION = {
     "board": [
-        "Visual inspection — no damage, contamination, or solder splash",
-        "Solder joints — wetting, no bridges, no tombstoning",
+        "Visual inspection: no damage, contamination, or solder splash",
+        "Solder joints: wetting, no bridges, no tombstoning",
         "IC / connector orientation (pin 1 marks match silkscreen)",
         "Continuity: no shorts across power rails (12 V, 5 V, 3.3 V)",
         "ESD precautions followed during assembly",
     ],
     "harness": [
         "Wire gauges and colors match the schematic",
-        "Crimp quality — pull test one crimp per connector",
+        "Crimp quality: pull test one crimp per connector",
         "Pin-to-pin continuity against the schematic",
         "Connector keying / locking features engaged",
         "Length and routing match the harness drawing",
@@ -168,12 +168,12 @@ def build_qc_forms(ctx: Context, chassis: str, out_pdf: Path) -> Optional[Path]:
 
     story = []
     for idx, g in enumerate(groups):
-        story.append(_para("QUALITY CONTROL — ASSEMBLY SIGN-OFF", size=9, color=GREY, bold=True))
+        story.append(_para("QUALITY CONTROL - ASSEMBLY SIGN-OFF", size=9, color=GREY, bold=True))
         story.append(Spacer(1, 0.12 * inch))
         story.append(_para(g.title or g.name, size=18, bold=True))
         story.extend(_rule())
         meta = [["Assembly", g.kind_label, "Qty per chassis", str(g.qty_per_chassis)],
-                ["Internal P/N", g.ipn or "—", "Revision", g.rev or "A"]]
+                ["Internal P/N", g.ipn or "-", "Revision", g.rev or "A"]]
         story.append(_table(meta, [30 * mm, 65 * mm, 34 * mm, 30 * mm], header=False, size=9))
         story.append(Spacer(1, 0.15 * inch))
 

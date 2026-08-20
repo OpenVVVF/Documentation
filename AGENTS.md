@@ -26,7 +26,7 @@ This is the OpenVVVF documentation and hardware-data hub. It does **not** contai
 1. `Data/Parts/*.json` are committed project data.
 2. `Data/Parts/Inventory.json` and `Data/Parts/PriceCache.json` are **gitignored**; they represent personal/local state.
 3. Part numbers use the format `HW-{product}-{category}-{descriptor}-{rev}` by default.
-4. `Data/Releases/` is committed generated data (written by HWRelease); do not hand-edit — regenerate with `hwrelease update --force`.
+4. `Data/Releases/` is committed generated data (written by HWRelease); do not hand-edit, regenerate with `hwrelease update --force`.
 
 ## Prohibited changes
 

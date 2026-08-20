@@ -16,7 +16,7 @@ normative_refs:
 
 # Outer Shell Mounting
 
-This chapter will cover mounting the outer shell onto the assembled power stage. It is currently being written — the build is in progress and photographs are being taken.
+This chapter will cover mounting the outer shell onto the assembled power stage. It is currently being written. The build is in progress and photographs are being taken.
 
 > **Safety**
 > - Do not power the inverter until all assembly, torque, and inspection steps are complete.

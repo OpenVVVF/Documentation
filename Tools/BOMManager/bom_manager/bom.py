@@ -65,7 +65,7 @@ class BomLine:
     def vendor_part_number(self, vendor: Optional[str] = None) -> str:
         vendor = vendor or self.primary_vendor()
         # Vendor-list rows (MechanicalBOM.txt) carry the PN in the designation
-        # and the vendor name in the footprint — use it when no explicit
+        # and the vendor name in the footprint; use it when no explicit
         # vendor mapping exists in the part database.
         from_vendor_list = self.footprint.strip().lower() == (vendor or "").lower()
         fallback = self.designation if from_vendor_list else ""
@@ -116,7 +116,7 @@ def _component_type(footprint: str, designation: str, source: str = "", category
     if "3d print" in des or "printed" in des:
         return "3dprint"
 
-    # Bus bars, plates, brackets — check both description and source/folder name.
+    # Bus bars, plates, brackets: check both description and source/folder name.
     busbar_tokens = ["bus bar", "busbar", "dclbb", "pbb", "bb", "dclb", "phasebar"]
     if any(x in des for x in busbar_tokens) or any(tok in src for tok in busbar_tokens):
         return "busbar"

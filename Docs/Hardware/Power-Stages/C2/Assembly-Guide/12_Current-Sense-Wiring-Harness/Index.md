@@ -16,7 +16,7 @@ normative_refs:
 
 # Current Sense Wiring Harness
 
-This chapter will cover building the current-sense wiring harness that connects the phase current sensors to the control assembly. It is currently being written — the build is in progress and photographs are being taken.
+This chapter will cover building the current-sense wiring harness that connects the phase current sensors to the control assembly. It is currently being written. The build is in progress and photographs are being taken.
 
 > **Safety**
 > - Do not power the inverter until all assembly, torque, and inspection steps are complete.

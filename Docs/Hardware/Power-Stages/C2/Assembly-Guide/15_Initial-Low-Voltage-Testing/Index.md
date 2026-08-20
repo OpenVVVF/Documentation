@@ -16,7 +16,7 @@ normative_refs:
 
 # Initial Low-Voltage Testing and Calibration
 
-This chapter will cover the initial low-voltage power-up, sensor sanity checks, and calibration. High-voltage testing is covered separately. It is currently being written — the build is in progress and photographs are being taken.
+This chapter will cover the initial low-voltage power-up, sensor sanity checks, and calibration. High-voltage testing is covered separately. It is currently being written. The build is in progress and photographs are being taken.
 
 > **Safety**
 > - Do not power the inverter until all assembly, torque, and inspection steps are complete.

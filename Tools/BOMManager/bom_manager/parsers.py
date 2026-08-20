@@ -44,7 +44,7 @@ def parse_kicad_fab_csv(path: Path, chassis: str, board: str, category: str = "b
     Accepts both export styles:
     - board Fab output: Id;Designator;Footprint;Quantity;Designation;Supplier and ref
     - schematic symbol-fields export (KiCad 10): Reference,Qty,Value,DNP,
-      Exclude from BOM,... — rows flagged DNP or excluded are skipped.
+      Exclude from BOM,... (rows flagged DNP or excluded are skipped).
     """
     with open(path, "r", encoding="utf-8-sig") as f:
         sample = f.read(4096)
@@ -165,7 +165,7 @@ def parse_sendcutsend_folder(path: Path, chassis: str, part_name: str) -> Iterat
                     key, val = line.split("=", 1)
                     metadata[key.strip()] = val.strip()
     else:
-        metadata["Notes"] = "info.txt missing — run import_sendcutsend_cart.py to populate"
+        metadata["Notes"] = "info.txt missing - run import_sendcutsend_cart.py to populate"
 
     try:
         qty = int(float(metadata.get("Qty", "1").strip()))

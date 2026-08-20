@@ -8,13 +8,13 @@ HW-<CHASSIS>-<CATEGORY>-<DESCRIPTOR>-<REV>
 
 Examples:
 
-- `HW-C2-PCB-CTRL-A` — Chassis2 control board PCB, revision A
-- `HW-C2-PCB-GD-A` — Chassis2 gate driver PCB, revision A
-- `HW-C2-WH-GDVS-A` — Chassis2 gate-driver-to-??? wiring harness, revision A
-- `HW-C2-BB-DCLBB-A` — Chassis2 DC link bus bar, revision A
-- `HW-C2-PLT-CHSP-A` — Chassis2 capacitor heat spreader plate, revision A
-- `HW-C2-RES-10K1210-A` — Chassis2 10k 1210 resistor
-- `HW-C2-IC-STM32H723ZGTX-A` — Chassis2 STM32 microcontroller
+- `HW-C2-PCB-CTRL-A`: Chassis2 control board PCB, revision A
+- `HW-C2-PCB-GD-A`: Chassis2 gate driver PCB, revision A
+- `HW-C2-WH-GDVS-A`: Chassis2 gate-driver-to-??? wiring harness, revision A
+- `HW-C2-BB-DCLBB-A`: Chassis2 DC link bus bar, revision A
+- `HW-C2-PLT-CHSP-A`: Chassis2 capacitor heat spreader plate, revision A
+- `HW-C2-RES-10K1210-A`: Chassis2 10k 1210 resistor
+- `HW-C2-IC-STM32H723ZGTX-A`: Chassis2 STM32 microcontroller
 
 The registry lives in `bom_manager/Data/Numbers.json` and is generated automatically. Registry keys are **identity-based** (`chassis|category|footprint|designation`, or `chassis|category|fab:<folder>` for fabricated parts), so editing a description or a friendly `PartName` never renumbers a part. (Registries written by older versions used description-based keys; entries are migrated automatically on first contact, keeping their part numbers.) The tool also keeps a descriptor registry at `bom_manager/Data/Descriptors.json` so you only have to name a part once.
 
@@ -128,9 +128,9 @@ Use the descriptor to identify the function and the chassis prefix to identify t
 
 Bump a revision when the part changes enough that you need to distinguish old stock from new stock:
 
-- `A` — first revision
-- `B` — changed hole pattern, material, thickness, connector pinout, etc.
-- `C`, `D`, ... — subsequent changes
+- `A`: first revision
+- `B`: changed hole pattern, material, thickness, connector pinout, etc.
+- `C`, `D`, ...: subsequent changes
 - The tool starts at `A` automatically.
 
 For off-the-shelf commodity parts (resistors, capacitors, ICs), the revision letter is kept for format consistency but is usually left at `A` because you are not revising the part itself.
@@ -142,7 +142,7 @@ bom> rev list
 bom> rev bump DCLBB --note "widen mounting holes"
 ```
 
-The query is fuzzy — a full IPN, a descriptor, or description text. The bump is
+The query is fuzzy: a full IPN, a descriptor, or description text. The bump is
 recorded in the entry's `history` (rev, date, note) inside `Numbers.json`.
 
 Revisions are **decoupled from file and folder names**: bumping writes `Rev=`
@@ -154,7 +154,7 @@ so CAD documents and vendor uploads keep pointing at the same place.
 A harness documented as a KiCad schematic gets an assembly line
 like `HW-C2-WH-GD-A` once you drop the schematic's BOM CSV export into
 `Hardware/<Chassis>/Wiring/<Name>/` (or its `Fab/` subfolder, same layout as
-boards). Create the folder with `new harness` —
+boards). Create the folder with `new harness`;
 it pre-registers the descriptor and its README has the exact Eeschema export
 settings. Naming the folder with the full part number (`HW-C2-WH-GD-A`) makes
 `generate` adopt that number with no prompt at all. The harness's connectors,

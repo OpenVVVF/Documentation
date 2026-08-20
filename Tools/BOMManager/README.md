@@ -2,7 +2,7 @@
 
 Your fab-time companion for the inverter build. It aggregates the Bill of
 Materials from KiCad PCB exports, wiring-harness schematics, mechanical
-hardware, and custom fabricated parts — then helps you price everything,
+hardware, and custom fabricated parts, then helps you price everything,
 order the right quantities (including pack sizes and what is already on your
 shelf), and keep fabrication packages ready to send out.
 
@@ -36,7 +36,7 @@ Type `help` inside the shell for the full list. **See `Docs/GUIDE.md` for the
 complete usage guide.**
 
 The old scripts (`generate_bom.py`, `manage_parts.py`, `import_*.py`) still run
-— they are thin shims that delegate to the shell.
+; they are thin shims that delegate to the shell.
 
 ## What `generate` and `release` produce
 
@@ -82,7 +82,7 @@ Committed (project data, diff-friendly):
 | `Hardware/<Chassis>/Wiring/<Name>/` | wiring harnesses: KiCad schematic + BOM CSV export |
 
 Local only (gitignored): `Config.yaml` (API keys), `PriceCache.json`,
-`Inventory.json` (your on-hand stock — your leftover screws are not project data).
+`Inventory.json` (your on-hand stock; your leftover screws are not project data).
 
 ## Part numbers and revisions
 
@@ -96,7 +96,7 @@ bom> rev list
 bom> rev bump DCLBB --note "widen mounting holes"
 ```
 
-For fabricated parts this writes `Rev=B` into the part's `info.txt` — the
+For fabricated parts this writes `Rev=B` into the part's `info.txt`; the
 folder and STEP file stay put, so CAD and vendor links keep working.
 
 ## First-time setup
@@ -108,14 +108,14 @@ python3 -m pytest tests/               # sanity check
 cp Config.yaml.example Config.yaml     # optional: vendor API keys (Docs/API_KEYS.md)
 ```
 
-API keys are optional — the whole workflow runs on manual prices and pasted
+API keys are optional: the whole workflow runs on manual prices and pasted
 cart/order imports.
 
 ## Docs
 
-- `Docs/GUIDE.md` — **complete usage guide (start here)**
-- `Docs/WORKFLOW.md` — end-to-end fab-time walkthrough
-- `Docs/CUSTOM_PARTS.md` — fabricated parts and SendCutSend
-- `Docs/PART_NUMBERING.md` — internal PN conventions and revisions
-- `Docs/API_KEYS.md` — optional vendor API setup
-- `Docs/SPARES_AND_REPORTING.md` — spares policies and report format
+- `Docs/GUIDE.md`: **complete usage guide (start here)**
+- `Docs/WORKFLOW.md`: end-to-end fab-time walkthrough
+- `Docs/CUSTOM_PARTS.md`: fabricated parts and SendCutSend
+- `Docs/PART_NUMBERING.md`: internal PN conventions and revisions
+- `Docs/API_KEYS.md`: optional vendor API setup
+- `Docs/SPARES_AND_REPORTING.md`: spares policies and report format

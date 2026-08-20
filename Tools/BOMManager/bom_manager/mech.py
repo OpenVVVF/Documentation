@@ -1,4 +1,4 @@
-"""MechanicalBOM.txt management — the purchased-hardware list the tool owns.
+"""MechanicalBOM.txt management: the purchased-hardware list the tool owns.
 
 The file stays a plain CSV (Qty,Vendor,PN,Description) so it remains readable
 and diffable, but all edits go through this module so the format stays

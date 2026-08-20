@@ -29,7 +29,7 @@ Before populating any control module board, set up the workspace and confirm you
 |------|-------|
 | Computer with CAD viewer | For checking connector orientation and mechanical fit against the board models |
 | Temperature-controlled soldering iron | Fine tip for SMD work; a larger tip helps for connectors |
-| Soldering microscope or bench magnifier | Strongly recommended — most parts are small SMD |
+| Soldering microscope or bench magnifier | Strongly recommended; most parts are small SMD |
 | Good bench lighting | Bright, shadow-free light makes inspection far easier |
 | ESD wrist strap / mat | Mandatory |
 | ESD-safe tweezers | For placing small parts |
@@ -44,7 +44,7 @@ Set up a clean, well-lit workspace before opening any part packaging. Keep only 
 
 ## Computer and CAD access
 
-Keep a computer at the bench with the PCB Tool open and a CAD/STEP viewer available. Connector orientation and mounting side are not always obvious from the silkscreen, and the CAD model is the authority — checking it before soldering saves painful rework.
+Keep a computer at the bench with the PCB Tool open and a CAD/STEP viewer available. Connector orientation and mounting side are not always obvious from the silkscreen, and the CAD model is the authority: checking it before soldering saves painful rework.
 
 ![Checking connector placement and orientation against the CAD model](../IOBoard/Check-With-CAD-Model-Connectors-May-Not-Be-On-Side-You-Think.jpg)
 
@@ -58,7 +58,7 @@ A microscope or good magnifier and a fine-tip temperature-controlled iron are es
 
 Before starting, confirm you have every part for the board you are about to build:
 
-1. Open the [BOM Tool](../../../../Tools/BOM-Tool/bom-tool.html) and select the chassis, revision, and variant you are building. Check your stock against the vendor BOMs — if anything is missing, order it now rather than mid-build.
+1. Open the [BOM Tool](../../../../Tools/BOM-Tool/bom-tool.html) and select the chassis, revision, and variant you are building. Check your stock against the vendor BOMs: if anything is missing, order it now rather than mid-build.
 2. Open the [PCB Tool](../../../../Tools/PCB-Tool/pcb-tool.html) and confirm the interactive BOM for each board matches what you have on hand. The interactive BOM is the authoritative parts list for each board.
 
 ![Checking stock against the order BOM in the BOM Tool](../../../../Tools/BOM-Tool/bom-tool-mouser-view.jpg)

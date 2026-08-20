@@ -31,16 +31,16 @@ Fabricated part (SendCutSend or similar shop).
 
 ## What goes here
 
-- `{folder}.step` — CAD model uploaded to the vendor (required)
-- `info.png` — render or photo, embedded in the price report (optional)
-- `info.txt` — specs and price; edit by hand, or paste a SendCutSend cart
+- `{folder}.step`: CAD model uploaded to the vendor (required)
+- `info.png`: render or photo, embedded in the price report (optional)
+- `info.txt`: specs and price; edit by hand, or paste a SendCutSend cart
   into `import sendcutsend` and it will fill this in for you
 
 ## info.txt fields
 
 | Field | Meaning |
 |-------|---------|
-| PartName | Human-readable name ("DC Link Bus Bar") — drives category detection |
+| PartName | Human-readable name ("DC Link Bus Bar"): drives category detection |
 | Material | e.g. Copper, 5052 aluminum |
 | Thickness_mm | Sheet thickness |
 | Qty | Quantity per chassis |
@@ -54,7 +54,7 @@ Fabricated part (SendCutSend or similar shop).
 
 The folder name stays put forever. Revisions are tracked by the tool:
 `rev bump {desc}` updates the registry and writes `Rev=` into info.txt.
-Do NOT rename the folder for a new revision — CAD and vendor links point here.
+Do NOT rename the folder for a new revision: CAD and vendor links point here.
 """
 
 HARNESS_README = """\
@@ -67,11 +67,11 @@ keep around, but nothing needs to be routed).
 
 1. Create a KiCad schematic in this folder (e.g. `{name}.kicad_sch`).
 2. Place a symbol for every physical part:
-   - connectors and crimp terminals — use their real manufacturer part number
+   - connectors and crimp terminals: use their real manufacturer part number
      as the symbol value where possible (e.g. `0039303040`);
-   - wire — any symbol with a value starting with `WIRE`, e.g.
+   - wire: any symbol with a value starting with `WIRE`, e.g.
      `WIRE 10AWG RED`; put the length/gauge in the value or a field.
-3. Export the BOM **from the schematic editor** (Eeschema) — no layout needed:
+3. Export the BOM **from the schematic editor** (Eeschema); no layout needed:
    - KiCad 7/8: **Tools → Generate BOM...**
    - Format: CSV, grouped by value;
    - include at least these fields: `Quantity`, `Footprint`, `Designation`
@@ -93,11 +93,11 @@ Qty=4
 `generate` multiplies the assembly line and every component by that count.
 
 Tip: naming the folder with the full part number (e.g. `HW-C2-WH-GD-A`) makes
-`generate` adopt that number directly — no descriptor prompt, ever.
+`generate` adopt that number directly, with no descriptor prompt, ever.
 
 ## Revisions
 
-`rev bump {desc}` bumps the harness revision — no folder renames.
+`rev bump {desc}` bumps the harness revision, no folder renames.
 """
 
 BOARD_README = """\
@@ -108,12 +108,12 @@ PCB design folder.
 ## What goes here
 
 - Your KiCad project (`{name}.kicad_pro`, schematic, layout).
-- `{name}.csv` — the BOM, exported from the **schematic editor**
+- `{name}.csv`: the BOM, exported from the **schematic editor**
   (Eeschema: **Tools → Generate BOM...**, or File → Fabrication Outputs).
   The tool reads both the classic `Id;Designator;Footprint;Quantity;
   Designation` format and the KiCad 10 `Reference,Qty,Value,DNP,...`
   export, and skips DNP / excluded rows.
-- `Fab/` — gerbers and drill files for the fab house. `generate` bundles
+- `Fab/`: gerbers and drill files for the fab house. `generate` bundles
   this folder into `FabricationData/PCB_Fab_Zips/{name}.zip` for upload.
 
 Parts that are documented elsewhere (e.g. a harness's mating connector that
@@ -204,5 +204,5 @@ def new_board(ctx: Context, chassis: str, name: str, descriptor: str = "") -> Op
     ctx.descriptor_registry.set(chassis, "pcb", clean, descriptor)
     ctx.descriptor_registry.save()
     print(f"Created {board_dir / 'Fab'}")
-    print(f"Board fab line will be {ipn}. Export the KiCad BOM CSV as Fab/{clean}.csv — see README.")
+    print(f"Board fab line will be {ipn}. Export the KiCad BOM CSV as Fab/{clean}.csv (see README).")
     return board_dir

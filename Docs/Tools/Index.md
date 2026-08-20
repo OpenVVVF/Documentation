@@ -30,7 +30,7 @@ This section documents the support tools and widgets that go with OpenVVVF hardw
 <div class="card">
 <a href="PCB-Tool/pcb-tool.html" target="_blank" rel="noopener"><img class="card-screenshot" src="PCB-Tool/pcb-tool-board-view.jpg" alt="PCB Tool showing a released board with renders and interactive assembly"></a>
 <h3><a href="PCB-Tool/Index.md">PCB Tool</a></h3>
-<p>Released PCBs by part number — renders, interactive assembly, schematics, and fabrication files.</p>
+<p>Released PCBs by part number: renders, interactive assembly, schematics, and fabrication files.</p>
 <a class="tool-button" href="PCB-Tool/pcb-tool.html" target="_blank" rel="noopener">Open PCB Tool</a>
 </div>
 
@@ -43,7 +43,7 @@ This section documents the support tools and widgets that go with OpenVVVF hardw
 
 <div class="card">
 <h3><a href="HWRelease-System/Index.md">HWRelease System</a></h3>
-<p>How hardware releases flow from InverterGen5 tags into the tools — architecture and conventions.</p>
+<p>How hardware releases flow from InverterGen5 tags into the tools: architecture and conventions.</p>
 </div>
 
 </div>

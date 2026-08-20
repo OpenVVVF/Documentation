@@ -184,7 +184,7 @@ def descriptor_for_line(line, descriptor_registry: DescriptorRegistry, chassis: 
     if cat == "wiring":
         if line.vendor_hint == "assembly":
             # Harness assembly line. A folder named like an IPN contributes its
-            # descriptor with no prompt — with a rev (HW-C2-WH-GD-A) or
+            # descriptor with no prompt, with a rev (HW-C2-WH-GD-A) or
             # rev-less (HW-C2-WH-GD). The registry owns the live revision.
             src = (line.sources[0].split("/")[-1] if line.sources else desc).upper()
             m = re.match(r"^HW-[A-Z0-9]+-WH-([A-Z0-9\-_]+)-[A-Z]$", src)

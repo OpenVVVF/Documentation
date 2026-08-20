@@ -11,11 +11,11 @@ python3 bom.py
 
 ## 1. Feed the tool your design data
 
-**PCB BOMs** — for each board, in KiCad: **File → Fabrication Outputs → BOM CSV**,
+**PCB BOMs**: for each board, in KiCad: **File → Fabrication Outputs → BOM CSV**,
 saved as `Hardware/<Chassis>/Boards/<Board>/Fab/<Board>.csv`. The same folder is
 zipped for the fab house, so put gerbers/drill files there too.
 
-**New parts** — scaffold instead of hand-creating folders:
+**New parts**: scaffold instead of hand-creating folders:
 
 ```text
 bom> new fab Phase Bus Bar        # Mechanical/Fab/HW-C2-PBB-A/ + info.txt + README
@@ -23,14 +23,14 @@ bom> new board PowerBoard         # Boards/PowerBoard/Fab/ + README, descriptor 
 bom> new harness GateDriverHarness # Wiring/GateDriverHarness/Fab/ + README
 ```
 
-**Wiring harnesses** — document as a KiCad *schematic only* (no layout). Place
+**Wiring harnesses**: document as a KiCad *schematic only* (no layout). Place
 symbols for connectors/crimps/wire (wire values start with `WIRE`), then export
 the BOM CSV from Eeschema (**Tools → Generate BOM**) into the harness folder.
 The scaffolded README spells out the exact export settings. Components land in
 the BOM like any other part; the harness itself appears as a `HW-C2-WH-...`
 assembly line.
 
-**Purchased hardware** — the tool owns `MechanicalBOM.txt`; do not hand-edit:
+**Purchased hardware**: the tool owns `MechanicalBOM.txt`; do not hand-edit:
 
 ```text
 bom> mech add McMaster 94669A199 12 M3x10 socket head screw
@@ -87,7 +87,7 @@ database, so cost history survives a fresh clone.
 bom> stock 94669A199 19       # 19 screws left over
 ```
 
-Stock lives in `Inventory.json`, which is gitignored — your shelf is not
+Stock lives in `Inventory.json`, which is gitignored; your shelf is not
 project data. Future `generate` runs subtract it: covered parts order 0 packs
 and show up in the report's **Pack Rounding & Stock** section.
 
@@ -99,7 +99,7 @@ bom> rev bump DCLBB --note "widen mounting holes"
 ```
 
 Bumps update the registry (with history) and write `Rev=` into a fabricated
-part's `info.txt`. Folders and STEP files are never renamed — CAD and vendor
+part's `info.txt`. Folders and STEP files are never renamed, so CAD and vendor
 links keep working, and internal PNs never change when you edit descriptions.
 
 ## 7. Track cost over time

@@ -42,7 +42,7 @@ Set up a clean, well-lit bench with enough room to lay out the heatspreader and 
 
 ## Computer and CAD access
 
-Keep a computer at the bench with the PCB Tool open and a CAD/STEP viewer available. Spacer, bus bar, and board orientation is not always obvious from the parts alone, and the CAD model is the authority — checking it before tightening anything saves painful rework.
+Keep a computer at the bench with the PCB Tool open and a CAD/STEP viewer available. Spacer, bus bar, and board orientation is not always obvious from the parts alone, and the CAD model is the authority: checking it before tightening anything saves painful rework.
 
 ![Checking part placement against the CAD model](../7_Bottom-Stack-Assembly/Cad-Helpful.jpg)
 
@@ -74,7 +74,7 @@ Keep a computer at the bench with the PCB Tool open and a CAD/STEP viewer availa
 
 Before starting, confirm you have every part for the build:
 
-1. Open the [BOM Tool](../../../../../Tools/BOM-Tool/bom-tool.html), select chassis C2, the revision, and the variant you are building, and check your stock against the vendor BOMs — including the fabricated parts (bus bars, heatspreader, spacers). If anything is missing, order it now rather than mid-build.
+1. Open the [BOM Tool](../../../../../Tools/BOM-Tool/bom-tool.html), select chassis C2, the revision, and the variant you are building, and check your stock against the vendor BOMs, including the fabricated parts (bus bars, heatspreader, spacers). If anything is missing, order it now rather than mid-build.
 2. Open the [PCB Tool](../../../../../Tools/PCB-Tool/pcb-tool.html) and confirm the interactive BOM for each PCB matches what you have on hand. The interactive BOM is the authoritative parts list for each board.
 
 ![Checking stock against the order BOM in the BOM Tool](../../../../../Tools/BOM-Tool/bom-tool-mouser-view.jpg)

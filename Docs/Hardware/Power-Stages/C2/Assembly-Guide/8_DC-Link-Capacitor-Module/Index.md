@@ -16,7 +16,7 @@ normative_refs:
 
 # DC-Link Capacitor Module Assembly
 
-This chapter will cover assembling the DC-link capacitor module: combining the populated DC-link capacitor board ([DC-Link Capacitor Board](../3_DC-Link-Capacitor-Board/Index.md)) with its bus bars and film capacitors into the complete module. It is currently being written — the build is in progress and photographs are being taken.
+This chapter will cover assembling the DC-link capacitor module: combining the populated DC-link capacitor board ([DC-Link Capacitor Board](../3_DC-Link-Capacitor-Board/Index.md)) with its bus bars and film capacitors into the complete module. It is currently being written. The build is in progress and photographs are being taken.
 
 The bottom stack assembly ([Bottom Stack Assembly](../7_Bottom-Stack-Assembly/Index.md)) should be complete and set aside before starting this chapter.
 

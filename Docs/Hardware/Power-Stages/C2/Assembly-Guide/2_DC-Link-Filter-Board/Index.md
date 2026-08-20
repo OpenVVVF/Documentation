@@ -62,7 +62,7 @@ Flip the board and solder the ceramic decoupling capacitors on the bottom side. 
 
 ## Step 3 - Solder the film capacitors
 
-Install the film capacitors on the top side. Take care to keep the solder joints neat and to avoid excess solder on the underside of the board — the bottom of the board has flat bus-bar contact patches that must remain smooth. Any raised solder bumps or flux residue in these areas will reduce contact pressure and degrade electrical/thermal performance when the board is clamped into the module.
+Install the film capacitors on the top side. Take care to keep the solder joints neat and to avoid excess solder on the underside of the board: the bottom of the board has flat bus-bar contact patches that must remain smooth. Any raised solder bumps or flux residue in these areas will reduce contact pressure and degrade electrical/thermal performance when the board is clamped into the module.
 
 ![Film capacitors soldered on the top side](Film-Caps-Soldered-Top.jpg)
 
@@ -70,7 +70,7 @@ Install the film capacitors on the top side. Take care to keep the solder joints
 
 Class-Y capacitors are usually supplied with straight leads. Spread the leads slightly wider than the PCB hole spacing, insert all of the capacitors on the top side, then flip the board and solder them from the bottom. Spreading the legs makes it much faster to load all of the parts at once rather than bending and inserting each one individually.
 
-After soldering, trim each lead to leave roughly 1–2 mm of leg protruding from the solder joint. This leaves ample solder contact area while keeping the lead short enough to avoid shorts. Immediately reflow the solder for a moment to heal any micro-fractures caused by the mechanical shock of cutting. Do not trim the leads before soldering — it is too easy to cut them too short.
+After soldering, trim each lead to leave roughly 1–2 mm of leg protruding from the solder joint. This leaves ample solder contact area while keeping the lead short enough to avoid shorts. Immediately reflow the solder for a moment to heal any micro-fractures caused by the mechanical shock of cutting. Do not trim the leads before soldering; it is too easy to cut them too short.
 
 > **Tip:** Reflow one leg at a time so the capacitor body stays seated and does not fall out when the joint is reheated.
 
@@ -92,7 +92,7 @@ Solder the PCB connector last. Make sure it is fully seated against the board be
 
 ## Step 6 - Clean flux residue
 
-Clean the board thoroughly with isopropyl alcohol and lint-free wipes, paying special attention to the bottom-side bus-bar contact patches. Any flux residue left on these pads can reduce contact pressure and degrade electrical/thermal performance when the board is clamped into the module. Check the pads visually and by touch — they should be flat and clean.
+Clean the board thoroughly with isopropyl alcohol and lint-free wipes, paying special attention to the bottom-side bus-bar contact patches. Any flux residue left on these pads can reduce contact pressure and degrade electrical/thermal performance when the board is clamped into the module. Check the pads visually and by touch: they should be flat and clean.
 
 ## Final assembly
 

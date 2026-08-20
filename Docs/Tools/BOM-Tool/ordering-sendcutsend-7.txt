@@ -1,1 +1,1 @@
-For Tapping: SendCutSend lists every hole diameter — select the thread from the part's fab spec for each diameter that needs it, leave the rest unselected.
+For Tapping: SendCutSend lists every hole diameter: select the thread from the part's fab spec for each diameter that needs it, leave the rest unselected.

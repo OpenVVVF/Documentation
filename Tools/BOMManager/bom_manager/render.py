@@ -47,7 +47,7 @@ def _frame_geometry(verts, dpi: int = 220):
 def render_step(step_path: Path, out_png: Path, material: str = "", size=(1200, 900),
                 elev: float = 18, azim: float = -55) -> bool:
     """Render a shaded 3D preview of a STEP file. Pure python (cadquery for
-    tessellation, matplotlib for shading) — no GL/display required.
+    tessellation, matplotlib for shading), no GL/display required.
     elev/azim pick the view angle (default: iso-ish)."""
     if _fresh(out_png, step_path):
         return True

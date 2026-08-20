@@ -16,7 +16,7 @@ normative_refs:
 
 # Final Control Assembly
 
-This chapter will cover completing the control-side wiring — gate-drive, current-sense, and temperature-sense connections — and closing out the final control assembly. It is currently being written — the build is in progress and photographs are being taken.
+This chapter will cover completing the control-side wiring (gate-drive, current-sense, and temperature-sense connections) and closing out the final control assembly. It is currently being written. The build is in progress and photographs are being taken.
 
 > **Safety**
 > - Do not power the inverter until all assembly, torque, and inspection steps are complete.

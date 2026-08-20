@@ -1,1 +1,1 @@
-Always: select 2D barcode Only, size 10*10mm, choose Specify Position, then Submit — never leave the position up to the fab.
+Always: select 2D barcode Only, size 10*10mm, choose Specify Position, then Submit. Never leave the position up to the fab.

@@ -19,4 +19,4 @@ normative_refs: []
 
 Brief overview of what this section covers and how it relates to the rest of the documentation.
 
-- **Child document** — short description.
+- **Child document**: short description.

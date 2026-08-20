@@ -4,11 +4,11 @@ This repository is the **single source of truth** for OpenVVVF product documenta
 
 It is organized by hardware and software domain:
 
-- **Control Assembly** — the reusable inverter control module (user hardware manual and software manual).
-- **Power Stages** — physical chassis/inverter assemblies (C1, C2, C3, …), each with a user manual and an assembly guide.
-- **Safety and Compliance** — HARA, compliance mappings, and standards references.
-- **Software** — firmware and host-software docs by target.
-- **Testing** — formal test reports and validation evidence.
+- **Control Assembly**: the reusable inverter control module (user hardware manual and software manual).
+- **Power Stages**: physical chassis/inverter assemblies (C1, C2, C3, …), each with a user manual and an assembly guide.
+- **Safety and Compliance**: HARA, compliance mappings, and standards references.
+- **Software**: firmware and host-software docs by target.
+- **Testing**: formal test reports and validation evidence.
 
 Hardware designs remain in [`../InverterGen5`](../InverterGen5). Firmware and host software live in the OpenVVVF/RTE repository. This repo pulls together the documentation for all of them.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deprecated shim — use `python3 bom.py import mouser` instead."""
+"""Deprecated shim: use `python3 bom.py import mouser` instead."""
 
 import sys
 from pathlib import Path
