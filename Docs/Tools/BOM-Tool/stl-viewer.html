@@ -24,10 +24,6 @@ header .pn { color: #5a5a5a; font-size: 14px; }
 #toolbar button.active { background: #1a5f9e; border-color: #1a5f9e; color: #fff; }
 #viewer { width: 100vw; height: calc(100vh - 54px); }
 #err { padding: 40px; color: #c41e3a; display: none; }
-#note {
-  position: absolute; left: 12px; bottom: 12px; padding: 8px 12px; font-size: 12px;
-  background: rgba(255, 255, 255, 0.9); border: 1px solid #dee2e6; border-radius: 4px;
-  color: #5a5a5a; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -41,8 +37,6 @@ header .pn { color: #5a5a5a; font-size: 14px; }
   </div>
 </header>
 <div id="viewer"></div>
-<div id="note">Online3DViewer engine. The previous viewer's dimensions, measure tool, grid and
-screenshot features are not provided by the embedded engine API.</div>
 <div id="err"></div>
 <!-- Vendored Online3DViewer 0.18.0 engine (MIT, see o3dv/LICENSE.md).
      No runtime CDN dependency for STL/OBJ/3MF/glTF; STEP/IFC/3dm/draco imports
