@@ -69,6 +69,43 @@
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
   },
+  "CHASSIS-C3-C3-WIP": {
+    "artifacts": {
+      "price_estimate": {
+        "qty": 1,
+        "total": "0.00",
+        "variants": {
+          "base": "2,397.36",
+          "generous": "0.00",
+          "standard": "0.00"
+        },
+        "vendors": {
+          "SendCutSend": "0.00"
+        }
+      },
+      "pricing_report": "Pricing_Report.md",
+      "variants": {
+        "generous": {
+          "consolidated": "BOMs/Variants/generous/Consolidated_BOM.csv",
+          "sendcutsend": "BOMs/Variants/generous/sendcutsend_bom.csv"
+        },
+        "standard": {
+          "consolidated": "BOMs/Variants/standard/Consolidated_BOM.csv",
+          "sendcutsend": "BOMs/Variants/standard/sendcutsend_bom.csv"
+        }
+      },
+      "vendor_boms": {
+        "consolidated": "BOMs/Consolidated_BOM.csv",
+        "sendcutsend": "BOMs/sendcutsend_bom.csv"
+      }
+    },
+    "chassis": "C3",
+    "dir": "Data/Releases/C3/C3-WIP",
+    "generated": "2026-08-20T08:22:43+00:00",
+    "rev": "C3-WIP",
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
   "HW-C2-BSP-A": {
     "artifacts": {
       "fab_spec": {
@@ -505,5 +542,133 @@
     "rev": "A",
     "source_tag": "C2-A",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+  },
+  "HW-C3-DCLBB-CNPL-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "image": "info-back.png",
+      "step": "HW-C3-DCLBB-CNPL-A.step",
+      "stl": "HW-C3-DCLBB-CNPL-A.stl"
+    },
+    "chassis": "C3",
+    "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-DCLBB-CNPL-A",
+    "generated": "2026-08-20T08:22:43+00:00",
+    "mech": true,
+    "part_number": "HW-C3-DCLBB-CNPL-A",
+    "rev": "C3-WIP",
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
+  "HW-C3-DCLBB-N-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "image": "info-back.png",
+      "step": "HW-C3-DCLBB-N-A.step",
+      "stl": "HW-C3-DCLBB-N-A.stl"
+    },
+    "chassis": "C3",
+    "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-DCLBB-N-A",
+    "generated": "2026-08-20T08:22:43+00:00",
+    "mech": true,
+    "part_number": "HW-C3-DCLBB-N-A",
+    "rev": "C3-WIP",
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
+  "HW-C3-DCLBB-P-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "image": "info-back.png",
+      "step": "HW-C3-DCLBB-P-A.step",
+      "stl": "HW-C3-DCLBB-P-A.stl"
+    },
+    "chassis": "C3",
+    "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-DCLBB-P-A",
+    "generated": "2026-08-20T08:22:43+00:00",
+    "mech": true,
+    "part_number": "HW-C3-DCLBB-P-A",
+    "rev": "C3-WIP",
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
+  "HW-C3-DCLBB-SP-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "image": "info-back.png",
+      "step": "HW-C3-DCLBB-SP-A.step",
+      "stl": "HW-C3-DCLBB-SP-A.stl"
+    },
+    "chassis": "C3",
+    "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-DCLBB-SP-A",
+    "generated": "2026-08-20T08:22:43+00:00",
+    "mech": true,
+    "part_number": "HW-C3-DCLBB-SP-A",
+    "rev": "C3-WIP",
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
+  "HW-C3-FR-BSP-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "image": "info-back.png",
+      "step": "HW-C3-FR-BSP-A.step",
+      "stl": "HW-C3-FR-BSP-A.stl"
+    },
+    "chassis": "C3",
+    "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-FR-BSP-A",
+    "generated": "2026-08-20T08:22:43+00:00",
+    "mech": true,
+    "part_number": "HW-C3-FR-BSP-A",
+    "rev": "C3-WIP",
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
+  "HW-C3-FR-IGCSMP-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "image": "info-back.png",
+      "step": "HW-C3-FR-IGCSMP-A.step",
+      "stl": "HW-C3-FR-IGCSMP-A.stl"
+    },
+    "chassis": "C3",
+    "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-FR-IGCSMP-A",
+    "generated": "2026-08-20T08:22:43+00:00",
+    "mech": true,
+    "part_number": "HW-C3-FR-IGCSMP-A",
+    "rev": "C3-WIP",
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
+  "HW-C3-FR-TPENCL-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "image": "info-back.png",
+      "step": "HW-C3-FR-TPENCL-A.step",
+      "stl": "HW-C3-FR-TPENCL-A.stl"
+    },
+    "chassis": "C3",
+    "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-FR-TPENCL-A",
+    "generated": "2026-08-20T08:22:43+00:00",
+    "mech": true,
+    "part_number": "HW-C3-FR-TPENCL-A",
+    "rev": "C3-WIP",
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
+  "HW-C3-PHBB-PA-A": {
+    "artifacts": {
+      "holes": "holes.json",
+      "image": "info-back.png",
+      "step": "HW-C3-PHBB-PA-A.step",
+      "stl": "HW-C3-PHBB-PA-A.stl"
+    },
+    "chassis": "C3",
+    "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-PHBB-PA-A",
+    "generated": "2026-08-20T08:22:43+00:00",
+    "mech": true,
+    "part_number": "HW-C3-PHBB-PA-A",
+    "rev": "C3-WIP",
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   }
 }

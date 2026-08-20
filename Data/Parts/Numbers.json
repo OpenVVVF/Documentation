@@ -2113,5 +2113,141 @@
         "note": "created"
       }
     ]
+  },
+  "c3|busbar|fab:hw-c3-dclbb-cnpl-a": {
+    "part_number": "HW-C3-BB-DCLBB-CNPL-A",
+    "category": "busbar",
+    "category_prefix": "BB",
+    "descriptor": "DCLBB-CNPL",
+    "revision": "A",
+    "description": "HW-C3-DCLBB-CNPL-A",
+    "key": "c3|busbar|fab:hw-c3-dclbb-cnpl-a",
+    "chassis": "C3",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-20",
+        "note": "created"
+      }
+    ]
+  },
+  "c3|busbar|fab:hw-c3-dclbb-n-a": {
+    "part_number": "HW-C3-BB-DCLBB-N-A",
+    "category": "busbar",
+    "category_prefix": "BB",
+    "descriptor": "DCLBB-N",
+    "revision": "A",
+    "description": "HW-C3-DCLBB-N-A",
+    "key": "c3|busbar|fab:hw-c3-dclbb-n-a",
+    "chassis": "C3",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-20",
+        "note": "created"
+      }
+    ]
+  },
+  "c3|busbar|fab:hw-c3-dclbb-p-a": {
+    "part_number": "HW-C3-BB-DCLBB-P-A",
+    "category": "busbar",
+    "category_prefix": "BB",
+    "descriptor": "DCLBB-P",
+    "revision": "A",
+    "description": "HW-C3-DCLBB-P-A",
+    "key": "c3|busbar|fab:hw-c3-dclbb-p-a",
+    "chassis": "C3",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-20",
+        "note": "created"
+      }
+    ]
+  },
+  "c3|busbar|fab:hw-c3-dclbb-sp-a": {
+    "part_number": "HW-C3-BB-DCLBB-SP-A",
+    "category": "busbar",
+    "category_prefix": "BB",
+    "descriptor": "DCLBB-SP",
+    "revision": "A",
+    "description": "HW-C3-DCLBB-SP-A",
+    "key": "c3|busbar|fab:hw-c3-dclbb-sp-a",
+    "chassis": "C3",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-20",
+        "note": "created"
+      }
+    ]
+  },
+  "c3|busbar|fab:hw-c3-phbb-pa-a": {
+    "part_number": "HW-C3-BB-PHBB-PA-A",
+    "category": "busbar",
+    "category_prefix": "BB",
+    "descriptor": "PHBB-PA",
+    "revision": "A",
+    "description": "HW-C3-PHBB-PA-A",
+    "key": "c3|busbar|fab:hw-c3-phbb-pa-a",
+    "chassis": "C3",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-20",
+        "note": "created"
+      }
+    ]
+  },
+  "c3|other|fab:hw-c3-fr-igcsmp-a": {
+    "part_number": "HW-C3-HW-HW-C3-FR-IGCSMP-A-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "HW-C3-FR-IGCSMP-A",
+    "revision": "A",
+    "description": "HW-C3-FR-IGCSMP-A",
+    "key": "c3|other|fab:hw-c3-fr-igcsmp-a",
+    "chassis": "C3",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-20",
+        "note": "created"
+      }
+    ]
+  },
+  "c3|other|fab:hw-c3-fr-tpencl-a": {
+    "part_number": "HW-C3-HW-HW-C3-FR-TPENCL-A-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "HW-C3-FR-TPENCL-A",
+    "revision": "A",
+    "description": "HW-C3-FR-TPENCL-A",
+    "key": "c3|other|fab:hw-c3-fr-tpencl-a",
+    "chassis": "C3",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-20",
+        "note": "created"
+      }
+    ]
+  },
+  "c3|plate|fab:hw-c3-fr-bsp-a": {
+    "part_number": "HW-C3-PLT-FR-BSP-A",
+    "category": "plate",
+    "category_prefix": "PLT",
+    "descriptor": "FR-BSP",
+    "revision": "A",
+    "description": "HW-C3-FR-BSP-A",
+    "key": "c3|plate|fab:hw-c3-fr-bsp-a",
+    "chassis": "C3",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-20",
+        "note": "created"
+      }
+    ]
   }
 }
