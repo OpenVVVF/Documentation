@@ -232,6 +232,8 @@ def test_build_viewer(hw_repo, docs_root, fake_kicad):
     assert "BOM Tool" in bom_html
     assert "CHASSIS-C2-A" in bom_html
     assert "Mouser" in bom_html
+    # mech card material priority: fab_spec > extracted material.json > info.txt
+    assert "spec.material || a.material || f.Material" in bom_html
     # empty manifest -> error
     assert viewer.build_viewer(docs_root / "nope.json", out_path) == 1
 
@@ -273,6 +275,8 @@ def _fake_extract(chassis_dir):
     part.mkdir(parents=True, exist_ok=True)
     (part / "HW-C3-PBB-A.step").write_text("step")
     (part / "info.txt").write_text("Material=Copper\n")
+    (part / "material.json").write_text(
+        json.dumps({"material": "Copper C110"}))
     return ["HW-C3-PBB-A"]
 
 
@@ -297,7 +301,9 @@ def test_update_boardless_chassis(hw_repo_mech_only, docs_root_c3, fake_kicad,
     assert mech["mech"] is True
     assert mech["chassis"] == "C3"
     assert mech["artifacts"]["info_fields"]["Material"] == "Copper"
+    assert mech["artifacts"]["material"] == "Copper C110"
     assert (docs_root_c3 / mech["dir"] / "HW-C3-PBB-A.step").is_file()
+    assert (docs_root_c3 / mech["dir"] / "material.json").is_file()
 
 
 def test_update_boardless_chassis_no_content(hw_repo_mech_only, docs_root_c3,

@@ -748,7 +748,8 @@ function mechCards(proc) {{
     html += "<h4>" + p.part_number + "</h4>";
     const bits = [];
     if (f.Qty) bits.push("Qty " + f.Qty);
-    if (spec.material || f.Material) bits.push(spec.material || f.Material);
+    const mat = spec.material || a.material || f.Material;
+    if (mat) bits.push(mat);
     if (spec.thickness_mm || f.Thickness_mm) bits.push((spec.thickness_mm || f.Thickness_mm) + " mm");
     if (spec.process) bits.push(spec.process);
     else if (f.Process) bits.push(f.Process);

@@ -81,7 +81,14 @@ On `update`, each chassis's `Mechanical/*.FCStd` is opened headlessly
 whose **label ends with the exact part number** (`HW-...`) is exported:
 
 - `<pn>.step`: fresh STEP, overwriting the manually exported one,
-- `holes.json`: cylindrical-hole diameter histogram (mm).
+- `holes.json`: cylindrical-hole diameter histogram (mm),
+- `material.json`: the part's material from the model (`ShapeMaterial` card
+  name, e.g. `Aluminum-6061-T6`), when assigned; omitted when the body/group
+  has no material ("Default").
+
+The extracted material is recorded in the mech manifest entry and shown in the
+BOM Tool part cards (priority: `fab_spec.yaml` material, then the extracted
+material, then `info.txt` Material).
 
 Tap/countersink diameters in `fab_spec.yaml` are validated against the model's
 holes and mismatches are printed as warnings. Keep model labels exact,

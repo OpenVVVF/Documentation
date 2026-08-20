@@ -56,6 +56,15 @@ def hole_diameters(shape):
                 pass
     return diams
 
+def material_name(obj):
+    # FreeCAD 1.x: ShapeMaterial is a Material object whose Name is the
+    # material card name; "Default" means unassigned.
+    m = getattr(obj, "ShapeMaterial", None)
+    name = getattr(m, "Name", "") if m is not None else ""
+    if not name or name == "Default":
+        return ""
+    return name.replace("_", " ")
+
 parts = []
 seen = set()
 qty = {}
@@ -84,6 +93,15 @@ for obj in doc.Objects:
             holes[d] = holes.get(d, 0) + n
     with open(f"{out_dir}/holes.json", "w") as f:
         json.dump({str(k): v for k, v in sorted(holes.items())}, f)
+    mat = material_name(obj)
+    if not mat and obj.TypeId == "App::DocumentObjectGroup":
+        for o in members(obj):  # material set on a member body
+            mat = material_name(o)
+            if mat:
+                break
+    if mat:
+        with open(f"{out_dir}/material.json", "w") as f:
+            json.dump({"material": mat}, f)
     parts.append(pn)
 
 # McMaster hardware: labels like "91292A134_18-8 Stainless ... Screw001".
@@ -128,6 +146,8 @@ import bpy
 
 fab = Path(sys.argv[sys.argv.index("--") + 1])
 ANGLES = [("info.png", 45.0), ("info-back.png", 225.0)]
+RES_X, RES_Y = 800, 600
+MARGIN = 1.1  # 10% breathing room around the bounding sphere
 
 
 def render(stl: Path, out: Path, azimuth_deg: float) -> None:
@@ -135,21 +155,30 @@ def render(stl: Path, out: Path, azimuth_deg: float) -> None:
     bpy.ops.wm.stl_import(filepath=str(stl))
     obj = bpy.context.selected_objects[0]
 
-    # Center on origin, sit on Z=0.
+    # Center on origin.
     import mathutils
     bb = [obj.matrix_world @ mathutils.Vector(c) for c in obj.bound_box]
     lo = mathutils.Vector((min(v.x for v in bb), min(v.y for v in bb), min(v.z for v in bb)))
     hi = mathutils.Vector((max(v.x for v in bb), max(v.y for v in bb), max(v.z for v in bb)))
     center = (lo + hi) / 2
     obj.location -= center
-    size = max(hi.x - lo.x, hi.y - lo.y, hi.z - lo.z)
+
+    # Frame the bounding sphere, not the largest axis: wide/flat plates
+    # projected at an angle need the full diagonal to fit.
+    radius = (hi - lo).length / 2
 
     cam_data = bpy.data.cameras.new("cam")
     cam = bpy.data.objects.new("cam", cam_data)
     bpy.context.collection.objects.link(cam)
+    # cam_data.angle is the horizontal FOV for landscape frames; derive the
+    # vertical FOV (the limiting dimension) and fit the sphere into it.
+    hfov = cam_data.angle
+    vfov = 2 * math.atan(math.tan(hfov / 2) * RES_Y / RES_X)
+    dist = radius / math.tan(vfov / 2) * MARGIN
+    cam_data.clip_start = max(0.01, radius / 100)
+    cam_data.clip_end = dist * 10  # STLs are in mm; default 100 m clips big parts
     az = math.radians(azimuth_deg)
     el = math.radians(30)
-    dist = size * 2.2
     cam.location = (dist * math.cos(el) * math.cos(az),
                     dist * math.cos(el) * math.sin(az),
                     dist * math.sin(el))
@@ -165,8 +194,8 @@ def render(stl: Path, out: Path, azimuth_deg: float) -> None:
     scene.render.engine = "BLENDER_WORKBENCH"
     scene.display.shading.light = "STUDIO"
     scene.display.shading.color_type = "MATERIAL"
-    scene.render.resolution_x = 800
-    scene.render.resolution_y = 600
+    scene.render.resolution_x = RES_X
+    scene.render.resolution_y = RES_Y
     scene.render.film_transparent = False
     scene.world = bpy.data.worlds.new("world")
     scene.world.color = (1, 1, 1)

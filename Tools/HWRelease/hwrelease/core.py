@@ -357,6 +357,11 @@ def export_mech_parts(chassis_dir: Path, out_dir: Path) -> List[dict]:
         if holes_file.is_file():
             shutil.copy2(holes_file, dest / "holes.json")
             artifacts["holes"] = "holes.json"
+        mat_file = part_dir / "material.json"
+        if mat_file.is_file():
+            shutil.copy2(mat_file, dest / "material.json")
+            artifacts["material"] = json.loads(
+                mat_file.read_text()).get("material")
         parts.append({"part": part_dir.name, "artifacts": artifacts})
     return parts
 
