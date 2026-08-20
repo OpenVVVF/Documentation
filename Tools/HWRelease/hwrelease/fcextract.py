@@ -255,142 +255,74 @@ def extract_parts(chassis_dir: Path) -> List[str]:
     return []
 
 
-# Runs inside freecadcmd. Splits the document's top-level objects into
-# subassemblies and exports each as <name>.stl + <name>.step (each object's
-# global placement is honored by Mesh.export/Import.export):
-# - top-level App::DocumentObjectGroup: one subassembly per group label
-# - top-level PartDesign::Body not in a group: one subassembly per body label
-# - loose visible Part::Feature instances (e.g. McMaster hardware): one
-#   shared "Hardware" subassembly
-# The STL (fast) is written before the STEP (slow) per subassembly, so a
-# timeout still leaves every completed subassembly on disk.
+# Runs inside freecadcmd. Exports every visible solid in the document (each
+# object's global placement is honored by Import.export/Mesh.export) as one
+# whole-assembly STEP + STL. The STL (fast) is written first so a STEP timeout
+# still leaves the viewable model on disk.
 _ASM_SCRIPT = r"""
-import json
-import re
 import sys
 
 import FreeCAD as App
 import Import
 import Mesh
 
-fcstd, out_dir = sys.argv[2], sys.argv[3]
+fcstd, step_out, stl_out = sys.argv[2], sys.argv[3], sys.argv[4]
 doc = App.openDocument(fcstd)
-
-def members(obj):
-    if obj.TypeId == "App::DocumentObjectGroup":
-        out = []
-        for sub in obj.Group:
-            out.extend(members(sub))
-        return out
-    return [obj]
-
-def visible_solids(objs):
-    return [o for o in objs
-            if hasattr(o, "Shape") and not o.Shape.isNull()
-            and o.Shape.Solids
-            and getattr(o, "Visibility", True)]
-
-def sanitize(label, fallback):
-    name = re.sub(r"_+", "_", re.sub(r"[^A-Za-z0-9._-]", "_", label)).strip("_")
-    return name or fallback
-
-# Top-level objects: not referenced by any group (nested groups are reached
-# through their top-level parent via members()).
-children = set()
-for obj in doc.Objects:
-    if obj.TypeId == "App::DocumentObjectGroup":
-        for sub in obj.Group:
-            children.add(sub.Name)
-top = [o for o in doc.Objects if o.Name not in children]
-
-subs = []   # (name, shapes)
-hardware = []
-for obj in top:
-    if obj.TypeId == "App::DocumentObjectGroup":
-        shapes = visible_solids(members(obj))
-        if shapes:
-            subs.append((sanitize(obj.Label, obj.Name), shapes))
-    elif obj.TypeId == "PartDesign::Body":
-        shapes = visible_solids([obj])
-        if shapes:
-            subs.append((sanitize(obj.Label, obj.Name), shapes))
-    elif obj.TypeId == "Part::Feature":
-        if visible_solids([obj]):
-            hardware.append(obj)
-if hardware:
-    subs.append(("Hardware", hardware))
-
-__import__("os").makedirs(out_dir, exist_ok=True)
-exported = []
-used = set()
-for name, shapes in subs:
-    base = name
-    n = 2
-    while name in used:
-        name = f"{base}_{n}"
-        n += 1
-    used.add(name)
-    Mesh.export(shapes, f"{out_dir}/{name}.stl")
-    Import.export(shapes, f"{out_dir}/{name}.step")
-    exported.append(name)
-
+shapes = [o for o in doc.Objects
+          if hasattr(o, "Shape") and not o.Shape.isNull()
+          and o.Shape.Solids
+          and getattr(o, "Visibility", True)]
+if shapes:
+    Mesh.export(shapes, stl_out)
+    Import.export(shapes, step_out)
 doc and App.closeDocument(doc.Name)
-print("ASSEMBLY_JSON=" + json.dumps(exported))
+print("ASSEMBLY_OK" if shapes else "NO_SHAPES")
 """
 
 # Assembly STEP export can be very slow on large models; give it more room
-# than the per-part extraction. On timeout, completed subassemblies are kept.
+# than the per-part extraction. On timeout the already-written STL is kept.
 _ASM_TIMEOUT = 3600
 
 
-def _assembly_stls(asm_dir: Path) -> List[str]:
-    return sorted(p.stem for p in asm_dir.glob("*.stl"))
+def export_assembly(chassis_dir: Path) -> bool:
+    """Export the whole chassis model to Mechanical/assembly.step|stl.
 
-
-def export_assembly(chassis_dir: Path) -> List[str]:
-    """Export the chassis model as per-subassembly files in Mechanical/Assembly/.
-
-    Writes into the (temp) hardware tree. Returns the names of subassemblies
-    whose STL was produced (a subassembly missing its STEP, e.g. after a
-    timeout, still counts; the STL is what the viewer needs). Returns [] if
-    FreeCAD/FCStd is unavailable or nothing was exported.
+    Writes into the (temp) hardware tree. Returns True when the STL was
+    produced (the STEP is a bonus: a STEP timeout keeps the STL), False if
+    FreeCAD/FCStd is unavailable or no STL landed on disk.
     """
     fcstd = find_fcstd(chassis_dir)
     if fcstd is None:
-        return []
-    asm_dir = chassis_dir / "Mechanical" / "Assembly"
+        return False
+    mech_dir = chassis_dir / "Mechanical"
     with tempfile.NamedTemporaryFile(
             "w", suffix=".py", dir=chassis_dir, delete=False) as f:
         f.write(_ASM_SCRIPT)
         script = Path(f.name)
     try:
-        r = _freecad([str(script), str(fcstd), str(asm_dir)],
+        r = _freecad([str(script), str(fcstd),
+                      str(mech_dir / "assembly.step"),
+                      str(mech_dir / "assembly.stl")],
                      timeout=_ASM_TIMEOUT)
     except subprocess.TimeoutExpired:
-        done = _assembly_stls(asm_dir)
-        if done:
-            print(f"  warning: assembly export timed out; keeping "
-                  f"{len(done)} completed subassembly(ies)", file=sys.stderr)
-            return done
-        print("  warning: assembly export timed out before any subassembly "
+        if (mech_dir / "assembly.stl").is_file():
+            print("  warning: assembly STEP export timed out; "
+                  "keeping STL only", file=sys.stderr)
+            return True
+        print("  warning: assembly export timed out before the STL "
               "was written", file=sys.stderr)
-        return []
+        return False
     finally:
         script.unlink(missing_ok=True)
     if r is None:
         print("  freecad flatpak not found; skipping assembly export",
               file=sys.stderr)
-        return []
+        return False
     if r.returncode != 0:
         tail = (r.stderr or r.stdout).strip().splitlines()[-3:]
         print(f"  FreeCAD assembly export failed: {tail}", file=sys.stderr)
-        return []
-    for line in r.stdout.splitlines():
-        if line.startswith("ASSEMBLY_JSON="):
-            names = json.loads(line[len("ASSEMBLY_JSON="):])
-            return [n for n in names
-                    if (asm_dir / f"{n}.stl").is_file()]
-    return _assembly_stls(asm_dir)
+        return False
+    return (mech_dir / "assembly.stl").is_file()
 
 
 def merge_mcmaster(chassis_dir: Path) -> List[str]:

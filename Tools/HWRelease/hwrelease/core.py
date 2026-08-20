@@ -361,39 +361,26 @@ def export_mech_parts(chassis_dir: Path, out_dir: Path) -> List[dict]:
     return parts
 
 
+_ASSEMBLY_FILES = {"assembly.step": "assembly_step", "assembly.stl": "assembly_stl"}
+
+
 def _chassis_has_mech_content(chassis_dir: Path) -> bool:
     """True if a chassis has a FreeCAD model or a Mechanical/Fab dir."""
     mech = chassis_dir / "Mechanical"
     return mech.is_dir() and (any(mech.glob("*.FCStd")) or (mech / "Fab").is_dir())
 
 
-def _export_assembly_files(chassis_dir: Path, out_dir: Path) -> Dict[str, object]:
-    """Copy the per-subassembly Mechanical/Assembly/ tree into out_dir.
-
-    Records {"assembly": {"stl": [...], "step": [...]}} with release-relative
-    paths (only files that exist; a subassembly may lack its STEP). Also
-    removes stale monolithic assembly.step/assembly.stl from older exports.
-    """
-    for stale in ("assembly.step", "assembly.stl"):
-        old = out_dir / stale
-        if old.is_file():
-            old.unlink()
-    dest = out_dir / "Assembly"
-    if dest.exists():
-        shutil.rmtree(dest)
-    src = chassis_dir / "Mechanical" / "Assembly"
-    if not src.is_dir():
-        return {}
-    out_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(src, dest)
-    assembly: Dict[str, List[str]] = {}
-    stls = [f"Assembly/{p.name}" for p in sorted(dest.glob("*.stl"))]
-    steps = [f"Assembly/{p.name}" for p in sorted(dest.glob("*.step"))]
-    if stls:
-        assembly["stl"] = stls
-    if steps:
-        assembly["step"] = steps
-    return {"assembly": assembly} if assembly else {}
+def _export_assembly_files(chassis_dir: Path, out_dir: Path) -> Dict[str, str]:
+    """Copy Mechanical/assembly.{step,stl} (whole-model export) into out_dir."""
+    mech = chassis_dir / "Mechanical"
+    out: Dict[str, str] = {}
+    for name, key in _ASSEMBLY_FILES.items():
+        src = mech / name
+        if src.is_file():
+            out_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, out_dir / name)
+            out[key] = name
+    return out
 
 
 # -------------------------------------------------------------------- update
@@ -539,10 +526,8 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
             for chassis_dir in sorted((tmp_path / "Hardware").iterdir()):
                 if not chassis_dir.is_dir():
                     continue
-                subs = fcextract.export_assembly(chassis_dir)
-                if subs:
-                    print(f"  {chassis_dir.name} assembly model: "
-                          f"{len(subs)} subassembly(ies)")
+                if fcextract.export_assembly(chassis_dir):
+                    print(f"  {chassis_dir.name} assembly model: exported")
                 extracted = fcextract.extract_parts(chassis_dir)
                 if extracted:
                     print(f"  {chassis_dir.name} model extraction: "
