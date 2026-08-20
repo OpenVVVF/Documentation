@@ -6,7 +6,7 @@ whose label ends with a part number (HW-...), and exports per part:
 - <pn>.step   (STEP model, into Mechanical/Fab/<pn>/)
 - holes.json  (cylindrical-hole diameter histogram in mm, for spec checking)
 
-The extractor keys on labels only — no translation layer. Rename bodies/groups
+The extractor keys on labels only: no translation layer. Rename bodies/groups
 in the model so the label ends with the exact part number.
 """
 
@@ -68,7 +68,7 @@ for obj in doc.Objects:
     pn = re.sub(r"([A-Z]+)\d{3}$", r"\1", m.group(1))  # strip instance suffix
     key = "bodies" if obj.TypeId == "PartDesign::Body" else "groups"
     qty.setdefault(pn, {"bodies": 0, "groups": 0})[key] += 1
-    if pn in seen:  # instance duplicates (...001, ...002) — one part per PN
+    if pn in seen:  # instance duplicates (...001, ...002): one part per PN
         continue
     seen.add(pn)
     shapes = [o for o in members(obj) if hasattr(o, "Shape") and not o.Shape.isNull()]
@@ -117,7 +117,7 @@ def _freecad(args: List[str], timeout: int = 1800) -> Optional[subprocess.Comple
         return None
 
 
-# Runs inside headless Blender — renders each <pn>.stl under the fab dir from
+# Runs inside headless Blender. Renders each <pn>.stl under the fab dir from
 # two isometric angles: <pn>/info.png (front) and <pn>/info-back.png.
 _RENDER_SCRIPT = r"""
 import math

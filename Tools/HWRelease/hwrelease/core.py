@@ -361,6 +361,12 @@ def export_mech_parts(chassis_dir: Path, out_dir: Path) -> List[dict]:
     return parts
 
 
+def _chassis_has_mech_content(chassis_dir: Path) -> bool:
+    """True if a chassis has a FreeCAD model or a Mechanical/Fab dir."""
+    mech = chassis_dir / "Mechanical"
+    return mech.is_dir() and (any(mech.glob("*.FCStd")) or (mech / "Fab").is_dir())
+
+
 # -------------------------------------------------------------------- update
 
 def default_hw_repo() -> Path:
@@ -384,7 +390,7 @@ def export_board(board: Board, out_dir: Path, ibom_generator: Optional[Path],
     except the interactive assembly (ibom.html) and the render PNGs.
     """
     if out_dir.exists():
-        shutil.rmtree(out_dir)  # generated data — start clean
+        shutil.rmtree(out_dir)  # generated data; start clean
     out_dir.mkdir(parents=True, exist_ok=True)
     artifacts: Dict[str, str] = {}
     marks = []
@@ -469,7 +475,7 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
         if not force and only_tag is None and tag in known_tags:
             print(f"Tag {tag}: already in manifest, skipped.")
             continue
-        # Temp dir must live under $HOME — the KiCad flatpak sandbox cannot
+        # Temp dir must live under $HOME: the KiCad flatpak sandbox cannot
         # access /tmp. Repo root works and is cleaned up automatically.
         with tempfile.TemporaryDirectory(prefix=f".hwrelease-tmp-{tag}-",
                                          dir=REPO_ROOT) as tmp:
@@ -478,11 +484,13 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                 print(f"Tag {tag}: no Hardware/ tree, skipped.")
                 continue
             boards = find_boards(tmp_path / "Hardware")
-            if not boards:
-                print(f"Tag {tag}: no boards found, skipped.")
+            if not boards and not any(
+                    _chassis_has_mech_content(d)
+                    for d in (tmp_path / "Hardware").iterdir() if d.is_dir()):
+                print(f"Tag {tag}: no boards or mechanical content found, skipped.")
                 continue
             # BOMManager discovers board BOMs as <Board>.csv beside the KiCad
-            # project (same for wiring harnesses) — export them from the
+            # project (same for wiring harnesses); export them from the
             # schematics before generating.
             for board in boards:
                 if board.sch:
@@ -544,8 +552,12 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                     entry["source_url"] = f"{web_url}/tree/{tag}"
                 manifest[pn] = entry
                 new_count += 1
-            # Chassis-level vendor BOMs (one entry per chassis per revision).
+            # Chassis-level export (one entry per chassis per revision): any
+            # chassis with boards or mechanical content.
             chassis_dirs = {b.chassis for b in boards}
+            for d in (tmp_path / "Hardware").iterdir():
+                if d.is_dir() and _chassis_has_mech_content(d):
+                    chassis_dirs.add(d.name)
             for chassis in sorted(chassis_dirs):
                 short = chassis_short_code(products, chassis)
                 if not short:
@@ -558,13 +570,16 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                 out_dir = releases_dir / short / rev
                 artifacts = export_chassis_boms(tmp_path / "Hardware" / chassis,
                                                 out_dir)
-                if not artifacts:
-                    continue
-                if variant_totals:
-                    artifacts.setdefault("price_estimate", {})[
-                        "variants"] = variant_totals
+                had_boms = bool(artifacts)
                 mech_parts = export_mech_parts(tmp_path / "Hardware" / chassis,
                                                out_dir)
+                # Skip only when there is genuinely nothing: no vendor BOMs,
+                # no mech parts.
+                if not artifacts and not mech_parts:
+                    continue
+                if variant_totals and had_boms:
+                    artifacts.setdefault("price_estimate", {})[
+                        "variants"] = variant_totals
                 extracted = extracted_by_chassis.get(chassis, [])
                 if extracted:
                     for w in fcextract.check_part_qty(tmp_path / "Hardware" / chassis):
@@ -617,7 +632,7 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                 if web_url:
                     entry["source_url"] = f"{web_url}/tree/{tag}"
                 manifest[key] = entry
-                print(f"  {chassis} vendor BOMs rev {rev}: exported")
+                print(f"  {chassis} chassis export rev {rev}: exported")
                 new_count += 1
         save_manifest(manifest, manifest_path)
 
@@ -646,7 +661,7 @@ def show(pn: str, manifest_path: Path = MANIFEST_PATH) -> int:
 def list_boards(manifest_path: Path = MANIFEST_PATH) -> int:
     manifest = load_manifest(manifest_path)
     if not manifest:
-        print("Manifest is empty — run: hwrelease update")
+        print("Manifest is empty - run: hwrelease update")
         return 0
     by_rev: Dict[str, List[dict]] = {}
     for key, entry in manifest.items():

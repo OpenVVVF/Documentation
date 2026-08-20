@@ -502,7 +502,12 @@ const ORDER_LINKS = {{
 let state = {{chassis: null, rev: null, variant: "base", vendor: null}};
 
 function releases() {{
-  return Object.values(MANIFEST).filter(e => !e.board && e.artifacts && e.artifacts.vendor_boms);
+  // Chassis releases with vendor BOMs, plus boardless chassis whose content
+  // is only mech parts (the parts live on separate mech manifest entries).
+  const mechRevs = new Set(Object.values(MANIFEST).filter(e => e.mech)
+    .map(e => e.chassis + "|" + e.rev));
+  return Object.values(MANIFEST).filter(e => !e.board && !e.mech && e.artifacts &&
+    (e.artifacts.vendor_boms || mechRevs.has(e.chassis + "|" + e.rev)));
 }}
 
 function fill(sel, values, current) {{
@@ -522,7 +527,7 @@ function current() {{
 function init() {{
   const rel = releases();
   if (!rel.length) {{
-    document.getElementById("meta").textContent = "No chassis BOM exports yet — run: hwrelease update";
+    document.getElementById("meta").textContent = "No chassis BOM exports yet - run: hwrelease update";
     return;
   }}
   state.chassis = state.chassis || rel[0].chassis;
@@ -658,7 +663,7 @@ async function loadPreview() {{
   const div = document.getElementById("preview");
   if (!state.vendor) return;
   if (state.vendor === "sendcutsend" || state.vendor === "printed") {{
-    // Spec cards carry everything for fabricated/printed parts — skip the
+    // Spec cards carry everything for fabricated/printed parts; skip the
     // CSV table (it stays available via Download CSV).
     div.innerHTML = mechCards(state.vendor === "printed" ? "3d_print" : "laser_cut") ||
       '<p class="empty">No part exports for this revision.</p>';
@@ -754,7 +759,7 @@ function mechCards(proc) {{
       else if (Array.isArray(val))
         for (const item of val)
           svc.push(name + ": " + (typeof item === "string" ? item :
-            (item.thread || item.for || "") + " — " + (item.holes || "")));
+            (item.thread || item.for || "") + " - " + (item.holes || "")));
     }}
     if (svc.length) html += "<ul>" + svc.map(s => "<li>" + s + "</li>").join("") + "</ul>";
     const notes = spec.notes || [];
@@ -787,7 +792,7 @@ def build_viewer(manifest_path: Optional[Path] = None,
     out_path = out_path or core.REPO_ROOT / VIEWER_REL
     manifest = core.load_manifest(manifest_path)
     if not manifest:
-        print("Manifest is empty — run: hwrelease update")
+        print("Manifest is empty - run: hwrelease update")
         return 1
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(render_viewer_html(manifest))
