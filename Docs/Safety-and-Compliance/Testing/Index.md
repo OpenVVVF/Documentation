@@ -40,6 +40,8 @@ These reports validate the calibration routines on the C2 test fixture. The same
 | Test ID | Name | Scope | Status | Trace | Plan |
 |---------|------|-------|--------|-------|------|
 | - | Fault-Injection Test Plan | component / system / integration / environmental fault injection (control module + power stage) | planned | HARA safety goals, FSRs, hazards | [Plan](Fault-Injection-Test-Plan/Index.md) |
+| - | Vibration Test Plan | mechanical/environmental random vibration (control module + C2 power stage assembly) | planned | HARA failure modes relying on connectors/harness; fault-injection E-01 | [Plan](Vibration-Test-Plan/Index.md) |
+| - | Thermal Test Plan (DIY Chamber) | hardware thermal characterization + firmware thermal behavior (FSR-08 derate/SSO), C2 power stage | planned | OV-C2-DD-THERMAL, OV-C2-DD-DCLINK-THERMAL, FSR-08 | [Plan](Thermal-Test-Plan/Index.md) |
 
 The fault-injection plan spans all test domains, so it is filed directly under Testing. Execution campaigns produce dated test reports filed as siblings of the plan, referencing it by test ID.
 
