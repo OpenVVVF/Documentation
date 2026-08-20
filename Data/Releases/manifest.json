@@ -20,8 +20,8 @@
         },
         "variants": {
           "base": "2,397.36",
-          "generous": "2,764.72",
-          "standard": "2,445.28"
+          "generous": "0.00",
+          "standard": "0.00"
         },
         "vendors": {
           "In-House Assembly": "0.00",
@@ -64,10 +64,10 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A",
-    "generated": "2026-08-17T19:51:52+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "CHASSIS-C3-C3-WIP": {
     "artifacts": {
@@ -101,7 +101,7 @@
     },
     "chassis": "C3",
     "dir": "Data/Releases/C3/C3-WIP",
-    "generated": "2026-08-20T08:22:43+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "rev": "C3-WIP",
     "source_tag": "C3-WIP",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
@@ -142,17 +142,18 @@
         "Thickness_mm": "9.52",
         "UnitPrice": "207.54"
       },
+      "material": "Copper-Generic",
       "step": "HW-C2-BSP-A.step",
       "stl": "HW-C2-BSP-A.stl"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-BSP-A",
-    "generated": "2026-08-17T19:51:52+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C2-BSP-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-CHSP-A": {
     "artifacts": {
@@ -186,17 +187,18 @@
         "Thickness_mm": "3.17",
         "UnitPrice": "42.64"
       },
+      "material": "Aluminum-6061-T6",
       "step": "HW-C2-CHSP-A.step",
       "stl": "HW-C2-CHSP-A.stl"
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-CHSP-A",
-    "generated": "2026-08-17T19:51:52+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C2-CHSP-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-DCLBB-A": {
     "artifacts": {
@@ -230,12 +232,12 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLBB-A",
-    "generated": "2026-08-17T19:51:52+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLBB-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-DCLMH-200-PRINTED-A": {
     "artifacts": {
@@ -266,12 +268,12 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLMH-200-PRINTED-A",
-    "generated": "2026-08-17T19:51:52+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLMH-200-PRINTED-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-DCLSPCR-PRINTED-A": {
     "artifacts": {
@@ -302,12 +304,12 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-DCLSPCR-PRINTED-A",
-    "generated": "2026-08-17T19:51:52+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C2-DCLSPCR-PRINTED-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-PBB-A": {
     "artifacts": {
@@ -341,12 +343,12 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-PBB-A",
-    "generated": "2026-08-17T19:51:52+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C2-PBB-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-PCB-CTRL-A": {
     "artifacts": {
@@ -372,11 +374,11 @@
     "board": "ControlBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/ControlBoard",
-    "generated": "2026-08-17T19:50:38+00:00",
+    "generated": "2026-08-20T08:54:37+00:00",
     "part_number": "HW-C2-PCB-CTRL-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-PCB-DCBUSCAP-A": {
     "artifacts": {
@@ -407,11 +409,11 @@
     "board": "DCBusCapacitorBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusCapacitorBoard",
-    "generated": "2026-08-17T19:50:55+00:00",
+    "generated": "2026-08-20T08:54:54+00:00",
     "part_number": "HW-C2-PCB-DCBUSCAP-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-PCB-DCFLT-A": {
     "artifacts": {
@@ -439,11 +441,11 @@
     "board": "DCBusFilter",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/DCBusFilter",
-    "generated": "2026-08-17T19:51:15+00:00",
+    "generated": "2026-08-20T08:55:15+00:00",
     "part_number": "HW-C2-PCB-DCFLT-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-PCB-GD-A": {
     "artifacts": {
@@ -470,11 +472,11 @@
     "board": "GateDriver",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/GateDriver",
-    "generated": "2026-08-17T19:51:34+00:00",
+    "generated": "2026-08-20T08:55:35+00:00",
     "part_number": "HW-C2-PCB-GD-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-PCB-IO-A": {
     "artifacts": {
@@ -501,11 +503,11 @@
     "board": "IOBoard",
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/IOBoard",
-    "generated": "2026-08-17T19:51:52+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "part_number": "HW-C2-PCB-IO-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C2-SHELL-PRINTED-A": {
     "artifacts": {
@@ -536,23 +538,24 @@
     },
     "chassis": "C2",
     "dir": "Data/Releases/C2/A/Mech/HW-C2-SHELL-PRINTED-A",
-    "generated": "2026-08-17T19:51:52+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C2-SHELL-PRINTED-A",
     "rev": "A",
-    "source_tag": "C2-A",
-    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-A"
+    "source_tag": "C3-WIP",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
   "HW-C3-DCLBB-CNPL-A": {
     "artifacts": {
       "holes": "holes.json",
       "image": "info-back.png",
+      "material": "Aluminum-6061-T6",
       "step": "HW-C3-DCLBB-CNPL-A.step",
       "stl": "HW-C3-DCLBB-CNPL-A.stl"
     },
     "chassis": "C3",
     "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-DCLBB-CNPL-A",
-    "generated": "2026-08-20T08:22:43+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C3-DCLBB-CNPL-A",
     "rev": "C3-WIP",
@@ -568,7 +571,7 @@
     },
     "chassis": "C3",
     "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-DCLBB-N-A",
-    "generated": "2026-08-20T08:22:43+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C3-DCLBB-N-A",
     "rev": "C3-WIP",
@@ -584,7 +587,7 @@
     },
     "chassis": "C3",
     "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-DCLBB-P-A",
-    "generated": "2026-08-20T08:22:43+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C3-DCLBB-P-A",
     "rev": "C3-WIP",
@@ -600,7 +603,7 @@
     },
     "chassis": "C3",
     "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-DCLBB-SP-A",
-    "generated": "2026-08-20T08:22:43+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C3-DCLBB-SP-A",
     "rev": "C3-WIP",
@@ -616,7 +619,7 @@
     },
     "chassis": "C3",
     "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-FR-BSP-A",
-    "generated": "2026-08-20T08:22:43+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C3-FR-BSP-A",
     "rev": "C3-WIP",
@@ -632,7 +635,7 @@
     },
     "chassis": "C3",
     "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-FR-IGCSMP-A",
-    "generated": "2026-08-20T08:22:43+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C3-FR-IGCSMP-A",
     "rev": "C3-WIP",
@@ -648,7 +651,7 @@
     },
     "chassis": "C3",
     "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-FR-TPENCL-A",
-    "generated": "2026-08-20T08:22:43+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C3-FR-TPENCL-A",
     "rev": "C3-WIP",
@@ -664,7 +667,7 @@
     },
     "chassis": "C3",
     "dir": "Data/Releases/C3/C3-WIP/Mech/HW-C3-PHBB-PA-A",
-    "generated": "2026-08-20T08:22:43+00:00",
+    "generated": "2026-08-20T08:55:52+00:00",
     "mech": true,
     "part_number": "HW-C3-PHBB-PA-A",
     "rev": "C3-WIP",
