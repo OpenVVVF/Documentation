@@ -6,15 +6,20 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "1.3"
-date: "2026-08-07"
+version: "1.4"
+date: "2026-08-20"
 description: ISO/SAE 21434 cybersecurity threat analysis for the open-source OpenVVVF traction inverter / VCU.
 nav_order: 320
+placeholder: true
 normative_refs:
   - OV-SAF-HARA-CORE
   - OV-SAF-HARA-PROF-MOTO
   - OV-C2-IG-INDEX
 ---
+
+> **WORK IN PROGRESS - DO NOT RELY ON THIS DOCUMENT.**
+>
+> This TARA is outdated and is flagged as a placeholder pending a full rewrite. Known gaps: the attack surface model does not cover the RTE Studio / Ethernet tuning and calibration path; there are no threat scenarios for calibration assets; the dual-MCU architecture (safety coprocessor, inter-MCU UART, FRAM) is not modeled; the impact and feasibility scales, the risk matrix, cybersecurity goals, and CAL assignments are not defined; and the T-04/T-05 ratings are internally inconsistent. A rewrite addressing these gaps is planned. Treat the content below as historical context only.
 
 > **MCUs:** STM32H723ZG + STM32G474RCTx  
 > **Operating Temp:** −40 °C to +85 °C
@@ -378,3 +383,4 @@ This TARA is a companion document to the HARA. Safety-relevant cybersecurity thr
 | 1.1 | July 8, 2026 | User-sovereignty security model; 7 threat scenarios (T-01 through T-07); 7 Cybersecurity Requirements; 8 cybersecurity test cases. |
 | 1.2 | July 13, 2026 | Editorial consistency pass: restored missing v1.1 revision-history entry; cross-reference and formatting fixes; CT-08 objective aligned to CSR-01 (HMAC key rotation); CT-09 added for CSR-05 CAN DoS / heartbeat timeout. |
 | 1.3 | August 7, 2026 | Migrated to Documentation repo as `OV-SAF-TARA-INDEX`. Added frontmatter and `doc_id` cross-references to `OV-SAF-HARA-CORE`, `OV-SAF-HARA-PROF-MOTO`, and `OV-C2-IG-INDEX`. |
+| 1.4 | August 20, 2026 | Flagged as work in progress (`placeholder: true`). Document is outdated: attack surface model missing the RTE Studio / Ethernet tuning and calibration path, no threat scenarios for calibration assets, dual-MCU architecture (coprocessor, inter-MCU UART, FRAM) not modeled, impact/feasibility scales, risk matrix, cybersecurity goals, and CAL not defined, T-04/T-05 ratings inconsistent. Rewrite planned. |

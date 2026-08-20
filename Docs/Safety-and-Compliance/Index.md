@@ -17,6 +17,6 @@ nav_order: 300
 Cross-cutting safety and compliance documentation. HARA Core applies to the control module and every power stage built from it. Application profiles provide example risk assessments for specific vehicle classes. Testing and Validation provides the evidence that mitigations and requirements were exercised.
 
 - **HARA** - Hazard Analysis and Risk Assessment
-- **TARA** - Threat Analysis and Risk Assessment (ISO/SAE 21434 cybersecurity)
+- **TARA** - Threat Analysis and Risk Assessment (ISO/SAE 21434 cybersecurity) - currently flagged work in progress; a rewrite is planned
 - **Compliance** - Standards mapping (ISO 26262, IEC 61800-5-2)
 - **Testing and Validation** - Formal test reports and validation evidence

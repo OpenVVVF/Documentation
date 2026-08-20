@@ -6,15 +6,15 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "1.0"
-date: "2026-08-13"
+version: "1.1"
+date: "2026-08-20"
 description: Safety-mechanism validation by fault injection across component, system, and integration levels; exercises the control module and the C2 power stage as one test article. Extracted from the HARA Core document.
 nav_order: 371
 normative_refs:
   - OV-SAF-HARA-CORE
 ---
 
-This document is the fault-injection test plan for the OpenVVVF control module. It was extracted verbatim from the HARA Core document ([OV-SAF-HARA-CORE](../../HARA/Core/Index.md)) at its version 5.7, where it was Section 10. References of the form "Section 10.x" below are internal to this document; references to other section numbers (e.g., Section 2.3) refer to OV-SAF-HARA-CORE.
+This document is the fault-injection test plan for the OpenVVVF control module. It was extracted from the HARA Core document ([OV-SAF-HARA-CORE](../../HARA/Core/Index.md)) at its version 5.7, where it was Section 10; internal cross-references have been adapted to this document's headings. References to other section numbers (e.g., Section 2.3) refer to OV-SAF-HARA-CORE.
 
 This plan is filed directly under `Testing/` rather than under a domain folder because its categories span all of them: the mechanisms under test are firmware safety functions, but the stimulus is physical fault injection into control-module and power-stage hardware (C-series), the closed-loop system (S-series), and external interfaces (I-series). Test execution records and evidence are maintained separately per the evidence framework defined herein: each execution campaign produces a dated `Test Report` document filed as a sibling of this plan, referencing it by doc_id and test ID. Evidence reports are immutable once released; this plan's status tables are the living roll-up.
 
@@ -22,22 +22,22 @@ This plan is filed directly under `Testing/` rather than under a domain folder b
 
 ## Test Philosophy
 
-The purpose of this Fault Injection Test Plan is to provide a comprehensive, traceable methodology for verifying that the safety mechanisms implemented in the control module detect faults and transition to the defined safe state (immediate SSO, Section 2.3) within the required time budgets. The test plan defines **92 tests** organized into four categories:
+The purpose of this Fault Injection Test Plan is to provide a comprehensive, traceable methodology for verifying that the safety mechanisms implemented in the control module detect faults and transition to the defined safe state (immediate SSO, Section 2.3) within the required time budgets. The test plan defines **80 tests** organized into three categories, plus 12 deferred environmental test stubs in a fourth:
 
-- **Component-Level Tests (C-01 to C-50):** Individual hardware component validation - inject faults into a single sensor, input, or protection circuit and verify detection and safe state entry.
+- **Component-Level Tests (43 tests, numbered C-01 to C-50 with gaps):** Individual hardware component validation - inject faults into a single sensor, input, or protection circuit and verify detection and safe state entry.
 - **System-Level Tests (S-01 to S-19):** Full-system fault scenarios with the complete hardware and software running closed-loop control.
 - **Integration-Level Tests (I-01 to I-18):** External interface and communication fault scenarios (DC source management node, IO board, CAN bus).
-- **Environmental Tests (E-01 to E-12):** Environmental and stress type tests. **The entire E-series is deferred** - the project does not currently have access to an environmental chamber, vibration table, EMC chamber, ESD gun, or water spray rig. The E-series is retained as a stub reference plan (Section 10.7) for a future type-test campaign and shall not be cited as covering any Safety Goal, FSR, or hazard in the current campaign.
+- **Environmental Tests (E-01 to E-12):** Environmental and stress type tests. **The entire E-series is deferred** - the project does not currently have access to an environmental chamber, vibration table, EMC chamber, ESD gun, or water spray rig. The E-series is retained as a stub reference plan (Environmental and Stress Tests (E-Series) - DEFERRED) for a future type-test campaign and shall not be cited as covering any Safety Goal, FSR, or hazard in the current campaign.
 
 Each test case is designed with the following principles:
 
-1. **Every Safety Goal (SG-01 through SG-15) is covered by at least one test case** that is executable with available equipment.
+1. **Every Safety Goal (SG-01 through SG-15; SG-11 removed in HARA v5.4) is covered by at least one test case** that is executable with available equipment.
 2. **Every Functional Safety Requirement (FSR-01 through FSR-22) is covered by at least one executable test case** (FSR-22 coverage is planned as generated-code fault cases per GAP-SW-04 and is not yet elaborated).
-3. **Every identified hazard (H-01 through H-17, including H-03a) is covered by at least one executable test case** at the drive-boundary level; vehicle-level validation limits are documented in Section 10.10.
+3. **Every identified hazard (H-01 through H-17, including H-03a; H-11 removed in HARA v5.4) is covered by at least one executable test case** at the drive-boundary level; vehicle-level validation limits are documented in Known Test Limitations.
 4. **Response time requirements shall be verified** where measurable (e.g., <10 us HW PWM disable, ≤50 ms WDT timeout, ≤200 ms detection-to-SSO).
 5. **Fault injection shall be realistic** - faults represent credible failure modes observed in traction power electronics systems.
 6. **Tests shall be independently executable** where possible to allow incremental validation as software matures.
-7. **Only tests that can actually be executed with available equipment are scheduled in the current campaign.** Each test carries an explicit executability status (Section 10.3).
+7. **Only tests that can actually be executed with available equipment are scheduled in the current campaign.** Each test carries an explicit executability status (Test Status Summary).
 
 ### Test Status Vocabulary
 
@@ -49,7 +49,7 @@ The following vocabulary shall be used consistently for every test and requireme
 | **Executable** | All required equipment and facilities are available; the test can be run in the current campaign. |
 | **Conditional** | Executable subject to a stated minor prerequisite (e.g., a small LV bench supply). |
 | **Deferred** | Cannot be executed with available equipment or facilities; scheduled for a future campaign or external lab. |
-| **Executed** | Test has been run; raw evidence (telemetry, video, scope captures) recorded per Section 10.2.3. |
+| **Executed** | Test has been run; raw evidence (telemetry, video, scope captures) recorded per Test Records and Evidence. |
 | **Verified** | Executed, passed, and reviewed; evidence reference entered in the traceability matrices. |
 
 ### Statement on Execution Records
@@ -73,18 +73,18 @@ The following equipment is **available** for the current campaign. Tests requiri
 | **Oscilloscope** | 4-channel, with HV differential probes and current probes | Timing verification of PWM disable, DESAT response, gate signals, deadtime |
 | **CAN interface** | USB-CAN adapter (PCAN or equivalent) | CAN traffic monitoring, CAN node simulation (source management, IO board, charger, ABS, display), fuzzing |
 | **Debug probe** | ST-Link / J-Link with halt and memory access | CPU-halt fault injection (C-13), ECC/flash corruption (C-18–C-20, C-39) |
-| **Throttle simulation** | Two programmable DC supplies feeding the throttle wiper inputs | C-01–C-04, S-01 (method note, Section 10.4) |
+| **Throttle simulation** | Two programmable DC supplies feeding the throttle wiper inputs | C-01–C-04, S-01 (method note, Component-Level Tests) |
 | **Thermal camera** | Infrared camera | Full-load thermal survey (S-06), hotspot identification, post-short inspection |
 | **Heat gun** | Localized heating of NTC sensors | C-08, C-35 (simulated over-temperature) |
 | **RTE (Real Time Examiner)** | Host tool connected via CAN or debug interface | Internal variable monitoring, tractive effort commands, fault status |
-| **Video recording** | Camera(s) covering DUT, scope screen, and test area | Evidence capture for every test (Section 10.2.3) |
+| **Video recording** | Camera(s) covering DUT, scope screen, and test area | Evidence capture for every test (Test Records and Evidence) |
 
 ### Equipment Not Available (Drives Deferred Status)
 
 | Item | Consequence |
 | --- | --- |
 | Insulation tester (megohmmeter) / HiPot tester | C-50 uses the alternative applied-voltage leakage method (see C-50 procedure). |
-| Short-circuit contactor | C-31–C-34 use the energize-into-fault method: the short is bolted on de-energized, then the DC link is energized via the programmable supply at stepped voltage (see C-31 procedure). Mid-operation short injection is not performed; limitation documented in Section 10.10 (LIMIT-10). |
+| Short-circuit contactor | C-31–C-34 use the energize-into-fault method: the short is bolted on de-energized, then the DC link is energized via the programmable supply at stepped voltage (see C-31 procedure). Mid-operation short injection is not performed; limitation documented in Known Test Limitations (LIMIT-10). |
 | Small programmable LV bench supply (for 3.3 V / 12 V / 5 V rail wiggling) | C-21, C-22, C-24, C-25 are **Conditional** on availability of such a supply (the throttle-simulation supplies may serve if rated appropriately). |
 | Thermal chamber, humidity chamber, vibration table, EMC chamber, ESD gun, water spray rig | E-01 through E-12 **Deferred** (type tests). |
 | Shaft voltage / bearing-current brush rig | C-36 **Deferred** pending construction of the measurement fixture. |
@@ -97,7 +97,7 @@ Every executed test shall produce the following evidence artifacts:
 2. **Video recording** - continuous video covering the DUT, the oscilloscope screen, and the test area, narrated with the procedure step being performed.
 3. **Scope captures** - saved waveforms for every timing-critical measurement (PWM disable, DESAT response, deadtime, etc.).
 
-Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15_run2_2026-08-14_60V.mp4`, with the telemetry log and scope captures sharing the same base name. Evidence references shall be entered into the per-test **Evidence** field and the traceability matrices (Section 10.8) upon execution. Evidence shall be published alongside this document in the project repository.
+Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15_run2_2026-08-14_60V.mp4`, with the telemetry log and scope captures sharing the same base name. Evidence references shall be entered into the per-test **Evidence** field and the traceability matrices (Safety Goal Traceability) upon execution. Evidence shall be published alongside this document in the project repository.
 
 ## Test Status Summary
 
@@ -119,7 +119,7 @@ Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15
 | Integration tests | I-01–I-18 | **Executable** (CAN simulation) |
 | Environmental tests | E-01–E-12 | **Deferred** - type tests; no environmental equipment available |
 
-Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 - pending LV bench supply), 1 Deferred-equipment (C-36), 12 Deferred-type-test (E-series).** Total 101 line items including the E-series stubs; 92 tests in the current plan.
+Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 - pending LV bench supply), 1 Deferred-equipment (C-36), 12 Deferred-type-test (E-series stubs).** Total 92 line items including the E-series stubs; 80 tests defined in the current plan (43 C-series + 19 S-series + 18 I-series).
 
 ## Component-Level Tests
 
@@ -136,7 +136,7 @@ Counts: **84 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Procedure:**
 
-1. Connect throttle simulation supplies (Section 10.2.1) with both channels functional. System at key-on, traction motor not running.
+1. Connect throttle simulation supplies (method note, Component-Level Tests) with both channels functional. System at key-on, traction motor not running.
 2. Apply 50% tractive effort request via both channels (matched within 2%).
 3. While maintaining input, open-circuit channel 1 (disconnect at PCB).
 4. Observe system response via RTE and oscilloscope on PWM outputs.
@@ -873,7 +873,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 **Covered:** SG-01 (ASIL D), H-01, FSR-01, FSR-03, FSR-18
 **Status:** Executable - Defined | **Evidence:** -
 
-**Setup:** Traction motor on dyno. DC link at nominal voltage. Throttle simulated by dual DC supplies (Section 10.2.1), except step 5 which uses the real assembly.
+**Setup:** Traction motor on dyno. DC link at nominal voltage. Throttle simulated by dual DC supplies (method note, Component-Level Tests), except step 5 which uses the real assembly.
 
 **Procedure:**
 
@@ -1597,7 +1597,7 @@ Integration tests validate the interaction between the control module and extern
 
 ## Environmental and Stress Tests (E-Series) - DEFERRED
 
-> **Status: all E-series tests are Deferred - type tests.** The project does not currently have access to a thermal chamber, humidity chamber, vibration table, EMC chamber, ESD gun, or water spray rig. The E-series is retained in summary form as the reference plan for a future type-test campaign (external lab or acquired equipment). **E-series tests shall not be cited as coverage for any Safety Goal, FSR, or hazard in the current campaign**; where earlier revisions of this document cited them in the traceability matrices, those citations are removed in v5.0 and the corresponding residual risk is carried in Section 10.10 (LIMIT-02, LIMIT-09).
+> **Status: all E-series tests are Deferred - type tests.** The project does not currently have access to a thermal chamber, humidity chamber, vibration table, EMC chamber, ESD gun, or water spray rig. The E-series is retained in summary form as the reference plan for a future type-test campaign (external lab or acquired equipment). **E-series tests shall not be cited as coverage for any Safety Goal, FSR, or hazard in the current campaign**; where earlier revisions of this document cited them in the traceability matrices, those citations are removed in v5.0 and the corresponding residual risk is carried in Known Test Limitations (LIMIT-02, LIMIT-09).
 
 **Table 13 - Environmental Test Stubs (Reference Plan)**
 
@@ -1618,7 +1618,7 @@ Integration tests validate the interaction between the control module and extern
 
 ## Safety Goal Traceability
 
-The following matrices map safety goals, FSRs, and hazards to test cases. Only **executable or conditional** tests are cited as coverage in the current campaign; deferred tests (E-series, C-36) are excluded from coverage claims. Upon execution, the evidence reference (Section 10.2.3) shall be entered against each test.
+The following matrices map safety goals, FSRs, and hazards to test cases. Only **executable or conditional** tests are cited as coverage in the current campaign; deferred tests (E-series, C-36) are excluded from coverage claims. Upon execution, the evidence reference (Test Records and Evidence) shall be entered against each test.
 
 **Table 14 - Safety Goal to Test Case Traceability**
 
@@ -1714,7 +1714,7 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 
 | Assessment | Definition |
 | --- | --- |
-| **ALL TESTS PASSED** | Every executed test achieves PASS on all criteria. All safety goals and FSRs have at least one passing executable test. The system is considered validated for its achievable integrity level under the applicable profile assessment (ASIL D for SG-01, SG-13; ASIL B for SG-02, SG-07; ASIL C for SG-03, SG-05, SG-06, SG-12, SG-14, SG-15) - subject to the documented limitations (Section 10.10). |
+| **ALL TESTS PASSED** | Every executed test achieves PASS on all criteria. All safety goals and FSRs have at least one passing executable test. The system is considered validated for its achievable integrity level under the applicable profile assessment (ASIL D for SG-01, SG-13; ASIL B for SG-02, SG-07, SG-10; ASIL C for SG-03, SG-05, SG-06, SG-08, SG-12, SG-14, SG-15; ASIL A for SG-04, SG-09) - subject to the documented limitations (Known Test Limitations). |
 | **PASSED WITH EXCEPTIONS** | All critical tests (P0-gap coverage) pass. Minor tests may fail with documented workarounds not affecting achievable-ASIL claims. Mitigation plans documented per exception. |
 | **FAILED - NOT ROADWORTHY** | Any P0-gap test fails (throttle monitoring, safe state entry, watchdog response). The system shall not be operated on public roads until resolved. |
 | **INCONCLUSIVE** | Tests could not be executed (equipment/environment). Results insufficient for validation. Additional testing required before operation. Note: under the v5.0 status discipline, a campaign containing Deferred tests is assessed against executable tests only, and the deferred scope is carried as documented residual risk - this is distinct from INCONCLUSIVE. |
@@ -1731,7 +1731,7 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 
 > **LIMIT-02: Environmental Stress (Temperature, Vibration, EMI)**
 >
-> **Limitation:** Component and system tests are conducted at ambient on the bench. The E-series (thermal, vibration, humidity, EMC, ESD, ingress) is deferred - no environmental equipment is available (Section 10.2.2).
+> **Limitation:** Component and system tests are conducted at ambient on the bench. The E-series (thermal, vibration, humidity, EMC, ESD, ingress) is deferred - no environmental equipment is available (Equipment Not Available (Drives Deferred Status)).
 >
 > **Mitigation:** (1) Gate drivers automotive-qualified (AEC-Q100) for temperature. (2) S-07 bench thermal-cycling variant provides partial screening. (3) EMC and environmental type testing required before production; documented as open residual risk for field use.
 
@@ -1759,7 +1759,7 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 >
 > **Limitation:** NCV57100 qualified to AEC-Q100, not ASIL. Tests C-15 through C-17 validate protections function but provide no ASIL credit.
 >
-> **Mitigation:** (1) No ASIL credit claimed (Table 9). (2) Coprocessor FLT/READY/PWM monitoring closes the single-point FLT gap. (3) OR'd FLT monitored by both MCUs.
+> **Mitigation:** (1) No ASIL credit claimed (OV-SAF-HARA-CORE, Table 9). (2) Coprocessor FLT/READY/PWM monitoring closes the single-point FLT gap. (3) OR'd FLT monitored by both MCUs.
 
 > **LIMIT-07: Software Test Library - Class B vs. Class D**
 >
