@@ -1,4 +1,4 @@
-# HWRelease - hardware release exporter
+# HWRelease — hardware release exporter
 
 Turns release tags in the hardware repository (`../InverterGen5`) into
 versioned, per-board artifacts under `Data/Releases/`, indexed by part number
@@ -17,8 +17,8 @@ versioned, per-board artifacts under `Data/Releases/`, indexed by part number
 
    The tool fetches tags, exports each tag's `Hardware/` tree to a temp dir
    (the hardware repo's working tree is never touched), reads each board's
-   revision from its KiCad files, and regenerates, via `kicad-cli` (KiCad
-   flatpak), the schematic PDF, BOM CSV, gerber+drill zip, DRC report, STEP
+   revision from its KiCad files, and regenerates — via `kicad-cli` (KiCad
+   flatpak) — the schematic PDF, BOM CSV, gerber+drill zip, DRC report, STEP
    model, and the interactive assembly HTML (iBOM). Only board revisions not
    yet in the manifest are generated; existing ones are kept as-is.
 
@@ -28,11 +28,11 @@ versioned, per-board artifacts under `Data/Releases/`, indexed by part number
 ## Commands
 
 - `hwrelease update [--tag T] [--tag-pattern GLOB] [--force] [--hw-repo PATH]`
-  - export missing board revisions. Defaults: all tags, repo from
+  — export missing board revisions. Defaults: all tags, repo from
   `Config/Products.yaml` (`hardware_roots`).
-- `hwrelease list` - all exported boards grouped by revision.
-- `hwrelease show HW-C2-PCB-CTRL-A` - artifact paths for one part number.
-- `hwrelease build-viewer` - regenerate `Docs/Tools/PCB-Tool/pcb-tool.html` and
+- `hwrelease list` — all exported boards grouped by revision.
+- `hwrelease show HW-C2-PCB-CTRL-A` — artifact paths for one part number.
+- `hwrelease build-viewer` — regenerate `Docs/Tools/PCB-Tool/pcb-tool.html` and
   `Docs/Tools/BOM-Tool/bom-tool.html` from the manifest (runs automatically
   after `update` when new revisions were exported). docgen copies
   `Data/Releases/` into the built site.
@@ -41,7 +41,7 @@ versioned, per-board artifacts under `Data/Releases/`, indexed by part number
 
 `update` regenerates the chassis-level vendor BOMs (Mouser, McMaster-Carr,
 SendCutSend, DigiKey, assembly, PCB) with this repo's BOMManager `generate`
-against the exported tag. Board and harness BOM CSVs are first exported from
+against the exported tag — board and harness BOM CSVs are first exported from
 the KiCad schematics so nothing is missed. Prices come from the local price
 cache / vendor APIs per your BOMManager config; variant totals (base /
 standard / generous) are recorded in the manifest. If BOMManager or its deps
@@ -68,7 +68,7 @@ table shows the per-board notes in a Notes column.
 ## Requirements
 
 - KiCad via flatpak (`org.kicad.KiCad`) or `kicad-cli` on PATH.
-- FreeCAD via flatpak (`org.freecad.FreeCAD`), used for mechanical-part
+- FreeCAD via flatpak (`org.freecad.FreeCAD`) — used for mechanical-part
   extraction (optional; skipped with a warning if absent).
 - `InteractiveHtmlBom` in `../InverterGen5/Hardware/BOMManager/.venv` or this
   repo's `.venv` (only needed for the interactive assembly HTML; skipped with a
@@ -80,24 +80,12 @@ On `update`, each chassis's `Mechanical/*.FCStd` is opened headlessly
 (`freecadcmd` flatpak). Every `PartDesign::Body` / `App::DocumentObjectGroup`
 whose **label ends with the exact part number** (`HW-...`) is exported:
 
-- `<pn>.step`: fresh STEP, overwriting the manually exported one,
-- `holes.json`: cylindrical-hole diameter histogram (mm).
-
-The same pass also exports every visible solid in the document as one
-whole-assembly model, `Mechanical/assembly.step` + `Mechanical/assembly.stl`,
-which are copied into the chassis release dir and recorded in the `CHASSIS-*`
-manifest entry (`assembly_step` / `assembly_stl`); the BOM Tool links a 3D
-assembly view from them.
+- `<pn>.step` — fresh STEP, overwriting the manually exported one,
+- `holes.json` — cylindrical-hole diameter histogram (mm).
 
 Tap/countersink diameters in `fab_spec.yaml` are validated against the model's
-holes and mismatches are printed as warnings. Keep model labels exact,
+holes and mismatches are printed as warnings. Keep model labels exact —
 e.g. `HW-C2-BSP-A`, `PhaseBusBars-HW-C2-PBB-A`.
-
-A chassis with no boards (mechanical concept only, e.g. Chassis3) is exported
-too: as long as it has a `Mechanical/*.FCStd` or a `Mechanical/Fab/` dir it
-gets a `CHASSIS-<short>-<rev>` entry (rev falls back to the tag name) with its
-mech parts and/or assembly model. A chassis with no vendor BOMs, no mech parts
-and no assembly model is skipped.
 
 ## Conventions
 
@@ -106,7 +94,7 @@ and no assembly model is skipped.
   A board missing either mapping is skipped with a warning.
 - Tag naming is up to the hardware repo (e.g. `hw-rev-a`); use `--tag-pattern`
   to restrict discovery.
-- `Data/Releases/` is committed generated data: do not hand-edit; regenerate
+- `Data/Releases/` is committed generated data — do not hand-edit; regenerate
   with `--force` instead.
 
 ## Tests
@@ -117,12 +105,12 @@ make test-hwrelease
 
 ## Roadmap / planned
 
-- **Ordering screenshots per board and per part**: the user will capture
+- **Ordering screenshots per board and per part** — the user will capture
   screenshots of the JLCPCB / SendCutSend ordering flows. Convention (TBD):
   images alongside `FabSpec.md` per board (PCB Tool) and per mechanical part
   (BOM Tool / part explorer), exported into `Data/Releases/` and shown in the
   tools so ordering settings are unambiguous.
-- **Mechanical parts explorer**: auto-discover mechanical parts (SendCutSend
+- **Mechanical parts explorer** — auto-discover mechanical parts (SendCutSend
   sheet parts, McMaster hardware) from the hardware repo at export time and
   give them their own tool page, like the PCB Tool: renders/screenshots,
   specs, vendor links, prices.

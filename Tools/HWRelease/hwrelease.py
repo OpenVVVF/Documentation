@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""hwrelease - hardware release exporter.
+"""hwrelease — hardware release exporter.
 
 Usage:
     python3 hwrelease.py update [--tag TAG] [--force]

@@ -502,8 +502,7 @@ const ORDER_LINKS = {{
 let state = {{chassis: null, rev: null, variant: "base", vendor: null}};
 
 function releases() {{
-  return Object.values(MANIFEST).filter(e => !e.board && e.artifacts &&
-    (e.artifacts.vendor_boms || e.artifacts.assembly_stl));
+  return Object.values(MANIFEST).filter(e => !e.board && e.artifacts && e.artifacts.vendor_boms);
 }}
 
 function fill(sel, values, current) {{
@@ -523,7 +522,7 @@ function current() {{
 function init() {{
   const rel = releases();
   if (!rel.length) {{
-    document.getElementById("meta").textContent = "No chassis BOM exports yet - run: hwrelease update";
+    document.getElementById("meta").textContent = "No chassis BOM exports yet — run: hwrelease update";
     return;
   }}
   state.chassis = state.chassis || rel[0].chassis;
@@ -594,12 +593,6 @@ function renderVendors() {{
     : (varVend && varVend[key] !== undefined ? varVend[key] : estVendors[PRICE_NAMES[key]]);
   let meta = "Chassis " + e.chassis + " · Rev " + e.rev + " · source tag <code>" + e.source_tag + "</code>" +
     (e.source_url ? ' · <a href="' + e.source_url + '" target="_blank" rel="noopener">source \\u2197</a>' : "");
-  const asm = e.artifacts || {{}};
-  if (asm.assembly_stl)
-    meta += ' · <a href="stl-viewer.html?file=' + ROOT + e.dir + "/" + asm.assembly_stl +
-            '" target="_blank" rel="noopener">3D assembly view \\u2197</a>';
-  if (asm.assembly_step)
-    meta += ' · <a href="' + ROOT + e.dir + "/" + asm.assembly_step + '" download>assembly STEP</a>';
   const varTotal = state.variant === "base" ? (est.total || estVariants.base) : estVariants[state.variant];
   if (varTotal)
     meta += " · <strong>Est. total (" + (est.qty || 1) + " unit" + ((est.qty || 1) > 1 ? "s" : "") +
@@ -665,7 +658,7 @@ async function loadPreview() {{
   const div = document.getElementById("preview");
   if (!state.vendor) return;
   if (state.vendor === "sendcutsend" || state.vendor === "printed") {{
-    // Spec cards carry everything for fabricated/printed parts; skip the
+    // Spec cards carry everything for fabricated/printed parts — skip the
     // CSV table (it stays available via Download CSV).
     div.innerHTML = mechCards(state.vendor === "printed" ? "3d_print" : "laser_cut") ||
       '<p class="empty">No part exports for this revision.</p>';
@@ -761,7 +754,7 @@ function mechCards(proc) {{
       else if (Array.isArray(val))
         for (const item of val)
           svc.push(name + ": " + (typeof item === "string" ? item :
-            (item.thread || item.for || "") + " - " + (item.holes || "")));
+            (item.thread || item.for || "") + " — " + (item.holes || "")));
     }}
     if (svc.length) html += "<ul>" + svc.map(s => "<li>" + s + "</li>").join("") + "</ul>";
     const notes = spec.notes || [];
@@ -794,7 +787,7 @@ def build_viewer(manifest_path: Optional[Path] = None,
     out_path = out_path or core.REPO_ROOT / VIEWER_REL
     manifest = core.load_manifest(manifest_path)
     if not manifest:
-        print("Manifest is empty - run: hwrelease update")
+        print("Manifest is empty — run: hwrelease update")
         return 1
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(render_viewer_html(manifest))
