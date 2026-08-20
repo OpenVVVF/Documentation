@@ -5,7 +5,7 @@ title: DC Link Capacitor Ripple Current and Thermal Load
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "0.2"
+version: "0.3"
 date: "2026-08-20"
 description: Derivation of the C2 DC-link capacitor bank RMS ripple current and per-can ESR heating across the operating envelope, ripple-rating check against the Nichicon UCS datasheet, and three-branch (ceramic/film/electrolytic) ripple current sharing analysis.
 nav_order: 243
@@ -36,7 +36,7 @@ From `OV-C2-DD-THERMAL` v1.1 and `OV-C2-DD-DCLINK-THERMAL` v1.1:
 | Phase current $I_{phase,rms}$ | up to 600 A RMS | [ASM] |
 | Modulation index $m$ | 1.0 ($V_{ph,pk} = m \cdot V_{DC}/2$) | [ASM] |
 | Load power factor $\cos \varphi$ | 0.8 | [ASM] |
-| PWM switching frequency $f_{sw}$ | 2 kHz (reference), 6 kHz (max continuous), 8 kHz (upper bound) | [ASM] |
+| PWM switching frequency $f_{sw}$ | 2 kHz (reference), 6 kHz (clamped maximum per v1.2 designer decision), 8 kHz (reference only, outside the clamped envelope; adjacent to the ~7.8 kHz can-branch series resonance derived below) | [ASM] |
 | Bank A (200 V) | 60x Nichicon UCS2D331MHD, 330 µF / 200 V each, 19.8 mF total, all parallel | [DS] part |
 | Bank B (450 V upgrade) | 60x Nichicon UCS2W680MHD, 68 µF / 450 V each, 4.08 mF total, all parallel | [DS] part |
 
@@ -209,6 +209,23 @@ At the 600 A RMS design point the per-can ripple is 5.11 A against a rated 2.67 
 
 **Bank B (450 V, 4.08 mF) is not ripple-viable at traction currents.** The 68 µF / 450 V can is rated 1.575 A at 100 kHz (1.31 - 1.40 A at 2 - 8 kHz); the same 60-way split puts 1.3x rating on it already at 200 A phase current, 2.6x at 400 A, and 3.7 - 3.9x at 600 A, with computed bank losses of 1.4 - 1.6 kW at 600 A. The 450 V single-part-number swap described in `OV-C2-DD-DCLINK-THERMAL` fixes the voltage rating but not the ripple rating; a 400 V-class bus at high current needs a different capacitor selection (more cans, larger cans, or film capacitors). [EST]
 
+## Continuous and peak rating (v0.3)
+
+The inverter rating is stated as **220 A RMS continuous / 600 A RMS peak for 60 s** (IEC 61800-2 style overload convention; the full derivation and duty requirement are in `OV-C2-DD-THERMAL` §6.4). What this ripple analysis contributes:
+
+- **At the 220 A continuous rating:** per-can ripple is $0.511 \cdot 220 / 60 = 1.87$ A RMS, i.e. **0.66x the 6 kHz frequency-corrected rating** (2.83 A). The bank sits comfortably inside its datasheet endurance at the continuous point; the ripple constraint alone would allow ~332 A, so ripple is not the binding constraint on the continuous rating - the DC-link plate temperature is (220 A, `OV-C2-DD-THERMAL` §6.3/§6.4).
+- **At the 600 A / 60 s peak:** per-can ripple is 5.11 A RMS, **1.81x the 6 kHz rating** (≈3.3x rated $I^2 \cdot ESR$ loss). This exceeds the continuous rating but is time-limited: the can winding hot-spot responds with a minutes-class thermal time constant [EST], so a 60 s event starting from the continuous operating point captures only a fraction of the incremental hot-spot rise; the per-event excursion is small and the Arrhenius lifetime cost is bounded by the windowed duty requirement (rolling 10-min RMS ≤ 220 A). [EST] - pin with the can NTC correlation on the dyno (open item 3); repeated-peak endurance is otherwise unquantified.
+- **If a higher continuous rating is ever wanted, the levers are:** more parallel cans (per-can ripple scales as 60/N; holding the 6 kHz rating at 600 A needs ≈110 cans), higher-ripple cans (larger case / higher ripple series, subject to voltage class and footprint), a genuinely bulk-rated film bank instead of electrolytics, or measured credit for source-ripple sharing and real ESR (below). The plate thermal path would also need work above 220 A (`OV-C2-DD-DCLINK-THERMAL`).
+
+### Raising the continuous rating by measurement
+
+The 220 A continuous figure is a **conservative analytical bound**, and two measurements would pin it to reality (both are already tracked in Open items; measured data supersedes the analytical bound when available):
+
+1. **Actual ripple share / ESR:** clamp a wideband current probe (or Rogowski coil) on one can-bank busbar branch and record the branch ripple current at several load points (e.g. 100 / 200 / 300 A phase current, 6 kHz) on the dyno. This measures the real source-impedance share of the injected ripple (the Kolar & Round formula is a stiff-source upper bound) and, combined with can temperature rise, bounds the real ESR at switching frequency. Every amp the source absorbs, and every percent the real ESR is below the [ASM] 0.15 ratio, moves the ripple and plate limits up directly.
+2. **Can NTC vs plate model at load:** correlate the DC-link capacitor NTC (and a plate thermocouple, thermal test plan T-05) against phase current at the same load points. The plate model routes 100 % of bank loss through the standoffs with no convection/radiation credit; the measured plate rise per watt of computed bank loss calibrates the real path and directly re-sets the 90 °C plate constraint that currently binds at 220 A.
+
+Field experience is consistent with this being conservative: at 100 - 200 A phase current the cans run cool, matching the model's computed bank loss of 27 - 109 W at those currents.
+
 ## Comparison with the 40 W figure in the thermal documents
 
 For Bank A, the 40 W load used throughout `OV-C2-DD-DCLINK-THERMAL` and `OV-C2-DD-THERMAL` corresponds to a phase current of approximately **230 - 250 A RMS** (229 / 242 / 246 A at 2 / 6 / 8 kHz). Verdict:
@@ -246,7 +263,7 @@ The lifetime model below uses the industry-standard Arrhenius 10 K doubling rule
 1. Measure ESR vs frequency (10 Hz - 100 kHz) on sample UCS2D331MHD and UCS2W680MHD cans; replace the [ASM] 0.15 ratio. 
 2. Measure the source-impedance share of switching ripple on the battery/dyno setup to quantify how conservative the stiff-source formula is.
 3. Dyno: correlate capacitor NTC reading with can case and plate temperature at the 300 A and 600 A operating points (thermal test plan T-05); use it to calibrate the can hot-spot estimate.
-4. Decide the ripple-limited operating envelope: per this analysis Bank A supports ~320 A RMS continuous at full ripple rating; 600 A RMS requires either source-ripple sharing measured in item 2 to be large, a capacitor bank change, or acceptance of reduced capacitor life at elevated hot-spot temperature.
+4. ~~Decide the ripple-limited operating envelope~~ **Decided (v0.3):** 220 A RMS continuous / 600 A RMS peak for 60 s (`OV-C2-DD-THERMAL` §6.4). Ripple is not the binding constraint at the continuous point (0.66x rating at 220 A); the DC-link plate is. Raising the continuous rating further needs the measurements in items 1 - 3 or a bank change (see "Continuous and peak rating").
 5. Bank B (450 V): re-select capacitors for the 400 V-class bus; the UCS2W680MHD swap is not ripple-viable above ~150 A RMS phase current.
 6. Measure the electrolytic branch inductance at the rod-standoff interface (impedance analyzer or ringdown on the assembled stack) and confirm the fitted MKP1848S part value; replace the 21 nH / 90 µF [ASM] values. Also confirm the parallel-LC peaking near the film/electrolytic crossover (~53 - 168 kHz) does not coincide with a strong switching harmonic cluster.
 7. If the commutation-edge behavior is ever in question (overshoot, ringing), extend the sharing model into the 100 kHz - 10 MHz range with measured busbar/ceramic loop inductances; the CeraLink parts' 5 A @ 100 kHz rating is the relevant limit there.
@@ -257,6 +274,7 @@ The lifetime model below uses the industry-standard Arrhenius 10 K doubling rule
 |---------|------|---------|
 | 0.1 | 2026-08-20 | Initial release. Derives the DC-link ripple current (Kolar & Round closed form, factor 0.511 at $m=1$, $\cos\varphi=0.8$), computes per-can ripple and $I^2 \cdot ESR$ heating for the 60x UCS2D331MHD (200 V) and 60x UCS2W680MHD (450 V) banks against the Nichicon UCS catalog (CAT.8100N) ratings, and closes the 40 W open item from `OV-C2-DD-DCLINK-THERMAL` v1.1: 40 W matches ~240 A operation; computed bank loss at 600 A is 239 - 274 W (Bank A). Bank A is ripple-limited above ~320 A RMS; Bank B is not ripple-viable at traction currents. |
 | 0.2 | 2026-08-20 | Three-branch ripple current sharing added per the designer's real DC-link structure (12x CeraLink B58031U9254M062 at the IGBT terminals, 6x Vishay MKP1848S ~90 µF film on the busbar board, 60-can UCS bank behind the ~40 mm aluminium rod standoffs). Rod go-return inductance derived (32.6 nH per pair nominal; ~21 nH branch with 3 parallel pairs + board ESL, sweep 10 - 100 nH [ASM]). Result: at 2 - 8 kHz the film/ceramic branches divert only ~0.5 - 1.2 % of the 307 A RMS ripple (film/electrolytic impedance crossover ~108 kHz; above that the film and ceramics own the spectrum), so the per-can electrolytic ripple is 5.09 - 5.11 A at 600 A, still 1.78 - 1.90x the UCS rating - the v0.1 ripple-limited conclusion is unchanged. Film bank is at < 10 % of its own ripple rating. New figures: branch impedance vs frequency, branch share vs frequency, per-can ripple with/without sharing. The "cans run cool" field observation is attributed to ESR uncertainty, source ripple share, and convective cooling, not to branch sharing. |
+| 0.3 | 2026-08-20 | Ratings revision. New section "Continuous and peak rating": per-can ripple at the adopted 220 A RMS continuous rating (1.87 A, 0.66x the 6 kHz rating - ripple is not the binding constraint; the DC-link plate is) and at the 600 A / 60 s peak (5.11 A, 1.81x), with the 60 s thermal-time-constant argument and the design levers for a higher continuous rating (~110 cans, higher-ripple cans, film bank, or measured credit). Added "Raising the continuous rating by measurement": the two pinning measurements (can-branch ripple probe at several load points; can NTC / plate thermocouple vs the +40.1 K plate model at load), with measured data superseding the analytical bound. PWM frequency input updated to the 6 kHz clamp (8 kHz reference only, adjacent to the ~7.8 kHz can-branch resonance). Open item 4 closed as decided. |
 
 ---
 

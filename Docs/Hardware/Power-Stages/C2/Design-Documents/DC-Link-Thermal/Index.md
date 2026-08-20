@@ -5,7 +5,7 @@ title: DC Link Thermal Analysis
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.1"
+version: "1.2"
 date: "2026-08-20"
 description: DC-link capacitor bank standoff heat-path and thermal resistance analysis for Chassis Size 2.
 nav_order: 242
@@ -170,11 +170,11 @@ The table above assumes a 40 °C heatsink base. Under inverter load the heatsink
 
 `OV-C2-DD-THERMAL` v1.1 derives the maximum heatsink surface temperature $T_s$ for each operating point (heatsink sized to the 85 °C module-baseplate limit, 40 °C ambient, $R_G = 2.7 \ \Omega$ gate drive). Adding the +40.1 K paste-path rise:
 
-| Operating point (600 A unless noted) | Max $T_s$ (°C) | Plate temperature (°C) | FSR-08 90 °C derate | FSR-08 105 °C SSO / capacitor rating |
+| Operating point (600 A = 60 s peak duty unless noted) | Max $T_s$ (°C) | Plate temperature (°C) | FSR-08 90 °C derate | FSR-08 105 °C SSO / capacitor rating |
 |-----------|----------------------------|----------------------------|----------------------------|----------------------------|
 | 320 V / 2 kHz | 68.2 | **108.3** | exceeds | **exceeds** |
-| 320 V / 6 kHz (max continuous) | 63.2 | **103.3** | exceeds | marginal |
-| 320 V / 8 kHz (upper bound) | 60.7 | **100.8** | exceeds | within |
+| 320 V / 6 kHz | 63.2 | **103.3** | exceeds | marginal |
+| 320 V / 8 kHz (beyond envelope) | 60.7 | **100.8** | exceeds | within |
 | 140 V / 2 kHz | 69.6 | **109.7** | exceeds | **exceeds** |
 | 140 V / 6 kHz | 67.4 | **107.5** | exceeds | **exceeds** |
 | 300 A / 320 V / 2 kHz | 78.0 | **118.1** | exceeds | **exceeds** |
@@ -182,7 +182,11 @@ The table above assumes a 40 °C heatsink base. Under inverter load the heatsink
 
 Two cautions on interpretation (see `OV-C2-DD-THERMAL` §6.3 for the full discussion): the 6–8 kHz rows look better only because those points demand a stronger heatsink (4.7 / 3.7 mK/W vs 7.3 mK/W); against a fixed 0.006 K/W margin-target heatsink the 320 V plate temperatures are ≈ 103 / 110 / 113 °C at 2 / 6 / 8 kHz. And the 300 A rows assume a heatsink sized only for 300 A.
 
-**Consequence:** with the present standoff/plate path, the DC-link plate model sits at or above the FSR-08 90 °C derate threshold at every full-load operating point, and above the 105 °C SSO threshold (the capacitor temperature rating) at several. Continuous 600 A RMS is not supported by this thermal model without one of: plate-thermocouple validation during the full-load dyno (the model neglects convection/radiation, so the real rise should be below +40.1 K; thermal test plan T-05 bounds it), an improved plate thermal path (§ Recommendations, item 5), or a derated continuous envelope that keeps the plate under 90 °C. [ASM] - plate-to-capacitor-can thermal coupling is unmodeled; the capacitor NTC reading vs plate temperature must be correlated on the dyno.
+**Consequence and resolution (v1.2):** with the present standoff/plate path, the DC-link plate model sits at or above the FSR-08 90 °C derate threshold at every 600 A operating point, and above the 105 °C SSO threshold (the capacitor temperature rating) at several. Continuous 600 A RMS is therefore not supported, and the inverter rating has been restated as **220 A RMS continuous / 600 A RMS peak for 60 s** (`OV-C2-DD-THERMAL` §6.4). Against this plate model:
+
+- **At the 220 A continuous rating (6 kHz, 0.006 K/W heatsink):** $T_s = 49.9$ °C at 320 V, plate = **90.0 °C** - exactly at the FSR-08 derate onset at the worst-case bus, and below it at 140 V (plate ≈ 87.5 °C). This uses the full +40.1 K rise and is conservative: per `OV-C2-DD-DCLINK-RIPPLE` the bank loss at 220 A is only ≈33 W (< the 40 W the rise is computed at), so the modeled plate is a few K pessimistic even before convection/radiation credit. The plate, not the electrolytic ripple (~330 A limit per `OV-C2-DD-DCLINK-RIPPLE`), is the constraint that sets the 220 A figure.
+- **At the 600 A / 60 s peak:** the steady-state plate delta from the continuous point is ~20 K, but the plate+heatsink thermal time constant is minutes class [EST], so a compliant 60 s peak captures only ~10 - 33 % of it: end-of-peak plate ≈ **92 - 97 °C**, transiently above the derate onset but ≥8 K below the 105 °C SSO. The FSR-08 derate firmware must ride through this bounded excursion; the peak is made verifiable by the rolling 10-min RMS ≤ 220 A duty requirement.
+- Raising the continuous rating beyond 220 A requires plate-thermocouple validation during the dyno (the model neglects convection/radiation, so the real rise should be below +40.1 K; thermal test plan T-05 bounds it), an improved plate thermal path (§ Recommendations, item 5), or both. [ASM] - plate-to-capacitor-can thermal coupling is unmodeled; the capacitor NTC reading vs plate temperature must be correlated on the dyno.
 
 **450 V capacitor-only upgrade:** The 450 V upgrade is a single part-number swap to 60&times; Nichicon UCS2W680MHD 68 &micro;F / 450 V capacitors (4.08 mF total). These parts are 5 mm shorter than the 200 V UCS2D331MHD, so the standoff length is reduced by 5 mm (from 55 mm to 50 mm). The same 13 mm OD aluminium standoff thermal path applies, with marginally lower conduction resistance due to the shorter length.
 
@@ -245,6 +249,7 @@ Six standoffs provides adequate margin; eight would be better but is not require
 |---------|------|---------|
 | 1.0 | 2026-07-13 | Initial release. |
 | 1.1 | 2026-08-20 | Engineering revision. Added normative reference to `OV-C2-DD-THERMAL`. Flagged the 40 W ripple heat load as an open item: derivation not recorded and the 60-can bank ripple rating at 600 A RMS not yet checked (bank may be ripple-limited; heat load may be higher). New subsection "Plate temperature at the inverter operating points" integrates the v1.1 heatsink surface temperatures from `OV-C2-DD-THERMAL` (plate = $T_s$ + 40.1 K): the plate exceeds the FSR-08 90 °C derate threshold at every full-load point and the 105 °C SSO / capacitor rating at several, making the DC-link plate the binding constraint on the 600 A continuous claim. Assumptions updated accordingly. |
+| 1.2 | 2026-08-20 | Ratings alignment. Conclusion restated against the adopted rating (220 A RMS continuous / 600 A RMS peak for 60 s, `OV-C2-DD-THERMAL` §6.4): at the continuous point the plate sits at 90.0 °C (320 V) / 87.5 °C (140 V), i.e. at or below the FSR-08 derate onset; the 60 s peak produces a bounded excursion to ~92 - 97 °C end-of-peak via the minutes-class plate/heatsink time constant, staying ≥8 K below the 105 °C SSO. The 600 A rows of the plate table are relabeled as 60 s peak duty; 8 kHz marked beyond the clamped envelope. The plate remains the constraint that sets the 220 A continuous figure. |
 
 ---
 

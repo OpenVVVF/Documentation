@@ -5,13 +5,14 @@ title: System Thermal Analysis
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.1"
+version: "1.2"
 date: "2026-08-20"
 description: IGBT and diode loss analysis, inverter efficiency, and heatsink/baseplate sizing for the Chassis Size 2 traction inverter.
 nav_order: 241
 normative_refs:
   - OV-C2-DD-INDEX
   - OV-C2-DD-DCLINK-THERMAL
+  - OV-C2-DD-DCLINK-RIPPLE
 ---
 
 # System Thermal Analysis
@@ -97,7 +98,8 @@ This document estimates the total heat dissipated into the heatsink by the 3-pha
 - CM600DY-24T datasheet, Mitsubishi Electric, December 2020 (600 A / 1200 V dual (half-bridge) IGBT module, 62 mm package).
 - `OV-C2-DD-DCLINK-THERMAL` - DC-link capacitor bank heat load of ≈40 W at rated ripple, rejected to the heatsink through the standoff/spreader-plate path.
 - Project README - power stage: 3× CM600DY-24T half-bridge modules (one per phase), SVPWM, DC link 102–320 V (140 V nominal), 600 A class output. Gate drive +15 V / −9 V via onsemi NCV57100 (7 A peak gate current class).
-- Hardware designer input (2026-08, v1.1): populated external gate resistance $R_G = 2.7 \ \Omega$ (not the 1.0 Ω datasheet test condition); realistic PWM range is 6 kHz maximum continuous with 8 kHz as an upper bound; 2 kHz is not the operating intent and 16 kHz will not be used.
+- Hardware designer input (2026-08, v1.1/v1.2): populated external gate resistance $R_G = 2.7 \ \Omega$ (not the 1.0 Ω datasheet test condition); PWM is clamped at 6 kHz maximum (v1.2). 2 kHz is not the operating intent, 16 kHz will not be used, and the 8 kHz point is dropped: it sits next to the ~7.8 kHz series resonance of the electrolytic can branch (`OV-C2-DD-DCLINK-RIPPLE`) and is unattractive anyway; 8 kHz rows are kept in the tables for reference only, outside the clamped envelope.
+- `OV-C2-DD-DCLINK-RIPPLE` - DC-link ripple derivation: bank ripple is 0.511 A RMS per amp of phase current; the 60-can electrolytic bank is ripple-limited above ~320 A RMS continuous. Basis for the continuous/peak rating in §6.4.
 
 ## Datasheet parameters used (CM600DY-24T)
 
@@ -172,7 +174,7 @@ Scaling laws applied (not given in the datasheet):
 - Sinusoidal phase current $i(\theta) = \hat{I} \cdot \sin \theta$ with $\hat{I} = \sqrt{2} \cdot I_{rms}$.
 - Load power factor $\cos \varphi = 0.8$ (traction motor at rated point).
 - Junction operating point $T_j = 125 \ ^\circ\text{C}$ (continuous rating is 150 °C; 125 °C leaves margin).
-- Switching frequency: per designer intent (v1.1) the realistic range is 6 kHz maximum continuous with 8 kHz as an upper bound; 2 kHz is retained below as a reference point only, and 16 kHz is out of scope (will not be used).
+- Switching frequency: per designer intent the PWM is clamped at 6 kHz maximum (v1.2); 2 kHz is retained as a reference point only, 8 kHz is outside the clamped envelope (kept in tables for reference), and 16 kHz is out of scope (will not be used).
 - Switching energies include the $R_G = 2.7 \ \Omega$ correction of §2.3: $E_{on}$ multiplied by ≈1.38, $E_{off}$ and $E_{rr}$ unchanged. [ASM]
 - Dead time (0.5–4 µs configurable): the extra FWD conduction during dead time adds ≈ $V_{EC} \cdot \langle i \rangle \cdot 2 \cdot t_{dt} \cdot f_{sw} \approx 7$ W per leg (~20 W total) at 600 A / 2 kHz / 2 µs - under 1 % of total heat, neglected.
 - Gate-drive power ($Q_G \cdot \Delta V_{GE} \cdot f_{sw} \approx 0.2$ W per switch, ≈1 W total) is dissipated in the gate resistors/driver, not the module - excluded.
@@ -300,14 +302,14 @@ $$T_{j,D} = T_c + (P_D + P_{sw,D}) \cdot R_{th(j-c)D}$$
 
 ### Required heatsink thermal resistance
 
-Worst case is 320 V bus (highest switching loss); 140 V nominal shown for reference. All points at $R_G = 2.7 \ \Omega$. 16 kHz is out of scope per designer intent and is no longer evaluated.
+Worst case is 320 V bus (highest switching loss); 140 V nominal shown for reference. All points at $R_G = 2.7 \ \Omega$. 16 kHz is out of scope per designer intent and is no longer evaluated; 8 kHz is shown for reference only (outside the 6 kHz clamped envelope). The 600 A rows are steady-state evaluations at the 60 s peak current; the continuous rating is defined in §6.4.
 
 | Operating point | $P_{heat}$ (W) | $P_{mod}$ (W) | $\Delta T_{(c-s)}$ (K) | Max $T_s$ (°C) | **Required $R_{th(s-a)}$** | $T_{j,Q}$ check | $T_{j,D}$ check |
 |---|---|---|---|---|---|---|---|
 | 300 A / 320 V / 2 kHz | 1623 | 528 | 7.0 | 78.0 | **≤ 0.0234 K/W** | 90 °C ✓ | 87 °C ✓ |
 | 600 A / 320 V / 2 kHz (reference) | 3838 | 1266 | 16.8 | 68.2 | ≤ 0.0073 K/W | 98 °C ✓ | 90 °C ✓ |
-| 600 A / 320 V / 6 kHz (max continuous) | 4967 | 1642 | 21.8 | 63.2 | **≤ 0.0047 K/W** | 101 °C ✓ | 91 °C ✓ |
-| 600 A / 320 V / 8 kHz (upper bound) | 5532 | 1831 | 24.3 | 60.7 | ≤ 0.0037 K/W | 103 °C ✓ | 92 °C ✓ |
+| 600 A / 320 V / 6 kHz (peak duty) | 4967 | 1642 | 21.8 | 63.2 | **≤ 0.0047 K/W** | 101 °C ✓ | 91 °C ✓ |
+| 600 A / 320 V / 8 kHz (beyond envelope) | 5532 | 1831 | 24.3 | 60.7 | ≤ 0.0037 K/W | 103 °C ✓ | 92 °C ✓ |
 | 600 A / 140 V / 2 kHz (reference) | 3520 | 1160 | 15.4 | 69.6 | ≤ 0.0084 K/W | 97 °C ✓ | 89 °C ✓ |
 | 600 A / 140 V / 6 kHz (reference) | 4014 | 1325 | 17.6 | 67.4 | ≤ 0.0068 K/W | 98 °C ✓ | 90 °C ✓ |
 
@@ -319,30 +321,62 @@ The DC-link spreader plate sits on the same heatsink and rises +40.1 K over the 
 |---|---|---|---|---|
 | 600 A / 320 V / 2 kHz | 68.2 | **108.3** | exceeds | **exceeds** |
 | 600 A / 320 V / 6 kHz | 63.2 | **103.3** | exceeds | marginal (within) |
-| 600 A / 320 V / 8 kHz | 60.7 | **100.8** | exceeds | within |
+| 600 A / 320 V / 8 kHz (beyond envelope) | 60.7 | **100.8** | exceeds | within |
 | 600 A / 140 V / 2 kHz | 69.6 | **109.7** | exceeds | **exceeds** |
 | 600 A / 140 V / 6 kHz | 67.4 | **107.5** | exceeds | **exceeds** |
 | 300 A / 320 V / 2 kHz | 78.0 | **118.1** | exceeds | **exceeds** |
 | 300 A / 320 V / 6 kHz | 75.2 | **115.3** | exceeds | **exceeds** |
 
-The apparent improvement at 6–8 kHz is an artifact of the sizing method, not a real cooling benefit: higher switching loss forces a proportionally stronger heatsink (4.7 / 3.7 mK/W instead of 7.3 mK/W), which lowers $T_s$ for the same 85 °C baseplate limit. Against a **fixed** heatsink the trend reverses: with the 0.006 K/W margin-target heatsink from §6.4, 600 A / 320 V continuous gives $T_s \approx 63 / 70 / 73$ °C at 2 / 6 / 8 kHz, i.e. plate ≈ **103 / 110 / 113 °C**. At 300 A / 320 V the plate is worst of all (114–118 °C) because a heatsink sized only for 300 A is allowed to run hotter; this case only applies if the heatsink is not sized for 600 A. [ASM] - the plate numbers inherit the ±20 % spreading uncertainty of the DC-link model and assume the capacitor NTC reads plate temperature; plate-to-can thermal coupling is unmodeled.
+The apparent improvement at 6–8 kHz is an artifact of the sizing method, not a real cooling benefit: higher switching loss forces a proportionally stronger heatsink (4.7 / 3.7 mK/W instead of 7.3 mK/W), which lowers $T_s$ for the same 85 °C baseplate limit. Against a **fixed** heatsink the trend reverses: with the 0.006 K/W margin-target heatsink from the Guidance section, 600 A / 320 V continuous gives $T_s \approx 63 / 70 / 73$ °C at 2 / 6 / 8 kHz, i.e. plate ≈ **103 / 110 / 113 °C**. At 300 A / 320 V the plate is worst of all (114–118 °C) because a heatsink sized only for 300 A is allowed to run hotter; this case only applies if the heatsink is not sized for 600 A. [ASM] - the plate numbers inherit the ±20 % spreading uncertainty of the DC-link model and assume the capacitor NTC reads plate temperature; plate-to-can thermal coupling is unmodeled.
 
-**Consequence for the 600 A continuous claim and FSR-08:** at every full-load operating point the DC-link plate model sits at or above the 90 °C FSR-08 derate threshold, and at several points (all 140 V points, 320 V / 2 kHz, and 320 V / 6–8 kHz against the fixed 0.006 K/W heatsink) it exceeds the 105 °C SSO threshold, which is also the capacitor temperature rating. Continuous 600 A RMS is therefore **not supported by this thermal model** unless at least one of the following closes the gap: (a) a plate thermocouple measurement during the full-load dyno run shows the real rise is materially below +40.1 K (the model neglects convection/radiation, so the real value should be lower; the thermal test plan T-05 bounds this); (b) the DC-link thermal path is improved (more standoffs, thicker spreader plate, or direct capacitor-to-heatsink coupling); or (c) the continuous current / frequency envelope is derated so the plate stays under 90 °C. The semiconductor chain itself has margin ($T_{j,Q} \approx 98$–103 °C vs the 125 °C target); **the DC-link plate, not the IGBTs, is the binding thermal constraint at 600 A.**
+**Consequence for the 600 A continuous claim and FSR-08:** at every full-load operating point the DC-link plate model sits at or above the 90 °C FSR-08 derate threshold, and at several points (all 140 V points, 320 V / 2 kHz, and 320 V / 6–8 kHz against the fixed 0.006 K/W heatsink) it exceeds the 105 °C SSO threshold, which is also the capacitor temperature rating. Continuous 600 A RMS is therefore **not supported by this thermal model** unless at least one of the following closes the gap: (a) a plate thermocouple measurement during the full-load dyno run shows the real rise is materially below +40.1 K (the model neglects convection/radiation, so the real value should be lower; the thermal test plan T-05 bounds this); (b) the DC-link thermal path is improved (more standoffs, thicker spreader plate, or direct capacitor-to-heatsink coupling); or (c) the continuous current / frequency envelope is derated so the plate stays under 90 °C. The semiconductor chain itself has margin ($T_{j,Q} \approx 98$–103 °C vs the 125 °C target); **the DC-link plate, not the IGBTs, is the binding thermal constraint at 600 A.** The resolution adopted in v1.2 is option (c), formalized as the continuous/peak rating in §6.4.
+
+### Continuous and peak current rating (v1.2)
+
+Ratings are stated per the IEC 61800-2 style overload convention: a continuous rating plus a time-limited peak, where **peak = 600 A RMS for 60 s**. The designer's reservation about peak differing from continuous is addressed by making the peak verifiable: it carries an explicit time limit and a windowed RMS duty requirement (below), so it is a testable envelope, not a marketing number.
+
+**Continuous rating: 220 A RMS** at 6 kHz PWM, 40 °C ambient, with the 0.006 K/W margin-target heatsink. The two constraints at 6 kHz:
+
+| Constraint | Limit at 6 kHz | Source |
+|---|---|---|
+| Electrolytic bank ripple (per-can vs frequency-corrected UCS rating) | ~330 A RMS (332 A crossing) | `OV-C2-DD-DCLINK-RIPPLE` |
+| DC-link plate < 90 °C (FSR-08 derate onset), plate = $T_s$ + 40.1 K, $T_s = 40 + 0.006 \cdot P_{heat}$ | **220 A RMS at 320 V** (289 A at 140 V) | this document, §6.3 model |
+
+The rating is the lower of the two: **the DC-link plate binds (220 < 330), not the capacitor ripple.** At 220 A / 320 V / 6 kHz the model gives $P_{heat} = 1650$ W, $T_s = 49.9$ °C, plate = 90.0 °C, $T_{j,Q} \approx 90$ °C (far inside the 125 °C target). The rating is stated at the worst-case bus (320 V); a 140 V bus would allow ~290 A from the plate constraint, still under the ripple limit.
+
+This is a **conservative analytical bound**, not a measured rating. The conservatisms, itemized:
+
+1. The plate model routes 100 % of capacitor heat through the standoff path and credits no convection/radiation; the real rise is below +40.1 K (`OV-C2-DD-DCLINK-THERMAL`, `OV-C2-DD-DCLINK-RIPPLE` §"Interpretation").
+2. The ripple/ESR model uses an assumed ESR ratio (0.15 × tan δ ceiling) with no published UCS impedance curve; ±50 % would not be surprising (`OV-C2-DD-DCLINK-RIPPLE` [ASM]).
+3. The ripple current formula is a stiff-source upper bound; a real battery/dyno source absorbs part of the ripple.
+4. Worst-case continuous duty at $m = 1.0$, $\cos \varphi = 0.8$, 40 °C ambient; no credit for part-load, cooler ambients, or cans running below their 105 °C category temperature.
+5. Field experience at 100 - 200 A phase current shows the cans running cool, which is consistent with the model at those currents (bank loss 27 - 109 W) and suggests the bound has real margin at rated current too.
+
+Measured data supersedes this bound when available; the two pinning measurements are listed in `OV-C2-DD-DCLINK-RIPPLE` §"Continuous and peak rating" (can-branch ripple measurement and can/plate NTC correlation at load).
+
+**Peak rating: 600 A RMS for 60 s** at ≤ 6 kHz, validated by thermal time constants:
+
+- **Junction (fast, seconds class):** the IGBT junction reaches essentially its steady-state rise well within 60 s; $T_{j,Q} = 101$ °C and $T_{j,D} = 91$ °C at 600 A / 320 V / 6 kHz vs the 125 °C design target. Not binding.
+- **Heatsink and plate (slow, minutes class [EST]):** the steady-state plate difference between the 220 A continuous point and the 600 A point is ~20 K (90.0 vs 109.9 °C on the 0.006 K/W heatsink). With a plate+heatsink thermal time constant in the 3 - 10 min class (multi-kg aluminium plus coolant loop) [EST], a 60 s excursion captures only 10 - 33 % of that delta: end-of-peak plate ≈ **92 - 97 °C**, above the 90 °C derate onset but ≥8 K below the 105 °C SSO / capacitor rating.
+- **Capacitor cans (slow, minutes class [EST]):** at 600 A the per-can ripple is 1.81× the 6 kHz rating (≈3.3× rated loss), but the winding hot-spot responds with a minutes-class time constant, so a 60 s peak captures only a fraction of the incremental rise from the continuous point; the per-event hot-spot excursion is single-digit K class [EST]. The accumulated lifetime cost is bounded by the duty requirement below. Pin with the can NTC during dyno (thermal test plan T-05/T-06).
+- **Duty requirement (makes the peak verifiable):** RMS phase current over any rolling 10-minute window shall not exceed the 220 A continuous rating. Worked example: after a full 60 s / 600 A peak, the following 9 minutes must stay at ≲ 117 A RMS; shorter or lower peaks relax this proportionally. Firmware shall enforce the windowed RMS limit, and the FSR-08 90 °C derate response shall ride through the bounded transient excursion of a compliant peak rather than SSO.
+
+**Why peak ≠ continuous, honestly:** continuous 600 A fails two independent constraints - the electrolytic ripple rating (1.8× at 600 A) and the DC-link plate temperature (>105 °C steady-state) - and fixing either one costs hardware this chassis does not have (roughly double the can count, or a redesigned plate/cooling path). The 60 s peak covers real traction duty (acceleration, gradeability, obstacle starts) where high current is inherently transient, while the continuous rating keeps the capacitors inside their datasheet endurance and the plate under the FSR-08 derate onset. If a future revision needs higher continuous current, the levers are in `OV-C2-DD-DCLINK-RIPPLE` (bank changes) and `OV-C2-DD-DCLINK-THERMAL` (plate path), plus the measurement campaign that may raise the analytical bound without any hardware change.
 
 ### Guidance
 
-- **Continuous 600 A / 320 V: $R_{th(s-a)} \le 0.0047$ K/W (4.7 mK/W) at 6 kHz max continuous, tightening to 3.7 mK/W at the 8 kHz upper bound, for the whole three-module heatsink assembly, 40 °C ambient.** With ≥25 % engineering margin (grease ageing, digitization/typ-value uncertainty, module-to-module variation, fouling), the design target is **≈ 0.0035 K/W or better** for 6 kHz continuous. At the 2 kHz reference point 7.3 mK/W suffices (target ≈0.0055 K/W with margin). All of these are outside natural-convection territory (a very large natural-convection sink is ≈0.1–0.5 K/W); 6–8 kHz continuous at full current requires a liquid cold plate.
-- **Continuous 300 A / 320 V: $R_{th(s-a)} \le 0.023$ K/W at 2 kHz**, tightening to ≈0.016 K/W at 6 kHz and ≈0.013 K/W at 8 kHz - moderate forced-air extrusion territory at 2 kHz, strong forced air at 6–8 kHz.
+- **Peak 600 A / 320 V (60 s): $R_{th(s-a)} \le 0.0047$ K/W (4.7 mK/W) at the 6 kHz clamp for the whole three-module heatsink assembly, 40 °C ambient** (3.7 mK/W at the out-of-envelope 8 kHz point). With ≥25 % engineering margin (grease ageing, digitization/typ-value uncertainty, module-to-module variation, fouling), the design target is **≈ 0.0035 K/W or better**; the margin-target value used for the rating analysis in §6.4 is 0.006 K/W, i.e. the ≥25 % margin policy against the 2 kHz reference requirement (7.3 mK/W). All of these are outside natural-convection territory (a very large natural-convection sink is ≈0.1–0.5 K/W); 6 kHz at high current requires a liquid cold plate.
+- **Continuous 220 A / 320 V / 6 kHz (rated point): $R_{th(s-a)} \le 0.006$ K/W keeps the DC-link plate at the 90 °C FSR-08 derate onset** - see §6.4. Continuous 300 A / 320 V requires ≤0.023 K/W at 2 kHz (≈0.016 K/W at 6 kHz) for the baseplate constraint, but is outside the 220 A continuous rating at 6 kHz because of the plate.
 - The junction rise is small at the design point ($T_{j,Q} \approx 98 \ ^\circ\text{C}$ at $T_c = 85 \ ^\circ\text{C}$, ≈27 °C margin to the 125 °C target) because $R_{th(j-c)}$ is only 24 K/kW; the **baseplate ≤ 85 °C constraint, not the junction, sizes the heatsink.** Per-switch dissipation of ≈630 W at 600 A / 320 V / 2 kHz (≈820 W at 6 kHz) is also well inside the module's 6250 W total dissipation rating (datasheet p.2).
 - **The DC-link plate, not the semiconductors, sets the real full-load limit** - see §6.3. Any heatsink decision shall be checked against the plate temperature, not only the baseplate limit.
 - Mounting: thermal grease per datasheet note 6 ($\lambda = 3.0$ W/(m·K), 50 µm), M6 mounting torque 3.5–4.5 N·m (datasheet p.3), baseplate flatness ≤ 200 µm on the centerlines. Verify the three modules are placed so each sees comparable sink temperature.
 
 ## Sensitivity and notes
 
-- **6–8 kHz switching:** switching loss scales linearly with $f_{sw}$. At 600 A / 320 V total heat rises from 3.8 kW (2 kHz) to 5.0 kW (6 kHz) and 5.5 kW (8 kHz), and the heatsink requirement tightens from 7.3 to 4.7 / 3.7 mK/W. Per designer intent, 6 kHz is the maximum continuous PWM frequency and 8 kHz an upper bound; 16 kHz is out of scope and has been removed from the sizing tables. If 6–8 kHz continuous at full current is a firm requirement, plan on liquid cooling.
+- **6 kHz clamp:** switching loss scales linearly with $f_{sw}$. At 600 A / 320 V total heat rises from 3.8 kW (2 kHz) to 5.0 kW (6 kHz) and 5.5 kW (8 kHz), and the heatsink requirement tightens from 7.3 to 4.7 / 3.7 mK/W. Per designer decision (v1.2) the PWM is clamped at 6 kHz; 8 kHz is dropped (it also sits next to the ~7.8 kHz electrolytic-branch series resonance, `OV-C2-DD-DCLINK-RIPPLE`) and 16 kHz is out of scope. 6 kHz at high current means liquid cooling.
 - **Lower power factor:** total heat is nearly unchanged (the IGBT $V_0$ term falls while the FWD share rises; at $\cos \varphi = 0.5$, 600 A / 140 V / 2 kHz, $P_{heat} \approx 3.46$ kW vs 3.49 kW at $\cos \varphi = 0.8$), but output power falls proportionally with $\cos \varphi$, so efficiency drops (≈92.8 % at $\cos \varphi = 0.5$, 600 A / 140 V) and heat per kW delivered rises. Regenerative braking ($\cos \varphi < 0$) shifts loss toward the FWDs - $R_{th(j-c)D} = 42$ K/kW keeps the diode junction ≈5 °C cooler than the IGBT at rated point, so this is not binding.
 - **Typical vs maximum device values:** conduction uses typical chip $V_{CE(sat)}/V_{EC}$; the max terminal values are ≈10–15 % higher, and $R_{th(c-s)}$ is a typical (not max) value. The ≥25 % heatsink margin policy covers this.
-- **600 A RMS operation:** at 600 A RMS the sine peak is 848 A, above the module's 600 A DC rating (at $T_C = 144 \ ^\circ\text{C}$) but within the 1200 A repetitive pulse rating. Continuous 600 A RMS is the inverter's design target (README), with full-load dyno/thermal validation still pending - treat the 600 A column as the sizing bound, not a validated continuous rating. As of v1.1 the DC-link plate result in §6.3, not the semiconductor chain, is the binding constraint on this claim.
+- **600 A RMS operation:** at 600 A RMS the sine peak is 848 A, above the module's 600 A DC rating (at $T_C = 144 \ ^\circ\text{C}$) but within the 1200 A repetitive pulse rating. As of v1.2, 600 A is rated as a **60 s peak**, not continuous; the continuous rating is 220 A RMS (§6.4), set by the DC-link plate, with the electrolytic ripple limit (~330 A) above it. Full-load dyno/thermal validation of both ratings is still pending - treat the 600 A tables as the peak-duty sizing bound, not a validated rating.
 - **Gate resistance:** all switching energies now include the populated $R_G = 2.7 \ \Omega$ correction ($E_{on} \times 1.38$, linear interpolation of the datasheet p.7 $E$ vs $R_G$ curve between 1 Ω and the ≈3× point at 10 Ω; $E_{off}$/$E_{rr}$ unscaled). This is a datasheet-curve interpolation, not a measurement, and the $E_{off}$/$E_{rr}$ $R_G$-dependence is unmodeled [ASM]. Pin $E_{on}$, $E_{off}$, and $E_{rr}$ with a double-pulse test at $R_G = 2.7 \ \Omega$, +15 V / −9 V, representative bus voltage and current; re-run this analysis with the measured energies.
 - **Low-current extrapolation:** below ≈100 A the $E_{rr}/E_{off}$ curve extrapolation carries the constant offsets ($E_{off} \approx 8.7$ mJ, $E_{rr} \approx 12$ mJ); the resulting low-current, high-frequency numbers (e.g., 50 A / 8 kHz) are the least accurate in this document, ±15 %.
 - **Not modeled:** stray-inductance overshoot losses, module NTC self-heating, busbar/terminal ohmic heating into the heatsink (small vs 3.5 kW), and heatsink thermal spreading between modules (left to the heatsink detailed design). Ambient 40 °C is assumed at the heatsink inlet; inside a sealed chassis, derate accordingly.
@@ -356,6 +390,7 @@ The apparent improvement at 6–8 kHz is an artifact of the sizing method, not a
 |---------|------|---------|
 | 1.0 | 2026-07-17 | Initial release. |
 | 1.1 | 2026-08-20 | Engineering revision from hardware-designer input: populated gate drive is $R_G = 2.7 \ \Omega$, +15 V / −9 V, NCV57100 7 A class (was: datasheet $R_G = 1.0 \ \Omega$ assumption). $E_{on}$ scaled ×1.38 by linear interpolation of the datasheet $E$ vs $R_G$ curve; $E_{off}$/$E_{rr}$ held (unmodeled $R_G$ dependence, [ASM], double-pulse test open). Operating points updated to designer intent: 6 kHz max continuous, 8 kHz upper bound; 2 kHz demoted to reference; 16 kHz removed as out of scope. All loss, efficiency, and heatsink tables recomputed (600 A / 320 V: 3.8 / 5.0 / 5.5 kW and 7.3 / 4.7 / 3.7 mK/W at 2 / 6 / 8 kHz). New §6.3 integrates the DC-link plate temperature (+40.1 K standoff rise from OV-C2-DD-THERMAL) against FSR-08 thresholds: plate exceeds the 90 °C derate at all full-load points and the 105 °C SSO / capacitor rating at several; the plate, not the IGBTs, is now the binding constraint on the 600 A continuous claim. Plots (PNGs) still show the v1.0 curves; regeneration is an open item. |
+| 1.2 | 2026-08-20 | Ratings revision. PWM clamped at 6 kHz max per designer decision; 8 kHz dropped (also adjacent to the ~7.8 kHz electrolytic-branch series resonance per OV-C2-DD-DCLINK-RIPPLE) and retained in tables for reference only. New §6.4 states the IEC 61800-2 style rating: **220 A RMS continuous / 600 A RMS peak for 60 s**. The continuous rating is the lower of the electrolytic ripple limit (~330 A, OV-C2-DD-DCLINK-RIPPLE) and the DC-link plate 90 °C FSR-08 constraint (220 A at 320 V / 6 kHz on the 0.006 K/W heatsink), and is documented as a conservative analytical bound with itemized assumptions. The 60 s peak is validated by thermal time constants (junction ~101 °C steady, plate/can excursions bounded to ~92 - 97 °C end-of-peak) and carries a verifiable duty requirement (rolling 10-min RMS ≤ 220 A). Guidance, sensitivity notes, and the 600 A operation note aligned. |
 
 ---
 
