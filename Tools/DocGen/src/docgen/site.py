@@ -1,6 +1,5 @@
 """Static site generator for OpenVVVF documentation."""
 
-import os
 import re
 import shutil
 from pathlib import Path
@@ -619,31 +618,15 @@ def _placeholder_banner(doc: Optional[Document]) -> str:
 
 
 def copy_assets(doc: Document, docs_dir: Path, output_dir: Path) -> None:
-    """Copy image/asset files referenced by a Markdown document.
-
-    Asset subdirectories (e.g. a vendored JavaScript engine like o3dv/) are
-    copied recursively, except directories that hold their own Index.md
-    document, which are handled by that document's own copy_assets call.
-    """
+    """Copy image/asset files referenced by a Markdown document."""
     src_dir = doc.path.parent
     dst_dir = output_dir / doc.path.parent.relative_to(docs_dir)
-    allowed = {
-        ".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp", ".pdf",
-        ".txt", ".csv", ".jsonl", ".html",
-        ".js", ".wasm", ".css", ".md",
-    }
-    for root, dirs, files in os.walk(src_dir):
-        root_path = Path(root)
-        if root_path != src_dir:
-            # Do not descend into nested document folders.
-            dirs[:] = [d for d in dirs if not (root_path / d / "Index.md").is_file()]
-        for name in files:
-            asset = root_path / name
-            if asset.suffix.lower() not in allowed:
-                continue
-            if root_path == src_dir and asset.suffix.lower() == ".md":
-                continue
-            dst = dst_dir / asset.relative_to(src_dir)
+    for asset in src_dir.iterdir():
+        if asset.is_file() and asset.suffix.lower() in {
+            ".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp", ".pdf",
+            ".txt", ".csv", ".jsonl", ".html",
+        }:
+            dst = dst_dir / asset.name
             dst.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(asset, dst)
 
