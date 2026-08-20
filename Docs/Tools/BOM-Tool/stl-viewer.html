@@ -11,13 +11,25 @@
 * { box-sizing: border-box; }
 body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f8f9fa; }
 header { display: flex; align-items: center; gap: 12px; padding: 12px 20px;
-  border-bottom: 1px solid #e9ecef; background: #fff; }
+  border-bottom: 1px solid #e9ecef; background: #fff; flex-wrap: wrap; }
 header img { height: 28px; }
 header h1 { font-family: "Saira", sans-serif; font-size: 18px; margin: 0; }
 header h1 .sep { color: #5a5a5a; font-weight: 400; margin: 0 6px; }
 header .pn { color: #5a5a5a; font-size: 14px; }
-#view { width: 100vw; height: calc(100vh - 54px); display: block; }
+#toolbar { display: flex; align-items: center; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+#toolbar button {
+  font: 13px/1 inherit; padding: 6px 10px; border: 1px solid #dee2e6; border-radius: 4px;
+  background: #fff; color: #343a40; cursor: pointer; }
+#toolbar button:hover { background: #f1f3f5; }
+#toolbar button.active { background: #1a5f9e; border-color: #1a5f9e; color: #fff; }
+#toolbar button:disabled { opacity: 0.4; cursor: default; }
+#view { width: 100vw; height: calc(100vh - 54px); display: block; touch-action: none; }
+#view.measuring { cursor: crosshair; }
 #err { padding: 40px; color: #c41e3a; display: none; }
+#info {
+  position: absolute; left: 12px; bottom: 12px; padding: 8px 12px; font-size: 13px;
+  background: rgba(255, 255, 255, 0.9); border: 1px solid #dee2e6; border-radius: 4px;
+  color: #343a40; display: none; pointer-events: none; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -25,8 +37,18 @@ header .pn { color: #5a5a5a; font-size: 14px; }
   <a href="../../index.html"><img src="../../brand/logo.png" alt="OpenVVVF"></a>
   <h1><span class="sep">/</span>3D Part Viewer</h1>
   <span class="pn" id="pn"></span>
+  <div id="toolbar">
+    <button id="btnDims" title="Show bounding-box dimensions">Dimensions</button>
+    <button id="btnMeasure" title="Measure: click two points on the model">Measure</button>
+    <button id="btnClear" title="Clear measurement">Clear</button>
+    <button id="btnGrid" title="Toggle grid and axes">Grid</button>
+    <button id="btnWire" title="Toggle wireframe">Wireframe</button>
+    <button id="btnReset" title="Reset view">Reset</button>
+    <button id="btnShot" title="Download PNG screenshot">Screenshot</button>
+  </div>
 </header>
 <canvas id="view"></canvas>
+<div id="info"></div>
 <div id="err"></div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
@@ -40,7 +62,7 @@ if (!file) {
   document.getElementById("err").textContent = "No ?file= parameter given.";
 } else {
   const canvas = document.getElementById("view");
-  const renderer = new THREE.WebGLRenderer({canvas, antialias: true});
+  const renderer = new THREE.WebGLRenderer({canvas, antialias: true, preserveDrawingBuffer: true});
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xf8f9fa);
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 10000);
@@ -58,18 +80,237 @@ if (!file) {
   }
   window.addEventListener("resize", resize);
 
+  // Toolbar buttons
+  const btnDims = document.getElementById("btnDims");
+  const btnMeasure = document.getElementById("btnMeasure");
+  const btnClear = document.getElementById("btnClear");
+  const btnGrid = document.getElementById("btnGrid");
+  const btnWire = document.getElementById("btnWire");
+  const btnReset = document.getElementById("btnReset");
+  const btnShot = document.getElementById("btnShot");
+  const info = document.getElementById("info");
+
+  let mesh = null;
+  let meshSize = new THREE.Vector3();
+  let meshBox = null;
+  let homePosition = null;
+  let homeTarget = new THREE.Vector3();
+  let dimGroup = null;
+  let gridHelper = null;
+  let axesHelper = null;
+  let gridOn = false;
+  let measureGroup = null;
+  let measureMode = false;
+  let measurePoint = null;
+
+  // Text label as a camera-facing sprite using a canvas texture.
+  function makeLabel(text) {
+    const pad = 8;
+    const c = document.createElement("canvas");
+    const ctx = c.getContext("2d");
+    const font = "bold 28px Saira, sans-serif";
+    ctx.font = font;
+    c.width = Math.ceil(ctx.measureText(text).width) + pad * 2;
+    c.height = 40 + pad * 2;
+    ctx.font = font;
+    ctx.fillStyle = "rgba(255, 255, 255, 0.92)";
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.strokeStyle = "#adb5bd";
+    ctx.strokeRect(0.5, 0.5, c.width - 1, c.height - 1);
+    ctx.fillStyle = "#212529";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, pad, c.height / 2);
+    const tex = new THREE.CanvasTexture(c);
+    tex.minFilter = THREE.LinearFilter;
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({map: tex, depthTest: false}));
+    const h = meshSize.length() * 0.05 || 5;
+    sp.scale.set(h * c.width / c.height, h, 1);
+    sp.renderOrder = 10;
+    return sp;
+  }
+
+  // One dimension line: main segment, end ticks, and a label at the midpoint.
+  function makeDimLine(from, to, tickDir) {
+    const g = new THREE.Group();
+    const mat = new THREE.LineBasicMaterial({color: 0x1a5f9e, depthTest: false});
+    const tick = meshSize.length() * 0.02 || 2;
+    const td = tickDir.clone().normalize();
+    [from, to].forEach(p => {
+      const tg = new THREE.BufferGeometry().setFromPoints([
+        p.clone().addScaledVector(td, -tick), p.clone().addScaledVector(td, tick)]);
+      const tl = new THREE.Line(tg, mat);
+      tl.renderOrder = 9;
+      g.add(tl);
+    });
+    const lg = new THREE.BufferGeometry().setFromPoints([from, to]);
+    const line = new THREE.Line(lg, mat);
+    line.renderOrder = 9;
+    g.add(line);
+    const len = from.distanceTo(to);
+    const label = makeLabel(len.toFixed(1) + " mm");
+    label.position.copy(from).add(to).multiplyScalar(0.5).addScaledVector(td, tick * 1.5);
+    g.add(label);
+    return g;
+  }
+
+  // Dimension lines along the bounding-box X, Y, Z edges (axes X=width, Y=depth, Z=height).
+  function buildDims() {
+    dimGroup = new THREE.Group();
+    const bb = meshBox, off = meshSize.length() * 0.06 || 3;
+    // X line at bottom front edge, offset in -Y
+    const xa = new THREE.Vector3(bb.min.x, bb.min.y - off, bb.min.z);
+    const xb = new THREE.Vector3(bb.max.x, bb.min.y - off, bb.min.z);
+    dimGroup.add(makeDimLine(xa, xb, new THREE.Vector3(0, -1, 0)));
+    // Y line at bottom left edge, offset in -X
+    const ya = new THREE.Vector3(bb.min.x - off, bb.min.y, bb.min.z);
+    const yb = new THREE.Vector3(bb.min.x - off, bb.max.y, bb.min.z);
+    dimGroup.add(makeDimLine(ya, yb, new THREE.Vector3(-1, 0, 0)));
+    // Z line at right front edge, offset in +X
+    const za = new THREE.Vector3(bb.max.x + off, bb.min.y, bb.min.z);
+    const zb = new THREE.Vector3(bb.max.x + off, bb.min.y, bb.max.z);
+    dimGroup.add(makeDimLine(za, zb, new THREE.Vector3(1, 0, 0)));
+    dimGroup.visible = false;
+    scene.add(dimGroup);
+  }
+
+  function buildGrid() {
+    const span = meshSize.length() || 100;
+    gridHelper = new THREE.GridHelper(span * 2, 20, 0xadb5bd, 0xdee2e6);
+    gridHelper.position.y = meshBox.min.y;
+    axesHelper = new THREE.AxesHelper(span * 0.5);
+    axesHelper.position.y = meshBox.min.y;
+    gridHelper.visible = axesHelper.visible = false;
+    scene.add(gridHelper);
+    scene.add(axesHelper);
+  }
+
+  function makeMarker(p) {
+    const s = new THREE.Mesh(
+      new THREE.SphereGeometry(meshSize.length() * 0.008 || 0.5, 16, 12),
+      new THREE.MeshBasicMaterial({color: 0xc41e3a, depthTest: false}));
+    s.position.copy(p);
+    s.renderOrder = 10;
+    return s;
+  }
+
+  function drawMeasurement(a, b) {
+    clearMeasurement();
+    measureGroup = new THREE.Group();
+    const g = new THREE.BufferGeometry().setFromPoints([a, b]);
+    const line = new THREE.Line(g, new THREE.LineBasicMaterial({color: 0xc41e3a, depthTest: false}));
+    line.renderOrder = 9;
+    measureGroup.add(line);
+    measureGroup.add(makeMarker(a));
+    measureGroup.add(makeMarker(b));
+    const label = makeLabel(a.distanceTo(b).toFixed(2) + " mm");
+    label.position.copy(a).add(b).multiplyScalar(0.5);
+    measureGroup.add(label);
+    scene.add(measureGroup);
+  }
+
+  function clearMeasurement() {
+    if (measureGroup) {
+      scene.remove(measureGroup);
+      measureGroup = null;
+    }
+    measurePoint = null;
+  }
+
+  function setMeasureMode(on) {
+    measureMode = on;
+    btnMeasure.classList.toggle("active", on);
+    canvas.classList.toggle("measuring", on);
+    if (!on) measurePoint = null;
+  }
+
+  btnDims.addEventListener("click", () => {
+    if (!dimGroup) return;
+    dimGroup.visible = !dimGroup.visible;
+    btnDims.classList.toggle("active", dimGroup.visible);
+  });
+  btnMeasure.addEventListener("click", () => setMeasureMode(!measureMode));
+  btnClear.addEventListener("click", clearMeasurement);
+  btnGrid.addEventListener("click", () => {
+    gridOn = !gridOn;
+    if (gridHelper) gridHelper.visible = axesHelper.visible = gridOn;
+    btnGrid.classList.toggle("active", gridOn);
+  });
+  btnWire.addEventListener("click", () => {
+    if (!mesh) return;
+    mesh.material.wireframe = !mesh.material.wireframe;
+    btnWire.classList.toggle("active", mesh.material.wireframe);
+  });
+  btnReset.addEventListener("click", () => {
+    if (!homePosition) return;
+    camera.position.copy(homePosition);
+    controls.target.copy(homeTarget);
+    controls.update();
+  });
+  btnShot.addEventListener("click", () => {
+    renderer.render(scene, camera);
+    const a = document.createElement("a");
+    a.download = (document.getElementById("pn").textContent || "part") + ".png";
+    a.href = canvas.toDataURL("image/png");
+    a.click();
+  });
+  window.addEventListener("keydown", e => {
+    if (e.key === "Escape" && measureMode) setMeasureMode(false);
+  });
+
+  // Measure clicks: ignore drags so orbiting and measuring do not fight.
+  const raycaster = new THREE.Raycaster();
+  let downPos = null;
+  canvas.addEventListener("pointerdown", e => {
+    if (measureMode) downPos = [e.clientX, e.clientY];
+  });
+  canvas.addEventListener("pointerup", e => {
+    if (!measureMode || !downPos || !mesh) return;
+    const dx = e.clientX - downPos[0], dy = e.clientY - downPos[1];
+    downPos = null;
+    if (dx * dx + dy * dy > 25) return; // was a drag, not a click
+    const r = canvas.getBoundingClientRect();
+    const ndc = new THREE.Vector2(
+      ((e.clientX - r.left) / r.width) * 2 - 1,
+      -((e.clientY - r.top) / r.height) * 2 + 1);
+    raycaster.setFromCamera(ndc, camera);
+    const hit = raycaster.intersectObject(mesh)[0];
+    if (!hit) return;
+    if (!measurePoint) {
+      measurePoint = hit.point.clone();
+      clearMeasurement();
+      measureGroup = new THREE.Group();
+      measureGroup.add(makeMarker(measurePoint));
+      scene.add(measureGroup);
+    } else {
+      drawMeasurement(measurePoint, hit.point.clone());
+      measurePoint = null;
+    }
+  });
+
   new THREE.STLLoader().load(file, geometry => {
     geometry.computeBoundingBox();
     const bb = geometry.boundingBox;
     const center = bb.getCenter(new THREE.Vector3());
     geometry.translate(-center.x, -center.y, -center.z);
     const size = bb.getSize(new THREE.Vector3()).length();
-    const mesh = new THREE.Mesh(geometry,
+    mesh = new THREE.Mesh(geometry,
       new THREE.MeshStandardMaterial({color: 0x8a9099, metalness: 0.15, roughness: 0.75}));
     scene.add(mesh);
     camera.position.set(size * 0.6, size * 0.45, size * 0.7);
     controls.target.set(0, 0, 0);
     controls.update();
+    homePosition = camera.position.clone();
+    homeTarget = controls.target.clone();
+    meshSize = bb.getSize(new THREE.Vector3());
+    meshBox = bb.clone().translate(center.clone().negate());
+    buildDims();
+    buildGrid();
+    gridOn = true;
+    gridHelper.visible = axesHelper.visible = true;
+    btnGrid.classList.add("active");
+    info.style.display = "block";
+    info.textContent = "W " + meshSize.x.toFixed(1) + "  x  D " +
+      meshSize.y.toFixed(1) + "  x  H " + meshSize.z.toFixed(1) + " mm";
     resize();
   }, undefined, err => {
     document.getElementById("err").style.display = "block";
