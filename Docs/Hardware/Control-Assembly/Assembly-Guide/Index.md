@@ -23,6 +23,7 @@ Read the preparation chapter first — it covers the workspace, equipment, and p
 2. [IO Board Assembly](IOBoard/Index.md) - populate and solder the control module IO board.
 3. [Gate Driver Assembly](GateDriver/Index.md) - populate and solder the control module gate driver board.
 4. [Control Board Assembly](ControlBoard/Index.md) - populate and solder the main control board.
+5. [Control Module Test Fit](Control-Module-Test-Fit/Index.md) - dry-fit the populated boards, standoffs, and connectors before final assembly.
 
 ## Planned build order
 
@@ -32,5 +33,6 @@ The physical build proceeds in roughly this order, and chapters follow it:
 2. IO board population
 3. Gate driver board population
 4. Control board population
-5. Power board population
-6. Control module assembly and test
+5. Control module test fit
+6. Power board population
+7. Control module assembly and test
