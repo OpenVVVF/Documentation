@@ -5,8 +5,8 @@ title: Thermal Test Plan
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.2"
-date: "2026-08-20"
+version: "1.3"
+date: "2026-08-23"
 description: Bench thermal validation of the C2 inverter using a thermal chamber built from a styrofoam cooler; verifies the heatsink and DC-link thermal design claims and the FSR-08 derate/SSO thresholds.
 nav_order: 373
 normative_refs:
@@ -26,8 +26,8 @@ This plan is filed directly under `Testing/` because it spans the Hardware domai
 
 | ID | Claim / behavior | Source | Test(s) |
 |----|------------------|--------|---------|
-| CLM-1 | Required heatsink thermal resistance $R_{th(s-a)} \le 0.0073$ K/W at the 600 A / 320 V / 2 kHz reference point and $\le 0.0047$ K/W at 600 A / 320 V / 6 kHz (design target 0.0035 K/W with margin at 6 kHz); $\le 0.0234$ K/W at 300 A / 320 V / 2 kHz (values per OV-C2-DD-THERMAL v1.1+, $R_G = 2.7 \ \Omega$; 600 A is the 60 s peak duty, continuous rating is 220 A per OV-C2-DD-THERMAL v1.2) | OV-C2-DD-THERMAL | T-04 |
-| CLM-2 | DC-link spreader plate rises approximately +40.1 K over the heatsink base at 40 W capacitor heat load (with thermal paste); ~80 C plate at 40 C heatsink base | OV-C2-DD-DCLINK-THERMAL | T-05 |
+| CLM-1 | Required heatsink thermal resistance $R_{th(s-a)} \le 0.0141$ K/W at the 424 A RMS (600 A pk) / 320 V / 2 kHz reference point and $\le 0.0095$ K/W at 424 A RMS / 320 V / 6 kHz (design target 0.007 K/W with margin at 6 kHz); $\le 0.0139$ K/W at the 330 A RMS (465 A pk) / 320 V / 6 kHz continuous rating point (values per OV-C2-DD-THERMAL v1.3, $R_G = 2.7 \ \Omega$; 600 A is the 60 s peak duty, continuous rating is 330 A RMS per OV-C2-DD-THERMAL v1.3 §6.4) | OV-C2-DD-THERMAL | T-04 |
+| CLM-2 | DC-link spreader plate rises approximately +32.4 K over the heatsink base at 40 W capacitor heat load (with thermal paste, rev-B 6.35 mm plate); ~72 C plate at 40 C heatsink base | OV-C2-DD-DCLINK-THERMAL | T-05 |
 | CLM-3 | Firmware derates at 90 C and enters SSO at 105 C on the DC-link capacitor NTC channel (FSR-08; capacitor rating limit) | OV-SAF-HARA-CORE (FSR-08) | T-06 |
 | CLM-4 | IGBT NTC channels (two sensors, 1oo2 voting per FSR-08; 100 C hard cap on the module-sited NTC per OV-C2-DD-THERMAL) track the reference probes and behave plausibly over temperature | OV-SAF-HARA-CORE (FSR-08), OV-C2-DD-THERMAL | T-02, T-03, T-06 |
 | CLM-5 | Temperature-sensor accuracy: firmware NTC readings agree with calibrated reference probes within the stated tolerance across the operating range | this plan | T-01, T-02, T-03 |
@@ -183,7 +183,7 @@ Status vocabulary follows OV-TEST-FAULT-INJECTION (Defined / Executable / Condit
 4. Record $T_s$ (P-HS) and $T_{amb}$ (P-AMB); compute $R_{th(s-a)} = (T_s - T_{amb}) / P$.
 5. Repeat at a second power level to check linearity.
 
-**Pass criteria:** Error budget for this measurement: probe accuracy ±1-2 C absolute applies to both $T_s$ and $T_{amb}$, giving roughly ±1.4-2.8 K on the delta-T (RSS); power measurement with bench V x A is ±2 % class. At 500 W / ~12 K rise at the 0.0234 K/W requirement, the resulting $R_{th(s-a)}$ uncertainty is roughly ±15-25 %. With this instrumentation **T-04 can only bound $R_{th(s-a)}$ to roughly the 0.02 K/W class; it cannot validate the 0.0073 K/W (2 kHz) or 0.0047 K/W (6 kHz) liquid-cooling design points** (at those values even 1 kW yields only ~5-7 K rise, inside the probe error). Validating the 600 A peak point needs the dyno or a calorimetric flow rig and remains open. Bench-level pass for CLM-1: measured $R_{th(s-a)} \le 0.0234$ K/W including the error band, at the intended cooling condition; still-air runs are recorded as characterization data only. If the measured value exceeds the requirement for the intended operating point, the result shall be raised as a design deviation against OV-C2-DD-THERMAL (whose loss model is an unvalidated design estimate, marked as such in that document). The two power levels shall agree within the error band above.
+**Pass criteria:** Error budget for this measurement: probe accuracy ±1-2 C absolute applies to both $T_s$ and $T_{amb}$, giving roughly ±1.4-2.8 K on the delta-T (RSS); power measurement with bench V x A is ±2 % class. At 500 W / ~7 K rise at the 0.0139 K/W continuous-point requirement, the resulting $R_{th(s-a)}$ uncertainty is roughly ±20-40 %. With this instrumentation **T-04 can bound $R_{th(s-a)}$ to roughly the 0.02 K/W class: it can validate the 0.0141 K/W (2 kHz reference) and 0.0139 K/W (330 A RMS continuous) points (1 kW yields ~14 K rise, above the probe error), but not the 0.0095 K/W (6 kHz) peak point** (1 kW yields ~9.5 K rise, marginal against the error band). Validating the 600 A peak / 6 kHz point with margin needs the dyno or a calorimetric flow rig and remains open. Bench-level pass for CLM-1: measured $R_{th(s-a)} \le 0.0139$ K/W including the error band, at the intended cooling condition; still-air runs are recorded as characterization data only. If the measured value exceeds the requirement for the intended operating point, the result shall be raised as a design deviation against OV-C2-DD-THERMAL (whose loss model is an unvalidated design estimate, marked as such in that document). The two power levels shall agree within the error band above.
 
 **Data table:**
 
@@ -268,8 +268,8 @@ Status vocabulary follows OV-TEST-FAULT-INJECTION (Defined / Executable / Condit
 
 | Claim | Acceptance threshold | Basis |
 |-------|----------------------|-------|
-| CLM-1 | Measured $R_{th(s-a)} \le 0.0234$ K/W at the intended cooling condition, within the T-04 error band (roughly ±15-25 % at 500 W-1 kW). Bench instrumentation bounds $R_{th(s-a)}$ only to the ~0.02 K/W class; the 0.0073 K/W (2 kHz) / 0.0047 K/W (6 kHz) 600 A peak design points cannot be validated with this setup and require the dyno or a calorimetric flow rig (remains open). Design-doc values are unvalidated estimates; deviation raised against OV-C2-DD-THERMAL. | T-04 |
-| CLM-2 | Plate rise 32-48 K at 40 W (40.1 K ±20 %). Design-doc value is an unvalidated 1-D estimate; this test is its validation. | T-05 |
+| CLM-1 | Measured $R_{th(s-a)} \le 0.0139$ K/W at the intended cooling condition, within the T-04 error band (roughly ±20-40 % at 500 W-1 kW). This validates both the 330 A RMS continuous point and the 424 A RMS / 2 kHz reference point (both ≈0.014 K/W); the 0.0095 K/W 600 A peak / 6 kHz point is marginal on the bench and should be confirmed on the dyno or a calorimetric flow rig (remains open). Design-doc values are unvalidated estimates; deviation raised against OV-C2-DD-THERMAL. | T-04 |
+| CLM-2 | Plate rise 26-39 K at 40 W (32.4 K ±20 %, rev-B 6.35 mm plate). Design-doc value is an unvalidated 1-D estimate; this test is its validation. | T-05 |
 | CLM-3 | Derate at 90 C ±3 C; immediate SSO at 105 C ±3 C, capacitor NTC channel. | T-06 |
 | CLM-4 | IGBT NTC channels plausible and tracking within ±3 C across cold, soak, and sweep tests. | T-02, T-03, T-06 |
 | CLM-5 | Firmware NTC vs calibrated reference probes within ±3 C at all recorded points. | T-01 through T-06 |
@@ -314,3 +314,4 @@ Items needing a real chamber (controlled humidity, altitude, fast ramp, sub-0 C 
 |---------|------|---------|
 | 1.1 | 2026-08-20 | (Prior revision; see git history for details.) |
 | 1.2 | 2026-08-20 | CLM-1 updated to the OV-C2-DD-THERMAL v1.1+ heatsink requirements ($R_G = 2.7 \ \Omega$ gate drive): 0.0073 K/W at 600 A / 320 V / 2 kHz and 0.0047 K/W at 600 A / 320 V / 6 kHz (was 0.0076 K/W), 0.0234 K/W at 300 A / 320 V (was 0.0239 K/W); T-04 setup and acceptance tables aligned. CLM-1 notes that 600 A is now the 60 s peak duty and the continuous rating is 220 A per OV-C2-DD-THERMAL v1.2. |
+| 1.3 | 2026-08-23 | Aligned to OV-C2-DD-THERMAL v1.3 (600 A = peak = 424 A RMS; continuous rating 330 A RMS / 465 A pk) and OV-C2-DD-DCLINK-THERMAL v1.3 (rev-B 6.35 mm plate, +32.4 K reference rise). CLM-1 requirements relaxed: 0.0141 K/W (2 kHz reference) / 0.0095 K/W (6 kHz peak) / 0.0139 K/W (continuous point); design target 0.007 K/W. T-04 bench acceptance tightened to ≤0.0139 K/W, which the bench instrumentation can now reach for the continuous and 2 kHz points; only the 6 kHz peak point remains dyno-only. CLM-2 acceptance updated to 26-39 K at 40 W for the rev-B plate. |

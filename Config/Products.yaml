@@ -24,7 +24,7 @@ chassis:
     id: chassis-size-2
     short_code: C2
     name: Chassis Size 2
-    description: 150/200/400 V class per DC-link capacitor selection / 220 A continuous, 600 A peak (60 s)
+    description: 150/200/400 V class per DC-link capacitor selection / 465 A peak (330 A RMS) continuous, 600 A peak (424 A RMS) 60 s
   Chassis3:
     id: chassis-size-3
     short_code: C3
