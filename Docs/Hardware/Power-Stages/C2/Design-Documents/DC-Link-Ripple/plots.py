@@ -185,22 +185,22 @@ FILM = dict(n=6, C_each=15e-6, ESR_each=5e-3, ESL_each=20e-9,
 
 # Electrolytic branch: 60-can UCS2D331MHD bank behind the rod standoffs.
 # Rod loop inductance, parallel round conductors: L = (mu0/pi) * l * ln(s/r)
-#   l = 40 mm one-way rod length (go and return form the loop),
+#   l = 63 mm one-way rod length (go and return form the loop),
 #   r = 6.5 mm (13 mm OD standoff, DC-Link-Thermal geometry),
 #   s = 50 mm nominal go-return spacing (thermal-doc cell radius; renders
 #   show rods distributed across the module footprint), sweep 30-100 mm.
 MU0 = 4 * np.pi * 1e-7
-def rod_pair_L(l=0.040, s=0.050, r=0.0065):
+def rod_pair_L(l=0.063, s=0.050, r=0.0065):
     return MU0 / np.pi * l * np.log(s / r)
 
 L_PAIR = rod_pair_L()
 print(f"\nRod go-return pair inductance: {L_PAIR*1e9:.1f} nH "
-      f"(l=40 mm, s=50 mm, r=6.5 mm); sweep s=30-100 mm: "
+      f"(l=63 mm, s=50 mm, r=6.5 mm); sweep s=30-100 mm: "
       f"{rod_pair_L(s=0.030)*1e9:.1f}-{rod_pair_L(s=0.100)*1e9:.1f} nH")
 
 # 6 rods = 3 go-return pairs in parallel (one per phase module) [ASM];
 # plus ~10 nH electrolytic-board/can-bank ESL [ASM].
-L_ROD_BRANCH = L_PAIR / 3 + 10e-9   # ~21 nH nominal
+L_ROD_BRANCH = L_PAIR / 3 + 10e-9   # ~27 nH nominal
 L_ROD_SWEEP = (10e-9, 100e-9)       # [ASM] branch-inductance sweep range
 print(f"Electrolytic branch inductance (3 parallel pairs + board ESL): "
       f"{L_ROD_BRANCH*1e9:.1f} nH nominal, sweep "
