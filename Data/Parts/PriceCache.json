@@ -217,7 +217,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T19:49:56.476237Z"
+    "last_updated": "2026-08-23T22:16:54.825339Z"
   },
   "sendcutsend:hw-c2-pbb-a": {
     "vendor": "sendcutsend",
@@ -227,7 +227,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T19:49:56.476257Z"
+    "last_updated": "2026-08-23T22:16:54.825359Z"
   },
   "sendcutsend:hw-c2-bsp-a": {
     "vendor": "sendcutsend",
@@ -237,7 +237,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T19:49:56.476581Z"
+    "last_updated": "2026-08-23T22:16:54.825823Z"
   },
   "sendcutsend:hw-c2-chsp-a": {
     "vendor": "sendcutsend",
@@ -247,7 +247,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-17T19:49:56.476590Z"
+    "last_updated": "2026-08-20T08:53:54.001588Z"
   },
   "mouser:80-c1210c104k1rac": {
     "vendor": "mouser",
@@ -1288,5 +1288,145 @@
     "source": "mcmaster_scrape",
     "url": "https://www.mcmaster.com/96738A257/",
     "last_updated": "2026-08-17T03:54:52.669675Z"
+  },
+  "sendcutsend:hw-c3-dclbb-cnpl-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-DCLBB-CNPL-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-20T08:22:43.812021Z"
+  },
+  "sendcutsend:hw-c3-dclbb-n-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-DCLBB-N-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-20T08:22:43.812034Z"
+  },
+  "sendcutsend:hw-c3-dclbb-p-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-DCLBB-P-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-20T08:22:43.812042Z"
+  },
+  "sendcutsend:hw-c3-dclbb-sp-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-DCLBB-SP-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-20T08:22:43.812049Z"
+  },
+  "sendcutsend:hw-c3-phbb-pa-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-PHBB-PA-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-20T08:22:43.812057Z"
+  },
+  "sendcutsend:hw-c3-fr-igcsmp-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-FR-IGCSMP-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-20T08:22:43.812064Z"
+  },
+  "sendcutsend:hw-c3-fr-tpencl-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-FR-TPENCL-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-20T08:22:43.812070Z"
+  },
+  "sendcutsend:hw-c3-fr-bsp-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-FR-BSP-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-20T08:22:43.812077Z"
+  },
+  "sendcutsend:hw-c0-bsp-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C0-BSP-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-23T22:13:12.068690Z"
+  },
+  "sendcutsend:dc link module holder spacer - printed": {
+    "vendor": "sendcutsend",
+    "part_number": "DC Link Module Holder Spacer - Printed",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-23T22:13:12.078919Z"
+  },
+  "sendcutsend:hw-c2-dclspcr-printed-b": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-DCLSPCR-PRINTED-B",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-23T22:13:12.078938Z"
+  },
+  "mcmaster:92125a228": {
+    "vendor": "mcmaster",
+    "part_number": "92125A228",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/92125A228/",
+    "last_updated": "2026-08-23T22:13:12.486392Z"
+  },
+  "sendcutsend:thermal pad cutting stencil": {
+    "vendor": "sendcutsend",
+    "part_number": "Thermal Pad Cutting Stencil",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-23T22:13:12.486632Z"
+  },
+  "sendcutsend:hw-c2-chsp-b": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-CHSP-B",
+    "unit_price": 42.64,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-23T22:16:54.825835Z"
   }
 }

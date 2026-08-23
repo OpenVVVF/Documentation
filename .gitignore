@@ -29,7 +29,6 @@ fp-info-cache
 # Local / personal state (do not commit)
 Config.yaml
 Inventory.json
-PriceCache.json
 *.local
 .env
 
