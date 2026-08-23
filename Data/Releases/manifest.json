@@ -69,6 +69,76 @@
     "source_tag": "C3-WIP",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
+  "CHASSIS-C2-B": {
+    "artifacts": {
+      "price_estimate": {
+        "qty": 1,
+        "total": "2,378.18",
+        "variant_vendors": {
+          "generous": {
+            "mcmaster": "172.50",
+            "mouser": "2,004.01",
+            "pcb": "129.08",
+            "sendcutsend": "436.74"
+          },
+          "standard": {
+            "mcmaster": "165.05",
+            "mouser": "1,780.08",
+            "pcb": "64.54",
+            "sendcutsend": "416.42"
+          }
+        },
+        "variants": {
+          "base": "0.00",
+          "generous": "0.00",
+          "standard": "0.00"
+        },
+        "vendors": {
+          "In-House Assembly": "0.00",
+          "McMaster-Carr": "150.17",
+          "Mouser": "1,747.05",
+          "PCB Fabrication": "64.54",
+          "SendCutSend": "416.42"
+        }
+      },
+      "pricing_report": "Pricing_Report.md",
+      "variants": {
+        "generous": {
+          "assembly": "BOMs/Variants/generous/assembly_bom.csv",
+          "consolidated": "BOMs/Variants/generous/Consolidated_BOM.csv",
+          "mcmaster": "BOMs/Variants/generous/mcmaster_bom.csv",
+          "mcmaster_paste": "BOMs/Variants/generous/McMaster_Order_Paste.txt",
+          "mouser": "BOMs/Variants/generous/mouser_bom.csv",
+          "pcb": "BOMs/Variants/generous/pcb_bom.csv",
+          "sendcutsend": "BOMs/Variants/generous/sendcutsend_bom.csv"
+        },
+        "standard": {
+          "assembly": "BOMs/Variants/standard/assembly_bom.csv",
+          "consolidated": "BOMs/Variants/standard/Consolidated_BOM.csv",
+          "mcmaster": "BOMs/Variants/standard/mcmaster_bom.csv",
+          "mcmaster_paste": "BOMs/Variants/standard/McMaster_Order_Paste.txt",
+          "mouser": "BOMs/Variants/standard/mouser_bom.csv",
+          "pcb": "BOMs/Variants/standard/pcb_bom.csv",
+          "sendcutsend": "BOMs/Variants/standard/sendcutsend_bom.csv"
+        }
+      },
+      "vendor_boms": {
+        "assembly": "BOMs/assembly_bom.csv",
+        "consolidated": "BOMs/Consolidated_BOM.csv",
+        "mcmaster": "BOMs/mcmaster_bom.csv",
+        "mcmaster_paste": "BOMs/McMaster_Order_Paste.txt",
+        "mouser": "BOMs/mouser_bom.csv",
+        "pcb": "BOMs/pcb_bom.csv",
+        "sendcutsend": "BOMs/sendcutsend_bom.csv"
+      }
+    },
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/B",
+    "generated": "2026-08-23T22:13:12+00:00",
+    "rev": "B",
+    "source_tag": "C2-B",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-B"
+  },
   "CHASSIS-C3-C3-WIP": {
     "artifacts": {
       "price_estimate": {
@@ -200,6 +270,51 @@
     "source_tag": "C3-WIP",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
+  "HW-C2-CHSP-B": {
+    "artifacts": {
+      "fab_spec": {
+        "material": "6061 T6 Aluminum",
+        "notes": [
+          "Deburr all edges"
+        ],
+        "process": "laser_cut",
+        "services": {
+          "countersinking": [
+            {
+              "for": "0.411 / 0.199 / 90 deg",
+              "holes": "all 0.2166\" (5.5 mm) holes"
+            }
+          ]
+        },
+        "thickness_mm": 6.35
+      },
+      "holes": "holes.json",
+      "image": "info.png",
+      "info": "info.txt",
+      "info_fields": {
+        "Dimensions_in": "11.732x3.78 in",
+        "Finish": "Deburring",
+        "Material": "6061 T6 Aluminum",
+        "Notes": "Imported from SendCutSend cart",
+        "PartName": "HW-C2-CHSP-B",
+        "Process": "Sheet Cutting",
+        "Qty": "1",
+        "Thickness_mm": "6.35",
+        "UnitPrice": "42.64"
+      },
+      "material": "Aluminum-6061-T6",
+      "step": "HW-C2-CHSP-B.step",
+      "stl": "HW-C2-CHSP-B.stl"
+    },
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/B/Mech/HW-C2-CHSP-B",
+    "generated": "2026-08-23T22:13:12+00:00",
+    "mech": true,
+    "part_number": "HW-C2-CHSP-B",
+    "rev": "B",
+    "source_tag": "C2-B",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-B"
+  },
   "HW-C2-DCLBB-A": {
     "artifacts": {
       "fab_spec": {
@@ -275,6 +390,76 @@
     "source_tag": "C3-WIP",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
   },
+  "HW-C2-DCLMH-200-PRINTED-B": {
+    "artifacts": {
+      "fab_spec": {
+        "material": "Nylon (PA12 or PA6/66, solid)",
+        "notes": [
+          "100% infill (solid).",
+          "PLACEHOLDER: 200V-class 3D-printed variant placeholder; 35.5 mm tall caps. Replace with actual design before release."
+        ],
+        "process": "3d_print"
+      },
+      "holes": "holes.json",
+      "image": "info.png",
+      "info": "info.txt",
+      "info_fields": {
+        "Dimensions_in": "6.000x3.000 in",
+        "Finish": "as printed",
+        "Material": "",
+        "Notes": "200V-class 3D-printed variant placeholder; 35.5 mm tall caps. Replace with actual design before release.",
+        "PartName": "DC Link Module Holder - 200V Class",
+        "Process": "3D Printing",
+        "Qty": "1",
+        "Thickness_mm": "35.50",
+        "UnitPrice": ""
+      },
+      "step": "HW-C2-DCLMH-200-PRINTED-B.step",
+      "stl": "HW-C2-DCLMH-200-PRINTED-B.stl"
+    },
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/B/Mech/HW-C2-DCLMH-200-PRINTED-B",
+    "generated": "2026-08-23T22:13:12+00:00",
+    "mech": true,
+    "part_number": "HW-C2-DCLMH-200-PRINTED-B",
+    "rev": "B",
+    "source_tag": "C2-B",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-B"
+  },
+  "HW-C2-DCLMH-200-SPCR-PRINTED-A": {
+    "artifacts": {
+      "fab_spec": {
+        "material": "Nylon (PA12 or PA6/66, solid)",
+        "notes": [
+          "100% infill (solid).",
+          "TODO: layer height / orientation if critical."
+        ],
+        "process": "3d_print"
+      },
+      "holes": "holes.json",
+      "image": "info.png",
+      "info": "info.txt",
+      "info_fields": {
+        "Finish": "as printed",
+        "Material": "Nylon (PA12 or PA6/66)",
+        "Notes": "Spacers between DC link bulk cap board and aluminium heatspreader plate; prevent board flexing during tightening.",
+        "PartName": "DC Link Module Holder Spacer - Printed",
+        "Process": "3D Printing",
+        "Qty": "6"
+      },
+      "material": "ABS-Generic",
+      "step": "HW-C2-DCLMH-200-SPCR-PRINTED-A.step",
+      "stl": "HW-C2-DCLMH-200-SPCR-PRINTED-A.stl"
+    },
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/B/Mech/HW-C2-DCLMH-200-SPCR-PRINTED-A",
+    "generated": "2026-08-23T22:13:12+00:00",
+    "mech": true,
+    "part_number": "HW-C2-DCLMH-200-SPCR-PRINTED-A",
+    "rev": "B",
+    "source_tag": "C2-B",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-B"
+  },
   "HW-C2-DCLSPCR-PRINTED-A": {
     "artifacts": {
       "fab_spec": {
@@ -310,6 +495,43 @@
     "rev": "A",
     "source_tag": "C3-WIP",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
+  "HW-C2-DCLSPCR-PRINTED-B": {
+    "artifacts": {
+      "fab_spec": {
+        "material": "Nylon (PA12 or PA6/66, solid)",
+        "notes": [
+          "100% infill (solid).",
+          "TODO: layer height / orientation if critical."
+        ],
+        "process": "3d_print"
+      },
+      "holes": "holes.json",
+      "image": "info.png",
+      "info": "info.txt",
+      "info_fields": {
+        "Dimensions_in": "",
+        "Finish": "as printed",
+        "Material": "Nylon (PA12 or PA6/66, solid)",
+        "Notes": "DC link spacer; 100% infill (solid). See fab_spec.yaml for print spec.",
+        "PartName": "HW-C2-DCLSPCR-PRINTED-B",
+        "Process": "3D Printing",
+        "Qty": "3",
+        "Thickness_mm": "",
+        "UnitPrice": ""
+      },
+      "material": "ABS-Generic",
+      "step": "HW-C2-DCLSPCR-PRINTED-B.step",
+      "stl": "HW-C2-DCLSPCR-PRINTED-B.stl"
+    },
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/B/Mech/HW-C2-DCLSPCR-PRINTED-B",
+    "generated": "2026-08-23T22:13:12+00:00",
+    "mech": true,
+    "part_number": "HW-C2-DCLSPCR-PRINTED-B",
+    "rev": "B",
+    "source_tag": "C2-B",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-B"
   },
   "HW-C2-PBB-A": {
     "artifacts": {
@@ -544,6 +766,38 @@
     "rev": "A",
     "source_tag": "C3-WIP",
     "source_url": "https://github.com/datacrystals/InverterGen5/tree/C3-WIP"
+  },
+  "HW-C2-THRMLPD-STNCL-A": {
+    "artifacts": {
+      "fab_spec": {
+        "material": "PLA",
+        "notes": [
+          "Tracing/cutting template only; any rigid filament is fine."
+        ],
+        "process": "3d_print"
+      },
+      "holes": "holes.json",
+      "image": "info.png",
+      "info": "info.txt",
+      "info_fields": {
+        "Finish": "as printed",
+        "Material": "PLA",
+        "Notes": "Stencil/template for tracing and cutting the capacitor heatspreader thermal pad. Any rigid filament is fine.",
+        "PartName": "Thermal Pad Cutting Stencil",
+        "Process": "3D Printing",
+        "Qty": "1"
+      },
+      "step": "HW-C2-THRMLPD-STNCL-A.step",
+      "stl": "HW-C2-THRMLPD-STNCL-A.stl"
+    },
+    "chassis": "C2",
+    "dir": "Data/Releases/C2/B/Mech/HW-C2-THRMLPD-STNCL-A",
+    "generated": "2026-08-23T22:13:12+00:00",
+    "mech": true,
+    "part_number": "HW-C2-THRMLPD-STNCL-A",
+    "rev": "B",
+    "source_tag": "C2-B",
+    "source_url": "https://github.com/datacrystals/InverterGen5/tree/C2-B"
   },
   "HW-C3-DCLBB-CNPL-A": {
     "artifacts": {

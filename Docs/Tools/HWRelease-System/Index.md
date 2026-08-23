@@ -47,7 +47,7 @@ fab_defaults.yaml┘                     │
 
 ## The release workflow
 
-1. In InverterGen5: make changes (bump `(rev "X")` in a board's `.kicad_sch`/`.kicad_pcb`, edit specs), commit, push, and create a GitHub release (which creates a tag, e.g. `C2-A`).
+1. In InverterGen5: make changes (bump `(rev "X")` in a board's `.kicad_sch`/`.kicad_pcb`, edit specs; for mech-only changes, rename the FreeCAD part labels and `Mechanical/Fab/<part>` folders to the new rev suffix), commit, push, and create a GitHub release (which creates a tag, e.g. `C2-A`). A tag named `<chassis-short>-<rev>` (e.g. `C2-B`) pins that chassis' release rev and scopes the export to that chassis, so a mechanical-only change set can move the chassis revision without any board rev bump.
 2. Here: run `make hw-update` (= `hwrelease update`). It fetches tags, and for each tag not yet in the manifest:
    - Exports the tag's `Hardware/` tree via `git archive` into a temp dir (the hardware repo's working tree is never touched).
    - Reads each board's revision from `(rev "X")` in its KiCad files.
@@ -121,6 +121,7 @@ These files in InverterGen5 drive the tools; keep them current:
 | Task | Where |
 |---|---|
 | New board revision | bump `(rev ...)` in KiCad files, tag release, `make hw-update` |
+| New mech-only chassis revision | rename the FreeCAD part labels (and `Mechanical/Fab/<part>` folders) to the new rev suffix, tag `<short>-<rev>` (e.g. `C2-B`), `make hw-update`. A chassis-named tag pins the chassis rev and scopes the export to that chassis, so no board rev bump is needed |
 | Board ordering spec (2 oz copper, finish) | `Boards/<Board>/fab_spec.yaml` in InverterGen5 |
 | Chassis-wide fab note | `Boards/fab_defaults.yaml` |
 | Mech part spec (tap/countersink/bend/print) | `Mechanical/Fab/<part>/fab_spec.yaml` |

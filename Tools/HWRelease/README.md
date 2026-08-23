@@ -8,7 +8,11 @@ versioned, per-board artifacts under `Data/Releases/`, indexed by part number
 
 1. In `../InverterGen5`: bump the revision in the board's KiCad files
    (`(rev "B")` in the `.kicad_sch` / `.kicad_pcb`), commit, push, and create a
-   GitHub release (which creates the tag).
+   GitHub release (which creates the tag). For mechanical-only changes, instead
+   rename the FreeCAD part labels and `Mechanical/Fab/<part>` folders to the
+   new rev suffix and tag `<chassis-short>-<rev>` (e.g. `C2-B`): a
+   chassis-named tag pins the chassis release rev and scopes the export to
+   that chassis, no board rev bump needed.
 2. Here, run:
 
    ```sh

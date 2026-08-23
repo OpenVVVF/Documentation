@@ -567,8 +567,19 @@ def update(hw_repo: Path, tag_pattern: str = "*", only_tag: Optional[str] = None
                 short = chassis_short_code(products, chassis)
                 if not short:
                     continue
+                # A tag naming a chassis directly (e.g. "C2-B") scopes the
+                # release to that chassis: other chassis are not exported
+                # from this tag.
+                tag_chassis = re.fullmatch(r"([A-Z]\d+)-[A-Z]\d*", tag)
+                if tag_chassis and tag_chassis.group(1) != short:
+                    continue
                 revs = {b.rev for b in boards if b.chassis == chassis}
                 rev = revs.pop() if len(revs) == 1 else tag
+                # ...and pins the chassis rev, so a mechanical-only release
+                # can move the chassis revision without a board rev bump.
+                m = re.fullmatch(rf"{short}-([A-Z]\d*)", tag)
+                if m:
+                    rev = m.group(1)
                 key = f"CHASSIS-{short}-{rev}"
                 if key in manifest and not force:
                     continue

@@ -489,16 +489,6 @@
     "key": "c2|plate|fab:hw-c2-bsp-a",
     "chassis": "C2"
   },
-  "c2|plate|fab:hw-c2-chsp-a": {
-    "part_number": "HW-C2-PLT-CHSP-A",
-    "category": "plate",
-    "category_prefix": "PLT",
-    "descriptor": "CHSP",
-    "revision": "A",
-    "description": "HW-C2-CHSP-A",
-    "key": "c2|plate|fab:hw-c2-chsp-a",
-    "chassis": "C2"
-  },
   "c2|resistor|r_1210_3225metric_pad1.30x2.65mm_handsolder|10k": {
     "part_number": "HW-C2-RES-10K-A",
     "category": "resistor",
@@ -1978,23 +1968,6 @@
       }
     ]
   },
-  "c2|3dprint|fab:hw-c2-dclspcr-printed-a": {
-    "part_number": "HW-C2-3DP-DCLSPCR-PRINTED-A",
-    "category": "3dprint",
-    "category_prefix": "3DP",
-    "descriptor": "DCLSPCR-PRINTED",
-    "revision": "A",
-    "description": "HW-C2-DCLSPCR-PRINTED-A",
-    "key": "c2|3dprint|fab:hw-c2-dclspcr-printed-a",
-    "chassis": "C2",
-    "history": [
-      {
-        "rev": "A",
-        "date": "2026-08-17",
-        "note": "created"
-      }
-    ]
-  },
   "c2|3dprint|fab:hw-c2-shell-printed-a": {
     "part_number": "HW-C2-3DP-SHELL-PRINTED-A",
     "category": "3dprint",
@@ -2249,5 +2222,117 @@
         "note": "created"
       }
     ]
+  },
+  "c0|plate|fab:hw-c0-bsp-a": {
+    "part_number": "HW-C0-PLT-BSP-A",
+    "category": "plate",
+    "category_prefix": "PLT",
+    "descriptor": "BSP",
+    "revision": "A",
+    "description": "HW-C0-BSP-A",
+    "key": "c0|plate|fab:hw-c0-bsp-a",
+    "chassis": "C0",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-23",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|3dprint|fab:hw-c2-dclmh-200-spcr-printed-a": {
+    "part_number": "HW-C2-3DP-DC-LINK-MODULE-HOLDER-SP-A",
+    "category": "3dprint",
+    "category_prefix": "3DP",
+    "descriptor": "DC-LINK-MODULE-HOLDER-SP",
+    "revision": "A",
+    "description": "DC Link Module Holder Spacer - Printed",
+    "key": "c2|3dprint|fab:hw-c2-dclmh-200-spcr-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-23",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|3dprint|fab:hw-c2-dclspcr-printed-b": {
+    "part_number": "HW-C2-3DP-DCLSPCR-PRINTED-A",
+    "category": "3dprint",
+    "category_prefix": "3DP",
+    "descriptor": "DCLSPCR-PRINTED",
+    "revision": "A",
+    "description": "HW-C2-DCLSPCR-PRINTED-A",
+    "key": "c2|3dprint|fab:hw-c2-dclspcr-printed-b",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|92125a228": {
+    "part_number": "HW-C2-MECH-92125A228-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "92125A228",
+    "revision": "A",
+    "description": "92125A228",
+    "key": "c2|mechanical|mcmaster|92125a228",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-23",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|fab:hw-c2-dclmh-200-printed-b": {
+    "part_number": "HW-C2-HW-DC-LINK-MODULE-HOLDER-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "DC-LINK-MODULE-HOLDER",
+    "revision": "A",
+    "description": "DC Link Module Holder - 200V Class",
+    "key": "c2|other|fab:hw-c2-dclmh-200-printed-b",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-23",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|fab:hw-c2-thrmlpd-stncl-a": {
+    "part_number": "HW-C2-HW-THERMAL-PAD-CUTTING-STEN-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "THERMAL-PAD-CUTTING-STEN",
+    "revision": "A",
+    "description": "Thermal Pad Cutting Stencil",
+    "key": "c2|other|fab:hw-c2-thrmlpd-stncl-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-23",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|plate|fab:hw-c2-chsp-b": {
+    "part_number": "HW-C2-PLT-CHSP-A",
+    "category": "plate",
+    "category_prefix": "PLT",
+    "descriptor": "CHSP",
+    "revision": "A",
+    "description": "HW-C2-CHSP-A",
+    "key": "c2|plate|fab:hw-c2-chsp-b",
+    "chassis": "C2"
   }
 }

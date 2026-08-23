@@ -198,6 +198,38 @@ def test_update_only_tag(hw_repo, docs_root, fake_kicad):
     assert set(manifest) == {"HW-C2-PCB-CTRL-B", "CHASSIS-C2-B", "HW-C2-DCLBB-A"}
 
 
+def test_update_chassis_tag_pins_rev_for_mech_only_release(hw_repo, docs_root,
+                                                           fake_kicad):
+    """A chassis-named tag (C2-B) pins the chassis rev even when no board
+    rev changed, so a mechanical-only release publishes as a new chassis rev,
+    and other chassis are not exported from that tag."""
+    import subprocess as sp
+    # give the repo a second chassis with mech content
+    c3 = hw_repo / "Hardware" / "Chassis3" / "Mechanical" / "Fab" / "HW-C3-PBB-A"
+    c3.mkdir(parents=True)
+    (c3 / "info.txt").write_text("PartName=HW-C3-PBB-A\n")
+    (c3 / "HW-C3-PBB-A.step").write_text("step")
+    sp.run(["git", "-C", str(hw_repo), "add", "."], check=True)
+    sp.run(["git", "-C", str(hw_repo), "commit", "-q", "-m", "c3 mech"],
+           check=True, env=_git_env())
+    # register Chassis3 in the products config so it is exportable
+    products = docs_root / "Config" / "Products.yaml"
+    products.write_text(products.read_text() +
+                        "  Chassis3:\n    short_code: C3\n")
+    sp.run(["git", "-C", str(hw_repo), "tag", "C2-B"], check=True)
+    manifest_path = docs_root / "Data" / "Releases" / "manifest.json"
+    rc = core.update(hw_repo, only_tag="C2-B", manifest_path=manifest_path)
+    assert rc == 0
+    manifest = json.loads(manifest_path.read_text())
+    assert manifest["CHASSIS-C2-B"]["rev"] == "B"
+    assert manifest["CHASSIS-C2-B"]["source_tag"] == "C2-B"
+    # boards unchanged by the tag: rev comes from the KiCad files as usual
+    assert manifest["HW-C2-PCB-CTRL-B"]["rev"] == "B"
+    # the tag names C2: Chassis3 content is not exported from it
+    assert not any(k.startswith("CHASSIS-C3") or k.startswith("HW-C3")
+                   for k in manifest)
+
+
 def test_update_no_tags(hw_repo, docs_root, fake_kicad):
     manifest_path = docs_root / "Data" / "Releases" / "manifest.json"
     rc = core.update(hw_repo, tag_pattern="nope-*", manifest_path=manifest_path)

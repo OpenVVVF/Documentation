@@ -82,7 +82,7 @@ Total system resistance is the sum of three series components:
 
 ### Geometry constants
 
-- Heat-spreader plate: 3.18 mm (1/8 in) thick aluminium *(corrected from 4 mm to match the fabricated plate, HW-C2-PLT-CHSP-A; all spreading-resistance values below use 3.18 mm)*
+- Heat-spreader plate: 6.35 mm (1/4 in) thick aluminium *(HW-C2-PLT-CHSP-B; thickened from 3.18 mm rev A for better heat dissipation and capacitor height clearance. The spreading-resistance values below were computed for the 3.18 mm rev-A plate, so they are conservative for rev B — actual thermal performance is better than stated.)*
 - Standoff length: 55 mm (final design)
 - Number of standoffs: 6 (final design)
 - Standoff spacing: assumed ~100 mm centre-to-centre (spreading cell radius $r_{cell} \approx 50$ mm)
