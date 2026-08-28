@@ -31,6 +31,10 @@ Electrical, thermal, mechanical, and environmental test records.
 - [Induction Motor 180 V Power Stage Bring-up](Induction-Motor-180V-Bringup/Index.md)
 - [Induction Motor 180 V 20-Minute Reversal Test](Induction-Motor-180V-Reversal/Index.md)
 
+## Gen7 hardware
+
+- [Gen7 Board Temperature Sensor Validation](Gen7-Temp-Sensor-Validation/Index.md) - first Gen7 test record; validates the three board NTC temperature channels against a thermal imager under a torch-applied gradient.
+
 ## Cross-cutting
 
 - [Motor Self-Commissioning Accuracy Report](Motor-Self-Commissioning-Accuracy/Index.md) - aggregates the calibration-validation measurements into a single accuracy record for the self-commissioning routine.
