@@ -140,6 +140,9 @@ def test_export_chassis_boms_copies_build_variants(tmp_path):
     build = fab / "Builds" / "450v" / "BOMs"
     build.mkdir(parents=True)
     (build / "mouser_bom.csv").write_text("pn,qty\nY,60\n")
+    # The hardware repo's per-build .gitignore must not ride along: this repo
+    # commits Data/Releases/ wholesale.
+    (fab / "Builds" / "450v" / ".gitignore").write_text("*\n!Pricing_Report.md\n")
     (fab / "Variant_Comparison.md").write_text("# comparison\n")
     (fab / "variants.json").write_text(json.dumps({
         "chassis": "Chassis2", "default": "200v",
@@ -147,6 +150,7 @@ def test_export_chassis_boms_copies_build_variants(tmp_path):
     out = tmp_path / "out"
     artifacts = core.export_chassis_boms(tmp_path / "Chassis2", out)
     assert (out / "Builds" / "450v" / "BOMs" / "mouser_bom.csv").is_file()
+    assert not (out / "Builds" / "450v" / ".gitignore").exists()
     assert (out / "Variant_Comparison.md").is_file()
     assert (out / "variants.json").is_file()
     assert artifacts["variant_comparison"] == "Variant_Comparison.md"

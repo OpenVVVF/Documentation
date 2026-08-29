@@ -220,6 +220,11 @@ def export_chassis_boms(chassis_dir: Path, out_dir: Path) -> dict:
         if dest_builds.exists():
             shutil.rmtree(dest_builds)
         shutil.copytree(builds, dest_builds)
+        # Data/Releases/ is committed wholesale; the per-build .gitignore
+        # (meant for the hardware repo, where only reports are tracked)
+        # would otherwise exclude the variant BOM CSVs here.
+        for gitignore in dest_builds.rglob(".gitignore"):
+            gitignore.unlink()
     comparison = chassis_dir / "FabricationData" / "Variant_Comparison.md"
     if comparison.is_file():
         shutil.copy2(comparison, out_dir / "Variant_Comparison.md")
