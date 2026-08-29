@@ -217,7 +217,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-23T22:16:54.825339Z"
+    "last_updated": "2026-08-29T04:20:02.971808Z"
   },
   "sendcutsend:hw-c2-pbb-a": {
     "vendor": "sendcutsend",
@@ -227,7 +227,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-23T22:16:54.825359Z"
+    "last_updated": "2026-08-29T04:20:02.971822Z"
   },
   "sendcutsend:hw-c2-bsp-a": {
     "vendor": "sendcutsend",
@@ -237,7 +237,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-23T22:16:54.825823Z"
+    "last_updated": "2026-08-29T04:20:02.972118Z"
   },
   "sendcutsend:hw-c2-chsp-a": {
     "vendor": "sendcutsend",
@@ -247,7 +247,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-20T08:53:54.001588Z"
+    "last_updated": "2026-08-29T04:06:50.368233Z"
   },
   "mouser:80-c1210c104k1rac": {
     "vendor": "mouser",
@@ -1427,6 +1427,76 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-23T22:16:54.825835Z"
+    "last_updated": "2026-08-29T04:20:02.972124Z"
+  },
+  "sendcutsend:hw-c2-dclmh-450-printed-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-DCLMH-450-PRINTED-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-29T04:05:48.482917Z"
+  },
+  "sendcutsend:hw-c2-dclmh-450-spcr-printed-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-DCLMH-450-SPCR-PRINTED-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-29T04:05:48.482931Z"
+  },
+  "sendcutsend:dc link module holder spacer - printed (250-450v class)": {
+    "vendor": "sendcutsend",
+    "part_number": "DC Link Module Holder Spacer - Printed (250-450V Class)",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-29T04:05:48.510765Z"
+  },
+  "mcmaster:94669a193": {
+    "vendor": "mcmaster",
+    "part_number": "94669A193",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/94669A193/",
+    "last_updated": "2026-08-29T04:05:49.044659Z"
+  },
+  "sendcutsend:dc link module holder spacer - printed (450v class)": {
+    "vendor": "sendcutsend",
+    "part_number": "DC Link Module Holder Spacer - Printed (450V Class)",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-29T04:14:58.006204Z"
+  },
+  "sendcutsend:dc link module holder - 450v class": {
+    "vendor": "sendcutsend",
+    "part_number": "DC Link Module Holder - 450V Class",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-08-29T04:14:58.006413Z"
+  },
+  "mouser:647-ucs2w680mhd": {
+    "vendor": "mouser",
+    "part_number": "647-UCS2W680MHD",
+    "unit_price": 3.63,
+    "currency": "USD",
+    "stock": "",
+    "source": "manual",
+    "url": "",
+    "last_updated": "2026-08-29T04:20:02.972085Z"
   }
 }

@@ -2257,23 +2257,6 @@
       }
     ]
   },
-  "c2|3dprint|fab:hw-c2-dclspcr-printed-b": {
-    "part_number": "HW-C2-3DP-DCLSPCR-PRINTED-A",
-    "category": "3dprint",
-    "category_prefix": "3DP",
-    "descriptor": "DCLSPCR-PRINTED",
-    "revision": "A",
-    "description": "HW-C2-DCLSPCR-PRINTED-A",
-    "key": "c2|3dprint|fab:hw-c2-dclspcr-printed-b",
-    "chassis": "C2",
-    "history": [
-      {
-        "rev": "A",
-        "date": "2026-08-17",
-        "note": "created"
-      }
-    ]
-  },
   "c2|mechanical|mcmaster|92125a228": {
     "part_number": "HW-C2-MECH-92125A228-A",
     "category": "mechanical",
@@ -2325,6 +2308,108 @@
       }
     ]
   },
+  "c2|3dprint|fab:hw-c2-dclmh-450-printed-a": {
+    "part_number": "HW-C2-3DP-DCLMH-450-PRINTED-A",
+    "category": "3dprint",
+    "category_prefix": "3DP",
+    "descriptor": "DCLMH-450-PRINTED",
+    "revision": "A",
+    "description": "HW-C2-DCLMH-450-PRINTED-A",
+    "key": "c2|3dprint|fab:hw-c2-dclmh-450-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-29",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|3dprint|fab:hw-c2-dclmh-450-spcr-printed-a": {
+    "part_number": "HW-C2-3DP-DCLMH-450-SPCR-PRINTED-A",
+    "category": "3dprint",
+    "category_prefix": "3DP",
+    "descriptor": "DCLMH-450-SPCR-PRINTED",
+    "revision": "A",
+    "description": "HW-C2-DCLMH-450-SPCR-PRINTED-A",
+    "key": "c2|3dprint|fab:hw-c2-dclmh-450-spcr-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-29",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|3dprint|fab:hw-c2-dclmh-250-450-spcr-printed-a": {
+    "part_number": "HW-C2-3DP-DC-LINK-MODULE-HOLDER-SP-A",
+    "category": "3dprint",
+    "category_prefix": "3DP",
+    "descriptor": "DC-LINK-MODULE-HOLDER-SP",
+    "revision": "A",
+    "description": "DC Link Module Holder Spacer - Printed (250-450V Class)",
+    "key": "c2|3dprint|fab:hw-c2-dclmh-250-450-spcr-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-29",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|94669a193": {
+    "part_number": "HW-C2-MECH-94669A193-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "94669A193",
+    "revision": "A",
+    "description": "94669A193",
+    "key": "c2|mechanical|mcmaster|94669a193",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-29",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|capprd750w80d1800h3700|ucs2w680mhd": {
+    "part_number": "HW-C2-HW-UCS2W680MHD-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "UCS2W680MHD",
+    "revision": "A",
+    "description": "UCS2W680MHD",
+    "key": "c2|other|capprd750w80d1800h3700|ucs2w680mhd",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-29",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|3dprint|fab:hw-c2-dclspcr-printed-b": {
+    "part_number": "HW-C2-3DP-DCLSPCR-PRINTED-A",
+    "category": "3dprint",
+    "category_prefix": "3DP",
+    "descriptor": "DCLSPCR-PRINTED",
+    "revision": "A",
+    "description": "HW-C2-DCLSPCR-PRINTED-A",
+    "key": "c2|3dprint|fab:hw-c2-dclspcr-printed-b",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-17",
+        "note": "created"
+      }
+    ]
+  },
   "c2|plate|fab:hw-c2-chsp-b": {
     "part_number": "HW-C2-PLT-CHSP-A",
     "category": "plate",
@@ -2334,5 +2419,22 @@
     "description": "HW-C2-CHSP-A",
     "key": "c2|plate|fab:hw-c2-chsp-b",
     "chassis": "C2"
+  },
+  "c2|other|fab:hw-c2-dclmh-450-printed-a": {
+    "part_number": "HW-C2-HW-DC-LINK-MODULE-HOLDER-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "DC-LINK-MODULE-HOLDER",
+    "revision": "A",
+    "description": "DC Link Module Holder - 450V Class",
+    "key": "c2|other|fab:hw-c2-dclmh-450-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-29",
+        "note": "created"
+      }
+    ]
   }
 }

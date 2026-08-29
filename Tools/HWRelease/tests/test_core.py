@@ -131,6 +131,29 @@ def test_find_boards(hw_repo, tmp_path):
     assert [p.name for p in b.renders] == ["ControlBoard.png"]
 
 
+def test_export_chassis_boms_copies_build_variants(tmp_path):
+    """FabricationData/Builds/ + Variant_Comparison.md + variants.json ride along."""
+    fab = tmp_path / "Chassis2" / "FabricationData"
+    boms = fab / "BOMs"
+    boms.mkdir(parents=True)
+    (boms / "mouser_bom.csv").write_text("pn,qty\nX,1\n")
+    build = fab / "Builds" / "450v" / "BOMs"
+    build.mkdir(parents=True)
+    (build / "mouser_bom.csv").write_text("pn,qty\nY,60\n")
+    (fab / "Variant_Comparison.md").write_text("# comparison\n")
+    (fab / "variants.json").write_text(json.dumps({
+        "chassis": "Chassis2", "default": "200v",
+        "variants": [{"name": "200v"}, {"name": "450v"}]}))
+    out = tmp_path / "out"
+    artifacts = core.export_chassis_boms(tmp_path / "Chassis2", out)
+    assert (out / "Builds" / "450v" / "BOMs" / "mouser_bom.csv").is_file()
+    assert (out / "Variant_Comparison.md").is_file()
+    assert (out / "variants.json").is_file()
+    assert artifacts["variant_comparison"] == "Variant_Comparison.md"
+    assert artifacts["variants_manifest"] == "variants.json"
+    assert artifacts["build_variants"] == ["200v", "450v"]
+
+
 def test_update_exports_each_revision_once(hw_repo, docs_root, fake_kicad):
     manifest_path = docs_root / "Data" / "Releases" / "manifest.json"
     rc = core.update(hw_repo, tag_pattern="hw-rev-*", manifest_path=manifest_path)

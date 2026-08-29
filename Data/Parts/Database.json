@@ -1630,6 +1630,20 @@
     "price_updated": "2026-07-17",
     "notes": ""
   },
+  "capprd750w80d1800h3700|ucs2w680mhd": {
+    "description": "UCS2W680MHD",
+    "customer_part": "",
+    "type": "other",
+    "mouser_part": "647-UCS2W680MHD",
+    "digikey_part": "",
+    "octopart_uid": "",
+    "mcmaster_part": "",
+    "sendcutsend_id": "",
+    "manual_price": 3.63,
+    "price_currency": "USD",
+    "price_updated": "2026-08-29",
+    "notes": "450V-class DC-link cap (450v build variant of Chassis2). Placeholder price from distributor listing; reprice via mouser import before ordering."
+  },
   "uj2bhrgv|uj2-b-hr-g-v": {
     "description": "UJ2-B-HR-G-V",
     "customer_part": "",

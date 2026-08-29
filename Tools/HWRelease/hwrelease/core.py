@@ -212,6 +212,24 @@ def export_chassis_boms(chassis_dir: Path, out_dir: Path) -> dict:
                     }
     if variants:
         artifacts["variants"] = variants
+    # Build-variant outputs: FabricationData/Builds/<variant>/ trees plus the
+    # comparison report and machine-readable manifest at the root.
+    builds = chassis_dir / "FabricationData" / "Builds"
+    if builds.is_dir():
+        dest_builds = out_dir / "Builds"
+        if dest_builds.exists():
+            shutil.rmtree(dest_builds)
+        shutil.copytree(builds, dest_builds)
+    comparison = chassis_dir / "FabricationData" / "Variant_Comparison.md"
+    if comparison.is_file():
+        shutil.copy2(comparison, out_dir / "Variant_Comparison.md")
+        artifacts["variant_comparison"] = "Variant_Comparison.md"
+    variants_manifest = chassis_dir / "FabricationData" / "variants.json"
+    if variants_manifest.is_file():
+        shutil.copy2(variants_manifest, out_dir / "variants.json")
+        artifacts["variants_manifest"] = "variants.json"
+        data = json.loads(variants_manifest.read_text())
+        artifacts["build_variants"] = [v["name"] for v in data.get("variants", [])]
     report = chassis_dir / "FabricationData" / "Pricing_Report.md"
     if report.is_file():
         shutil.copy2(report, out_dir / "Pricing_Report.md")

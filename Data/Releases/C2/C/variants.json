@@ -1,0 +1,37 @@
+{
+  "chassis": "Chassis2",
+  "default": "200v",
+  "qty": 1,
+  "variants": [
+    {
+      "name": "200v",
+      "description": "200 V class \u2014 stock 60x UCS2D331MHD 330uF/200V DC-link bank",
+      "is_default": true,
+      "output_dir": "FabricationData",
+      "bom_lines": 112,
+      "total_usd": 2378.18,
+      "added_designations": [],
+      "removed_designations": []
+    },
+    {
+      "name": "450v",
+      "description": "450 V class \u2014 capacitor swap to 60x UCS2W680MHD 68uF/450V (18x31.5 mm, ~5 mm shorter)",
+      "is_default": false,
+      "output_dir": "FabricationData/Builds/450v",
+      "bom_lines": 112,
+      "total_usd": 2463.5,
+      "added_designations": [
+        "94669A193",
+        "DC LINK MODULE HOLDER - 450V CLASS",
+        "DC LINK MODULE HOLDER SPACER - PRINTED (450V CLASS)",
+        "UCS2W680MHD"
+      ],
+      "removed_designations": [
+        "94669A196",
+        "DC LINK MODULE HOLDER - 200V CLASS",
+        "DC LINK MODULE HOLDER SPACER - PRINTED",
+        "UCS2D331MHD"
+      ]
+    }
+  ]
+}
