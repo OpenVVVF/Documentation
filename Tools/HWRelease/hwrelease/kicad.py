@@ -41,7 +41,10 @@ def export_bom(sch: Path, out_csv: Path) -> bool:
     r = kicad([
         "sch", "export", "bom", str(sch),
         "--fields", _BOM_FIELDS, "--labels", _BOM_LABELS,
-        "--group-by", "Value", "--ref-range-delimiter", "",
+        # Group by DNP too: KiCad marks an entire --group-by "Value" row as
+        # DNP if ANY symbol in the group is DNP, and BOMManager's parser then
+        # drops the whole row (e.g. one DNP 10uF cap erases all 10uF caps).
+        "--group-by", "Value,DNP", "--ref-range-delimiter", "",
         "-o", str(out_csv),
     ])
     return r.returncode == 0 and out_csv.is_file()

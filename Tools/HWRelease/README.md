@@ -112,6 +112,11 @@ mech parts. A chassis with no vendor BOMs and no mech parts is skipped.
   to restrict discovery.
 - `Data/Releases/` is committed generated data: do not hand-edit; regenerate
   with `--force` instead.
+- **KiCad DNP grouping quirk**: KiCad marks an entire BOM `--group-by` row as
+  DNP if any symbol in the group is DNP, so `export_bom` groups by
+  `Value,DNP` (not `Value` alone) to keep populated rows separate. Do not
+  "simplify" this back; after changing the BOM export, regenerate
+  `Data/Releases/` with `hwrelease update --force`.
 
 ## Tests
 
