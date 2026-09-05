@@ -24,6 +24,9 @@ def test_check_spec_holes(tmp_path):
     # no spec / no holes.json -> no warnings
     assert fcextract.check_spec_holes("PN", None, holes) == []
     assert fcextract.check_spec_holes("PN", spec, tmp_path / "nope.json") == []
+    # freeform list form of services ("- bending ...") has no hole specs
+    freeform = {"services": ["bending (mounting flanges, 90 deg)"]}
+    assert fcextract.check_spec_holes("PN", freeform, holes) == []
 
 
 def test_check_mcmaster(tmp_path):

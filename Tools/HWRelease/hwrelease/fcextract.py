@@ -402,6 +402,10 @@ def check_spec_holes(pn: str, fab_spec: dict, holes_json: Optional[Path]) -> Lis
     holes = {float(d) for d in json.loads(holes_json.read_text())}
     warnings = []
     services = fab_spec.get("services") or {}
+    # Some fab_specs list services freeform ("- bending ...") instead of the
+    # tapping/countersink mapping; that form carries no hole specs to check.
+    if not isinstance(services, dict):
+        return []
     for kind in ("tapping", "countersink", "countersinking"):
         for item in services.get(kind) or []:
             if not isinstance(item, dict):
