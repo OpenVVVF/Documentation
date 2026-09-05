@@ -2393,6 +2393,329 @@
       }
     ]
   },
+  "c2|other|fab:hw-c2-dclmh-450-printed-a": {
+    "part_number": "HW-C2-HW-DC-LINK-MODULE-HOLDER-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "DC-LINK-MODULE-HOLDER",
+    "revision": "A",
+    "description": "DC Link Module Holder - 450V Class",
+    "key": "c2|other|fab:hw-c2-dclmh-450-printed-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-08-29",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|1568a52": {
+    "part_number": "HW-C2-MECH-1568A52-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "1568A52",
+    "revision": "A",
+    "description": "1568A52",
+    "key": "c2|mechanical|mcmaster|1568a52",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|5891t56": {
+    "part_number": "HW-C2-MECH-5891T56-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "5891T56",
+    "revision": "A",
+    "description": "5891T56",
+    "key": "c2|mechanical|mcmaster|5891t56",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|90166a718": {
+    "part_number": "HW-C2-MECH-90166A718-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "90166A718",
+    "revision": "A",
+    "description": "90166A718",
+    "key": "c2|mechanical|mcmaster|90166a718",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|90720a550": {
+    "part_number": "HW-C2-MECH-90720A550-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "90720A550",
+    "revision": "A",
+    "description": "90720A550",
+    "key": "c2|mechanical|mcmaster|90720a550",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|91292a117": {
+    "part_number": "HW-C2-MECH-91292A117-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "91292A117",
+    "revision": "A",
+    "description": "91292A117",
+    "key": "c2|mechanical|mcmaster|91292a117",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|91477a141": {
+    "part_number": "HW-C2-MECH-91477A141-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "91477A141",
+    "revision": "A",
+    "description": "91477A141",
+    "key": "c2|mechanical|mcmaster|91477a141",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|91292a137": {
+    "part_number": "HW-C2-MECH-91292A137-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "91292A137",
+    "revision": "A",
+    "description": "91292A137",
+    "key": "c2|mechanical|mcmaster|91292a137",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|91292a144": {
+    "part_number": "HW-C2-MECH-91292A144-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "91292A144",
+    "revision": "A",
+    "description": "91292A144",
+    "key": "c2|mechanical|mcmaster|91292a144",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|91477a161": {
+    "part_number": "HW-C2-MECH-91477A161-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "91477A161",
+    "revision": "A",
+    "description": "91477A161",
+    "key": "c2|mechanical|mcmaster|91477a161",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|91828a251": {
+    "part_number": "HW-C2-MECH-91828A251-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "91828A251",
+    "revision": "A",
+    "description": "91828A251",
+    "key": "c2|mechanical|mcmaster|91828a251",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|mechanical|mcmaster|93475a250": {
+    "part_number": "HW-C2-MECH-93475A250-A",
+    "category": "mechanical",
+    "category_prefix": "MECH",
+    "descriptor": "93475A250",
+    "revision": "A",
+    "description": "93475A250",
+    "key": "c2|mechanical|mcmaster|93475a250",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|mouser|195c100": {
+    "part_number": "HW-C2-HW-195C100-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "195C100",
+    "revision": "A",
+    "description": "195C100",
+    "key": "c2|other|mouser|195c100",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|mouser|416201u00000g": {
+    "part_number": "HW-C2-HW-416201U00000G-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "416201U00000G",
+    "revision": "A",
+    "description": "416201U00000G",
+    "key": "c2|other|mouser|416201u00000g",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|mouser|b25645a1328k003": {
+    "part_number": "HW-C2-HW-B25645A1328K003-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "B25645A1328K003",
+    "revision": "A",
+    "description": "B25645A1328K003",
+    "key": "c2|other|mouser|b25645a1328k003",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|fab:hw-c2-fr-clphld-a": {
+    "part_number": "HW-C2-HW-HW-C2-FR-CLPHLD-A-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "HW-C2-FR-CLPHLD-A",
+    "revision": "A",
+    "description": "HW-C2-FR-CLPHLD-A",
+    "key": "c2|other|fab:hw-c2-fr-clphld-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|fab:hw-c3-fr-csp-a": {
+    "part_number": "HW-C2-HW-HW-C3-FR-CSP-A-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "HW-C3-FR-CSP-A",
+    "revision": "A",
+    "description": "HW-C3-FR-CSP-A",
+    "key": "c2|other|fab:hw-c3-fr-csp-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|other|fab:hw-c3-fr-frnlid-a": {
+    "part_number": "HW-C2-HW-HW-C3-FR-FRNLID-A-A",
+    "category": "other",
+    "category_prefix": "HW",
+    "descriptor": "HW-C3-FR-FRNLID-A",
+    "revision": "A",
+    "description": "HW-C3-FR-FRNLID-A",
+    "key": "c2|other|fab:hw-c3-fr-frnlid-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
+  "c2|plate|fab:hw-c2-fr-bsp-a": {
+    "part_number": "HW-C2-PLT-FR-BSP-A",
+    "category": "plate",
+    "category_prefix": "PLT",
+    "descriptor": "FR-BSP",
+    "revision": "A",
+    "description": "HW-C2-FR-BSP-A",
+    "key": "c2|plate|fab:hw-c2-fr-bsp-a",
+    "chassis": "C2",
+    "history": [
+      {
+        "rev": "A",
+        "date": "2026-09-05",
+        "note": "created"
+      }
+    ]
+  },
   "c2|3dprint|fab:hw-c2-dclspcr-printed-b": {
     "part_number": "HW-C2-3DP-DCLSPCR-PRINTED-A",
     "category": "3dprint",
@@ -2419,22 +2742,5 @@
     "description": "HW-C2-CHSP-A",
     "key": "c2|plate|fab:hw-c2-chsp-b",
     "chassis": "C2"
-  },
-  "c2|other|fab:hw-c2-dclmh-450-printed-a": {
-    "part_number": "HW-C2-HW-DC-LINK-MODULE-HOLDER-A",
-    "category": "other",
-    "category_prefix": "HW",
-    "descriptor": "DC-LINK-MODULE-HOLDER",
-    "revision": "A",
-    "description": "DC Link Module Holder - 450V Class",
-    "key": "c2|other|fab:hw-c2-dclmh-450-printed-a",
-    "chassis": "C2",
-    "history": [
-      {
-        "rev": "A",
-        "date": "2026-08-29",
-        "note": "created"
-      }
-    ]
   }
 }

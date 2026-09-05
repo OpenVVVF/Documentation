@@ -1,6 +1,6 @@
 # Hardware BOM Pricing Report
 
-Generated: 2026-08-29T04:26:43.331552Z
+Generated: 2026-09-05T09:40:57.075956Z
 
 Base quantity: 1 unit(s)
 
@@ -49,14 +49,17 @@ Base quantity: 1 unit(s)
 
 | Qty | Order | Internal P/N | Description | Part Number | Unit Price | Line Total | Source |
 |-----|-------|--------------|-------------|-------------|------------|------------|--------|
-| 34 |  | HW-C2-CAP-100N-A | 100nF 100V | 80-C1210C104K1RAC | $0.1610 | $5.47 | mouser_cart_import |
+| 70 |  | HW-C2-CAP-100N-A | 100nF 100V | 80-C1210C104K1RAC | $0.1610 | $11.27 | mouser_cart_import |
 | 21 |  | HW-C2-CAP-10N-A | 10nF 500V | 187-CL32B103KGFNNNE | $0.1430 | $3.00 | mouser_cart_import |
+| 37 |  | HW-C2-CAP-10U-A | 10uF 25V | 187-CL32A106KAULNNE | $0.1340 | $4.96 | mouser_cart_import |
 | 8 |  | HW-C2-CAP-1U-A | 1uf 50V | 187-CL32B105KBHNNNE | $0.2400 | $1.92 | mouser_cart_import |
 | 2 |  | HW-C2-CAP-2U2-A | 2.2uf 1210 100v | 80-C1210C225J1RAUTO | $0.5200 | $1.04 | mouser_cart_import |
 | 6 |  | HW-C2-CAP-220P-A | 220pF 100V C0G 1210 | 80-C1210C221J2G | $0.8800 | $5.28 | mouser_cart_import |
+| 4 |  | HW-C2-CAP-22P-A | 22pF 50V | 80-C1210C220J5G | $0.7400 | $2.96 | mouser_cart_import |
 | 2 |  | HW-C2-IC-8MHZ-A | 8mhz hc49-4h crystal | 710-830003156B | $0.5000 | $1.00 | mouser_cart_import |
 | 1 |  | HW-C2-IC-CY15B102Q-SXET-A | CY15B102Q-SXET | 727-CY15B102Q-SXET | $18.1400 | $18.14 | mouser_cart_import |
 | 4 |  | HW-C2-IC-ISO1042BDWVR-A | ISO1042BDWVR | 595-ISO1042BDWVR | $4.4400 | $17.76 | mouser_cart_import |
+| 1 |  | HW-C2-IC-ISO1212DBQ-A | ISO1212DBQ | 595-ISO1212DBQ | $1.7300 | $1.73 | mouser_cart_import |
 | 1 |  | HW-C2-IC-MAX22530AWE-A | MAX22530AWE+ | 700-MAX22530AWE+ | $15.6000 | $15.60 | mouser_cart_import |
 | 6 |  | HW-C2-IC-NCV57100DWR2G-A | NCV57100DWR2G | 863-NCV57100DWR2G | $2.9800 | $17.88 | mouser_cart_import |
 | 1 |  | HW-C2-IC-STM32G474RCT3-A | STM32G474RCT3 | 511-STM32G474RCT3 | $8.3100 | $8.31 | mouser_cart_import |
@@ -93,7 +96,7 @@ Base quantity: 1 unit(s)
 | 1 |  | HW-C2-HW-MF-RHT200_32-2-A | MF-RHT200_32-2 | 652-MF-RHT200/32-2 | $0.6100 | $0.61 | mouser_cart_import |
 | 6 |  | HW-C2-HW-MGJ2D121509MPC-R7-A | MGJ2D121509MPC-R7 | 580-MGJ2D121509MPCR7 | $6.7700 | $40.62 | mouser_cart_import |
 | 6 |  | HW-C2-HW-MKP1848S61010JY5B-A | MKP1848S61010JY5B | 75-MKP1848S61010JY5B | $7.5400 | $45.24 | mouser_cart_import |
-| 2 |  | HW-C2-HW-MM3Z3V0ST1G-A | MM3Z3V0ST1G | 863-MM3Z3V0ST1G | $0.1700 | $0.34 | mouser_cart_import |
+| 5 |  | HW-C2-HW-MM3Z3V0ST1G-A | MM3Z3V0ST1G | 863-MM3Z3V0ST1G | $0.1700 | $0.85 | mouser_cart_import |
 | 1 |  | HW-C2-HW-NXFT15XH103FEAB021-A | NXFT15XH103FEAB021 | 81-NXFT15XH103FEAB21 | $0.3400 | $0.34 | mouser_cart_import |
 | 1 |  | HW-C2-HW-RD7-12S033R-A | RD7-12S033R | 737-RD7-12S033R | $6.7700 | $6.77 | mouser_cart_import |
 | 3 |  | HW-C2-HW-RKE-1205S_H-A | RKE-1205S_H | 919-RKE-1205S/H | $5.1700 | $15.51 | mouser_cart_import |
@@ -117,16 +120,19 @@ Base quantity: 1 unit(s)
 | 60 |  | HW-C2-HW-UCS2D331MHD-A | UCS2D331MHD | 647-UCS2D331MHD | $2.1600 | $129.60 | mouser_cart_import |
 | 1 |  | HW-C2-HW-UJ2-B-HR-G-V-A | UJ2-B-HR-G-V | 179-UJ2-B-HR-G-V | $1.7000 | $1.70 | mouser_cart_import |
 | 18 |  | HW-C2-HW-VY1222M47Y5UQ6TV0-A | VY1222M47Y5UQ6TV0 | 72-VY1222M47Y5UQ6TV0 | $0.2710 | $4.88 | mouser_cart_import |
+| 27 |  | HW-C2-RES-10K-A | 10k 1210 | 603-AC1210JR-0710KL | $0.0500 | $1.35 | mouser_cart_import |
 | 4 |  | HW-C2-RES-120-A | 120 1210 | 603-AC1210FR-07120RL | $0.1000 | $0.40 | mouser_cart_import |
+| 17 |  | HW-C2-RES-1K-A | 1k 1210 | 603-RC1210FR-071KL | $0.0490 | $0.83 | mouser_cart_import |
 | 12 |  | HW-C2-RES-2R7-A | 2.7 ohm 1210 | 667-ERJ-14BQF2R7U | $0.2340 | $2.81 | mouser_cart_import |
 | 16 |  | HW-C2-RES-20K-A | 20k 1210 resistor | 667-ERJ-P14F2002U | $0.2450 | $3.92 | mouser_cart_import |
 | 1 |  | HW-C2-RES-220-A | 220 1210 | 603-RC1210FR-07220RL | $0.1000 | $0.10 | mouser_cart_import |
 | 3 |  | HW-C2-RES-3K-A | 3k 1210 1% | 603-RC1210FR-073KL | $0.1000 | $0.30 | mouser_cart_import |
 | 3 |  | HW-C2-RES-4K7-A | 4.7k 1210 | 71-CRCW12104K70FKEAH | $0.5900 | $1.77 | mouser_cart_import |
 | 1 |  | HW-C2-RES-499K-A | 499kohm 1210 resistor | 667-ERJ-P14F4993U | $0.4400 | $0.44 | mouser_cart_import |
+| 2 |  | HW-C2-RES-560-A | 560ohm 1210 resistor | 667-ERJ-P14F5600U | $0.4400 | $0.88 | mouser_cart_import |
 | 16 |  | HW-C2-RES-250K-A | Thick Film Resistors - SMD 1/2watt 249Kohms 1% | 71-CRCW1210-249K-E3 | $0.0700 | $1.12 | mouser_cart_import |
 
-**Mouser subtotal:** $1747.05
+**Mouser subtotal:** $1766.07
 
 
 ## PCB Fabrication
@@ -161,17 +167,17 @@ Base quantity: 1 unit(s)
 
 ---
 
-## Grand Total (1 unit): **$2378.18**
+## Grand Total (1 unit): **$2397.20**
 
 
 ## Quantity Scaling
 
 | Quantity | Estimated Total |
 |----------|----------------|
-| 3 | $7019.56 |
-| 5 | $11668.87 |
-| 10 | $23294.74 |
-| 25 | $58196.78 |
+| 3 | $7076.61 |
+| 5 | $11763.95 |
+| 10 | $23484.91 |
+| 25 | $58672.21 |
 
 
 ## Pack Rounding & Stock

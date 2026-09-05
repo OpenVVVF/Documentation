@@ -6,8 +6,8 @@ Totals at qty 1:
 
 | Variant | Description | BOM lines | Total |
 |---|---|---:|---:|
-| 200v (default) | 200 V class — stock 60x UCS2D331MHD 330uF/200V DC-link bank | 112 | $2,378.18 |
-| 450v | 450 V class — capacitor swap to 60x UCS2W680MHD 68uF/450V (18x31.5 mm, ~5 mm shorter) | 112 | $2,463.50 |
+| 200v (default) | 200 V class — stock 60x UCS2D331MHD 330uF/200V DC-link bank | 118 | $2,397.20 |
+| 450v | 450 V class — capacitor swap to 60x UCS2W680MHD 68uF/450V (18x31.5 mm, ~5 mm shorter) | 118 | $2,482.52 |
 
 ## Only in 450v
 

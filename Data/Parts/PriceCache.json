@@ -217,7 +217,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-29T04:26:43.346995Z"
+    "last_updated": "2026-09-05T09:44:14.792545Z"
   },
   "sendcutsend:hw-c2-pbb-a": {
     "vendor": "sendcutsend",
@@ -227,7 +227,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-29T04:26:43.347011Z"
+    "last_updated": "2026-09-05T09:44:14.792558Z"
   },
   "sendcutsend:hw-c2-bsp-a": {
     "vendor": "sendcutsend",
@@ -237,7 +237,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-29T04:26:43.347347Z"
+    "last_updated": "2026-09-05T09:44:14.793009Z"
   },
   "sendcutsend:hw-c2-chsp-a": {
     "vendor": "sendcutsend",
@@ -247,7 +247,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-29T04:06:50.368233Z"
+    "last_updated": "2026-09-05T09:34:09.826544Z"
   },
   "mouser:80-c1210c104k1rac": {
     "vendor": "mouser",
@@ -1427,7 +1427,7 @@
     "stock": "",
     "source": "sendcutsend_folder",
     "url": "",
-    "last_updated": "2026-08-29T04:26:43.347357Z"
+    "last_updated": "2026-09-05T09:44:14.793017Z"
   },
   "sendcutsend:hw-c2-dclmh-450-printed-a": {
     "vendor": "sendcutsend",
@@ -1498,5 +1498,185 @@
     "source": "manual",
     "url": "",
     "last_updated": "2026-08-29T04:20:02.972085Z"
+  },
+  "mcmaster:1568a52": {
+    "vendor": "mcmaster",
+    "part_number": "1568A52",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/1568A52/",
+    "last_updated": "2026-09-05T09:25:12.794972Z"
+  },
+  "mcmaster:5891t56": {
+    "vendor": "mcmaster",
+    "part_number": "5891T56",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/5891T56/",
+    "last_updated": "2026-09-05T09:25:12.939081Z"
+  },
+  "mcmaster:90166a718": {
+    "vendor": "mcmaster",
+    "part_number": "90166A718",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/90166A718/",
+    "last_updated": "2026-09-05T09:25:13.087589Z"
+  },
+  "mcmaster:90720a550": {
+    "vendor": "mcmaster",
+    "part_number": "90720A550",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/90720A550/",
+    "last_updated": "2026-09-05T09:25:13.296511Z"
+  },
+  "mcmaster:91292a117": {
+    "vendor": "mcmaster",
+    "part_number": "91292A117",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/91292A117/",
+    "last_updated": "2026-09-05T09:25:13.444360Z"
+  },
+  "mcmaster:91477a141": {
+    "vendor": "mcmaster",
+    "part_number": "91477A141",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/91477A141/",
+    "last_updated": "2026-09-05T09:25:13.601266Z"
+  },
+  "mcmaster:91292a137": {
+    "vendor": "mcmaster",
+    "part_number": "91292A137",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/91292A137/",
+    "last_updated": "2026-09-05T09:25:13.819751Z"
+  },
+  "mcmaster:91292a144": {
+    "vendor": "mcmaster",
+    "part_number": "91292A144",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/91292A144/",
+    "last_updated": "2026-09-05T09:25:13.963409Z"
+  },
+  "mcmaster:91477a161": {
+    "vendor": "mcmaster",
+    "part_number": "91477A161",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/91477A161/",
+    "last_updated": "2026-09-05T09:25:14.207626Z"
+  },
+  "mcmaster:91828a251": {
+    "vendor": "mcmaster",
+    "part_number": "91828A251",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/91828A251/",
+    "last_updated": "2026-09-05T09:25:14.350592Z"
+  },
+  "mcmaster:93475a250": {
+    "vendor": "mcmaster",
+    "part_number": "93475A250",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "mcmaster_scrape",
+    "url": "https://www.mcmaster.com/93475A250/",
+    "last_updated": "2026-09-05T09:25:14.525304Z"
+  },
+  "mouser:195c100": {
+    "vendor": "mouser",
+    "part_number": "195C100",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-09-05T09:25:14.525384Z"
+  },
+  "mouser:416201u00000g": {
+    "vendor": "mouser",
+    "part_number": "416201U00000G",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-09-05T09:25:14.525415Z"
+  },
+  "mouser:b25645a1328k003": {
+    "vendor": "mouser",
+    "part_number": "B25645A1328K003",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "unknown",
+    "url": "",
+    "last_updated": "2026-09-05T09:25:14.525478Z"
+  },
+  "sendcutsend:hw-c2-fr-clphld-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-FR-CLPHLD-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-09-05T09:25:14.525532Z"
+  },
+  "sendcutsend:hw-c3-fr-csp-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-FR-CSP-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-09-05T09:25:14.525551Z"
+  },
+  "sendcutsend:hw-c3-fr-frnlid-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C3-FR-FRNLID-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-09-05T09:25:14.525566Z"
+  },
+  "sendcutsend:hw-c2-fr-bsp-a": {
+    "vendor": "sendcutsend",
+    "part_number": "HW-C2-FR-BSP-A",
+    "unit_price": null,
+    "currency": "USD",
+    "stock": "",
+    "source": "sendcutsend_folder",
+    "url": "",
+    "last_updated": "2026-09-05T09:25:14.525723Z"
   }
 }
