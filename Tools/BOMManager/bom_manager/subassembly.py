@@ -136,6 +136,7 @@ def build_pricing(
                 "unit": None if per_piece is None else _fmt(per_piece),
                 "total": _fmt(amount),
                 "vendor": vendor,
+                "vendor_pn": line.vendor_part_number(vendor),
             })
     doc_subs = {}
     grand = 0.0

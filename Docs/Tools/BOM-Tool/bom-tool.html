@@ -62,6 +62,15 @@ main { flex: 1; padding: 24px 28px; overflow-y: auto; }
 .actions a:hover, .actions button:hover { border-color: var(--accent); }
 .actions a.download { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
 .actions a.download:hover { background: var(--accent-dark); }
+.actions a.cart { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.actions a.cart:hover { background: var(--accent-dark); }
+.sub-order { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; }
+.sub-order button, .sub-order a {
+  padding: 6px 12px; border-radius: 6px; font-size: 13px; border: 1px solid var(--border);
+  background: #fff; color: var(--text); cursor: pointer; text-decoration: none;
+  font-family: var(--font-body);
+}
+.sub-order button:hover, .sub-order a:hover { border-color: var(--accent); }
 table { border-collapse: collapse; width: 100%; font-size: 13px; }
 th, td { border: 1px solid var(--border-light); padding: 6px 10px; text-align: left; }
 th { background: var(--surface); font-family: var(--font-brand); position: sticky; top: 0; }
@@ -254,15 +263,27 @@ const PRICE_NAMES = {mouser: "Mouser", mcmaster: "McMaster-Carr", sendcutsend: "
 const ORDER_LINKS = {
   mouser: [["Upload at the Mouser BOM Tool \u2197", "https://www.mouser.com/bom/"]],
   digikey: [["Upload at DigiKey Lists \u2197", "https://www.digikey.com/en/mylists/"]],
-  mcmaster: [["Order at McMaster-Carr \u2197", "https://www.mcmaster.com/"]],
+  mcmaster: [["Open McMaster-Carr order page \u2197", "https://www.mcmaster.com/order"]],
   sendcutsend: [["Order parts at SendCutSend \u2197", "https://sendcutsend.com/"]],
   pcb: [["View boards in PCB Tool \u2197", "../PCB-Tool/pcb-tool.html"],
         ["Order PCBs at JLCPCB \u2197", "https://jlcpcb.com/"]],
 };
 
+// Paste-to-import targets for the copy buttons (no anonymous cart URLs exist).
+const IMPORT_URLS = {mouser: "https://www.mouser.com/bom/", mcmaster: "https://www.mcmaster.com/order"};
+// Maintainer-created shared carts, looked up per chassis+rev from
+// shared-carts.json next to this page (committed by hand, not generated).
+const SHARED_CART_LABELS = {
+  mouser: "Open ready-made Mouser cart \u2197",
+  sendcutsend: "Open ready-made SendCutSend cart \u2197",
+  digikey: "Open shared DigiKey list \u2197",
+};
+
 let state = {chassis: null, rev: null, variant: "base", vendor: null, subassembly: "all"};
 let subDoc = null;  // Subassembly_Pricing.json for the current chassis/rev/variant
 const subDocCache = {};
+let sharedCarts = null;  // null until fetched; {} when the file is absent
+let previewRows = null, previewKey = null;  // parsed CSV of the current preview
 
 function releases() {
   // Chassis releases with vendor BOMs, plus boardless chassis whose content
@@ -287,12 +308,37 @@ function current() {
   return releases().find(e => e.chassis === state.chassis && e.rev === state.rev);
 }
 
+async function loadSharedCarts() {
+  if (sharedCarts !== null) return sharedCarts;  // fetched once, then cached
+  try {
+    const r = await fetch("shared-carts.json");
+    sharedCarts = r.ok ? await r.json() : {};
+  } catch (err) { sharedCarts = {}; }
+  return sharedCarts;
+}
+
+function sharedCartButtons(actions) {
+  const byVendor = (((sharedCarts || {})[state.chassis]) || {})[state.rev] || null;
+  if (!byVendor) return;  // no entry for this chassis/rev: stay silent
+  for (const [v, label] of Object.entries(SHARED_CART_LABELS)) {
+    const url = byVendor[v];
+    if (!url) continue;
+    const a = document.createElement("a");
+    a.className = "cart";
+    a.href = url;
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = label;
+    actions.appendChild(a);
+  }
+}
+
 function init() {
   const rel = releases();
   if (!rel.length) {
     document.getElementById("meta").textContent = "No chassis BOM exports yet - run: hwrelease update";
     return;
   }
+  loadSharedCarts().then(() => renderVendors());
   state.chassis = state.chassis || rel[0].chassis;
   fill(document.getElementById("chassis"), [...new Set(rel.map(e => e.chassis))].sort(), state.chassis);
   onChassis();
@@ -453,6 +499,68 @@ function renderSubassembly() {
   }
   html += "</tbody></table>";
   div.innerHTML = html;
+
+  // Per-vendor "copy for paste-import" buttons cover only this subassembly.
+  const holder = document.createElement("div");
+  holder.className = "sub-order";
+  for (const v of ["mouser", "mcmaster"]) {
+    const lines = (sub.lines || [])
+      .filter(l => l.vendor === v && (l.vendor_pn || "").trim());
+    if (!lines.length) continue;  // older pricing JSONs have no vendor_pn yet
+    const delim = v === "mcmaster" ? "," : "\t";
+    const b = document.createElement("button");
+    const label = "Copy " + PRICE_NAMES[v] + " order list (" + lines.length + " lines)";
+    b.textContent = label;
+    b.onclick = async () => {
+      window.open(IMPORT_URLS[v], "_blank", "noopener");  // sync: popup blockers
+      await navigator.clipboard.writeText(
+        lines.map(l => l.vendor_pn.trim() + delim + l.order_qty).join("\n") + "\n");
+      b.textContent = "Copied!";
+      setTimeout(() => b.textContent = label, 2000);
+    };
+    holder.appendChild(b);
+    const a = document.createElement("a");
+    a.href = IMPORT_URLS[v];
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "Open " + (PRICE_NAMES[v] || v) + " import \u2197";
+    holder.appendChild(a);
+  }
+  if (holder.children.length) div.insertBefore(holder, div.querySelector("table"));
+}
+
+function orderListText(vendor, rows) {
+  // Paste format for the vendor's BOM import: "<pn><delim><qty>" per line.
+  const h = rows[0].map(x => x.trim().toLowerCase());
+  let pnCol, qtyCol, delim;
+  if (vendor === "mouser") {
+    pnCol = h.indexOf("mouser part number"); qtyCol = h.indexOf("qty"); delim = "\t";
+  } else if (vendor === "mcmaster") {
+    pnCol = h.indexOf("vendor p/n"); qtyCol = h.indexOf("order qty"); delim = ",";
+  } else return "";
+  if (pnCol < 0 || qtyCol < 0) return "";
+  const lines = rows.slice(1).filter(r => (r[pnCol] || "").trim());
+  return lines.map(r => r[pnCol].trim() + delim + r[qtyCol]).join("\n") +
+         (lines.length ? "\n" : "");
+}
+
+async function copyOrderList(vendor, btn) {
+  // Open the import page synchronously so popup blockers see the user click.
+  window.open(IMPORT_URLS[vendor], "_blank", "noopener");
+  const key = state.chassis + "|" + state.rev + "|" + state.variant + "|" + vendor;
+  let rows = previewKey === key ? previewRows : null;
+  if (!rows) {
+    const e = current();
+    const map = boms();
+    if (!e || !map[vendor]) return;
+    const r = await fetch(ROOT + e.dir + "/" + map[vendor]);
+    rows = parseCSV(await r.text());
+  }
+  const text = orderListText(vendor, rows);
+  const done = () => setTimeout(() => btn.textContent = "Copy order list", 2000);
+  if (!text) { btn.textContent = "Nothing to copy"; done(); return; }
+  await navigator.clipboard.writeText(text);
+  btn.textContent = "Copied!";
+  done();
 }
 
 function renderVendors() {
@@ -492,6 +600,7 @@ function renderVendors() {
   }
   const actions = document.getElementById("actions");
   actions.innerHTML = "";
+  sharedCartButtons(actions);
   for (const [label, url] of (ORDER_LINKS[state.vendor] || [])) {
     const a = document.createElement("a");
     a.href = url;
@@ -506,6 +615,13 @@ function renderVendors() {
     a.download = "";
     a.textContent = "Download CSV";
     actions.appendChild(a);
+  }
+  if (state.vendor === "mouser" && map.mouser) {
+    // Paste the whole BOM into Mouser's Part List Import (pn<tab>qty lines).
+    const b = document.createElement("button");
+    b.textContent = "Copy order list";
+    b.onclick = () => copyOrderList("mouser", b);
+    actions.appendChild(b);
   }
   if (state.vendor === "mcmaster" && map.mcmaster_paste) {
     const b = document.createElement("button");
@@ -555,6 +671,8 @@ async function loadPreview() {
   if (state.subassembly !== "all" ||
       selected !== state.chassis + "|" + state.rev + "|" + state.variant + "|" + state.vendor)
     return;  // selection changed mid-fetch; leave the newer view in place
+  previewRows = rows;
+  previewKey = selected;
   // On the PCBs view, append a gerber-zip download column and a notes column.
   let gerberFor = null, notesFor = {}, stepFor = null;
   if (state.vendor === "pcb") {

@@ -629,7 +629,7 @@ def copy_assets(doc: Document, docs_dir: Path, output_dir: Path) -> None:
     dst_dir = output_dir / doc.path.parent.relative_to(docs_dir)
     allowed = {
         ".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp", ".pdf",
-        ".txt", ".csv", ".jsonl", ".html",
+        ".txt", ".csv", ".json", ".jsonl", ".html",
         ".js", ".wasm", ".css", ".md",
     }
     for root, dirs, files in os.walk(src_dir):

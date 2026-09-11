@@ -104,6 +104,7 @@ class TestPerSourceQty:
             sub = doc["subassemblies"][slug]
             assert sub["lines"][0]["order_qty"] == 25
             assert sub["lines"][0]["unit"] == "0.20"
+            assert sub["lines"][0]["vendor_pn"] == "RES10K"
             assert sub["total"] == "5.00"
         assert doc["total"] == "10.00"
 
@@ -129,10 +130,14 @@ class TestGenerateRun:
         res = next(l for l in board["lines"] if l["description"] == "Resistor 10k")
         assert (res["qty"], res["order_qty"], res["unit"], res["total"], res["vendor"]) == \
             (2, 25, "0.20", "5.00", "mouser")
+        assert res["vendor_pn"] == "RES10K"
         cap = next(l for l in board["lines"] if l["description"] == "Capacitor 100nF 100V")
         assert (cap["qty"], cap["order_qty"], cap["total"]) == (1, 1, "0.10")
         assert board["total"] == "5.10"
         assert board["vendors"] == {"mouser": "5.10", "pcb": "0.00"}
+        # Every line carries the vendor part number field ("" when none).
+        assert all("vendor_pn" in l for s in root["subassemblies"].values()
+                   for l in s["lines"])
 
         mech = root["subassemblies"]["mechanical-hardware"]
         assert mech["vendors"]["mcmaster"] == "18.00"  # 12 x $1.50
@@ -159,6 +164,7 @@ class TestGenerateRun:
         std_screw = next(l for l in std["subassemblies"]["mechanical-hardware"]["lines"]
                          if l["vendor"] == "mcmaster")
         assert (std_screw["qty"], std_screw["total"]) == (12, "18.00")
+        assert std_screw["vendor_pn"] == "94669A199"
 
         alt = json.loads((fab_dir / "Builds/alt/Subassembly_Pricing.json").read_text())
         assert alt["variant"] == "alt"
