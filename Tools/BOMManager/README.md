@@ -9,7 +9,7 @@ shelf), and keep fabrication packages ready to send out.
 ## The interactive shell
 
 ```bash
-cd Hardware/BOMManager
+cd Tools/BOMManager
 python3 bom.py
 ```
 
@@ -55,6 +55,7 @@ Per chassis, under `Hardware/<Chassis>/FabricationData/`:
 ├── PCB_Fab_Zips/<Board>.zip     # per-board fab bundles
 ├── Assembly/<Board>.html        # interactive assembly view per board (iBOM; via release)
 ├── Pricing_Report.md            # costs, pack rounding, fabrication package checklist
+├── Subassembly_Pricing.json     # per-subassembly totals + lines (cost of ordering each alone; also in Builds/ and BOMs/Variants/ outputs)
 ├── Release_Report.pdf           # full release doc (HARA-style; via release): cover, pricing,
 │                                # STEP previews, per-board 3D renders + schematic + layers
 ├── Builds/<variant>/            # build-variant outputs, when variants.yaml declares them
@@ -82,9 +83,9 @@ Committed (project data, diff-friendly):
 
 | File | Contents |
 |------|----------|
-| `bom_manager/Data/Database.json` | vendor PNs, pack sizes, manual prices, notes |
-| `bom_manager/Data/Numbers.json` | internal PN registry with revision history |
-| `bom_manager/Data/Descriptors.json` | short names used in part numbers |
+| `Data/Parts/Database.json` | vendor PNs, pack sizes, manual prices, notes |
+| `Data/Parts/Numbers.json` | internal PN registry with revision history |
+| `Data/Parts/Descriptors.json` | short names used in part numbers |
 | `Hardware/<Chassis>/Mechanical/MechanicalBOM.txt` | purchased hardware list (edit via `mech` commands) |
 | `Hardware/<Chassis>/Mechanical/Fab/<Part>/` | fabricated parts: STEP + `info.txt` + image |
 | `Hardware/<Chassis>/Wiring/<Name>/` | wiring harnesses: KiCad schematic + BOM CSV export |

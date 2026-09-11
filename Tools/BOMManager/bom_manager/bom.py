@@ -19,6 +19,7 @@ class BomLine:
     quantity: int
     type: str
     sources: List[str] = field(default_factory=list)
+    source_qty: Dict[str, int] = field(default_factory=dict)  # per-source base quantities
     mouser_part: str = ""
     digikey_part: str = ""
     octopart_uid: str = ""
@@ -221,6 +222,9 @@ def aggregate_bom(
         source_label = f"{item.chassis}/{item.source}"
         if source_label not in raw[key].sources:
             raw[key].sources.append(source_label)
+        # Per-source quantities survive the merge; note these stay at base
+        # quantities when a --spares policy inflates line.quantity above.
+        raw[key].source_qty[source_label] = raw[key].source_qty.get(source_label, 0) + item.quantity
 
     lines = list(raw.values())
 

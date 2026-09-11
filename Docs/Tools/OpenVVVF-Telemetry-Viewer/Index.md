@@ -28,7 +28,7 @@ The Telemetry Viewer is a browser-based tool for inspecting RTE JSONL telemetry 
 ## Using the viewer
 
 1. Open the [OpenVVVF Telemetry Viewer](telemetry-viewer.html).
-2. Click **Load JSONL** and select an RTE telemetry log.
+2. Click or drag a JSONL file onto the dropzone to load an RTE telemetry log.
 3. Choose the signals you want to plot from the sidebar.
 4. Use the Plotly toolbar to zoom, pan, or export the figure.
 

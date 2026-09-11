@@ -37,12 +37,12 @@ This section documents the support tools and widgets that go with OpenVVVF hardw
 <div class="card">
 <a href="BOM-Tool/bom-tool.html" target="_blank" rel="noopener"><img class="card-screenshot" src="BOM-Tool/bom-tool-mouser-view.jpg" alt="BOM Tool showing the Mouser order BOM"></a>
 <h3><a href="BOM-Tool/Index.md">BOM Tool</a></h3>
-<p>Vendor order BOMs (Mouser, McMaster-Carr, SendCutSend, DigiKey) per chassis, revision, and build variant.</p>
+<p>Vendor order BOMs (Mouser, McMaster-Carr, SendCutSend, PCB, 3D Printed; DigiKey when data exists) per chassis, revision, and build variant.</p>
 <a class="tool-button" href="BOM-Tool/bom-tool.html" target="_blank" rel="noopener">Open BOM Tool</a>
 </div>
 
 <div class="card">
-<h3><a href="HWRelease-System/Index.md">HWRelease System</a></h3>
+<h3><a href="HWRelease-System/Index.md">HWRelease System Architecture</a></h3>
 <p>How hardware releases flow from InverterGen5 tags into the tools: architecture and conventions.</p>
 </div>
 

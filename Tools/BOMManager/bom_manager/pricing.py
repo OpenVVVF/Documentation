@@ -216,6 +216,7 @@ def generate_markdown_report(
     qty: int = 1,
     extra_qtys: Optional[List[int]] = None,
     extra_sections: Optional[List[str]] = None,
+    subassemblies: Optional[Dict[str, Any]] = None,
 ) -> None:
     """Write a markdown price report."""
     if extra_qtys is None:
@@ -280,6 +281,22 @@ def generate_markdown_report(
             )
         md.append(f"\n**{display} subtotal:** ${vendor_total:.2f}\n")
         grand_total += vendor_total
+
+    if subassemblies:
+        subs = subassemblies.get("subassemblies") or {}
+        if subs:
+            sub_vendors = sorted({v for sub in subs.values() for v in sub["vendors"]})
+            md.append("\n## Subassembly Totals\n")
+            md.append("| Subassembly | " + " | ".join(VENDOR_DISPLAY.get(v, v.title()) for v in sub_vendors) + " | Total |")
+            md.append("|---|" + "---:|" * (len(sub_vendors) + 1))
+            for sub in subs.values():
+                cells = [f"${sub['vendors'][v]}" if v in sub["vendors"] else "-" for v in sub_vendors]
+                md.append(f"| {sub['name']} | " + " | ".join(cells) + f" | ${sub['total']} |")
+            total_note = ""
+            if abs(float(subassemblies["total"]) - grand_total) > 0.005:
+                total_note = " (per-subassembly pack rounding; differs from consolidated order totals)"
+            md.append(f"\n**Subassembly Totals:** ${subassemblies['total']}{total_note} "
+                      f"({subassemblies['unpriced']} unpriced line(s))\n")
 
     md.append("\n---\n")
     md.append(f"## Grand Total ({qty} unit{'s' if qty != 1 else ''}): **${grand_total:.2f}**\n")

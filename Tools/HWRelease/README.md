@@ -12,7 +12,12 @@ versioned, per-board artifacts under `Data/Releases/`, indexed by part number
    rename the FreeCAD part labels and `Mechanical/Fab/<part>` folders to the
    new rev suffix and tag `<chassis-short>-<rev>` (e.g. `C2-B`): a
    chassis-named tag pins the chassis release rev and scopes the export to
-   that chassis, no board rev bump needed.
+   that chassis, no board rev bump needed. A release family from
+   `Config/Products.yaml` (`release_families`, e.g. `C2-DCDC` = Chassis2 plus
+   the DC/DC module) works the same way: tag `<family>-<rev>` (e.g.
+   `C2-DCDC-A`) publishes the family's chassis tree under the family's own
+   short code (`Data/Releases/C2-DCDC/A/`, `CHASSIS-C2-DCDC-A`) while boards
+   keep the chassis short code (shared `HW-C2-...` part numbers).
 2. Here, run:
 
    ```sh
@@ -35,7 +40,12 @@ versioned, per-board artifacts under `Data/Releases/`, indexed by part number
   - export missing board revisions. Defaults: all tags, repo from
   `Config/Products.yaml` (`hardware_roots`).
 - `hwrelease list` - all exported boards grouped by revision.
-- `hwrelease show HW-C2-PCB-CTRL-A` - artifact paths for one part number.
+- `hwrelease show HW-C2-PCB-CTRL-A` - artifact paths for one part number
+  (works with composite mech keys like `HW-C2-CHSP-B--C2-C` too).
+- `hwrelease migrate-mech` - rebuild mech manifest entries from the exported
+  `Data/Releases/<chassis>/<rev>/Mech/` trees (one entry per release; bare
+  part number while unique, else `<pn>--<chassis>-<rev>`). No hardware repo
+  needed.
 - `hwrelease build-viewer` - regenerate `Docs/Tools/PCB-Tool/pcb-tool.html` and
   `Docs/Tools/BOM-Tool/bom-tool.html` from the manifest (runs automatically
   after `update` when new revisions were exported). docgen copies

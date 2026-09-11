@@ -106,8 +106,10 @@ class BomShell(cmd.Cmd):
 
     def do_generate(self, arg):
         """Generate consolidated BOMs, price report, and PCB fab zips.
-        Usage: generate [--qty N] [--spares none|cheap|all] [--chassis X]
-                        [--board Y] [--vendors a,b] [--refresh-prices]
+        Usage: generate [--qty N] [--spares none|cheap|all] [--spares-pct PCT]
+                        [--chassis X] [--board Y] [--vendors a,b]
+                        [--variants] [--variant NAME[,NAME]] [--extra-qtys N,N,..]
+                        [--output-dir DIR] [--hardware-root DIR] [--refresh-prices]
                         [--suggest] [--no-pcb-zips] [--no-prompt]
         """
         generate.run(shlex.split(arg), self.ctx)

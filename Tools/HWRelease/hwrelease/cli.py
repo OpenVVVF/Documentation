@@ -28,6 +28,10 @@ def main(argv=None) -> int:
 
     sub.add_parser("list", help="list all exported board revisions")
 
+    sub.add_parser("migrate-mech",
+                   help="rebuild mech manifest entries from the exported "
+                        "Mech trees (one entry per release; no hardware repo)")
+
     sub.add_parser("build-viewer",
                    help="regenerate the PCB assembly viewer page from the manifest")
 
@@ -43,6 +47,8 @@ def main(argv=None) -> int:
         return core.show(args.part_number)
     if args.command == "list":
         return core.list_boards()
+    if args.command == "migrate-mech":
+        return core.migrate_mech()
     if args.command == "build-viewer":
         from . import viewer
         return viewer.build_viewer()

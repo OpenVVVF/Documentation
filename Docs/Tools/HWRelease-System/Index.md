@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
-date: "2026-08-16"
+version: "0.4"
+date: "2026-09-10"
 description: How hardware releases flow from InverterGen5 git tags into the PCB Tool, BOM Tool, and Data/Releases, and the conventions that drive them.
 nav_order: 604
 normative_refs:
@@ -52,7 +52,7 @@ fab_defaults.yaml┘                     │
    - Exports the tag's `Hardware/` tree via `git archive` into a temp dir (the hardware repo's working tree is never touched).
    - Reads each board's revision from `(rev "X")` in its KiCad files.
    - Exports board BOM CSVs (`<Board>.csv` beside each project, boards *and* wiring harnesses): BOMManager discovers BOMs from these files, so this step must happen before generation.
-   - Regenerates the chassis vendor BOMs with this repo's BOMManager (`generate --variants`), so BOMs and prices are always built from the tag's sources, never copied stale.
+   - Regenerates the chassis vendor BOMs with this repo's BOMManager (`generate --variants`), so BOMs and prices are always built from the tag's sources, never copied stale. BOMManager also writes a `Subassembly_Pricing.json` next to every `Consolidated_BOM.csv` (base build, spares tiers, build variants); the export copies each one next to its CSV in the release tree, records them under `subassembly_pricing`, and reads the manifest's per-variant price totals from them.
    - Extracts fabricated parts from the FreeCAD model (`Mechanical/*.FCStd`): per part (Body/Group labeled with the exact part number; `...001` instance suffixes deduplicated) a fresh STEP, STL, Blender renders, and a `holes.json` diameter histogram, followed by a spec-vs-model hole check. It also harvests McMaster hardware (labels like `91292A134_...Screw001` are counted per part number, **merged into `MechanicalBOM.txt`**; model count wins for modeled parts, unmodeled lines like consumables are kept, model-only parts are appended, then cross-checked with warnings) and counts instances per fabricated part (`model_parts.json`), cross-checked against each part's `info.txt` quantity. A chassis with no boards (mechanical concept only, e.g. Chassis3) is exported too whenever it has a `Mechanical/*.FCStd` or `Mechanical/Fab/`; its `CHASSIS-<short>-<rev>` entry falls back to the tag name as rev. A chassis with no vendor BOMs and no mech parts is skipped.
    - Exports per-board artifacts (named `<part-number>-<kind>.<ext>`) and mechanical parts.
    - Updates `Data/Releases/manifest.json` and regenerates both tool pages.
@@ -65,8 +65,8 @@ Already-exported revisions are skipped; `hwrelease update --tag <T> --force` reg
 Single source of truth for the tools. Three entry kinds:
 
 - **Boards**: key `HW-<chassis>-PCB-<desc>-<rev>` (e.g. `HW-C2-PCB-CTRL-A`): artifacts map (`ibom`, `schematic_pdf`, `bom_csv`, `gerber_zip`, `drc`, `step`, `renders`, `fab_spec`), plus `source_tag`/`source_url`.
-- **Chassis releases**: key `CHASSIS-<chassis>-<rev>`: `vendor_boms` (CSV paths per vendor), `variants` (spares tiers), `price_estimate` (vendor subtotals, grand total, per-variant totals and per-variant vendor subtotals), `pricing_report`. Entries exist whenever the chassis has vendor BOMs or mech parts, so mechanical-only chassis (no boards) appear too; their artifacts may be empty, with the parts carried by the mech entries.
-- **Mechanical parts**: key = part number (e.g. `HW-C2-DCLBB-A`), with `mech: true`: `step`, `image`, `info`/`info_fields` (from SendCutSend cart imports), `fab_spec`.
+- **Chassis releases**: key `CHASSIS-<chassis>-<rev>`: `vendor_boms` (CSV paths per vendor), `variants` (spares tiers), `price_estimate` (vendor subtotals, grand total, per-variant totals and per-variant vendor subtotals), `subassembly_pricing` (`Subassembly_Pricing.json` paths per output: `base` plus `tiers` and `builds` maps when those exist), `pricing_report`. Chassis with a `variants.yaml` also record the build-variant artifacts: `build_variants` (names), `variant_comparison` (`Variant_Comparison.md`), and `variants_manifest` (`variants.json`). Entries exist whenever the chassis has vendor BOMs or mech parts, so mechanical-only chassis (no boards) appear too; their artifacts may be empty, with the parts carried by the mech entries.
+- **Mechanical parts**: key = part number (e.g. `HW-C2-DCLBB-A`), with `mech: true`: `step`, `image`, `info`/`info_fields` (from SendCutSend cart imports), `fab_spec`. A part exported by several releases is keyed per release (bare `<pn>` while unique, else `<pn>--<chassis>-<rev>`, e.g. `HW-C2-CHSP-B--C2-C`), since each release dir has its own on-disk copy; `hwrelease migrate-mech` rebuilds these entries from the exported trees without the hardware repo.
 
 ## Conventions (hardware repo)
 
@@ -108,12 +108,16 @@ These files in InverterGen5 drive the tools; keep them current:
 ## The tools
 
 - **PCB Tool** (`/Tools/PCB-Tool/pcb-tool.html`): every released board by part number; renders, embedded interactive assembly (iBOM), part-number-named artifacts, "Open Source" link to the tag, and the board's `fab_spec` as an Ordering specifications table.
-- **BOM Tool** (`/Tools/BOM-Tool/bom-tool.html`): chassis / revision / spares-variant selectors, vendor list with price subtotals and a total estimate, CSV preview, per-vendor order links, ordering walkthroughs, gerber downloads + per-board notes on the PCBs view, and per-part spec cards on the SendCutSend view.
+- **BOM Tool** (`/Tools/BOM-Tool/bom-tool.html`): chassis / revision / spares-variant selectors, a per-subassembly price selector (order just one board/harness group, pack rounding applied per subassembly), vendor list with price subtotals and a total estimate, CSV preview, per-vendor order links, ordering walkthroughs, gerber downloads + per-board notes on the PCBs view, and per-part spec cards on the SendCutSend view.
+
+## Build variants (implemented)
+
+Voltage-class builds (e.g. 200V / 450V) that swap both electrical parts (Mouser lines) and mechanical parts (heatspreader, printed holders) are implemented: each chassis declares its builds in `Hardware/<Chassis>/variants.yaml` in the hardware repo (exclude/add/setqty rules), and BOMManager's `generate` applies them (`--variant <name>` builds a subset; HWRelease runs `generate`, so every declared variant is built). The default variant's outputs land at the `FabricationData/` root; the others go under `FabricationData/Builds/<variant>/`, with `Variant_Comparison.md` and `variants.json` at the root. HWRelease copies these into the release directory and records them in the manifest (`build_variants`, `variant_comparison`, `variants_manifest`).
 
 ## Planned (roadmap)
 
-- **FreeCAD auto-extraction (implemented, first slice)**: on every `hwrelease update`, a headless `freecadcmd` pass opens the chassis `Mechanical/*.FCStd`, finds every Body/Group whose **label ends with the exact part number** (`HW-...`), and exports `<pn>.step`, `<pn>.stl`, and `holes.json` (cylindrical-hole diameter histogram) into `Mechanical/Fab/<pn>/`. A headless **Blender** pass then renders `info.png` + `info-back.png` per part from the STLs (no GUI, two isometric angles). Tap/countersink diameters in each part's `fab_spec.yaml` are checked against the model's actual holes, with warnings on mismatch. Instance counts are harvested for both McMaster hardware and fabricated parts and cross-checked against `MechanicalBOM.txt` / `info.txt` quantities. Mech entries that vanish from the tree are pruned from the manifest. Next: fill `fab_spec.yaml` fields from model properties.
-- **Build configurations**: voltage-class builds (200V / 250V / 300V / 450V) that swap both electrical parts (Mouser lines) and mechanical parts (heatspreader, printed holders): a Build dropdown beside Variant, driven by part-number mappings in `Config/Products.yaml`.
+- **BOM Tool build dropdown**: the BOM Tool has chassis / revision / spares-variant selectors, but no build-configuration selector for the `variants.yaml` builds yet.
+- **FreeCAD spec auto-fill**: extend the implemented model extraction to fill `fab_spec.yaml` fields from model properties.
 - **Mechanical parts explorer**: a dedicated tool page for mech parts (the manifest entries and spec cards are the seed).
 
 ## Maintenance cheatsheet

@@ -138,7 +138,8 @@ const ARTIFACTS = [
 
 function entries() {{
   return Object.values(MANIFEST).filter(e => e.board)
-           .sort((a, b) => a.part_number.localeCompare(b.part_number));
+           .sort((a, b) => a.chassis.localeCompare(b.chassis) ||
+                           a.part_number.localeCompare(b.part_number));
 }}
 
 function renderList() {{
@@ -368,6 +369,15 @@ tr:nth-child(even) {{ background: var(--surface); }}
 .mech-notes {{ color: var(--text-muted); margin-bottom: 8px; }}
 .mech-links {{ display: flex; gap: 12px; align-items: center; }}
 .mech-links a {{ color: var(--accent); }}
+.chips {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; }}
+.chip {{
+  padding: 3px 11px; border-radius: 12px; font-size: 12.5px;
+  border: 1px solid var(--border-light); background: var(--surface);
+  color: var(--text-muted);
+}}
+.chip strong {{ color: var(--text); font-weight: 600; }}
+tr.unpriced td {{ color: var(--text-muted); }}
+#subassembly:disabled {{ opacity: 0.6; }}
 @media (max-width: 800px) {{
   .layout {{ flex-direction: column; }}
   aside {{ width: 100%; border-right: none; border-bottom: 1px solid var(--border-light); }}
@@ -389,6 +399,7 @@ tr:nth-child(even) {{ background: var(--surface); }}
     <div class="sel"><label>Chassis</label><select id="chassis" onchange="onChassis()"></select></div>
     <div class="sel"><label>Revision</label><select id="rev" onchange="onRev()"></select></div>
     <div class="sel"><label>Variant</label><select id="variant" onchange="onVariant()"></select></div>
+    <div class="sel"><label>Subassembly</label><select id="subassembly" onchange="onSubassembly()"></select></div>
     <div class="vendors-label">Vendors</div>
     <div id="vendors"></div>
   </aside>
@@ -499,7 +510,9 @@ const ORDER_LINKS = {{
         ["Order PCBs at JLCPCB \\u2197", "https://jlcpcb.com/"]],
 }};
 
-let state = {{chassis: null, rev: null, variant: "base", vendor: null}};
+let state = {{chassis: null, rev: null, variant: "base", vendor: null, subassembly: "all"}};
+let subDoc = null;  // Subassembly_Pricing.json for the current chassis/rev/variant
+const subDocCache = {{}};
 
 function releases() {{
   // Chassis releases with vendor BOMs, plus boardless chassis whose content
@@ -538,7 +551,7 @@ function init() {{
     state.vendor = h;
     renderVendors();
     renderGuide();
-    loadPreview();
+    renderPreview();
   }}
 }}
 
@@ -546,17 +559,20 @@ window.addEventListener("hashchange", () => {{
   const h = location.hash.slice(1);
   if (VENDOR_LABELS[h] && h !== state.vendor) {{
     state.vendor = h;
+    state.subassembly = "all";
+    document.getElementById("subassembly").value = "all";
     renderVendors();
     renderGuide();
-    loadPreview();
+    renderPreview();
   }}
 }});
 
 function onChassis() {{
   state.chassis = document.getElementById("chassis").value;
   const rel = releases().filter(e => e.chassis === state.chassis);
-  state.rev = rel[0].rev;
-  fill(document.getElementById("rev"), [...new Set(rel.map(e => e.rev))].sort(), state.rev);
+  const revs = [...new Set(rel.map(e => e.rev))].sort();
+  state.rev = revs[revs.length - 1];  // default to the newest revision
+  fill(document.getElementById("rev"), revs, state.rev);
   onRev();
 }}
 
@@ -572,8 +588,10 @@ function onRev() {{
 function onVariant() {{
   state.variant = document.getElementById("variant").value;
   state.vendor = null;
+  state.subassembly = "all";
   renderVendors();
   renderGuide();
+  loadSubassemblies();
   document.getElementById("preview").innerHTML =
     '<p class="empty">Select a vendor on the left to preview its BOM.</p>';
 }}
@@ -582,6 +600,109 @@ function boms() {{
   const e = current();
   const a = (e && e.artifacts) || {{}};
   return state.variant === "base" ? (a.vendor_boms || {{}}) : ((a.variants || {{}})[state.variant] || {{}});
+}}
+
+// Per-subassembly pricing: mirrors the boms() resolution, keyed off the
+// manifest's subassembly_pricing paths written by hwrelease export.
+function subassemblyPath() {{
+  const e = current();
+  const sp = (e && e.artifacts && e.artifacts.subassembly_pricing) || null;
+  if (!sp) return null;
+  return state.variant === "base" ? (sp.base || null) : ((sp.tiers || {{}})[state.variant] || null);
+}}
+
+async function loadSubassemblies() {{
+  const key = state.chassis + "|" + state.rev + "|" + state.variant;
+  subDoc = null;
+  renderSubOptions();
+  const path = subassemblyPath();
+  if (!path) return;
+  const e = current();
+  const url = ROOT + e.dir + "/" + path;
+  let doc = subDocCache[url];
+  if (doc === undefined) {{
+    try {{
+      const r = await fetch(url);
+      doc = r.ok ? await r.json() : null;
+    }} catch (err) {{ doc = null; }}
+    subDocCache[url] = doc;
+  }}
+  if (key !== state.chassis + "|" + state.rev + "|" + state.variant) return;  // changed mid-fetch
+  subDoc = doc;
+  renderSubOptions();
+}}
+
+function renderSubOptions() {{
+  const sel = document.getElementById("subassembly");
+  sel.innerHTML = "";
+  if (!subDoc) {{
+    // Releases exported before per-subassembly pricing have no JSON yet.
+    const o = document.createElement("option");
+    o.value = "all";
+    o.textContent = "All (no per-subassembly data yet)";
+    o.disabled = true;
+    o.selected = true;
+    sel.appendChild(o);
+    return;
+  }}
+  const all = document.createElement("option");
+  all.value = "all";
+  all.textContent = "All subassemblies — $" + subDoc.total;
+  sel.appendChild(all);
+  for (const [slug, sub] of Object.entries(subDoc.subassemblies || {{}})) {{
+    const o = document.createElement("option");
+    o.value = slug;
+    o.textContent = sub.name + " — $" + sub.total;
+    sel.appendChild(o);
+  }}
+  sel.value = state.subassembly;
+}}
+
+function onSubassembly() {{
+  state.subassembly = document.getElementById("subassembly").value;
+  renderPreview();
+}}
+
+function renderPreview() {{
+  if (state.subassembly !== "all") {{ renderSubassembly(); return; }}
+  loadPreview();
+}}
+
+function renderSubassembly() {{
+  const div = document.getElementById("preview");
+  const sub = subDoc && (subDoc.subassemblies || {{}})[state.subassembly];
+  if (!sub) {{ div.innerHTML = '<p class="empty">No pricing data for this subassembly.</p>'; return; }}
+  let html = "<h3>" + sub.name + " — $" + sub.total + "</h3>";
+  const vendorChips = Object.entries(sub.vendors || {{}});
+  if (vendorChips.length) {{
+    html += '<div class="chips">';
+    for (const [v, amt] of vendorChips)
+      html += '<span class="chip">' + (PRICE_NAMES[v] || v) + " <strong>$" + amt + "</strong></span>";
+    html += "</div>";
+  }}
+  const nUnpriced = (sub.lines || []).filter(l => l.unit == null).length;
+  html += '<p class="meta">Prices assume ordering only this subassembly: pack sizes are ' +
+    "rounded up per subassembly, so the subassemblies can add up to more than the " +
+    "whole-BOM estimate." +
+    (nUnpriced ? " " + nUnpriced + " unpriced line" + (nUnpriced > 1 ? "s" : "") +
+    " excluded." : "") + "</p>";
+  html += "<table><thead><tr>" +
+    "<th>Internal P/N</th><th>Description</th><th>Qty</th><th>Order Qty</th>" +
+    "<th>Unit</th><th>Total</th><th>Vendor</th></tr></thead><tbody>";
+  for (const l of (sub.lines || [])) {{
+    const unpriced = l.unit == null;
+    html += "<tr" + (unpriced ? ' class="unpriced"' : "") + ">" +
+      "<td>" + (l.pn || "") + "</td>" +
+      "<td>" + (l.description || "") + "</td>" +
+      "<td>" + l.qty + "</td>" +
+      "<td>" + l.order_qty + "</td>" +
+      "<td>" + (unpriced ? "—" : "$" + l.unit) + "</td>" +
+      "<td>" + (unpriced ? "—" : "$" + l.total) + "</td>" +
+      "<td>" + (PRICE_NAMES[l.vendor] || l.vendor) + (unpriced ? " (unpriced)" : "") + "</td>" +
+      "</tr>";
+  }}
+  html += "</tbody></table>";
+  div.innerHTML = html;
 }}
 
 function renderVendors() {{
@@ -608,7 +729,15 @@ function renderVendors() {{
     const b = document.createElement("button");
     b.className = "vn" + (state.vendor === key ? " active" : "");
     b.innerHTML = label + (priceFor(key) ? "<small>$" + priceFor(key) + "</small>" : "");
-    b.onclick = () => {{ state.vendor = key; renderVendors(); renderGuide(); loadPreview(); }};
+    b.onclick = () => {{
+      // Vendor tables span the whole BOM: drop any subassembly selection.
+      state.vendor = key;
+      state.subassembly = "all";
+      document.getElementById("subassembly").value = "all";
+      renderVendors();
+      renderGuide();
+      renderPreview();
+    }};
     box.appendChild(b);
   }}
   const actions = document.getElementById("actions");
@@ -662,6 +791,7 @@ async function loadPreview() {{
   const map = boms();
   const div = document.getElementById("preview");
   if (!state.vendor) return;
+  const selected = state.chassis + "|" + state.rev + "|" + state.variant + "|" + state.vendor;
   if (state.vendor === "sendcutsend" || state.vendor === "printed") {{
     // Spec cards carry everything for fabricated/printed parts; skip the
     // CSV table (it stays available via Download CSV).
@@ -672,6 +802,9 @@ async function loadPreview() {{
   if (!map[state.vendor]) return;
   const r = await fetch(ROOT + e.dir + "/" + map[state.vendor]);
   const rows = parseCSV(await r.text());
+  if (state.subassembly !== "all" ||
+      selected !== state.chassis + "|" + state.rev + "|" + state.variant + "|" + state.vendor)
+    return;  // selection changed mid-fetch; leave the newer view in place
   // On the PCBs view, append a gerber-zip download column and a notes column.
   let gerberFor = null, notesFor = {{}}, stepFor = null;
   if (state.vendor === "pcb") {{
