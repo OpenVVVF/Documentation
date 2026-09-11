@@ -18,7 +18,7 @@ This is the OpenVVVF documentation and hardware-data hub. It does **not** contai
 
 1. **BOMManager** (`Tools/BOMManager`) is the generalized Bill-of-Materials and fabrication package manager. It reads product definitions from `Config/Products.yaml`.
 2. **docgen** (`Tools/DocGen`) validates frontmatter, resolves `doc_id` references, and assembles product manuals.
-3. **HWRelease** (`Tools/HWRelease`) exports per-board release artifacts (schematic PDF, BOM, gerbers, DRC, STEP, iBOM HTML) from `../InverterGen5` release tags into `Data/Releases/`, indexed by part number in `Data/Releases/manifest.json`.
+3. **HWRelease** (`Tools/HWRelease`) exports per-board release artifacts (schematic PDF, BOM, gerbers, DRC, STEP, iBOM HTML) from `../InverterGen5` release tags into `Data/Releases/`, indexed by part number in `Data/Releases/manifest.json`. Tag `<chassis-short>-<rev>` (e.g. `C2-B`) scopes and pins a chassis release; tag `<family>-<rev>` for a `release_families` entry in `Config/Products.yaml` (e.g. `C2-DCDC-A`) publishes that family's chassis tree under the family short code (`CHASSIS-C2-DCDC-A`, `Data/Releases/C2-DCDC/A/`).
 4. **KiCad DNP grouping quirk**: KiCad's BOM `--group-by` marks an entire grouped row as DNP if **any** symbol in the group is DNP, so kicad-cli BOM exports must group by `Value,DNP` (not `Value` alone) or BOMManager's parser drops populated rows too. After touching the BOM export, regenerate `Data/Releases/` with `hwrelease update --force`.
 5. Run `pytest` before committing changes to tools.
 

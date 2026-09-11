@@ -31,7 +31,19 @@ chassis:
     name: Chassis Size 3
     description: Up to 1200 V / 1400 A (in development)
 
-# Application profiles documented in Docs/Platform/Safety/.../ApplicationProfiles/.
+# Release families: product lines released from another chassis's hardware
+# tree. A tag named <family>-<rev> (e.g. C2-DCDC-A) scopes the chassis-level
+# export to the listed chassis tree and publishes it under the family's own
+# short code: Data/Releases/<family>/<rev>/ with a CHASSIS-<family>-<rev>
+# manifest entry. Boards inside still use the chassis short code, so shared
+# hardware keeps its existing part numbers (e.g. HW-C2-PCB-CTRL-A).
+release_families:
+  C2-DCDC:
+    chassis: Chassis2
+    name: Chassis Size 2 with DC/DC Module
+    description: C2 power stage plus 15 kW DC/DC converter module (Mechanical/DC-DC-Module.FCStd)
+
+# Application profiles documented in Docs/Safety-and-Compliance/HARA/Application-Profiles/.
 application_profiles:
   motorcycle:
     id: application-profile-motorcycle
