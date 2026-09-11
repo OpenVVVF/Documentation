@@ -5,8 +5,8 @@ title: System Thermal Analysis
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.4"
-date: "2026-09-10"
+version: "1.5"
+date: "2026-09-11"
 description: IGBT and diode loss analysis, inverter efficiency, and heatsink/baseplate sizing for the Chassis Size 2 traction inverter.
 nav_order: 241
 normative_refs:
@@ -17,11 +17,13 @@ normative_refs:
 
 # System Thermal Analysis
 
-This document estimates the total heat dissipated into the heatsink by the 3-phase traction inverter power stage (3× Mitsubishi CM600DY-24T half-bridge IGBT modules plus the DC-link capacitor bank) and derives the heatsink thermal resistance required for continuous operation. It is the sizing input for the custom heatsink design.
+This document estimates the total heat dissipated into the heatsink by the 3-phase traction inverter power stage (3× Mitsubishi CM600DY half-bridge IGBT modules plus the DC-link capacitor bank) and derives the heatsink thermal resistance required for continuous operation. It is the sizing input for the custom heatsink design.
+
+**Device selection (v1.5):** the recommended device for C2's 200–450 V bus is the **CM600DY-13T (600 V)** per the current hardware README. The **CM600DY-24T (1200 V)** is electrically and mechanically compatible (same 62 mm package and mounting) and may be fitted where a higher-voltage-rated device is preferred. This analysis is run on **CM600DY-24T datasheet values** and remains a conservative bound for a -13T build: 1200 V-class devices of this family/case carry equal or higher conduction and switching losses than the 600 V-class part at the same current [EST]. Re-running the model against the -13T datasheet is a refinement, not a correctness issue.
 
 **Value marking convention used throughout:**
 
-- **[DS]** - value taken directly from the CM600DY-24T datasheet (Mitsubishi Electric, publication date December 2020); page/figure cited.
+- **[DS]** - value taken directly from the CM600DY-24T datasheet (Mitsubishi Electric, publication date December 2020); page/figure cited. (The -24T is the analysis device; see the device-selection note in the introduction - the recommended CM600DY-13T is rated differently.)
 - **[EST]** - engineering estimate derived from datasheet curves (digitized) or standard scaling laws; not explicitly guaranteed by the datasheet.
 - **[ASM]** - modeling assumption about the operating point.
 
@@ -94,7 +96,7 @@ This document estimates the total heat dissipated into the heatsink by the 3-pha
 
 ## References and system inputs
 
-- CM600DY-24T datasheet, Mitsubishi Electric, December 2020 (600 A / 1200 V dual (half-bridge) IGBT module, 62 mm package).
+- CM600DY-24T datasheet, Mitsubishi Electric, December 2020 (600 A / 1200 V dual (half-bridge) IGBT module, 62 mm package; analysis device - the recommended CM600DY-13T (600 V) is electrically and mechanically compatible).
 - `OV-C2-DD-DCLINK-THERMAL` - DC-link capacitor bank heat load of ≈40 W at rated ripple, rejected to the heatsink through the standoff/spreader-plate path.
 - Project README - power stage: 3× CM600DY-24T half-bridge modules (one per phase), SVPWM, DC link 102–320 V (140 V nominal), 600 A class output. Gate drive +15 V / −9 V via onsemi NCV57100 (7 A peak gate current class).
 - Hardware designer input (2026-08, v1.1/v1.2): populated external gate resistance $R_G = 2.7 \ \Omega$ (not the 1.0 Ω datasheet test condition); PWM is clamped at 6 kHz maximum (v1.2). 2 kHz is not the operating intent, 16 kHz will not be used, and the 8 kHz point is dropped: it sits next to the ~7.8 kHz series resonance of the electrolytic can branch (`OV-C2-DD-DCLINK-RIPPLE`) and is unattractive anyway; 8 kHz rows are kept in the tables for reference only, outside the clamped envelope.
@@ -400,6 +402,7 @@ Measured data supersedes this bound when available; the two pinning measurements
 | 1.2 | 2026-08-20 | Ratings revision. PWM clamped at 6 kHz max per designer decision; 8 kHz dropped (also adjacent to the ~7.8 kHz electrolytic-branch series resonance per OV-C2-DD-DCLINK-RIPPLE) and retained in tables for reference only. New §6.4 states the IEC 61800-2 style rating: **220 A RMS continuous / 600 A RMS peak for 60 s**. The continuous rating is the lower of the electrolytic ripple limit (~330 A, OV-C2-DD-DCLINK-RIPPLE) and the DC-link plate 90 °C FSR-08 constraint (220 A at 320 V / 6 kHz on the 0.006 K/W heatsink), and is documented as a conservative analytical bound with itemized assumptions. The 60 s peak is validated by thermal time constants (junction ~101 °C steady, plate/can excursions bounded to ~92 - 97 °C end-of-peak) and carries a verifiable duty requirement (rolling 10-min RMS ≤ 220 A). Guidance, sensitivity notes, and the 600 A operation note aligned. |
 | 1.3 | 2026-08-23 | Current-convention correction and re-rating. The "600 A" design figure is **peak phase current** (600 A pk = 424 A RMS), not RMS; all design-point loss/temperature tables re-evaluated at 424 A RMS, sweep tables labeled RMS with peak equivalents. Plate framing corrected per designer: the spreader plate is the capacitors' thermal environment, not a design constraint - plate numbers are informational upper bounds, the governed quantity is the can temperature (ripple rating + hot-spot). Continuous rating raised from 220 A RMS to **465 A (330 A RMS)**, set by the electrolytic ripple limit; peak rating restated as **600 A (424 A RMS) for 60 s** with rolling 10-min RMS ≤ 330 A RMS (worked example: ≲318 A RMS for 9 min after a full peak). §6.3 plate table updated to the rev-B 6.35 mm spreader plate and the corrected 63 mm rod length (+35.0 K reference rise, was +40.1 K at 3.18 mm / 55 mm); the plate-proxy derate onset sits at ≈330 A RMS, coincident with the ripple-set rating, so NTC placement may still decide the effective continuous limit at the margin. Heatsink requirements relaxed accordingly (peak: ≤9.5 mK/W at 6 kHz; design target ≈7 mK/W; continuous point ≤13.9 mK/W). Open item added: confirm DC-link capacitor NTC mounting location. |
 | 1.4 | 2026-09-10 | Consistency fixes, no rating change: (1) the "600 A RMS operation" sensitivity bullet rewritten to the v1.3 §6.4 rating framing - 465 A (330 A RMS) continuous set by the capacitor ripple (electrolytic bank binds; plate and semiconductors do not), 600 A pk = 424 A RMS rated peak for 60 s, and the 600 A RMS rows identified as the 848 A pk envelope-sweep bound; the bullet had retained the superseded v1.2 framing (220 A RMS continuous, set by the DC-link plate). (2) The 140 V / 600 A switching-share figure (≈7 %) and the 6 kHz-clamp loss/heatsink figures (3.8 / 5.0 / 5.5 kW, 7.3 / 4.7 / 3.7 mK/W) are now explicitly labeled as the 600 A RMS (848 A pk) envelope-sweep bound; values unchanged, consistent with the §6.2 sweep table. (3) Nomenclature deduplicated: the separate $T_c$ / $T_C$ entries merged into a single $T_C$ symbol (module case temperature equals the module baseplate temperature); the thermal-chain equations and the design-limit/guidance text updated from $T_c$ to $T_C$. |
+| 1.5 | 2026-09-11 | Device-selection prose corrected per the current hardware README, no analysis change: the recommended IGBT for C2's 200–450 V bus is the **CM600DY-13T (600 V)**; the CM600DY-24T (1200 V) is an electrically and mechanically compatible alternative in the same 62 mm package for builds wanting the higher-voltage-rated device. Introduction reframed accordingly (3× CM600DY modules, not -24T specifically); the [DS] convention note and the References datasheet entry now mark the CM600DY-24T as the analysis device, with the -24T loss values a conservative bound for a -13T build. The datasheet-parameter tables are unchanged (they are -24T [DS] values by construction). |
 
 ---
 

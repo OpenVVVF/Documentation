@@ -5,8 +5,8 @@ title: IGBT Mounting
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.1"
-date: "2026-08-13"
+version: "1.2"
+date: "2026-09-11"
 description: Step-by-step procedure for mounting the IGBT half-bridge modules to the Chassis Size 2 heatspreader.
 nav_order: 226
 normative_refs:
@@ -15,7 +15,7 @@ normative_refs:
 
 # IGBT Module Mounting
 
-This guide covers mounting the three Mitsubishi CM600DY-24T IGBT modules onto the Chassis Size 2 aluminium baseplate/heatspreader.
+This guide covers mounting the three Mitsubishi CM600DY IGBT modules onto the Chassis Size 2 aluminium baseplate/heatspreader. The recommended device for C2's 200–450 V bus is the **CM600DY-13T (600 V)**; the **CM600DY-24T (1200 V)** is electrically and mechanically compatible and may be fitted where a higher-voltage device is preferred. Both variants share the same 62 mm module package and mounting, so the procedure below is identical for either.
 
 > **Safety**
 > - IGBT modules are static-sensitive. Handle them on a grounded ESD mat and wear a wrist strap.
@@ -27,7 +27,7 @@ This guide covers mounting the three Mitsubishi CM600DY-24T IGBT modules onto th
 | Item | Qty | Notes |
 |------|-----|-------|
 | Aluminium baseplate/heatspreader | 1 | Chassis Size 2 |
-| Mitsubishi CM600DY-24T IGBT module | 3 | Half-bridge modules |
+| Mitsubishi CM600DY IGBT module - CM600DY-13T (600 V) recommended; CM600DY-24T (1200 V) compatible alternative | 3 | Half-bridge modules, same 62 mm package; verify the mounting torque against the datasheet of the fitted device |
 | M6×12 mm socket-head cap screw | 12 | 4 per module × 3 modules |
 | Thermal interface compound | as needed | Even, thin coverage |
 | Thread-locking compound (medium strength) | as needed | Applied to screw threads |
