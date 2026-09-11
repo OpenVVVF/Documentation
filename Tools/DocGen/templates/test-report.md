@@ -1,6 +1,6 @@
 ---
 # Template for a formal test report.
-# Place under Docs/Testing/<Hardware|Firmware|Integration>/<Test-Name>/
+# Place under Docs/Safety-and-Compliance/Testing/<Hardware|Firmware|Integration>/<Test-Name>/
 doctype: Test Report
 doc_id: OV-TEST-XX-XXXX
 title: Test Title

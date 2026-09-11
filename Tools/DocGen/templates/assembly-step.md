@@ -1,6 +1,6 @@
 ---
 # Template for an ordered assembly-guide step.
-# Place under Docs/Power-Stages/C2/Assembly-Guide/<N>_<Chapter>/<N>_<Step>/
+# Place under Docs/Hardware/Power-Stages/C2/Assembly-Guide/<N>_<Chapter>/<N>_<Step>/
 doctype: Assembly Guide
 doc_id: OV-C2-AG-NN-NN
 title: N.N Step Title

@@ -38,9 +38,16 @@ jobs:
         run: python -m docgen site --output-dir site
 
       - name: Install Chromium for PDF generation
+        # GitHub-hosted Ubuntu runners ship a browser already; only install when
+        # nothing usable is on PATH. On 24.04+ apt's chromium-browser is a
+        # snap-transitional package, so fall back to chromium and vice versa.
         run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser
+          if command -v chromium >/dev/null || command -v chromium-browser >/dev/null || command -v google-chrome >/dev/null; then
+            echo "Chromium already available, skipping install"
+          else
+            sudo apt-get update
+            sudo apt-get install -y chromium || sudo apt-get install -y chromium-browser
+          fi
 
       - name: Generate PDFs
         run: python -m docgen pdf --all --site-dir site --output-dir site/pdfs
@@ -50,9 +57,26 @@ jobs:
         with:
           path: site
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tools
+        run: pip install -e Tools/BOMManager -e Tools/DocGen -e Tools/HWRelease pytest
+
+      - name: Run tool tests
+        run: python -m pytest Tools/BOMManager/tests Tools/DocGen/tests Tools/HWRelease/tests -q
+
   deploy:
     if: github.ref == 'refs/heads/main'
-    needs: build
+    needs: [build, test]
     runs-on: ubuntu-latest
     environment:
       name: github-pages

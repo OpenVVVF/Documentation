@@ -1,4 +1,4 @@
-.PHONY: help install test test-bom test-docgen validate site manuals clean check-clean
+.PHONY: help install test test-bom test-docgen test-hwrelease hw-update hw-list hw-viewer validate site pdfs manuals serve clean check-clean
 
 VENV := .venv
 PYTHON := $(VENV)/bin/python
@@ -22,7 +22,8 @@ help:
 	@echo "  manuals      generate umbrella manual PDFs (e.g. full C2 assembly guide)"
 	@echo "  serve        serve the built site locally on port 8000"
 	@echo "  clean        remove build artifacts and venv"
-	@echo "  check-clean  fail if ignored *.egg-info directories are present"
+	@echo "  check-clean  fail if *.egg-info files are tracked in git"
+	@echo "  ci_cd        full pre-CI gate (validate + tests + viewer regen + clean checks)"
 
 install:
 	python3 -m venv $(VENV)
@@ -71,10 +72,32 @@ clean:
 	find . -type d -name .pytest_cache -exec rm -rf {} +
 
 check-clean:
-	@bad=$$(git status --ignored --short | grep -E '^!! .*\.egg-info/$$' || true); \
+	@bad=$$(git ls-files | grep -E '\.egg-info/' || true); \
 	if [ -n "$$bad" ]; then \
-		echo "ERROR: ignored *.egg-info directories are present in the working tree:"; \
+		echo "ERROR: *.egg-info files are tracked in git:"; \
 		echo "$$bad"; \
 		exit 1; \
 	fi
-	@echo "Working tree is clean of ignored *.egg-info directories."
+	@echo "No tracked *.egg-info content."
+
+# Full pre-CI gate: same checks CI would run, plus regeneration drift checks.
+ci_cd: validate test check-clean
+	@# Regenerating the tool viewer pages must be a no-op (hash before/after),
+	@# or the committed Docs/Tools/*.html files are out of date with Tools/HWRelease.
+	@before=$$(md5sum Docs/Tools/BOM-Tool/bom-tool.html Docs/Tools/PCB-Tool/pcb-tool.html); \
+	$(MAKE) -s hw-viewer >/dev/null; \
+	after=$$(md5sum Docs/Tools/BOM-Tool/bom-tool.html Docs/Tools/PCB-Tool/pcb-tool.html); \
+	if [ "$$before" != "$$after" ]; then \
+		echo "ERROR: Docs/Tools HTML pages differ from hwrelease output - rerun: make hw-viewer"; \
+		exit 1; \
+	fi
+	@# No stray documentation outside Docs/ (Tools/*/Docs is tool documentation,
+	@# vendored libs under Docs/Tools/**/o3dv are assets, not docs).
+	@stray=$$(find . -path ./.venv -prune -o -path ./.git -prune -o -path ./build -prune -o \
+		-path ./site -prune -o -path '*/Docs' -type d -print 2>/dev/null | \
+		grep -v '^\./Docs$$' | grep -vE '^\./Tools/[^/]+/Docs$$' | grep -vE '^\./Tools/[^/]+/src/[^/]+/templates$$' || true); \
+	if [ -n "$$stray" ]; then \
+		echo "WARNING: unexpected Docs-like directories:"; \
+		echo "$$stray"; \
+	fi
+	@echo "Fully clean: ready for CI/CD push."

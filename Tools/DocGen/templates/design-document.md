@@ -1,6 +1,6 @@
 ---
 # Template for a design analysis / calculation document.
-# Place under Docs/Power-Stages/C2/Design-Documents/<Topic>/
+# Place under Docs/Hardware/Power-Stages/C2/Design-Documents/<Topic>/
 doctype: Design Document
 doc_id: OV-C2-DD-XXXX
 title: Topic Analysis
