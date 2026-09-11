@@ -6,12 +6,12 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - application-profile-motorcycle
-core_ref: OV-SAF-HARA-CORE v5.10
+core_ref: OV-SAF-HARA-CORE v5.11
 profile_for: motorcycle
 standard: ISO 26262:2018
 temp: −40 °C to +85 °C
-version: "1.8"
-date: "2026-09-10"
+version: "1.9"
+date: "2026-09-11"
 description: Motorcycle-specific HARA profile - operational situations, S/E/C ratings, and ASIL targets applied to the platform hazard set.
 nav_order: 313
 normative_refs:
@@ -22,7 +22,7 @@ normative_refs:
 
 This document is an **Application Profile** of the OpenVVVF HARA document set. It assigns motorcycle-specific Operational Situations, Severity/Exposure/Controllability ratings, and ASIL targets to the platform hazard set, Safety Goals, and Functional Safety Requirements defined in the Core Platform document.
 
-- **Core document:** OV-SAF-HARA-CORE v5.10 (*OpenVVVF HARA - Core Platform*). This profile was assessed against Core v5.7; v5.8 was a documentation-only reorganization (fault-injection test plan extraction), and v5.9 and v5.10 are documentation/consistency fixes - no technical changes since v5.7. It shall be reviewed on any Core revision.
+- **Core document:** OV-SAF-HARA-CORE v5.11 (*OpenVVVF HARA - Core Platform*). This profile was assessed against Core v5.7; v5.8 was a documentation-only reorganization (fault-injection test plan extraction), and v5.9 and v5.10 are documentation/consistency fixes - no technical changes since v5.7. Core v5.11 corrects the HVIL implementation status (planned - not yet implemented in hardware); this v1.9 revision is the review triggered by that correction (H-09 mitigation re-stated; no S/E/C or ASIL change). It shall be reviewed on any Core revision.
 - **Normative reference:** hazards H-01 through H-17, Safety Goals SG-01 through SG-15, and FSR-01 through FSR-22 are defined in the Core document and are **not** restated here. The Core compliance statement (Core §1.2) applies in full to this profile: ASIL ratings herein are **targets**, not claims of verified compliance.
 - **Standard applied:** ISO 26262:2018 (methodology), as for the Core.
 - **Status:** elaborated - this profile is the current reference S/E/C assessment for the platform.
@@ -101,7 +101,7 @@ Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patc
 | **H-06** | OS-06 (highway WOT) | S3 | E3 | C3 | C | C | Wheel spin at speed. Dual-MCU current monitoring (100 ms); DESAT for hard shorts. |
 | **H-07** | OS-14 (desert) | S3 | E2 | C2 | B | B | Thermal runaway; 3x redundant sensing. |
 | **H-08** | OS-16 (downhill descent) | S3 | E2 | C3 | C | C | Encoder loss at speed; single encoder (external constraint); both MCUs monitor. |
-| **H-09** | OS-01 (crash/service) | S3 | E1 | C2 | A | A | HV shock; HVIL + reinforced isolation. |
+| **H-09** | OS-01 (crash/service) | S3 | E1 | C2 | A | A | HV shock; reinforced isolation is the present mitigation. HVIL is planned but not yet implemented in hardware (Core v5.11); its contribution is pending - see the note below. |
 | **H-10** | OS-16 (regen on descent) | S3 | E2 | C2 | B | B | DC link overvoltage from regen. |
 | **H-12** | OS-07 (hard accel) | S3 | E2 | C3 | C | C | Shoot-through; NCV57100 anti-shoot-through (non-ASIL); coprocessor PWM monitoring. |
 | **H-13** | OS-06 (fault at speed) | S3 | E3 | C3 | D | D | Six redundant SSO pathways. |
@@ -110,13 +110,15 @@ Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patc
 | **H-16** | OS-07 (hard accel) | S3 | E2 | C3 | C | C | Both MCUs monitor OR'd FLT; coprocessor READY/PWM monitoring. |
 | **H-17** | OS-07 (hard accel) | S3 | E3 | C3 | C | C | Coprocessor monitors all 6 PWM pairs for deadtime/stuck faults. |
 
+> **Note on H-09 (v1.9):** Earlier revisions credited "HVIL + reinforced isolation" for H-09. Core v5.11 establishes that HVIL is planned but **not yet implemented in hardware** (no HVIL nets/pins in the current schematics; FSR-10 open). The present mitigation for H-09 is therefore the reinforced HV isolation alone. The S3/E1/C2 / ASIL A assessment above is retained unchanged - the HVIL contribution is pending hardware implementation, and this hazard (and the profile's residual-risk conclusions) shall be re-assessed when HVIL lands.
+
 ---
 
 # References
 
 | Ref | Citation |
 | --- | --- |
-| OV-SAF-HARA-CORE | OpenVVVF HARA - Core Platform, v5.10 (doc_id OV-SAF-HARA-CORE). Normative. |
+| OV-SAF-HARA-CORE | OpenVVVF HARA - Core Platform, v5.11 (doc_id OV-SAF-HARA-CORE). Normative. |
 | Cossalter | Cossalter, Lot, Massaro, *Motorcycle Dynamics* (chapter), 2014. Lean mechanics and tire friction-ellipse basis for the Section 5 dynamics assessment. |
 | NHTSA | *Motorcycle Safety*. https://www.nhtsa.gov/motorcycles. Accident causation context for severity assessment. |
 
@@ -135,3 +137,4 @@ Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patc
 | 1.6 | 2026-07-31 | Dynamics reference corrected: the lean-mechanics citation is now Cossalter, Lot, Massaro, *Motorcycle Dynamics* (2014 chapter). Assessed against OV-SAF-HARA-CORE v5.7. |
 | 1.7 | 2026-08-13 | Core reference updated to v5.8 (documentation-only test-plan extraction; no technical delta). Stale v5.1 mention in the core-document note corrected. |
 | 1.8 | 2026-09-10 | H-03a rationale cell rewritten to the v1.1 freewheel analysis: coasting at lean is dynamically benign (SSO is freewheel, no engine-braking stand-up) and the harm path is the following-traffic collision at track/highway speed; the superseded ICE stand-up/run-wide phrasing already rejected in Section 5 has been removed from the table. Core reference updated to v5.10 (v5.9 and v5.10 are documentation/consistency fixes, no technical delta). Frontmatter date for v1.7 corrected to 2026-08-13 (it had been left at 2026-07-30). |
+| 1.9 | 2026-09-11 | H-09 mitigation corrected per Core v5.11: HVIL is planned but not yet implemented in hardware, so the H-09 rationale cell now credits reinforced isolation as the present mitigation and a note after Table 3 states that the HVIL contribution is pending hardware implementation and the profile shall be re-assessed when HVIL lands. No S/E/C, ASIL, or residual-risk conclusion changed. Core reference updated to v5.11. |

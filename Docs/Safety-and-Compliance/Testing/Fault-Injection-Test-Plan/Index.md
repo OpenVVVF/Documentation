@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "1.1"
-date: "2026-08-20"
+version: "1.2"
+date: "2026-09-11"
 description: Safety-mechanism validation by fault injection across component, system, and integration levels; exercises the control module and the C2 power stage as one test article. Extracted from the HARA Core document.
 nav_order: 371
 normative_refs:
@@ -32,7 +32,7 @@ The purpose of this Fault Injection Test Plan is to provide a comprehensive, tra
 Each test case is designed with the following principles:
 
 1. **Every Safety Goal (SG-01 through SG-15; SG-11 removed in HARA v5.4) is covered by at least one test case** that is executable with available equipment.
-2. **Every Functional Safety Requirement (FSR-01 through FSR-22) is covered by at least one executable test case** (FSR-22 coverage is planned as generated-code fault cases per GAP-SW-04 and is not yet elaborated).
+2. **Every Functional Safety Requirement (FSR-01 through FSR-22) is covered by at least one executable test case**, with two documented exceptions: FSR-22 coverage is planned as generated-code fault cases per GAP-SW-04 and is not yet elaborated, and FSR-10 coverage is **blocked** - HVIL is planned but not yet implemented in hardware (OV-SAF-HARA-CORE v5.11, GAP-HW-04); C-12 and I-04 are retained in the plan but cannot run until the HVIL input exists.
 3. **Every identified hazard (H-01 through H-17, including H-03a; H-11 removed in HARA v5.4) is covered by at least one executable test case** at the drive-boundary level; vehicle-level validation limits are documented in Known Test Limitations.
 4. **Response time requirements shall be verified** where measurable (e.g., <10 us HW PWM disable, ≤50 ms WDT timeout, ≤200 ms detection-to-SSO).
 5. **Fault injection shall be realistic** - faults represent credible failure modes observed in traction power electronics systems.
@@ -49,6 +49,7 @@ The following vocabulary shall be used consistently for every test and requireme
 | **Executable** | All required equipment and facilities are available; the test can be run in the current campaign. |
 | **Conditional** | Executable subject to a stated minor prerequisite (e.g., a small LV bench supply). |
 | **Deferred** | Cannot be executed with available equipment or facilities; scheduled for a future campaign or external lab. |
+| **Blocked** | Cannot be executed because the DUT lacks the hardware under test (feature planned but not yet implemented). Retained in the plan and scheduled once the hardware lands. |
 | **Executed** | Test has been run; raw evidence (telemetry, video, scope captures) recorded per Test Records and Evidence. |
 | **Verified** | Executed, passed, and reviewed; evidence reference entered in the traceability matrices. |
 
@@ -106,7 +107,8 @@ Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15
 | Block | Tests | Status |
 | --- | --- | --- |
 | Sensor/input faults | C-01–C-09 | **Executable** (throttle via DC supplies; temp via heat gun; manual injection) |
-| DC link & HVIL | C-10–C-12 | **Executable** |
+| DC link | C-10, C-11 | **Executable** |
+| HVIL | C-12 | **Blocked** - HVIL hardware not yet implemented (planned; GAP-HW-04); run when the HVIL input lands |
 | MCU/safety-path faults | C-13–C-20, C-39, C-41, C-43 | **Executable** |
 | LV rail faults | C-21, C-22, C-24, C-25 | **Conditional** - requires small programmable LV bench supply |
 | Rail/gate-supply shorts | C-23, C-26, C-27 | **Executable** (current-limited fixtures; C-26/27 via energize-into-fault) |
@@ -116,10 +118,10 @@ Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15
 | Bearing current | C-36 | **Deferred** - requires shaft brush fixture |
 | Isolation | C-50 | **Executable** via alternative 1 kV leakage method |
 | System tests | S-01–S-19 | **Executable** (4-quadrant dyno, thermal camera available) |
-| Integration tests | I-01–I-18 | **Executable** (CAN simulation) |
+| Integration tests | I-01–I-18 | **Executable** (CAN simulation), except **I-04 Blocked** - HVIL hardware not yet implemented |
 | Environmental tests | E-01–E-12 | **Deferred** - type tests; no environmental equipment available |
 
-Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 - pending LV bench supply), 1 Deferred-equipment (C-36), 12 Deferred-type-test (E-series stubs).** Total 92 line items including the E-series stubs; 80 tests defined in the current plan (43 C-series + 19 S-series + 18 I-series).
+Counts: **73 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 - pending LV bench supply), 1 Deferred-equipment (C-36), 2 Blocked (C-12, I-04 - HVIL planned but not yet implemented in hardware), 12 Deferred-type-test (E-series stubs).** Total 92 line items including the E-series stubs; 80 tests defined in the current plan (43 C-series + 19 S-series + 18 I-series).
 
 ## Component-Level Tests
 
@@ -313,7 +315,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 **Objective:** Verify FSR-10 - HVIL loop interruption detection and response.
 
 **Covered:** SG-09 (ASIL A), FSR-10, H-09
-**Status:** Executable - Defined | **Evidence:** -
+**Status:** **Blocked** - HVIL is planned but not yet implemented in hardware (no HVIL nets/pins in the current schematics; OV-SAF-HARA-CORE v5.11, GAP-HW-04). Not runnable until the HVIL input lands; retained as the verification for FSR-10. | **Evidence:** -
 
 **Procedure:**
 
@@ -1319,7 +1321,7 @@ Integration tests validate the interaction between the control module and extern
 **Objective:** Verify SG-09, FSR-10 - HVIL interruption shall trigger the VCU-side HV disconnect response.
 
 **Covered:** SG-09 (ASIL A), FSR-10, H-09
-**Status:** Executable - Defined | **Evidence:** -
+**Status:** **Blocked** - HVIL is planned but not yet implemented in hardware (no HVIL nets/pins in the current schematics; OV-SAF-HARA-CORE v5.11, GAP-HW-04). Not runnable until the HVIL input lands; retained as the verification for FSR-10. | **Evidence:** -
 
 **Procedure:**
 
@@ -1618,7 +1620,7 @@ Integration tests validate the interaction between the control module and extern
 
 ## Safety Goal Traceability
 
-The following matrices map safety goals, FSRs, and hazards to test cases. Only **executable or conditional** tests are cited as coverage in the current campaign; deferred tests (E-series, C-36) are excluded from coverage claims. Upon execution, the evidence reference (Test Records and Evidence) shall be entered against each test.
+The following matrices map safety goals, FSRs, and hazards to test cases. Only **executable or conditional** tests are cited as coverage in the current campaign; deferred tests (E-series, C-36) and **blocked** tests (C-12, I-04 - HVIL not yet implemented in hardware) are excluded from coverage claims. Upon execution, the evidence reference (Test Records and Evidence) shall be entered against each test.
 
 **Table 14 - Safety Goal to Test Case Traceability**
 
@@ -1632,7 +1634,7 @@ The following matrices map safety goals, FSRs, and hazards to test cases. Only *
 | **SG-06** | C | Limit max tractive effort to calibrated max | C-06, C-07, C-13, C-41, S-09, S-15 |
 | **SG-07** | B | Detect over-temperature, progressively derate | C-08, C-35, C-45, S-06, S-07 |
 | **SG-08** | C | Detect loss of rotor position → safe state | C-09, C-28, C-29, C-30 |
-| **SG-09** | A | Maintain HV isolation | C-50 (alternative method), I-04 |
+| **SG-09** | A | Maintain HV isolation | C-50 (alternative method); I-04 **blocked** until HVIL hardware lands (GAP-HW-04) |
 | **SG-10** | B | Detect DC link bus overvoltage | C-10, C-11, C-42, I-05, S-08, S-13 |
 | **SG-12** | C | Prevent IGBT shoot-through | C-15, C-16, C-17, C-26, C-27, C-31–C-34, C-49 |
 | **SG-13** | D | Achieve safe state within 200 ms, independent of main loop and generated code | C-13, C-14, C-15, C-16, C-17, C-19–C-25, C-43, S-01–S-03, S-10–S-12, I-04 |
@@ -1654,7 +1656,7 @@ The following matrices map safety goals, FSRs, and hazards to test cases. Only *
 | FSR-07 | Max tractive effort limit (LUT on both MCUs + dual-MCU current monitoring) | C-06, C-07, S-09, S-15 |
 | FSR-08 | 2× IGBT NTC (1oo2) + 1× DC link capacitor NTC (capacitor channel: derate 90 °C, SSO 105 °C) | C-08, C-35, C-45, S-06, S-07 |
 | FSR-09 | Encoder loss → safe state <100 ms | C-09, C-28, C-29, C-30 |
-| FSR-10 | HVIL → PWM disable + contactor request <50 ms | C-12, I-04, C-50 |
+| FSR-10 | HVIL → PWM disable + contactor request <50 ms | None executable - C-12 and I-04 are **blocked** (HVIL planned, not yet implemented in hardware; GAP-HW-04). FSR-10 remains unverified until the input exists (LIMIT-11). C-50 covers the passive isolation barrier only (SG-09), not FSR-10. |
 | FSR-11 | DC link OV: regen disable / SSO | C-10, C-42, I-05, S-08, S-13 |
 | FSR-12 | Gate driver complementary inputs | C-15, C-16, C-49 |
 | FSR-13 | DESAT <2 us PWM disable | C-15, C-16, C-31–C-34 |
@@ -1683,7 +1685,7 @@ The following matrices map safety goals, FSRs, and hazards to test cases. Only *
 | H-06 | Excessive tractive effort | C-06, C-07, C-41, S-01, S-09, S-15 |
 | H-07 | Over-temperature | C-08, C-35, C-45, S-06, S-07 |
 | H-08 | Motor overspeed / encoder loss | C-09, C-28, C-29, C-30, S-15 |
-| H-09 | HV isolation failure | C-50, I-04 |
+| H-09 | HV isolation failure | C-50; I-04 **blocked** until HVIL hardware lands (GAP-HW-04) |
 | H-10 | DC link bus overvoltage | C-10, C-42, I-05, S-08, S-13 |
 | H-12 | IGBT shoot-through | C-15, C-16, C-31–C-34, C-49 |
 | H-13 | Failure to execute safe state | C-13, C-14, C-15, C-21–C-25, C-43, I-04, S-10, S-12 |
@@ -1785,6 +1787,12 @@ All test cases use the following standardized definitions. A test is **PASSED** 
 >
 > **Mitigation:** (1) Stepped-voltage energize-into-fault up to the board maximum (140 V nominal / 175 V max). (2) Post-test isolation re-verification per C-50. (3) A contactor-based mid-operation short variant is defined as a future test if a suitably rated, remotely operated shorting contactor is acquired.
 
+> **LIMIT-11: HVIL Not Implemented in Hardware (new in v1.2)**
+>
+> **Limitation:** The HVIL digital input specified by FSR-10 does not exist on the DUT - no HVIL nets or pins are present on the IO board or anywhere else in the current schematics (OV-SAF-HARA-CORE v5.11, GAP-HW-04). C-12 and I-04 are therefore **Blocked** and cannot run in the current campaign; FSR-10 remains unverified, and the active open-interlock mitigation credited for H-09 / SG-09 is absent. The passive reinforced isolation barrier is unaffected and is still verified by C-50.
+>
+> **Mitigation:** (1) H-09 / SG-09 retain coverage via the isolation-barrier verification (C-50); the HARA no longer claims HVIL as implemented (Tables 8 and 9 in OV-SAF-HARA-CORE v5.11). (2) C-12 and I-04 are retained in the plan and shall be executed once the HVIL input is implemented. (3) Implementing HVIL is tracked as GAP-HW-04 (P1) in the HARA Core.
+
 ## Recommended Test Execution Order
 
 The campaign follows **progressive validation**: non-destructive tests first, potentially destructive tests last. Advancement between groups requires all tests in the current group to pass (Table 20).
@@ -1798,7 +1806,7 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 | **1** | Power-On Self-Test | C-16, C-20 | None | POST and boot checks before any HV/PWM. If POST fails, do not energize further. |
 | **2** | Supply Integrity | C-21*, C-22*, C-41 | Very Low | (*if LV supply available) Power supply behavior before energizing the inverter; pre-charge sequencing; ADC reference foundation. |
 | **3** | Gate Driver Integrity | C-49, C-17, C-26, C-27 | Low | PWM output stage without motor. Bench + scope only. |
-| **4** | Isolation & HV Safety | C-50, C-12, C-08, C-35 | Low-Medium | Isolation verification (alternative method) before repeated HV. HVIL interlock. Temperature monitoring before thermal stress. |
+| **4** | Isolation & HV Safety | C-50, C-08, C-35 | Low-Medium | Isolation verification (alternative method) before repeated HV. Temperature monitoring before thermal stress. (C-12 HVIL interlock was in this group; it is **blocked** until HVIL hardware lands and is no longer scheduled in this campaign.) |
 | **5** | Sensor Validation | C-01–C-07, C-09, C-10, C-11, C-28–C-30, C-42 | Medium | Complete feedback chain at low load first. |
 | **6** | Control Loop Validation | C-13, C-14, C-43, S-10, S-11 | Medium | Fundamental safety mechanisms at low-to-medium load. |
 | **7** | Software Integrity | C-18, C-19, C-39, C-15, C-16, I-08, I-09, I-10, I-11 | Medium | Software fault injection at medium load. |
@@ -1828,8 +1836,8 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 | --- | --- | --- | --- |
 | **None** | C-16, C-20, C-21, C-41, C-49, I-08, I-11 | No electrical or mechanical stress. | Standard bench equipment. |
 | **Very Low** | C-22, C-17, C-43, C-50*, I-09, I-10 | Possible MCU reset. No power stage stress. (*C-50: 1 kV applied - personnel hazard mitigated by series resistor; no DUT damage expected at MΩ leakage) | Current-limited supplies. No motor load. |
-| **Low** | C-26, C-27, C-35, C-42, I-04, I-12, I-17 | Gate driver supply stress; possible fuse blow. | Current-limited fixtures. |
-| **Medium** | C-01–C-15, C-18, C-19, C-28–C-30, C-39, S-01–S-05, S-10–S-14, I-01–I-03, I-05–I-07, I-13–I-16, I-18 | Motor movement; low-level power; thermal stress. | Dyno guard; low initial load; thermal monitoring. |
+| **Low** | C-26, C-27, C-35, C-42, I-12, I-17 | Gate driver supply stress; possible fuse blow. | Current-limited fixtures. |
+| **Medium** | C-01–C-11, C-13–C-15, C-18, C-19, C-28–C-30, C-39, S-01–S-05, S-10–S-14, I-01–I-03, I-05–I-07, I-13–I-16, I-18 | Motor movement; low-level power; thermal stress. | Dyno guard; low initial load; thermal monitoring. |
 | **Medium-High** | S-06–S-09, S-15, S-16–S-19, C-08, C-10, C-45 | Full-power thermal stress; possible overtemperature if protection fails. | Thermal camera; abort button; preset temperature abort. |
 | **High** | C-23–C-25, C-31–C-34 (energize-into-fault), C-06, C-07, S-13, I-05 | Power stage damage from shorts; rail short stress. | Stepped voltage from 50 V; current-limited supply; remote activation; blast shield. |
 | **Very High** | C-31–C-34 if attempted at full DC link | IGBT explosion, capacitor rupture, arc flash, fire. | **Shall not be run above 140 V nominal (175 V absolute max on this board).** Initial runs at 50 V mandatory. Blast shield. Remote operation. No personnel in the area. Fire extinguisher present. |

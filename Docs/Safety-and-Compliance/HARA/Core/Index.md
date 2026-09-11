@@ -7,8 +7,8 @@ applies_to:
   - openvvvf-control-module
 mcus: STM32H723ZG + STM32G474RCTx
 temp: −40 °C to +85 °C
-version: "5.10"
-date: "2026-09-10"
+version: "5.11"
+date: "2026-09-11"
 description: Platform hazard analysis, safety goals, and functional safety requirements for the dual-MCU control module; fault-injection validation is defined in OV-TEST-FAULT-INJECTION.
 nav_order: 311
 normative_refs:
@@ -53,7 +53,7 @@ This document presents the Hazard Analysis and Risk Assessment (HARA) and Fault 
 
 The DC link may be supplied by any compatible DC source (for example, a traction battery pack with a Battery Management System); no specific DC source is assumed. The analysis covers the control module and its interfaces to external systems that affect safety.
 
-The scope includes all hardware and software within the control module: the STM32H723ZG main MCU, the STM32G474RCTx safety coprocessor, six NCV57100 gate drivers, 3-phase IGBT power stage, current/voltage/temperature sensing, HV interlock loop (HVIL) digital input, tractive effort control input processing, motor control algorithm, CAN communication, inter-MCU challenge/response watchdog, and fault handling. The Safety Coprocessor is **part of the current design** and provides independent monitoring, 1oo2 gate drive power kill, and ASIL B(D) decomposition.
+The scope includes all hardware and software within the control module: the STM32H723ZG main MCU, the STM32G474RCTx safety coprocessor, six NCV57100 gate drivers, 3-phase IGBT power stage, current/voltage/temperature sensing, tractive effort control input processing, motor control algorithm, CAN communication, inter-MCU challenge/response watchdog, and fault handling. The Safety Coprocessor is **part of the current design** and provides independent monitoring, 1oo2 gate drive power kill, and ASIL B(D) decomposition. A high-voltage interlock loop (HVIL) digital input is **planned but not yet implemented** - no HVIL nets or pins exist on the IO board or anywhere else in the current schematics; the associated requirement (FSR-10) is retained as an open design obligation (Table 9, GAP-HW-04).
 
 **Out of scope:** The traction motor itself (external product), the rotor position sensor/encoder (part of the external motor), the Battery Management System (BMS), the IO board and its associated power supplies (including the Cincon DC/DC converter on the IO side - excluded from this analysis), the charger, and the vehicle display - these are external CAN nodes or external equipment interfaced by the VCU but not designed or manufactured by this project. The CAN protocol definitions in this document are the VCU-side interface only.
 
@@ -84,7 +84,7 @@ The scope includes all hardware and software within the control module: the STM3
 
 | Category | Description |
 | --- | --- |
-| **In Scope** | Combined traction inverter control module / VCU PCB, six onsemi NCV57100 isolated gate drivers (AEC-Q100), 3-phase 2-level IGBT bridge, **STM32H723ZG main MCU + STM32G474RCTx safety coprocessor** (dual independent core), phase current sensing (3-phase + DC link), DC link bus voltage sensing, phase voltage sensing, IGBT temperature sensing (2 NTC), DC link capacitor temperature sensing (1 NTC), traction motor temperature sensing, traction motor encoder input, HVIL circuit, dual redundant tractive effort control input + end-travel limit switch, CAN1 (DC source management interface), CAN2 (ABS, display, charger, IO board), precharge control, fault handling logic, 1oo2 gate drive power supply kill (GATE_DRIVE_PWR1_ENABLE + GATE_DRIVE_PWR2_ENABLE), inter-MCU challenge/response watchdog, CY15B102Q-SXET 256 KB FRAM (main MCU side) |
+| **In Scope** | Combined traction inverter control module / VCU PCB, six onsemi NCV57100 isolated gate drivers (AEC-Q100), 3-phase 2-level IGBT bridge, **STM32H723ZG main MCU + STM32G474RCTx safety coprocessor** (dual independent core), phase current sensing (3-phase + DC link), DC link bus voltage sensing, phase voltage sensing, IGBT temperature sensing (2 NTC), DC link capacitor temperature sensing (1 NTC), traction motor temperature sensing, traction motor encoder input, HVIL circuit (**planned** - not yet implemented; no HVIL nets/pins exist in the current schematics, see GAP-HW-04), dual redundant tractive effort control input + end-travel limit switch, CAN1 (DC source management interface), CAN2 (ABS, display, charger, IO board), precharge control, fault handling logic, 1oo2 gate drive power supply kill (GATE_DRIVE_PWR1_ENABLE + GATE_DRIVE_PWR2_ENABLE), inter-MCU challenge/response watchdog, CY15B102Q-SXET 256 KB FRAM (main MCU side) |
 | **Interfaced (external)** | DC link source (any compatible DC supply; a source management node such as a BMS may be present on CAN1, heartbeat 5 s), ABS module (CAN2, independently powered), display/dash (CAN2), charger(s) (CAN2), IO board (CAN2, brake switch, kickstand switch, turn signal feedback, headlight feedback, 1 s heartbeat), 3-phase PMSM traction motor with encoder, 12 V onboard power (external DC/DC from DC link; IO-side supplies, including the Cincon converter, are out of scope) |
 | **Out of Scope** | DC source internals (including BMS cell protection where a battery is used), HV contactor control, weld detection, and contactor-related hazards (assessed in the DC source / OEM safety case, not here), ABS hydraulic/mechanical system, charger AC-side circuitry, vehicle chassis, traction motor construction, DC link source beyond electrical interface, IO-board-side power conversion (Cincon DC/DC) |
 
@@ -155,7 +155,7 @@ The following table explains how each hazard class is mitigated by the architect
 | **Over-temperature** (H-07) | IGBT thermal runaway | 2 IGBT NTC sensors, 1oo2 voting (FSR-08), plus 1 DC link capacitor NTC; progressive derating; critical threshold → SSO | 1oo2 voter implemented; a stuck-high sensor can cause unnecessary derating (known trade-off: safety over availability). Note: derating applies to *pre-fault* thermal management only; once a fault threshold is crossed, response is immediate SSO. |
 | **Encoder loss** (H-08) | Loss of rotor position feedback | Encoder timeout detection <100 ms (FSR-09); immediate SSO on loss | Single encoder (no redundancy); bounded sensorless fallback if implemented |
 | **DC link overvoltage** (H-10) | Regen-induced bus rise | Isolated ADC monitoring (FSR-11); regen disable at warning threshold; SSO at critical threshold | None significant |
-| **HV isolation** (H-09) | HV exposure via isolation loss or open interlock | HVIL continuous monitoring (FSR-10); interruption → immediate PWM disable + contactor open request on CAN1 | Contactor actuation and weld detection are BMS/OEM-domain (Section 1.3); the VCU-side obligation ends at the request |
+| **HV isolation** (H-09) | HV exposure via isolation loss or open interlock | Reinforced HV-to-logic isolation (>5 kV<sub>rms</sub> per gate-driver channel, present); HVIL continuous monitoring (FSR-10) - **planned, not yet implemented in hardware**: interruption → immediate PWM disable + contactor open request on CAN1 | Contactor actuation and weld detection are BMS/OEM-domain (Section 1.3); the VCU-side obligation ends at the request. HVIL is not yet implemented (GAP-HW-04), so the open-interlock portion of this mitigation is currently absent - FSR-10 remains open until the input exists |
 | **Safe state failure** (H-13, H-14) | Cannot reach SSO; latched tractive effort | Six redundant SSO pathways (Path 2a and Path 2b are redundant channels of one 1oo2 power-kill pathway): Path 1 = TIM1_BKIN hardware (<100 ns); Path 2a/2b = 1oo2 gate-drive power kill (GATE_DRIVE_PWR1_ENABLE / GATE_DRIVE_PWR2_ENABLE); Path 3 = shared 3.3 V rail loss → NCV57100 pull-down; Path 4 = GATE_DRIVE_RESET; Path 5 = coprocessor watchdog → NRST; Path 6 = coprocessor independent fault trigger. WDT reset (FSR-15); POST before PWM enable (FSR-16). | 1oo2 power kill: either GATE_DRIVE_PWR1_ENABLE or GATE_DRIVE_PWR2_ENABLE going low achieves SSO. Each has independent feedback (GATE_DRIVE_PWR1_FB, GATE_DRIVE_PWR2_FB). Coprocessor provides fully independent safe state actuation. Six pathways provide extensive redundancy against any single-point failure. |
 | **Gate driver fault** (H-16, H-17) | DESAT/UVLO not detected; PWM deadtime violation | OR'd FLT input to STM32 (FSR-13); DESAT self-test at POST (FSR-16); complementary inputs (FSR-12) | OR'd FLT monitored by both MCUs; coprocessor additionally monitors the combined READY signal and all 6 PWM outputs for independent fault diagnosis |
 
@@ -342,7 +342,7 @@ Requirements use "shall" for binding provisions and "should" for recommendations
 | **FSR-07** | Max tractive effort shall be limited by software LUT on both MCUs with cross-check. Dual-MCU independent current monitoring (STM32 analog watchdogs on both MCUs) shall detect overcurrent within 10 us. DESAT handles hard short-circuit (<2 us). | C | C | SG-06 |
 | **FSR-08** | Two IGBT NTC temperature sensors (1oo2 voting) plus one DC link capacitor NTC. Derate at 90 °C; SSO at 105 °C (capacitor rating limit). Critical thresholds shall be stored in ECC memory. (The 90 °C / 105 °C thresholds apply to the DC link capacitor channel, whose devices are rated 105 °C.) | B | B | SG-07 |
 | **FSR-09** | Encoder loss shall cause transition to safe state within 100 ms. No sensorless fallback is implemented (GAP-SW-03, closed). | C | C | SG-08 |
-| **FSR-10** | HVIL shall be monitored continuously. Interruption shall cause immediate PWM disable + HV contactor open request on CAN1 (when a contactor controller is present) within 50 ms. | B | B | SG-09 |
+| **FSR-10** | HVIL shall be monitored continuously. Interruption shall cause immediate PWM disable + HV contactor open request on CAN1 (when a contactor controller is present) within 50 ms. **Status: open - HVIL is planned but not yet implemented in hardware (no HVIL nets/pins exist in the current schematics); the requirement itself is retained unchanged and stays open until the input exists (Table 9, GAP-HW-04).** | B | - (not implemented) | SG-09 |
 | **FSR-11** | DC link bus voltage shall be monitored with isolated ADC. OV warning threshold → immediate regen disable. Critical OV → SSO within 50 ms. | B | B | SG-10 |
 | **FSR-12** | NCV57100 complementary inputs (IN+/IN−) shall prevent HS+LS simultaneous conduction. Power-on self-test shall confirm. | C | A | SG-12 |
 | **FSR-13** | NCV57100 DESAT detection shall be active on all six IGBTs. A DESAT event shall cause local PWM disable within <2 us, independent of MCU. | C | A | SG-12, SG-14 |
@@ -373,7 +373,7 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 | FSR-07 | C | C | Covered | Dual-MCU independent current monitoring (STM32 analog watchdogs) | 10 us detection; DESAT for hard shorts |
 | FSR-08 | B | B | Planned | Dual IGBT temp sensors + DC link capacitor sensor (hardware) | 1oo2 voter software not yet implemented (Phase 2) |
 | FSR-09 | C | C | Limited | Single encoder (external constraint) | Immediate SSO on loss; no sensorless fallback (GAP-SW-03 closed) |
-| FSR-10 | B | B | Covered | HVIL digital input implemented | Verify ≤50 ms E2E |
+| FSR-10 | B | - | Open - not implemented in hardware; planned | HVIL digital input planned; no HVIL nets/pins exist on the IO board or anywhere else in the current schematics | HARA currently credits HVIL as an H-09 mitigation, so the FSR-10 entry stays open until the input exists. Implement the HVIL input (hardware change), then verify ≤50 ms E2E; C-12 and I-04 in OV-TEST-FAULT-INJECTION are blocked until then |
 | FSR-11 | B | B | Covered | DC link isolated ADC | Define OV thresholds |
 | FSR-12 | C | A | Covered | NCV57100 complementary inputs | No ASIL credit claimed |
 | FSR-13 | C | A | Covered | NCV57100 DESAT on all six | No ASIL credit claimed |
@@ -437,6 +437,14 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 >
 > The node-based code generation toolchain (Section 2.6) is under development. Open items: (1) no software tool confidence assessment of the generator (ISO 26262-8 TCL); (2) the interface contract between generated code and the base safety image (FSR-22) is not yet documented; (3) freedom-from-interference between generated code and safety mechanisms has not been analyzed or tested. Mitigation: define the contract ICD, enforce limits in the base image, and extend the fault injection plan with generated-code fault cases (e.g., generated code requests out-of-envelope torque, generates no request, or corrupts its own state) before any public release of the codegen feature.
 
+> **GAP-HW-04: HVIL Not Implemented in Hardware (P1, new in v5.11)**
+>
+> **Issue:** FSR-10 requires continuous HVIL monitoring, but no HVIL circuit exists in the current schematics - no HVIL nets or pins are present on the IO board or anywhere else. The hazard analysis credits HVIL as part of the H-09 mitigation strategy (Table 3), so the FSR-10 entry remains **open** until the input exists; the present H-09 mitigation is the reinforced HV-to-logic isolation alone.
+>
+> **Impact:** SG-09 (HV isolation) is currently covered only by the passive isolation barrier and its verification (C-50); the active open-interlock mitigation is absent. No false claim of implementation is carried: FSR-10 is marked open in Tables 8 and 9, and the HVIL tests (C-12, I-04 in OV-TEST-FAULT-INJECTION) are blocked, not deleted.
+>
+> **Mitigation path:** Implement the HVIL digital input (IO board hardware change) per FSR-10; extend POST per FSR-16 (HVIL continuity is already listed); then execute C-12 and I-04 to verify the ≤50 ms end-to-end response.
+
 ## Gap Summary
 
 **Table 10 - Gap Mitigation Priority**
@@ -448,6 +456,7 @@ Status vocabulary used throughout this document: **Covered** (implemented in cur
 | Torque ramp-down on fault | **CLOSED - REJECTED** | Replaced by FSR-05 immediate SSO (Section 2.3). Residual risk documented. | N/A |
 | Power kill feedback monitoring | **P1** | GATE_DRIVE_PWR1_FB and GATE_DRIVE_PWR2_FB provide independent per-supply feedback. Verify in C-17, C-26, C-27, S-10, and S-11. | Low |
 | Gate driver protection credit | **CLOSED** | No SG depends on gate-driver ASIL rating (GAP-ARCH-03). Coprocessor monitors FLT, READY, all 6 PWM outputs. Verify cross-check logic in C-14, C-15, C-16. | Low |
+| HVIL not implemented | **P1** | No HVIL nets/pins in the current schematics (GAP-HW-04). Implement the HVIL input per FSR-10; the H-09 mitigation credit is provisional until then. C-12 and I-04 are blocked until the hardware lands. | Medium |
 | Boot CRC | **P1** | STM32 CRC peripheral | Low |
 | Sensorless policy | **CLOSED** | Immediate SSO on encoder loss (FSR-09); no fallback mode | N/A |
 | Codegen tool confidence + contract | **P1** | Contract ICD, base-image enforcement, generated-code fault cases | Medium |
@@ -484,6 +493,7 @@ The fault-injection test plan that validates the safety mechanisms, safe-state e
 | FSR-17 | Implement CAN heartbeat timeouts with safe-state defaults. | Medium | I-01, I-02 |
 | FSR-08 | Implement 1oo2 IGBT temperature voter; thresholds in ECC memory. | Medium | C-08, C-45 |
 | FSR-22 / GAP-SW-04 | Define the codegen interface contract ICD; implement base-image enforcement of the torque-request envelope; add generated-code fault cases to the test plan. | Medium | Generated-code fault cases (to be defined) |
+| FSR-10 / GAP-HW-04 | Implement the HVIL digital input when the IO-board hardware lands; verify ≤50 ms end-to-end response. | Medium | C-12, I-04 (blocked until hardware exists) |
 | GAP-TEST-01 | Define a dedicated SG-04 loss-of-regen test (command regen, suppress inverter response, verify operator indication and friction-brake posture). | Low | New test ID at next test-plan revision |
 
 ## Phase 3: Test Execution and Validation
@@ -564,3 +574,4 @@ Note: the Cincon EC7BW-110S12 DC/DC converter resides on the IO side and is **ex
 | 5.8 | 2026-08-13 | Fault-injection test plan extracted to OV-TEST-FAULT-INJECTION (standalone document under Testing/); Section 10 replaced by a reference to the standalone plan. |
 | 5.9 | 2026-09-10 | Fixed dangling reference to HARA annexes in the Risk Assessment Methodology section: S/E/C ratings are now stated as assigned in the application profile documents (e.g. `OV-SAF-HARA-PROF-MOTO`), reflecting the v5.1 document-set split. |
 | 5.10 | 2026-09-10 | Consistency fixes, no technical change: (1) ISO 26262-5 hardware architectural metric targets corrected in the Compliance Statement - SPFM ≥ 99% and LFM ≥ 90% are the ASIL D targets (the previously cited 97%/80% figures are the ASIL C targets; the ASIL C values are now listed alongside B and D); (2) Table 3 limitation cell for external system loss (CAN) aligned with FSR-17 - IO board heartbeat loss applies safe-state defaults (brake pressed, kickstand down) with tractive effort restricted to zero (commanded zero torque), not immediate SSO; (3) stray blank lines splitting the Document History table removed (formatting). |
+| 5.11 | 2026-09-11 | HVIL status corrected: HVIL is a **planned** feature and is not implemented in the current hardware - no HVIL nets/pins exist on the IO board or anywhere else in the schematics. Scope (Section 1.1) and Table 1 now mark the HVIL input as planned; Table 3 (H-09) credits reinforced isolation as the present mitigation with HVIL pending; FSR-10 is retained unchanged as the intended requirement but marked open ("Now" no longer claims ASIL B); Table 9 coverage no longer claims "HVIL digital input implemented" and now reads Open - not implemented in hardware; new GAP-HW-04 (P1) tracks implementation; Phase 2 roadmap gains the FSR-10 implementation row. Aligned documents: OV-SAF-HARA-PROF-MOTO v1.9 (H-09 rationale re-stated, ratings unchanged) and OV-TEST-FAULT-INJECTION v1.2 (HVIL tests C-12 and I-04 marked Blocked until HVIL hardware exists). |
