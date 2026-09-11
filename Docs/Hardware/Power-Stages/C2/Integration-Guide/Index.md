@@ -5,8 +5,8 @@ title: Integration Guide
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "0.2"
-date: "2026-08-08"
+version: "0.3"
+date: "2026-09-11"
 placeholder: true
 description: Installation, integration, and operating guide for the Chassis Size 2 power-stage family. Under revision.
 nav_order: 221
@@ -20,7 +20,7 @@ normative_refs:
 > **NOTE**
 > This guide is under revision. The previous version contained a large amount of control-module content that is shared across all chassis sizes and belongs in the `OV-CA-UHW-INDEX` Control Assembly User Hardware Manual. It also presented specific capacitor and current ratings that do not apply to all C2 variants.
 >
-> The C2 chassis family is offered in 150 V, 200 V, and 400 V DC-link classes, selected by the DC-link capacitor fitted. Specific BOMs, ratings, and variant-specific instructions will be documented here once the platform-vs-chassis split is finalized.
+> The C2 chassis family is a 200–450 V class design, set by the DC-link capacitors fitted: 200 V class with the stock capacitor bank, or 450 V class via a capacitor-only swap. Specific BOMs, ratings, and variant-specific instructions will be documented here once the platform-vs-chassis split is finalized.
 >
 > For now, refer to the assembly guide, design documents, and HARA / TARA for safety-relevant information.
 

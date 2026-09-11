@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
-date: "2026-08-08"
+version: "0.2"
+date: "2026-09-11"
 description: Portal to OpenVVVF product documentation, hardware manuals, the control-module software manual, safety analyses, and validation evidence.
 nav_order: 0
 ---
@@ -76,7 +76,7 @@ This site is the single source of truth for OpenVVVF hardware documentation (inc
 
 - **Control module / control assembly** - The reusable dual-MCU control board that runs OpenVVVF firmware. It handles field-oriented motor control, state estimation, diagnostics, and safety monitoring.
 - **Power stage** - The physical inverter assembly that contains the IGBTs, DC-link capacitors, gate drivers, current sensors, and thermal hardware.
-  - **C2** - mid-size, 150 / 200 / 400 V class per DC-link capacitor selection, ~465 A continuous / 600 A peak (60 s).
+  - **C2** - mid-size, 200 V class with the stock DC-link capacitors / 450 V class with a capacitor-only swap, ~465 A continuous / 600 A peak (60 s).
 - **Main MCU software** - The primary microcontroller firmware; runs the real-time motor-control loop, PWM generation, ADC sampling, communication stacks, and application logic.
 - **Safety coprocessor software** - A separate microcontroller that independently monitors safety-critical outputs and can bring the system to a safe state.
 - **RTE Studio** - The host-side Real-Time Examiner and tuning tool. It connects to the inverter over CAN or Ethernet to log variables, adjust parameters, and run calibration routines.

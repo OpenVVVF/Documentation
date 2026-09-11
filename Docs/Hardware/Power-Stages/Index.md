@@ -5,8 +5,8 @@ title: Power Stages
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "0.4"
-date: "2026-08-23"
+version: "0.5"
+date: "2026-09-11"
 description: Physical chassis and inverter assemblies. Each chassis family has an integration guide and an assembly guide.
 nav_order: 200
 ---
@@ -19,7 +19,7 @@ OpenVVVF power stages are physical chassis/inverter assemblies that pair with th
 
 | Chassis | Form factor | Typical DC link | Current rating (peak phase current) | Status |
 |---------|-------------|-----------------|--------------------|--------|
-| **[C2 - Chassis Size 2](C2/Index.md)** | Mid-size | 150 / 200 / 400 V class, per DC-link capacitor selection | **465 A continuous / 600 A peak (60 s)** | Implemented, under test |
+| **[C2 - Chassis Size 2](C2/Index.md)** | Mid-size | 200 V class (stock DC-link capacitors); 450 V class via capacitor-only swap | **465 A continuous / 600 A peak (60 s)** | Implemented, under test |
 
 C2 ratings are stated in peak phase current (RMS equivalents: 330 A continuous, 424 A peak) per the IEC 61800-2 style 60 s overload convention: the 600 A peak is time-limited (60 s per event, windowed RMS over any 10 min ≤ 330 A RMS), and the 465 A continuous figure is a conservative analytical bound set by the DC-link electrolytic ripple rating at 6 kHz PWM. The DC-link plate temperature is an informational bound after the rev-B 6.35 mm spreader plate (≈ 90 °C conservative bound at the continuous point, at the FSR-08 90 °C derate onset; the model credits no convection). See `OV-C2-DD-THERMAL` (§6.4), `OV-C2-DD-DCLINK-RIPPLE`, and `OV-C2-DD-DCLINK-THERMAL`.
 
@@ -32,3 +32,4 @@ C2 ratings are stated in peak phase current (RMS equivalents: 330 A continuous, 
 | 0.2 | 2026-08-15 | (Prior revision; see git history.) |
 | 0.3 | 2026-08-20 | C2 current rating restated as 220 A continuous / 600 A peak (60 s, IEC 61800-2 style overload convention), replacing the previous "~600 A continuous" advertisement; continuous rating is a conservative analytical bound set by the DC-link plate temperature at 6 kHz PWM, below the ~320 A electrolytic ripple limit. References to the C2 design docs added. |
 | 0.4 | 2026-08-23 | C2 re-rated per `OV-C2-DD-THERMAL` v1.3: the 600 A figure is peak phase current (424 A RMS), and the continuous rating is raised to 465 A (330 A RMS), now set by the electrolytic ripple limit; the rev-B 6.35 mm DC-link spreader plate moved the plate temperature to an informational bound below the FSR-08 derate onset. Ratings stated in peak phase current with RMS equivalents noted. |
+| 0.5 | 2026-09-11 | C2 DC-link voltage classes corrected to match the current hardware README: 200 V class with the stock DC-link capacitors, 450 V class via a capacitor-only swap (replaces the stale "150 / 200 / 400 V class" statement). No other ratings changed. |

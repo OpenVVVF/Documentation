@@ -5,8 +5,8 @@ title: DC Link Capacitor Ripple Current and Thermal Load
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "0.6"
-date: "2026-09-10"
+version: "0.7"
+date: "2026-09-11"
 description: Derivation of the C2 DC-link capacitor bank RMS ripple current and per-can ESR heating across the operating envelope, ripple-rating check against the Nichicon UCS datasheet, and three-branch (ceramic/film/electrolytic) ripple current sharing analysis.
 nav_order: 243
 normative_refs:
@@ -32,7 +32,7 @@ From `OV-C2-DD-THERMAL` v1.1 and `OV-C2-DD-DCLINK-THERMAL` v1.1:
 
 | Input | Value | Mark |
 |---|---|---|
-| DC-link voltage $V_{DC}$ | 102 - 320 V (140 V / 320 V operating points; 400 V class covered by the 450 V variant) | [ASM] |
+| DC-link voltage $V_{DC}$ | 102 - 320 V (140 V / 320 V operating points analyzed; the 450 V class variant sits above this envelope but changes nothing below - ripple is voltage-class-independent at $m = 1.0$, see "Results") | [ASM] |
 | Phase current $I_{phase,rms}$ | up to 600 A RMS (848 A pk) - envelope-sweep bound, **not a rating**; the actual operating points are 330 A RMS continuous and 424 A RMS (600 A pk) for 60 s, per the section "Continuous and peak rating" | [ASM] |
 | Modulation index $m$ | 1.0 ($V_{ph,pk} = m \cdot V_{DC}/2$) | [ASM] |
 | Load power factor $\cos \varphi$ | 0.8 | [ASM] |
@@ -193,7 +193,7 @@ Per-can ripple current is the same for both banks (same 60-way split of the same
 | 600 | 6 kHz | 5.11 | 2.83 | **1.81** | **245** | 1.38 | **3.70** | **1429** |
 | 600 | 8 kHz | 5.11 | 2.87 | **1.78** | **239** | 1.40 | **3.65** | **1389** |
 
-Bus voltage (140 / 320 / 400 V class) does not appear in the table because at the rated point $m = 1.0$ the ripple current is voltage-independent; only the capacitor *variant* (voltage class) and the switching frequency (through $k(f)$) matter.
+Bus voltage (140 / 320 / 450 V class) does not appear in the table because at the rated point $m = 1.0$ the ripple current is voltage-independent; only the capacitor *variant* (voltage class) and the switching frequency (through $k(f)$) matter.
 
 ![Per-can ripple current vs phase current](DCLinkRipplePerCan.png)
 
@@ -209,7 +209,7 @@ Bus voltage (140 / 320 / 400 V class) does not appear in the table because at th
 
 At the 600 A RMS (848 A pk) sweep bound the per-can ripple is 5.11 A against a rated 2.67 - 2.87 A, i.e. **1.8 - 1.9x the datasheet rating** at all three switching frequencies (5.09 - 5.11 A and 1.78 - 1.90x after the v0.2 three-branch sharing - the film and ceramic branches divert ~1 % at switching frequency, so the verdict is unchanged by sharing). A prior review estimated ~3x at 600 A / 2 kHz; the derived value is lower (1.91x) mainly because the review did not credit the datasheet frequency coefficient. **600 A RMS is an envelope-sweep bound, not an operating point:** the actual rated peak is 600 A pk = 424 A RMS for 60 s, where the per-can ripple is 3.61 A, **1.28x the 6 kHz rating**, as a time-limited excursion from the 330 A RMS continuous point (see "Continuous and peak rating"). At 300 A the bank is at 0.89 - 0.96x rating, just inside the envelope. Note the check is performed at the 105 °C rating; cans running cooler have additional thermal headroom that Nichicon does not quantify for UCS (no temperature coefficient published), so no credit is taken for it. [EST]
 
-**Bank B (450 V, 4.08 mF) is not ripple-viable at traction currents.** The 68 µF / 450 V can is rated 1.575 A at 100 kHz (1.31 - 1.40 A at 2 - 8 kHz); the same 60-way split puts 1.3x rating on it already at 200 A phase current, 2.6x at 400 A, and 3.7 - 3.9x at 600 A, with computed bank losses of 1.4 - 1.6 kW at 600 A. The 450 V single-part-number swap described in `OV-C2-DD-DCLINK-THERMAL` fixes the voltage rating but not the ripple rating; a 400 V-class bus at high current needs a different capacitor selection (more cans, larger cans, or film capacitors). [EST]
+**Bank B (450 V, 4.08 mF) is not ripple-viable at traction currents.** The 68 µF / 450 V can is rated 1.575 A at 100 kHz (1.31 - 1.40 A at 2 - 8 kHz); the same 60-way split puts 1.3x rating on it already at 200 A phase current, 2.6x at 400 A, and 3.7 - 3.9x at 600 A, with computed bank losses of 1.4 - 1.6 kW at 600 A. The 450 V single-part-number swap described in `OV-C2-DD-DCLINK-THERMAL` fixes the voltage rating but not the ripple rating; a 450 V-class bus at high current needs a different capacitor selection (more cans, larger cans, or film capacitors). [EST]
 
 ## Continuous and peak rating (v0.4)
 
@@ -266,7 +266,7 @@ The lifetime model below uses the industry-standard Arrhenius 10 K doubling rule
 2. Measure the source-impedance share of switching ripple on the battery/dyno setup to quantify how conservative the stiff-source formula is.
 3. Dyno: correlate capacitor NTC reading with can case and plate temperature at the 300 A and 600 A operating points (thermal test plan T-05); use it to calibrate the can hot-spot estimate.
 4. ~~Decide the ripple-limited operating envelope~~ **Decided (v0.3), updated (v0.4):** 465 A (330 A RMS) continuous / 600 A (424 A RMS) peak for 60 s (`OV-C2-DD-THERMAL` v1.3 §6.4). Ripple **is** the binding constraint at the continuous point (0.99x rating at 330 A RMS); the DC-link plate is an informational bound after the rev-B plate. Raising the continuous rating further needs the measurements in items 1 - 3 or a bank change (see "Continuous and peak rating").
-5. Bank B (450 V): re-select capacitors for the 400 V-class bus; the UCS2W680MHD swap is not ripple-viable above ~150 A RMS phase current.
+5. Bank B (450 V): re-select capacitors for the 450 V-class bus; the UCS2W680MHD swap is not ripple-viable above ~150 A RMS phase current.
 6. Measure the electrolytic branch inductance at the rod-standoff interface (impedance analyzer or ringdown on the assembled stack) and confirm the fitted MKP1848S part value; replace the 27 nH / 90 µF [ASM] values. Also confirm the parallel-LC peaking near the film/electrolytic crossover (~53 - 168 kHz) does not coincide with a strong switching harmonic cluster.
 7. If the commutation-edge behavior is ever in question (overshoot, ringing), extend the sharing model into the 100 kHz - 10 MHz range with measured busbar/ceramic loop inductances; the CeraLink parts' 5 A @ 100 kHz rating is the relevant limit there.
 
@@ -280,6 +280,7 @@ The lifetime model below uses the industry-standard Arrhenius 10 K doubling rule
 | 0.4 | 2026-08-23 | Re-rating per `OV-C2-DD-THERMAL` v1.3: the 600 A design figure is peak (424 A RMS), and the continuous rating is raised from 220 A RMS to 330 A RMS (465 A pk) - ripple is now the binding constraint (2.81 A per can, 0.99x the 6 kHz rating at 330 A RMS), the rev-B plate path having moved to an informational bound. Peak per-can ripple at 424 A RMS is 3.61 A (1.28x rating, ~1.6x loss); duty window raised to rolling 10-min RMS <= 330 A RMS. Can-count lever updated (77 cans for 424 A RMS). Open item 4 updated accordingly. Rod geometry corrected from the CAD model: 63 mm rods (was ~40 mm), three go-return pairs in parallel - rod pair inductance 51.4 nH and branch inductance 27 nH nominal (was 32.6 / 21 nH), crossover ~96 kHz (was ~108); switching-frequency shares and all conclusions unchanged (electrolytic still ~100 % at 2 - 8 kHz). Figures regenerated with the corrected geometry. A reader note added under the branch-share plot explaining why shares can exceed 100 % (circulating reactive current near parallel resonances). |
 | 0.5 | 2026-09-10 | Fix-up pass: the input table now marks 600 A RMS (848 A pk) as an envelope-sweep bound, not a rating; the ripple-limit figure is unified to ~330 A RMS throughout; the ripple-rating check now distinguishes the 600 A RMS sweep bound from the actual rated peak operating point (424 A RMS / 60 s, 3.61 A per can, 1.28x rating); the plate-rise scaling in the 40 W comparison is re-based on the rev-B +35.0 K paste-path rise (+35.0 K becomes ~+84 K at 600 A / 6 kHz, was +40.1 K → +96 K) and the stale "plate is the binding thermal constraint" conclusion is corrected to the `OV-C2-DD-DCLINK-THERMAL` v1.3 framing (plate = informational bound, ripple = binding constraint). |
 | 0.6 | 2026-09-10 | Consistency fix-up, no technical change: (1) film/electrolytic impedance crossover corrected from ~108 kHz to ~96 kHz in the branch-share plot note and the assumptions section - v0.4 corrected the value with the 63 mm rod geometry but missed these two instances; (2) plate bound at the 330 A RMS continuous point corrected from ≈ 87 °C (the superseded 55 mm rod figure) to ≈ 90 °C, at the 90 °C FSR-08 derate onset on the no-convection bound, per `OV-C2-DD-DCLINK-THERMAL` v1.3 and `OV-C2-DD-THERMAL` v1.3 §6.4; (3) the "600 A RMS (307 A injected)" worked examples in the ripple derivation and the branch-sharing table now carry the envelope-sweep-bound caveat inline, consistent with the input table and the ripple-rating check. Revision history rows reordered into version/date order (formatting). |
+| 0.7 | 2026-09-11 | Voltage-class correction, no analysis change: the stale "400 V class" claims are corrected to the current hardware README's 200 V / 450 V class split (200 V stock bank; 450 V via the capacitor-only swap). Affected spots: the input table's DC-link voltage row (the 450 V class variant sits above the analyzed 102 - 320 V envelope; the $m = 1.0$ voltage independence means no separate 450 V numbers are needed), the "Results" note (140 / 320 / 450 V class), the ripple-rating check ("a 450 V-class bus at high current"), and open item 5 ("re-select capacitors for the 450 V-class bus"). |
 
 ---
 
