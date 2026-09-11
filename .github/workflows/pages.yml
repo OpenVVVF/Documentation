@@ -69,7 +69,9 @@ jobs:
           python-version: "3.12"
 
       - name: Install tools
-        run: pip install -e Tools/BOMManager -e Tools/DocGen -e Tools/HWRelease pytest
+        run: |
+          sudo apt-get update && sudo apt-get install -y poppler-utils
+          pip install -e Tools/BOMManager -e Tools/DocGen -e Tools/HWRelease pytest
 
       - name: Run tool tests
         run: python -m pytest Tools/BOMManager/tests Tools/DocGen/tests Tools/HWRelease/tests -q
