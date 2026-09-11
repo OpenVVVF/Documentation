@@ -67,7 +67,7 @@ Before starting, confirm you have every part for the board you are about to buil
 
 ## Verify you have the correct PCBs
 
-Check each bare PCB against the [PCB Tool](../../../../Tools/PCB-Tool/pcb-tool.html): confirm the part number and revision printed on the board match the release you intend to build (e.g. `HW-C2-PCB-IO-A`, `HW-C2-PCB-GD-A`). Boards from different revisions are not necessarily interchangeable.
+Check each bare PCB against the [PCB Tool](../../../../Tools/PCB-Tool/pcb-tool.html): confirm the part number and revision printed on the board match the release you intend to build (e.g. `HW-C2-PCB-IO-A`, `HW-C2-PCB-GD-A`). Boards from different revisions are not necessarily interchangeable. Note that the `C2` prefix in these part numbers reflects the chassis the boards were first released with - it does not restrict the control module to C2, which is power-stage-agnostic and can be paired with any compatible power stage (see `OV-DOCS-INDEX`).
 
 ![Parts laid out and verified before assembly](../IOBoard/Layout-Parts.jpg)
 

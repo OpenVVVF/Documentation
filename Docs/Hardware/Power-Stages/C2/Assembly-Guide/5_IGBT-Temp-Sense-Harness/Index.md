@@ -35,6 +35,8 @@ This guide covers building the small wiring harness that connects each IGBT modu
 | Heat gun | 1 | For shrinking tubing |
 | Flush cutters | 1 | For trimming wire and heat-shrink |
 
+Quantities above are for a single harness. The build requires **three harnesses** (one per phase: U, V, W), so plan for 3 sensors, 3 housings, 6 crimp terminals, and 3 heat-shrink sets in total.
+
 ![Parts laid out for the temperature-sensor harness](Layout-Parts.jpg)
 
 ## Step 1 - Slide the heat-shrink onto the harness
@@ -44,7 +46,7 @@ Slide both pieces of heat-shrink tubing onto the sensor lead before doing anythi
 - First, slide the 6 in (150 mm) piece of 1/8 in heat-shrink over the entire lead. This will later insulate the lead from nearby high-voltage bus bars.
 - Next, slide the ~2 in (50 mm) piece of 1/4 in heat-shrink over the lead and up against the ring-lug base. This will form strain relief at the lug.
 
-> **Tip:** It is recommended to build a harness for all three phases. Use colored heat-shrink to identify them: **yellow for phase U, green for phase V, and blue for phase W**. This makes it much easier to keep the sensors straight during final routing and connection.
+> **Tip:** Build three harnesses, one per phase (U/V/W). Use colored heat-shrink to identify them: **yellow for phase U, green for phase V, and blue for phase W**. This makes it much easier to keep the sensors straight during final routing and connection.
 >
 > ![Three finished harnesses with yellow, green, and blue heat-shrink for phases U, V, and W](Three-Color.jpg)
 
@@ -114,10 +116,10 @@ The finished harness should have:
 
 ![Completed temperature-sensor harness](Finished-1.jpg)
 
-![Completed harness shown from another angle](Finsihed-2.jpg)
+![Completed harness shown from another angle](Finished-2.jpg)
 
 ## Next steps
 
-Repeat this process for each IGBT temperature sensor required by the build. Even if the current control module only has inputs for two of the three heatspreader sensors, it is recommended to build and install the third harness anyway and leave it unconnected. Having the spare sensor in place makes it easy to swap over if one of the active sensors fails later.
+Repeat this process to build three harnesses, one per phase (U/V/W). Even if the current control module only has inputs for two of the three heatspreader sensors, it is recommended to build and install the third harness anyway and leave it unconnected. Having the spare sensor in place makes it easy to swap over if one of the active sensors fails later.
 
-Once all harnesses are built, route and connect them during the IGBT module installation and control-assembly wiring steps described in the integration guide (`OV-C2-IG-INDEX`).
+Once all harnesses are built, continue with Chapter 6, IGBT Temperature Sensor Mounting, and the remaining Chassis Size 2 assembly steps in the assembly guide index (`OV-C2-AG-INDEX`). The harness leads are routed and connected during those later installation steps.

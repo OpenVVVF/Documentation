@@ -8,7 +8,7 @@ applies_to:
   - chassis-size-2
 version: "0.1"
 date: "2026-08-08"
-description: Portal to OpenVVVF product documentation, hardware manuals, software targets, safety analyses, and validation evidence.
+description: Portal to OpenVVVF product documentation, hardware manuals, the control-module software manual, safety analyses, and validation evidence.
 nav_order: 0
 ---
 
@@ -19,7 +19,7 @@ nav_order: 0
 
 OpenVVVF is an open-source Variable Voltage Variable Frequency (VVVF) traction inverter platform. A single control module runs the motor-control firmware and talks to one of several power-stage chassis. The same hardware can serve very different applications - motorcycle, passenger car, industrial drive, or rail - by selecting the right power stage and configuring the safety profile.
 
-This site is the single source of truth for OpenVVVF hardware manuals, software documentation, safety analyses, and validation evidence.
+This site is the single source of truth for OpenVVVF hardware documentation (including the control-assembly software manual), safety analyses, and validation evidence.
 
 <div class="card">
 <h3>Getting Started</h3>
@@ -61,6 +61,9 @@ This site is the single source of truth for OpenVVVF hardware manuals, software 
 <h3><a href="Tools/Index.md">Tools</a></h3>
 <p>Support tools and widgets for working with OpenVVVF.</p>
 <ul>
+<li><a href="Tools/BOM-Tool/Index.md">BOM Tool</a></li>
+<li><a href="Tools/PCB-Tool/Index.md">PCB Tool</a></li>
+<li><a href="Tools/HWRelease-System/Index.md">HWRelease System Architecture</a></li>
 <li><a href="Tools/OpenVVVF-Telemetry-Viewer/Index.md">Telemetry Viewer</a></li>
 </ul>
 </div>
@@ -73,7 +76,7 @@ This site is the single source of truth for OpenVVVF hardware manuals, software 
 
 - **Control module / control assembly** - The reusable dual-MCU control board that runs OpenVVVF firmware. It handles field-oriented motor control, state estimation, diagnostics, and safety monitoring.
 - **Power stage** - The physical inverter assembly that contains the IGBTs, DC-link capacitors, gate drivers, current sensors, and thermal hardware.
-  - **C2** - mid-size, 150 / 200 / 400 V class per DC-link capacitor selection, ~600 A.
+  - **C2** - mid-size, 150 / 200 / 400 V class per DC-link capacitor selection, ~465 A continuous / 600 A peak (60 s).
 - **Main MCU software** - The primary microcontroller firmware; runs the real-time motor-control loop, PWM generation, ADC sampling, communication stacks, and application logic.
 - **Safety coprocessor software** - A separate microcontroller that independently monitors safety-critical outputs and can bring the system to a safe state.
 - **RTE Studio** - The host-side Real-Time Examiner and tuning tool. It connects to the inverter over CAN or Ethernet to log variables, adjust parameters, and run calibration routines.

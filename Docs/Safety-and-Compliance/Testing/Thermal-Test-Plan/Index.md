@@ -5,8 +5,8 @@ title: Thermal Test Plan
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.3"
-date: "2026-08-23"
+version: "1.4"
+date: "2026-09-10"
 description: Bench thermal validation of the C2 inverter using a thermal chamber built from a styrofoam cooler; verifies the heatsink and DC-link thermal design claims and the FSR-08 derate/SSO thresholds.
 nav_order: 373
 normative_refs:
@@ -32,7 +32,7 @@ This plan is filed directly under `Testing/` because it spans the Hardware domai
 | CLM-4 | IGBT NTC channels (two sensors, 1oo2 voting per FSR-08; 100 C hard cap on the module-sited NTC per OV-C2-DD-THERMAL) track the reference probes and behave plausibly over temperature | OV-SAF-HARA-CORE (FSR-08), OV-C2-DD-THERMAL | T-02, T-03, T-06 |
 | CLM-5 | Temperature-sensor accuracy: firmware NTC readings agree with calibrated reference probes within the stated tolerance across the operating range | this plan | T-01, T-02, T-03 |
 
-Where a design-doc number is an unvalidated estimate, that is stated explicitly in the acceptance criteria. In particular, OV-C2-DD-THERMAL is marked "design estimate ... to be validated by test" and the DC-link +40.1 K rise is a 1-D analytical result with a stated ±20 % spreading uncertainty.
+Where a design-doc number is an unvalidated estimate, that is stated explicitly in the acceptance criteria. In particular, OV-C2-DD-THERMAL is marked "design estimate ... to be validated by test" and the DC-link +35.0 K rise is a 1-D analytical result with a stated ±20 % spreading uncertainty.
 
 ## Test Chamber
 
@@ -83,7 +83,7 @@ The chamber is a rigid styrofoam (EPS/XPS) picnic cooler, used lid-on, with the 
 | P-HS | heatsink base, under the center IGBT module footprint | heatsink base temperature $T_s$ |
 | P-IGBT | IGBT module case/baseplate edge (co-located with the module NTC where accessible) | correlation against firmware IGBT NTC channels |
 | P-CAP | DC-link capacitor can top (hottest expected point of the can) | capacitor temperature, FSR-08 channel correlation |
-| P-PLT | DC-link aluminium spreader plate, mid-plate | plate temperature for the +40.1 K rise check |
+| P-PLT | DC-link aluminium spreader plate, mid-plate | plate temperature for the +35.0 K rise check |
 
 Thermocouples (type K or T) with a multi-channel logger, or digital temperature probes (e.g. DS18B20-class on a logger), are both acceptable. Attach probes with thermally conductive adhesive or tape plus a dab of thermal compound; insulate the probe bead from chamber air with a small pad of foam tape so the probe reads the surface, not the air.
 
@@ -99,7 +99,7 @@ The project telemetry viewer exists for CAN data; the firmware NTC channels (two
 
 ## Test Cases
 
-Status vocabulary follows OV-TEST-FAULT-INJECTION (Defined / Executable / Conditional / Deferred / Executed / Verified). As of this revision all tests are **Defined**.
+Status vocabulary follows OV-TEST-FAULT-INJECTION (Defined / Executable / Conditional / Deferred / Executed / Verified). As of this revision all tests are **Defined**. The T-xx test IDs used in this plan refer to thermal tests only; they are unrelated to the threat IDs T-01 through T-07 in [OV-SAF-TARA-INDEX](../../TARA/Index.md).
 
 ### T-01: Reference Probe Calibration Check
 
@@ -173,7 +173,7 @@ Status vocabulary follows OV-TEST-FAULT-INJECTION (Defined / Executable / Condit
 
 **Objective:** Measure the effective sink-to-ambient thermal resistance of the heatsink assembly at a known dissipation and compare with the design-doc claims (CLM-1). This is the primary quantitative check of OV-C2-DD-THERMAL.
 
-**Setup:** Heatsink assembly (with the three IGBT modules mounted and greased per the assembly guide) fitted with power resistors as dummy heat sources, bolted flat to the module footprints with thermal grease; resistor dissipation set by a bench supply and measured by volts x amps at the resistor terminals. Use as much dissipation as the heatsink and supply allow: **500 W to 1 kW total** across the three module footprints (e.g. 3 x 170-330 W). Measurability drives this number: at the 0.0234 K/W requirement, 500 W-1 kW gives a delta-T of roughly 12-24 K, resolvable with the specified probes; at 100-300 W the delta-T would be only 2.4-7.2 K, and probe accuracy of ±1-2 C would dominate the result. Run at the intended cooling condition of the heatsink (forced air or liquid, as applicable); record the cooling condition. Runs in still air are characterization only and cannot count toward CLM-1.
+**Setup:** Heatsink assembly (with the three IGBT modules mounted and greased per the assembly guide) fitted with power resistors as dummy heat sources, bolted flat to the module footprints with thermal grease; resistor dissipation set by a bench supply and measured by volts x amps at the resistor terminals. Use as much dissipation as the heatsink and supply allow: **500 W to 1 kW total** across the three module footprints (e.g. 3 x 170-330 W). Measurability drives this number: at the 0.0139 K/W requirement, 500 W-1 kW gives a delta-T of roughly 7.0-13.9 K, resolvable with the specified probes; at 100-300 W the delta-T would be only 1.4-4.2 K, and probe accuracy of ±1-2 C would dominate the result. Run at the intended cooling condition of the heatsink (forced air or liquid, as applicable); record the cooling condition. Runs in still air are characterization only and cannot count toward CLM-1.
 
 **Steps:**
 
@@ -194,7 +194,7 @@ Status vocabulary follows OV-TEST-FAULT-INJECTION (Defined / Executable / Condit
 
 ### T-05: DC-Link Plate Temperature Rise Verification
 
-**Objective:** Verify the OV-C2-DD-DCLINK-THERMAL claim that the spreader plate rises approximately +40.1 K over the heatsink base at 40 W capacitor heat load (CLM-2).
+**Objective:** Verify the OV-C2-DD-DCLINK-THERMAL claim that the spreader plate rises approximately +35.0 K over the heatsink base at 40 W capacitor heat load (CLM-2).
 
 **Setup:** DC-link capacitor bank on its standoffs and spreader plate, mounted on the heatsink. Apply a known 40 W heat input representative of the bank: either dissipate 40 W in resistors thermally bonded to the plate, distributed across the plate area (the model assumes uniform plate heating, so matching the exact capacitor layout is not required), or drive ripple current into the actual bank at a level computed to produce 40 W (requires the ripple estimate from OV-C2-DD-DCLINK-THERMAL; record the method used). The resistor substitution method is the default because it makes the 40 W input exact and repeatable; it verifies the conduction path (standoffs, contacts, spreading), which is what the design doc analyzes.
 
@@ -204,7 +204,7 @@ Status vocabulary follows OV-TEST-FAULT-INJECTION (Defined / Executable / Condit
 2. Apply 40 W to the plate/bank; run to steady state.
 3. Record $T_{plate}$ and $T_{sink base}$; compute $\Delta T = T_{plate} - T_{sink base}$.
 
-**Pass criteria:** Measured $\Delta T$ shall be 40.1 K ±20 % (i.e. 32-48 K), matching the analytical model's own stated ±20 % spreading uncertainty. Note explicitly: **+40.1 K is an unvalidated 1-D analytical estimate**; this test is its validation. A result below 32 K is acceptable (better than designed, expected direction since the model neglects convection/radiation); a result above 48 K is a design deviation against OV-C2-DD-DCLINK-THERMAL (check thermal paste and standoff torque per its recommendations before concluding).
+**Pass criteria:** Measured $\Delta T$ shall be 35.0 K ±20 % (i.e. 28-42 K), matching the analytical model's own stated ±20 % spreading uncertainty. Note explicitly: **+35.0 K is an unvalidated 1-D analytical estimate**; this test is its validation. A result below 28 K is acceptable (better than designed, expected direction since the model neglects convection/radiation); a result above 42 K is a design deviation against OV-C2-DD-DCLINK-THERMAL (check thermal paste and standoff torque per its recommendations before concluding).
 
 **Data table:**
 
@@ -304,7 +304,7 @@ Items needing a real chamber (controlled humidity, altitude, fast ramp, sub-0 C 
 | This document | References |
 |---------------|------------|
 | CLM-1, T-04 | OV-C2-DD-THERMAL (heatsink sizing, $R_{th(s-a)}$ requirements) |
-| CLM-2, T-05 | OV-C2-DD-DCLINK-THERMAL (+40.1 K standoff/plate heat path) |
+| CLM-2, T-05 | OV-C2-DD-DCLINK-THERMAL (+35.0 K standoff/plate heat path) |
 | CLM-3, CLM-4, T-06 | OV-SAF-HARA-CORE, FSR-08 (90 C derate / 105 C SSO, capacitor channel; 1oo2 IGBT NTC voting) |
 | T-06 method, evidence framework, status vocabulary, E-series deferral | OV-TEST-FAULT-INJECTION (C-08, C-35, C-45; Sections "Test Status Vocabulary", "Test Records and Evidence") |
 
@@ -315,3 +315,4 @@ Items needing a real chamber (controlled humidity, altitude, fast ramp, sub-0 C 
 | 1.1 | 2026-08-20 | (Prior revision; see git history for details.) |
 | 1.2 | 2026-08-20 | CLM-1 updated to the OV-C2-DD-THERMAL v1.1+ heatsink requirements ($R_G = 2.7 \ \Omega$ gate drive): 0.0073 K/W at 600 A / 320 V / 2 kHz and 0.0047 K/W at 600 A / 320 V / 6 kHz (was 0.0076 K/W), 0.0234 K/W at 300 A / 320 V (was 0.0239 K/W); T-04 setup and acceptance tables aligned. CLM-1 notes that 600 A is now the 60 s peak duty and the continuous rating is 220 A per OV-C2-DD-THERMAL v1.2. |
 | 1.3 | 2026-08-23 | Aligned to OV-C2-DD-THERMAL v1.3 (600 A = peak = 424 A RMS; continuous rating 330 A RMS / 465 A pk) and OV-C2-DD-DCLINK-THERMAL v1.3 (rev-B 6.35 mm plate, 63 mm rods, +35.0 K reference rise). CLM-1 requirements relaxed: 0.0141 K/W (2 kHz reference) / 0.0095 K/W (6 kHz peak) / 0.0139 K/W (continuous point); design target 0.007 K/W. T-04 bench acceptance tightened to ≤0.0139 K/W, which the bench instrumentation can now reach for the continuous and 2 kHz points; only the 6 kHz peak point remains dyno-only. CLM-2 acceptance updated to 28-42 K at 40 W for the rev-B plate with the corrected 63 mm rods. |
+| 1.4 | 2026-09-10 | Propagated the corrected rev-B plate-rise figure (+35.0 K net paste-path rise per OV-C2-DD-DCLINK-THERMAL v1.3) to the remaining stale +40.1 K references: purpose/caveat note, P-PLT instrumentation row, T-05 objective, T-05 pass criteria (acceptance band now 35.0 K ±20 %, i.e. 28-42 K), and traceability table. Corrected the T-04 setup measurability estimate from the obsolete 0.0234 K/W requirement to 0.0139 K/W (500 W-1 kW gives ≈7.0-13.9 K; 100-300 W gives ≈1.4-4.2 K) so setup agrees with the pass criteria. Added a note clarifying that the T-xx test IDs in this plan are thermal tests, unrelated to the threat IDs in OV-SAF-TARA-INDEX. |

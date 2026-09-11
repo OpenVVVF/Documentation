@@ -48,7 +48,7 @@ Pick up the control board and align its headers with the matching sockets on the
 
 Make sure the long header rows are straight and fully engaged before pressing the boards together.
 
-![Aligned header pins ready to seat](Alligned-And-Inserted-Ctrlbd-To-Gate-Driver.jpg)
+![Aligned header pins ready to seat](Aligned-And-Inserted-Ctrlbd-To-Gate-Driver.jpg)
 
 Press the connector fully home with your thumb. The boards should sit parallel with no gaps at the connector.
 
@@ -82,7 +82,7 @@ If anything looks off, pull the boards apart and recheck header orientation and 
 
 ## Step 5 - Disassemble
 
-Once you have confirmed everything seats cleanly, separate the boards and set them aside in ESD-safe containers or on a mat. Keep them ready for the final control-module assembly step.
+Once you have confirmed everything seats cleanly, separate the boards and set them aside in ESD-safe containers or on a mat. Keep them ready for the final control-module assembly step (planned, chapter forthcoming).
 
 ## Next steps
 

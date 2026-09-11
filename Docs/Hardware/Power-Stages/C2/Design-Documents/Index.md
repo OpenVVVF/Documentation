@@ -17,5 +17,6 @@ normative_refs:
 
 Engineering reference documents for the C2 power stage: thermal models, loss calculations, component sizing, and other analyses that support the hardware design.
 
-- **System Thermal Analysis** - IGBT and diode losses, inverter efficiency, and heatsink/baseplate sizing for the traction inverter.
-- **DC Link Thermal Analysis** - DC-link capacitor bank standoff heat-path and thermal resistance analysis.
+- **[System Thermal Analysis](Thermal-Analysis/Index.md)** - IGBT and diode losses, inverter efficiency, and heatsink/baseplate sizing for the traction inverter.
+- **[DC Link Thermal Analysis](DC-Link-Thermal/Index.md)** - DC-link capacitor bank standoff heat-path and thermal resistance analysis.
+- **[DC Link Capacitor Ripple Current and Thermal Load](DC-Link-Ripple/Index.md)** - RMS ripple-current derivation and per-can ESR heating for the DC-link capacitor bank across the operating envelope, checked against the Nichicon UCS datasheet ripple ratings.

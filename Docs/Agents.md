@@ -44,12 +44,16 @@ UserManual.md
 Use hierarchical, kebab-case IDs:
 
 - `OV-DOCS-*` - Site / root index
+- `OV-HW-*` - Hardware section index
 - `OV-CA-*` - Control Assembly
 - `OV-PS-*` - Power Stages (top-level)
+- `OV-C1-*` - Chassis Size 1 (reserved; no documents yet)
 - `OV-C2-*` - Chassis Size 2
   - `OV-C2-IG-*` - C2 Integration Guide
   - `OV-C2-AG-*` - C2 Assembly Guide
   - `OV-C2-DD-*` - C2 Design Documents
+- `OV-C3-*` - Chassis Size 3 (reserved; data only, no documents yet)
+- `OV-SW-*` - Software (reserved; section removed until firmware docs are rewritten)
 - `OV-SAF-*` - Safety and Compliance
 - `OV-COMP-*` - Compliance mappings
 - `OV-TEST-*` - Testing
@@ -74,6 +78,13 @@ Every `Index.md` must begin with YAML frontmatter. Required and optional fields:
 | `applies_to` | no | List of product / variant IDs this document applies to. |
 | `normative_refs` | no | List of `doc_id`s this document references. `docgen validate` checks them. |
 | `placeholder` | no | Set to `true` to flag an incomplete or under-revision page. Renders a banner, a WIP badge, and emits a validation warning. |
+| `menu_only` | no | Set to `true` on an `Index` document to make it act as a nav/menu group only: it appears in the sidebar and breadcrumbs but renders no page of its own, and is excluded from lists and PDFs. |
+| `test_id` | no | Friendly numeric test identifier for Test Report/Test Plan documents. The site shows it in listings and the metadata panel in place of the opaque `doc_id`, and PDFs print it as "Test ID". |
+| `core_ref` | no | On an Application Profile document: the Core document (doc_id + version) the profile was assessed against, e.g. `OV-SAF-HARA-CORE v5.8`. |
+| `profile_for` | no | On an Application Profile document: the profile key from `Config/Products.yaml` `application_profiles`, e.g. `motorcycle`. |
+| `standard` | no | On an Application Profile document: the standard applied by the analysis, e.g. `ISO 26262:2018`. |
+| `temp` | no | Operating-temperature range the analysis covers, e.g. `−40 °C to +85 °C`. |
+| `mcus` | no | Microcontroller(s) covered by the analysis, e.g. `STM32H723ZG + STM32G474RCTx`. |
 
 Document maturity is conveyed by `version` plus the `placeholder` flag. There is deliberately no `status` or `reviewed` field; bump `version` when a document changes materially.
 

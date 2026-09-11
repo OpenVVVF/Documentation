@@ -15,7 +15,7 @@ normative_refs:
 
 # IGBT Temperature Sensor Mounting
 
-This guide covers mounting the ring-lug temperature sensors onto the Chassis Size 2 aluminium heatspreader/baseplate. Each sensor is clamped under a screw so the lug is in direct thermal contact with the baseplate, to the right of the IGBT module it monitors when the module's gate terminals face toward you.
+This guide covers mounting the ring-lug temperature sensors onto the Chassis Size 2 aluminium heatspreader/baseplate. Each sensor is clamped under a screw so the lug is in direct thermal contact with the baseplate, in the sensor hole immediately adjacent to the gate-terminal side of the module it monitors, on the side toward the DC-link bus bars (see the CAD model figure in Step 1).
 
 > **Safety**
 > - Do not power the inverter until all assembly, torque, and inspection steps are complete.
@@ -39,7 +39,7 @@ This guide covers mounting the ring-lug temperature sensors onto the Chassis Siz
 
 ## Step 1 - Identify the mounting location
 
-Each temperature sensor mounts on the heatspreader to the right of its corresponding IGBT module, with the module's gate terminals facing toward you. Confirm which sensor belongs to which phase (U, V, W) before applying paste, so the harness routing matches the later wiring steps.
+Each temperature sensor mounts on the heatspreader in the sensor hole immediately adjacent to the gate-terminal side of its corresponding IGBT module, on the side toward the DC-link bus bars (see the CAD model figure below). Confirm which sensor belongs to which phase (U, V, W) before applying paste, so the harness routing matches the later wiring steps.
 
 > **Tip:** It can be helpful to have the CAD model open during assembly so you can confirm the exact sensor location for each phase.
 >

@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
-date: "2026-08-13"
+version: "0.2"
+date: "2026-09-10"
 description: Aggregated accuracy evidence for the motor self-commissioning routine, comparing its resistance and inductance estimates against instrumented bench references.
 test_id: 10
 nav_order: 357
@@ -60,7 +60,7 @@ The source calibration reports do not state formal pass/fail tolerances. The fol
 |-----------|------------------------------------------------------------|-------|
 | Resistance (motor windings) | within ±10 % | Largest observed deviation: -6.5 % (PMSM, 120 V run) and +7.3 % (induction, ~80 V bus) |
 | Inductance | within ±10 % | Largest observed deviation: +2.4 % (induction) |
-| High-impedance sanity load | within ±10 % | Observed: ~9 % low on a 23 Ω power resistor at low current |
+| High-impedance sanity load | within ±10 % | Observed: -10.2 % vs the LCR reference on a 23 Ω power resistor at low current (marginally outside tolerance; treated as an exception, see Results) |
 
 These tolerances are marked provisional pending review; they are consistent with the systematic offsets (IGBT knee voltage, dead time, current-sensor scaling) analyzed in the source reports.
 
@@ -80,9 +80,9 @@ These tolerances are marked provisional pending review; they are consistent with
 
 | Parameter | Instrument baseline | Self-commissioning estimate | Deviation | Source report |
 |-----------|--------------------|-----------------------------|-----------|---------------|
-| Resistance, UV line-to-line | 23.3070 Ω (DCR) | 20.94 Ω | ~-9 % | OV-TEST-HW-RESISTOR-SANITY |
+| Resistance, UV line-to-line | 23.3070 Ω (DCR) | 20.94 Ω | -10.2 % (marginal - just outside the provisional ±10 % band; accepted as exception) | OV-TEST-HW-RESISTOR-SANITY |
 
-The ~9 % low reading is explained in the source report: at ~0.3 A the IGBTs operate in the knee region and the linear fit absorbs most of the knee as an offset, biasing the slope low. This test point confirms the routine produces the right decade on a non-motor load; it is not motor-grade accuracy.
+The 10.2 % low reading is explained in the source report: at ~0.3 A the IGBTs operate in the knee region and the linear fit absorbs most of the knee as an offset, biasing the slope low. This deviation sits just outside the provisional ±10 % band, so the test point is recorded as a marginal exception rather than a clean pass, with the knee-region bias documented as the basis for the exception. This test point confirms the routine produces the right decade on a non-motor load; it is not motor-grade accuracy.
 
 ### Induction motor (TECO MAX-IE3 7.5 kW)
 
@@ -100,7 +100,7 @@ Against the provisional ±10 % criteria:
 - **PMSM inductance:** open - measurement pending (TBD).
 - **Induction resistance:** pass (+7.3 %).
 - **Induction inductance:** pass (+2.4 %).
-- **Sanity load:** pass within the provisional tolerance (~9 % low), with the low-current caveat documented in the source report.
+- **Sanity load:** marginal - 10.2 % low against the LCR baseline, just outside the provisional ±10 % band; accepted as an exception because the low-current IGBT knee-region bias documented in the source report explains the deviation.
 
 The self-commissioning routine produces resistance and inductance estimates within a few percent of the instrumented baseline on real motor windings at representative operating points. The remaining open item is the PMSM inverter-side inductance run.
 

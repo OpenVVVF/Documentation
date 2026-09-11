@@ -38,6 +38,8 @@ Read the preparation chapter first: it covers the workspace, equipment, and part
 15. [Initial Low-Voltage Testing and Calibration](15_Initial-Low-Voltage-Testing/Index.md) - first low-voltage power-up, sensor checks, and calibration.
 16. [Outer Shell Mounting](16_Outer-Shell-Mounting/Index.md) - mounting the outer shell onto the assembled power stage.
 
+> **Note on chapter identifiers:** each chapter's `doc_id` is assigned when the chapter is first authored and stays stable across later revisions, so doc_ids do not necessarily line up with chapter numbers (for example, Chapter 2 is `OV-C2-AG-05-FILTER` and Chapter 3 is `OV-C2-AG-04-PCB`). The chapter numbers above - the folder navigation order - are authoritative for build order; the doc_ids are stable identifiers for cross-referencing.
+
 ## Planned build order
 
 The physical build proceeds in roughly this order, and chapters follow it:

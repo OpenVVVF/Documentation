@@ -11,6 +11,7 @@ date: "2026-08-08"
 description: Validation of the inverter motor-inductance calibration routine against a bench LCR reference.
 test_id: 2
 nav_order: 344
+placeholder: true
 normative_refs:
   - OV-TEST-HW-MOTOR-CAL-INDEX
   - OV-TEST-HW-INDEX

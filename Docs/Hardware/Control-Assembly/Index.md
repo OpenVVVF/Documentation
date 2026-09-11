@@ -15,6 +15,6 @@ nav_order: 100
 
 The control assembly is the reusable inverter brain of OpenVVVF. It is a dual-MCU traction-inverter / VCU control board that can be paired with any compatible power stage.
 
-- **User Hardware Manual** - Board layout, connectors, pinout, mounting, thermal, electrical interface, HVIL, and safe-state behavior.
-- **Software Manual** - Base firmware image overview, flashing procedure, RTE host setup, and how to build and load custom code.
+- **[User Hardware Manual](User-Hardware-Manual/Index.md)** - Board layout, connectors, pinout, mounting, thermal, electrical interface, HVIL, and safe-state behavior. *(Under development - placeholder.)*
+- **[Software Manual](Software-Manual/Index.md)** - Base firmware image overview, flashing procedure, RTE host setup, and how to build and load custom code. *(Under development - placeholder.)*
 - **[Assembly Guide](Assembly-Guide/Index.md)** - Step-by-step assembly procedures for the control module.

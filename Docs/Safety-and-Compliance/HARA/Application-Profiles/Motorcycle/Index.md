@@ -6,12 +6,12 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - application-profile-motorcycle
-core_ref: OV-SAF-HARA-CORE v5.8
+core_ref: OV-SAF-HARA-CORE v5.10
 profile_for: motorcycle
 standard: ISO 26262:2018
 temp: −40 °C to +85 °C
-version: "1.7"
-date: "2026-07-30"
+version: "1.8"
+date: "2026-09-10"
 description: Motorcycle-specific HARA profile - operational situations, S/E/C ratings, and ASIL targets applied to the platform hazard set.
 nav_order: 313
 normative_refs:
@@ -22,7 +22,7 @@ normative_refs:
 
 This document is an **Application Profile** of the OpenVVVF HARA document set. It assigns motorcycle-specific Operational Situations, Severity/Exposure/Controllability ratings, and ASIL targets to the platform hazard set, Safety Goals, and Functional Safety Requirements defined in the Core Platform document.
 
-- **Core document:** OV-SAF-HARA-CORE v5.8 (*OpenVVVF HARA - Core Platform*). This profile was assessed against Core v5.7; v5.8 is a documentation-only reorganization (fault-injection test plan extraction) with no technical change. It shall be reviewed on any Core revision.
+- **Core document:** OV-SAF-HARA-CORE v5.10 (*OpenVVVF HARA - Core Platform*). This profile was assessed against Core v5.7; v5.8 was a documentation-only reorganization (fault-injection test plan extraction), and v5.9 and v5.10 are documentation/consistency fixes - no technical changes since v5.7. It shall be reviewed on any Core revision.
 - **Normative reference:** hazards H-01 through H-17, Safety Goals SG-01 through SG-15, and FSR-01 through FSR-22 are defined in the Core document and are **not** restated here. The Core compliance statement (Core §1.2) applies in full to this profile: ASIL ratings herein are **targets**, not claims of verified compliance.
 - **Standard applied:** ISO 26262:2018 (methodology), as for the Core.
 - **Status:** elaborated - this profile is the current reference S/E/C assessment for the platform.
@@ -95,7 +95,7 @@ Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patc
 | **H-01** | OS-06 (85–150 mph) | S3 | E3 | C3 | D | D | Unintended tractive effort at high speed → loss of control. Dual-MCU decomposition: independent throttle ADC, CAN snoop, 1oo2 power kill. |
 | **H-02** | OS-01 (stationary) | S2 | E2 | C2 | B | B | Rearward tip-over at standstill; rider can brace. |
 | **H-03** | OS-06 (highway) | S3 | E3 | C2 | C | C | Sudden loss at highway speed; rear-collision risk. v5.0: abrupt loss on every fault; C2 retained - rider retains brakes/steering; following-traffic risk unchanged by ramp-vs-step at these energies. |
-| **H-03a** | OS-10a (corner at limit) | S3 | E2 | C2 | A | A | Mid-corner loss → stand-up/run-wide. SSO is freewheel - loss of drive at lean is dynamically benign (Section 5); S3 retained on the following-traffic collision path; E2 per Section 5 exposure assessment. Accepted residual risk; detection-to-SSO latency is the mitigation; track characterization required. |
+| **H-03a** | OS-10a (corner at limit) | S3 | E2 | C2 | A | A | Mid-corner loss → coasting at lean is dynamically benign (SSO is freewheel - no engine-braking stand-up; Section 5); S3 retained on the following-traffic collision path at track/highway speed; E2 per Section 5 exposure assessment. Accepted residual risk; detection-to-SSO latency is the mitigation; track characterization required. |
 | **H-04** | OS-09 (braking) | S2 | E3 | C2 | A | A | Loss of regen; friction brakes remain. |
 | **H-05** | OS-13 (wet road) | S3 | E3 | C3 | C | C | Unexpected deceleration on wet surface. |
 | **H-06** | OS-06 (highway WOT) | S3 | E3 | C3 | C | C | Wheel spin at speed. Dual-MCU current monitoring (100 ms); DESAT for hard shorts. |
@@ -116,7 +116,7 @@ Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patc
 
 | Ref | Citation |
 | --- | --- |
-| OV-SAF-HARA-CORE | OpenVVVF HARA - Core Platform, v5.8 (doc_id OV-SAF-HARA-CORE). Normative. |
+| OV-SAF-HARA-CORE | OpenVVVF HARA - Core Platform, v5.10 (doc_id OV-SAF-HARA-CORE). Normative. |
 | Cossalter | Cossalter, Lot, Massaro, *Motorcycle Dynamics* (chapter), 2014. Lean mechanics and tire friction-ellipse basis for the Section 5 dynamics assessment. |
 | NHTSA | *Motorcycle Safety*. https://www.nhtsa.gov/motorcycles. Accident causation context for severity assessment. |
 
@@ -134,3 +134,4 @@ Motorcycles are inherently less stable than 4-wheeled vehicles: two contact patc
 | 1.5 | 2026-07-31 | Formatting and consistency cleanup: OS-10a/OS-16 table rows no longer bolded; "aftermarket" descriptors removed from the application definition; OS-10a note aligned with the Section 5 dynamics assessment (loss of drive at lean = C2, superseding the earlier C3 statement in the note). Assessed against OV-SAF-HARA-CORE v5.6. |
 | 1.6 | 2026-07-31 | Dynamics reference corrected: the lean-mechanics citation is now Cossalter, Lot, Massaro, *Motorcycle Dynamics* (2014 chapter). Assessed against OV-SAF-HARA-CORE v5.7. |
 | 1.7 | 2026-08-13 | Core reference updated to v5.8 (documentation-only test-plan extraction; no technical delta). Stale v5.1 mention in the core-document note corrected. |
+| 1.8 | 2026-09-10 | H-03a rationale cell rewritten to the v1.1 freewheel analysis: coasting at lean is dynamically benign (SSO is freewheel, no engine-braking stand-up) and the harm path is the following-traffic collision at track/highway speed; the superseded ICE stand-up/run-wide phrasing already rejected in Section 5 has been removed from the table. Core reference updated to v5.10 (v5.9 and v5.10 are documentation/consistency fixes, no technical delta). Frontmatter date for v1.7 corrected to 2026-08-13 (it had been left at 2026-07-30). |

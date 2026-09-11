@@ -38,6 +38,8 @@ This guide covers populating the DC-bus capacitor PCB (`DCBusCapacitorBoard`) us
 | Permanent marker | 1 | For variant mark |
 | Lint-free wipes and isopropyl alcohol | as needed | For flux cleanup |
 
+Note that the eight M5 steel standoffs in this chapter are board-level hardware for mounting the finished board to the chassis case only; they are distinct from the six aluminium M6 rod standoffs that electrically and thermally connect the capacitor board to the filter board as the DC-link heat path, and those rods must be aluminium - never substitute steel (`OV-C2-DD-DCLINK-THERMAL`).
+
 ![Workspace with PCB, capacitor reel, standoffs, soldering station, and BOM on a laptop](Workspace.jpg)
 
 ![Capacitors, standoffs, and the bare DC-link capacitor PCB laid out for assembly](Preparation.jpg)
@@ -80,7 +82,7 @@ To keep the capacitors from shifting, solder one lead of each capacitor first. A
 
 ![Tack-soldering one lead of each capacitor to lock them in place](SolderingOneSideCapacitor.jpg)
 
-## Step 6 - Solder all capacitor leads
+## Step 6 - Solder the remaining capacitor leads
 
 Solder the second lead of every capacitor. Aim for a shiny, concave fillet that completely wets both the lead and the pad. Avoid cold joints, solder bridges between adjacent pads, and excessive solder that could short to nearby pads.
 
@@ -96,7 +98,7 @@ Trim each capacitor lead close to the solder joint with flush cutters, then imme
 
 Leave a smooth solder dome with no sharp protrusions, and collect the clipped leads so they cannot short against the board or other assemblies.
 
-![Trimming capacitor leads flush with the solder joint](SnippingLeads.jpg)
+![Trimming capacitor leads close to the solder joint](SnippingLeads.jpg)
 
 ![Reflowing a trimmed lead to heal any micro-fractures](ReflowTrimmedLeads.jpg)
 
@@ -114,7 +116,7 @@ Near the end of assembly, locate the variant mark area on the PCB silkscreen and
 
 Carefully peel the protective tape off each standoff. Inspect the standoff solder joints one last time to make sure none were disturbed during cleaning or handling.
 
-![Peeling the pre-applied tape off a standoff after assembly](RemoveCaptonTape.jpg)
+![Peeling the pre-applied tape off a standoff after assembly](RemoveKaptonTape.jpg)
 
 ## Final assembly
 
@@ -130,4 +132,4 @@ The finished DC-link capacitor board should have all 60 capacitors seated flush,
 
 ## Next steps
 
-Set the assembled board aside and proceed with the remaining DC-link module assembly steps. The board will be mounted into the chassis after the bus bars and film capacitors are installed; see the integration guide (`OV-C2-IG-INDEX`) for the full assembly sequence.
+Set the assembled board aside; it will be mounted into the chassis after the bus bars and film capacitors are installed. Continue with Chapter 4, IGBT Mounting, and the remaining Chassis Size 2 assembly steps in the assembly guide index (`OV-C2-AG-INDEX`).

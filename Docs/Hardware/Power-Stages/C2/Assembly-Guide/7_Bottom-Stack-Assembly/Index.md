@@ -32,7 +32,7 @@ This guide covers installing the bottom spacers, DC-link bus bars, DC-link filte
 | Item | Qty | Notes |
 |------|-----|-------|
 | Heatspreader with mounted IGBT modules | 1 | From `OV-C2-AG-02` |
-| Bottom spacers | 6 | Stand-offs between baseplate and filter board |
+| Bottom spacers | 6 | 13 mm OD × 63 mm aluminium standoff rods, M6 thread; stand-offs between baseplate and filter board (`OV-C2-DD-DCLINK-THERMAL`) |
 | DC-link filter board | 1 | From `OV-C2-AG-05-FILTER` |
 | DC-link bus bars | 2 | Positive and negative DC input |
 | Phase bus bars | 3 | One per phase output |
@@ -41,6 +41,8 @@ This guide covers installing the bottom spacers, DC-link bus bars, DC-link filte
 | Clean gloves | 1 pair | For handling bus bars |
 | Hex key or driver | 1 | For the phase bus-bar screws |
 | Lint-free wipes | as needed | For paste and fingerprint cleanup |
+
+These spacers are the aluminium standoff rods analysed in `OV-C2-DD-DCLINK-THERMAL`: they form the capacitor bank's conduction heat path and are also the electrical connection between the filter board and the capacitor bank board, so they must be aluminium - never substitute steel. See `OV-C2-DD-DCLINK-THERMAL` for the stack cross-section and the heat-path analysis.
 
 Before starting, a few notes on workspace setup and the photos below:
 
@@ -78,13 +80,15 @@ Lay out all six bottom spacers. Apply a thin, even layer of thermal interface co
 
 Apply thermal interface compound to the top face of each spacer. Spread it evenly so the filter board will sit flat and make good thermal contact.
 
+Both faces of every rod are pasted because each rod end is a thermal contact in the capacitor bank's heat path: per `OV-C2-DD-DCLINK-THERMAL`, thermal paste at both interfaces roughly halves the contact-resistance temperature rise compared with dry metal-to-metal (6.6 °C vs 13.1 °C at the 40 W reference load).
+
 ![Close-up of thermal paste on the top of a spacer](Thermal-Paste-Top-Of-Spacer-Closeup.jpg)
 
 ![All spacers with paste applied to their top faces](Thermal-Paste-All-Spacers.jpg)
 
 ## Step 3 - Align the DC-link filter board
 
-Hold the DC-link filter board above the assembly and confirm its orientation before lowering it. The connector and mounting holes must line up with the six spacers. Lowering the board twisted or offset will smear the thermal paste and can land on the wrong pads once the DC-link bus bars are added in the next step.
+Hold the DC-link filter board above the assembly and confirm its orientation before lowering it. The connector and mounting holes must line up with the six spacers. Lowering the board twisted or offset will smear the thermal paste and can land on the wrong pads once the DC-link bus bars are added in the next step. Once the orientation is confirmed, set the board down on a clean, flat surface within easy reach - you will need both hands free for the bus-bar placement in Step 4.
 
 ![Ensure the DC-link filter board is oriented correctly before placement](Ensure-DC-Filter-Board-Right-Orientation.jpg)
 
@@ -100,7 +104,7 @@ Lay the two DC-link bus bars across the tops of the IGBT modules. They are not f
 
 Carefully lower the DC-link filter board straight down onto the spacers and DC-link bus bars. Avoid sliding it sideways: any lateral movement will smear the thermal paste and can short the bus bars against the wrong pads.
 
-![Lowering the DC-link filter board onto the spacers and bus bars](Allign-DC-Filter-Board.jpg)
+![Lowering the DC-link filter board onto the spacers and bus bars](Align-DC-Filter-Board.jpg)
 
 ![Filter board placed on the assembly](DC-Link-Filter-Placed.jpg)
 

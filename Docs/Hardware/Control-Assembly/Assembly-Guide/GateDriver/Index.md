@@ -107,9 +107,9 @@ The finished gate driver board should have all parts placed and soldered accordi
 
 ![Completed gate driver assembly, close-up](Finished-Assy-Closeup-3.jpg)
 
-![Completed gate driver assembly, angled bottom view](Finsihed-Assy-Bottom-Angled-4.jpg)
+![Completed gate driver assembly, angled bottom view](Finished-Assy-Bottom-Angled-4.jpg)
 
-![Completed gate driver assembly, bottom view](Finshed-Assy-Bottom-5.jpg)
+![Completed gate driver assembly, bottom view](Finished-Assy-Bottom-5.jpg)
 
 ## Next steps
 

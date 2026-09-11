@@ -9,6 +9,7 @@ version: "0.1"
 date: "2026-08-07"
 description: Installation, assembly, and hardware specifications for the OpenVVVF control module.
 nav_order: 110
+placeholder: true
 normative_refs:
   - OV-SAF-HARA-CORE
 ---

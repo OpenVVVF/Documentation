@@ -28,7 +28,7 @@ This guide covers mounting the three Mitsubishi CM600DY-24T IGBT modules onto th
 |------|-----|-------|
 | Aluminium baseplate/heatspreader | 1 | Chassis Size 2 |
 | Mitsubishi CM600DY-24T IGBT module | 3 | Half-bridge modules |
-| M6×12 mm socket-head cap screw | 12 | Per module (4×) |
+| M6×12 mm socket-head cap screw | 12 | 4 per module × 3 modules |
 | Thermal interface compound | as needed | Even, thin coverage |
 | Thread-locking compound (medium strength) | as needed | Applied to screw threads |
 | M6 Belleville washer (optional) | 12 | Under each screw head to maintain clamp force through thermal cycling |
@@ -81,7 +81,7 @@ Before final tightening, verify that the gate terminals on all three modules fac
 
 ![All three IGBT modules installed, gate-drive terminals facing the control-board area](IGBTDirectionality.jpg)
 
-Tighten each module's screws in a diagonal pattern to **4 N·m**. Wait approximately **2 minutes** to allow the thermal interface compound to settle and squeeze out, then retorque all screws to **4 N·m** again. Some clamp force loss is normal as the paste compresses; the retorque step restores it.
+Tighten each module's screws in a diagonal pattern to **4 N·m**. Wait approximately **2 minutes** to allow the thermal interface compound to settle and squeeze out, then retorque all screws to **4 N·m** again. Some clamp force loss is normal as the paste compresses; the retorque step restores it. The module datasheet allows **3.5–4.5 N·m** for the M6 mounting screws, so the 4 N·m target sits mid-range; see the mounting guidance in `OV-C2-DD-THERMAL`.
 
 ![Tightening the IGBT mounting screws in a diagonal pattern](IGBTTighten.jpg)
 
@@ -99,4 +99,4 @@ The completed assembly should look like the image below: three IGBT modules moun
 
 ## Next steps
 
-Continue with the remaining Chassis Size 2 assembly steps in the integration guide (`OV-C2-IG-INDEX`) before applying power.
+Continue with Chapter 5, IGBT Temperature Sensor Wiring Harness, and the remaining Chassis Size 2 assembly steps in the assembly guide index (`OV-C2-AG-INDEX`) before applying power.

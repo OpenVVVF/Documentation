@@ -30,7 +30,7 @@ Everything to have done, have on hand, and have checked before starting the C2 p
 
 These items must be complete before power-stage assembly begins:
 
-- **Control assembly completed and tested** - the control module must be fully assembled and verified before it is needed for the later chapters. See the Control Assembly assembly guide (`OV-CA-AG-INDEX`).
+- **Control assembly completed and tested** - the control module must be fully assembled and verified before it is needed for the later chapters. See the Control Assembly guide (`OV-CA-AG-INDEX`).
 - **Firmware flashed** - main MCU and safety coprocessor firmware flashed and confirmed booting. See the Control Assembly software manual (`OV-CA-SWM-INDEX`).
 - **Prior build chapters complete** - each chapter in this guide assumes the chapters before it are done; do not skip ahead, as later steps rely on hardware installed earlier.
 

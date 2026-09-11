@@ -149,7 +149,7 @@ These cybersecurity requirements (CSRs) are independent of the HARA's Functional
 
 Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and CT-09 require a CAN interface and the VCU. CT-07 and CT-08 additionally require SWD/JTAG access to the bootloader flash.
 
-### CT-01: Unsigned Firmware Update Rejected
+## CT-01: Unsigned Firmware Update Rejected
 
 **Objective:** Verify CSR-01 - Unsigned firmware update via CAN is rejected.
 
@@ -166,7 +166,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** Rejected. DTC logged: "signature verification failed." No partial flash write.
 
-### CT-02: Signed Firmware Update Accepted
+## CT-02: Signed Firmware Update Accepted
 
 **Objective:** Verify CSR-01 positive path - Signed update accepted.
 
@@ -182,7 +182,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** Full update chain succeeds.
 
-### CT-03: Corrupted Chunk Detected
+## CT-03: Corrupted Chunk Detected
 
 **Objective:** Verify CSR-02 - Bit flip in CAN chunk aborts update.
 
@@ -197,7 +197,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** All corruption detected. Update aborted. Partial image erased.
 
-### CT-04: Anti-Rollback Counter
+## CT-04: Anti-Rollback Counter
 
 **Objective:** Verify CSR-03 - Downgrade attack rejected.
 
@@ -213,7 +213,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** Counter logic correct. User can reset via debugger (documented behavior).
 
-### CT-05: Update Preconditions
+## CT-05: Update Preconditions
 
 **Objective:** Verify CSR-04 - Update only when stationary.
 
@@ -228,7 +228,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** All precondition violations rejected or aborted.
 
-### CT-06: CAN Freshness Counter - Replay Detected
+## CT-06: CAN Freshness Counter - Replay Detected
 
 **Objective:** Verify CSR-06 - Stale CAN frames treated as lost.
 
@@ -243,7 +243,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** Replay detected. Safe defaults applied. No tractive effort from stale frames.
 
-### CT-07: Bootloader Mutable (Design Verification)
+## CT-07: Bootloader Mutable (Design Verification)
 
 **Objective:** Verify CSR-07 - Bootloader can be updated by user.
 
@@ -258,7 +258,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** Bootloader is mutable via SWD. User has full control. Document this as intentional.
 
-### CT-08: HMAC Key Rotation
+## CT-08: HMAC Key Rotation
 
 **Objective:** Verify CSR-01 - user can rotate firmware signing keys.
 
@@ -275,7 +275,7 @@ Nine test cases validate the cybersecurity requirements. CT-01 through CT-06 and
 
 **Pass:** Key rotation works. Old key rejected after rotation. Documented in user manual.
 
-### CT-09: CAN DoS / Heartbeat Timeout
+## CT-09: CAN DoS / Heartbeat Timeout
 
 **Objective:** Verify CSR-05 - CAN bus flooding causes heartbeat loss and safe state entry.
 
@@ -373,7 +373,7 @@ This TARA is a companion document to the HARA. Safety-relevant cybersecurity thr
 | STM32H723 Reference Manual (RM0433) | *STM32H723/733 - Arm Cortex-M7 MCU*. Flash protection (RDP, WRP), CRC peripheral, and bootloader application note (AN2606). |
 | HARA (this project) | `OV-SAF-HARA-CORE` - *Hazard Analysis and Risk Assessment - Core Platform*. Companion document covering functional safety. Cross-referenced for safety-relevant cybersecurity threats. |
 
-## Document History
+# Document History
 
 **Table 12: Revision History**
 

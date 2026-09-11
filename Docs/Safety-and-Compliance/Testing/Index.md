@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.2"
-date: "2026-08-13"
+version: "0.3"
+date: "2026-09-10"
 description: Formal test reports and validation evidence for OpenVVVF hardware, firmware, and integration.
 nav_order: 340
 ---
@@ -32,6 +32,7 @@ This section contains formal test records and validation evidence. Each document
 | 8 | Induction Motor 180 V Power Stage Bring-up | Induction | draft | power-stage bring-up at elevated bus voltage | [Report](Hardware/Induction-Motor-180V-Bringup/Index.md) |
 | 9 | Induction Motor 180 V 20-Minute Reversal Test | Induction | draft | direction-change sequencing / current control | [Report](Hardware/Induction-Motor-180V-Reversal/Index.md) |
 | 10 | Motor Self-Commissioning Accuracy Report | PMSM + Induction | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Self-Commissioning-Accuracy/Index.md) |
+| 11 | Gen7 Board Temperature Sensor Validation | - | draft | board temperature sensing / ADC measurement chain (OV-TEST-HW-GEN7-TEMP-NTC-VALIDATION) | [Report](Hardware/Gen7-Temp-Sensor-Validation/Index.md) |
 
 These reports validate the calibration routines on the C2 test fixture. The same routines are used on all OpenVVVF chassis; add a new report only when a different motor or harness is introduced.
 

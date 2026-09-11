@@ -5,10 +5,8 @@ This repository is the **single source of truth** for OpenVVVF product documenta
 It is organized by hardware and software domain:
 
 - **Control Assembly**: the reusable inverter control module (user hardware manual and software manual).
-- **Power Stages**: physical chassis/inverter assemblies (C1, C2, C3, …), each with a user manual and an assembly guide.
-- **Safety and Compliance**: HARA, compliance mappings, and standards references.
-- **Software**: firmware and host-software docs by target.
-- **Testing**: formal test reports and validation evidence.
+- **Power Stages**: physical chassis/inverter assemblies, each with a user manual and an assembly guide (currently documented for C2 only).
+- **Safety and Compliance**: HARA, compliance mappings, and standards references; includes Testing — formal test reports and validation evidence.
 
 Hardware designs remain in [`../InverterGen5`](../InverterGen5). Firmware and host software live in the OpenVVVF/RTE repository. This repo pulls together the documentation for all of them.
 
@@ -19,7 +17,8 @@ Hardware designs remain in [`../InverterGen5`](../InverterGen5). Firmware and ho
 ├── Data/          # Shared part database and pricing data
 ├── Tools/         # Documentation and fabrication tooling
 │   ├── BOMManager/    # Generalized BOM / fabrication package manager
-│   └── DocGen/        # Document validation and static site generator
+│   ├── DocGen/        # Document validation and static site generator
+│   └── HWRelease/     # Hardware release exporter (InverterGen5 tags -> Data/Releases)
 ├── Config/        # Repo-level configuration (product registry)
 ├── README.md
 └── pyproject.toml
@@ -46,11 +45,10 @@ python -m docgen site --output-dir site
 
 | Area | Path |
 |------|------|
-| Control assembly | `Docs/Control-Assembly/` |
-| Power stages | `Docs/Power-Stages/` |
+| Control assembly | `Docs/Hardware/Control-Assembly/` |
+| Power stages | `Docs/Hardware/Power-Stages/` |
 | Safety and compliance | `Docs/Safety-and-Compliance/` |
-| Software docs by target | `Docs/Software/` |
-| Testing and validation | `Docs/Testing/` |
+| Testing and validation | `Docs/Safety-and-Compliance/Testing/` |
 | Part database | `Data/Parts/` |
 
 ## Contributing

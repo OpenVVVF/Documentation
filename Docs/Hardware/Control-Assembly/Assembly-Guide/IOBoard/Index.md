@@ -75,13 +75,13 @@ Pay close attention to polarity marks on the PCB silkscreen.
 - For ICs, align the pin-1 dot or notch on the package with the dot/bar marked on the board.
 - For polarized capacitors, align the positive lead with the `+` mark and the long-bar pad on the silkscreen.
 
-![Diode polarity: package bar aligned with the longer silkscreen line](For-Diodes-Allign-Bar-With-Longer-Line.jpg)
+![Diode polarity: package bar aligned with the longer silkscreen line](For-Diodes-Align-Bar-With-Longer-Line.jpg)
 
 ![A soldered diode with polarity correctly aligned](Soldered-Diode-Example.jpg)
 
-![IC polarity: package dot aligned with the board polarity mark](For-ICs-Allign-Dot-With-Bar.jpg)
+![IC polarity: package dot aligned with the board polarity mark](For-ICs-Align-Dot-With-Bar.jpg)
 
-![Polarized capacitor: positive lead aligned with the long-bar pad](For-Polarized-Capacitors-Allign-Positive-To-Long-Bar.jpg)
+![Polarized capacitor: positive lead aligned with the long-bar pad](For-Polarized-Capacitors-Align-Positive-To-Long-Bar.jpg)
 
 ## Step 5 - Check connector orientation against the CAD model
 

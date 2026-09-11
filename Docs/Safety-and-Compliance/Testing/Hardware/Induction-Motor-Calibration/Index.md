@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
-date: "2026-08-13"
+version: "0.2"
+date: "2026-09-10"
 description: Validation of the inverter motor self-commissioning routines on a TECO MAX-IE3 induction motor.
 nav_order: 350
 normative_refs:
@@ -20,4 +20,4 @@ This section validates the inverter's motor self-commissioning routines on a TEC
 
 - [Induction Motor Testbed](Testbed/Index.md) - hardware setup and reference information
 - [Induction Motor Resistance Calibration Validation](Resistance/Index.md) - completed, compared against LCR reference
-- [Inductance Calibration Validation](Inductance/Index.md) - LCR reference captured, inverter cal pending
+- [Inductance Calibration Validation](Inductance/Index.md) - completed at 40/80/120 V bus, compared against LCR reference (~18.3 mH estimated vs 17.86 mH reference)

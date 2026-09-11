@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
-date: "2026-08-08"
+version: "0.2"
+date: "2026-09-10"
 description: Sanity check of the resistance calibration routine using a known power-resistor load.
 test_id: 3
 nav_order: 345
@@ -59,7 +59,7 @@ This report checks that the `cal Motor.Resistance` routine returns a sensible va
 
 ## Analysis
 
-The reading is about 9 % low (20.94 Ω vs 23.31 Ω reference). That is expected for this test point because the current was pushed down by the high resistance load.
+The reading is 10.2 % low against the LCR reference (20.94 Ω vs 23.3070 Ω; vs the resistor's 23 Ω nominal marking the deviation is about 9 %). That is expected for this test point because the current was pushed down by the high resistance load.
 
 At ~0.3 A the IGBTs are operating in the knee region, where
 
@@ -71,7 +71,7 @@ The knee voltage across the two conducting IGBTs is large compared with the ~6-7
 
 The UW phase failed because the resistor was not connected across U-W; the measured current had the wrong sign and the fit produced a negative resistance. This is normal for a single-pair measurement.
 
-This result is not motor-grade accuracy, but it confirms the calibration is in the right decade and is not producing the milliohm-scale nonsense that appears when the routine is run without a real load.
+−10.2 % sits just outside the provisional ±10 % tolerance used by [OV-TEST-HW-SELF-COMMISSIONING](../../Motor-Self-Commissioning-Accuracy/Index.md), so this data point is recorded as a marginal exception: as explained above, the error is dominated by the IGBT knee-region bias at the very low test current, which is the basis for accepting the exception. This result is not motor-grade accuracy, but it confirms the calibration is in the right decade and is not producing the milliohm-scale nonsense that appears when the routine is run without a real load.
 
 ## Notes
 

@@ -127,7 +127,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Method note - manual fault injection:** Open-circuit faults shall be injected by physically disconnecting the relevant wire or connector during operation (no relay rig is used in this campaign). Gradual-drift faults shall be injected by ramping or stepping the simulating DC supply. Actual injection timing shall be captured from the telemetry record and video; exact repeatability of the injection instant is not required.
 
-#### C-01: Tractive Effort Control Potentiometer 1 Open Circuit
+### C-01: Tractive Effort Control Potentiometer 1 Open Circuit
 
 **Objective:** Verify FSR-01 - dual tractive effort control plausibility shall detect an open circuit on the primary channel.
 
@@ -146,7 +146,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** An open circuit on one channel is a credible wiring failure. The dual-channel plausibility check (FSR-01) must detect the discrepancy and enter safe state before any unintended tractive effort can be commanded. Directly addresses H-01.
 
-#### C-02: Tractive Effort Control Channel 2 Shorted to +5 V
+### C-02: Tractive Effort Control Channel 2 Shorted to +5 V
 
 **Objective:** Verify FSR-01 - the plausibility check shall detect short-to-rail on the secondary channel.
 
@@ -164,7 +164,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Short-to-rail is a common wiring fault (chafed harness). Distinct failure mode from C-01; verifies the plausibility check works for high anomalies.
 
-#### C-03: Tractive Effort Control Channel 1 Shorted to Ground
+### C-03: Tractive Effort Control Channel 1 Shorted to Ground
 
 **Objective:** Verify FSR-01 - short-to-ground detection on the primary channel.
 
@@ -177,7 +177,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Ground short is distinct from open and +5 V short (different ADC reading). Verifies robustness across all three common wiring fault modes.
 
-#### C-04: Tractive Effort Control Drift (Gradual Divergence)
+### C-04: Tractive Effort Control Drift (Gradual Divergence)
 
 **Objective:** Verify FSR-01 shall detect gradual channel mismatch (sensor degradation).
 
@@ -190,7 +190,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Gradual drift (wear, aging) must be distinguished from normal variation. Verifies threshold calibration - neither nuisance trips nor missed faults.
 
-#### C-05: Tractive Effort Control Limit Switch Activation at Speed
+### C-05: Tractive Effort Control Limit Switch Activation at Speed
 
 **Objective:** Verify FSR-18 - the limit switch shall independently command zero tractive effort, overriding analog values.
 
@@ -207,7 +207,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** The limit switch is an independent hardware path to zero tractive effort - the last-resort protection against stuck cable or sensor malfunction. Also exercises the physical connector path end-to-end.
 
-#### C-06: Phase Current Sensor Offset Drift
+### C-06: Phase Current Sensor Offset Drift
 
 **Objective:** Verify FSR-02 - tractive effort command plausibility shall detect current sensor offset error.
 
@@ -225,7 +225,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Sensor offset drift causes the MCU to misread actual current. Verifies the end-to-end plausibility chain (FSR-02).
 
-#### C-07: DC Link Current Sensor Open Circuit
+### C-07: DC Link Current Sensor Open Circuit
 
 **Objective:** Verify FSR-02 - loss of DC link current sensor shall be detected.
 
@@ -238,7 +238,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** The DC link sensor provides the sum-current check against phase currents. Verifies graceful handling of its loss.
 
-#### C-08: IGBT Overtemperature (Simulated)
+### C-08: IGBT Overtemperature (Simulated)
 
 **Objective:** Verify FSR-08 - 1oo2 temperature voting and progressive derating.
 
@@ -257,7 +257,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** IGBT thermal runaway is a credible failure mode. Verifies both the temperature response curve and the voting logic. Note: derating is pre-fault thermal management; once the critical threshold is crossed, the response is immediate SSO (Section 2.3).
 
-#### C-09: Traction Motor Encoder Signal Loss
+### C-09: Traction Motor Encoder Signal Loss
 
 **Objective:** Verify FSR-09 - encoder loss detection and safe state entry.
 
@@ -276,7 +276,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Loss of position feedback at speed causes FOC to lose synchronization (H-08). The single encoder has no redundancy; immediate SSO is required.
 
-#### C-10: DC Link Bus Overvoltage (Simulated)
+### C-10: DC Link Bus Overvoltage (Simulated)
 
 **Objective:** Verify FSR-11 - DC link overvoltage detection and regen disable.
 
@@ -295,7 +295,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Overvoltage occurs during hard regen or source-side voltage excursions. Both thresholds (warning → regen disable; critical → SSO) must be verified.
 
-#### C-11: DC Link Bus Undervoltage (Simulated)
+### C-11: DC Link Bus Undervoltage (Simulated)
 
 **Objective:** Verify FSR-21 - DC link undervoltage detection and response.
 
@@ -308,7 +308,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Insufficient DC link voltage saturates the current controller, risking overcurrent when voltage recovers.
 
-#### C-12: HVIL Interruption
+### C-12: HVIL Interruption
 
 **Objective:** Verify FSR-10 - HVIL loop interruption detection and response.
 
@@ -325,7 +325,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** HVIL interruption indicates connector disconnection or interlock trigger. Both VCU-side responses (PWM disable, CAN1 open request) shall be verified; contactor actuation is BMS/OEM-domain.
 
-#### C-13: Watchdog Timeout (STM32 Failure to Service)
+### C-13: Watchdog Timeout (STM32 Failure to Service)
 
 **Objective:** Verify FSR-15 - the independent watchdog shall detect MCU runaway and force reset.
 
@@ -343,7 +343,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** CPU runaway can leave PWM at constant duty (H-14). The halt-via-debug method is a realistic fault injection for this failure mode.
 
-#### C-14: STM32 Breakpoint Input (HW PWM Disable)
+### C-14: STM32 Breakpoint Input (HW PWM Disable)
 
 **Objective:** Verify FSR-14 - the hardware breakpoint input shall disable all PWM within <10 us, independent of software.
 
@@ -362,7 +362,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** The breakpoint input is the fastest safe-state path and must work with a completely non-functional CPU. The <10 us requirement addresses shoot-through and other time-critical faults.
 
-#### C-15: Gate Driver DESAT (Simulated Short Circuit)
+### C-15: Gate Driver DESAT (Simulated Short Circuit)
 
 **Objective:** Verify FSR-13 - NCV57100 DESAT protection shall detect and respond to a simulated short circuit.
 
@@ -381,7 +381,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** DESAT is the primary short-circuit protection. Verifying its response time and behavior is essential to the overall safety argument and forms the basis for the self-test (C-16).
 
-#### C-16: Gate Driver DESAT Self-Test at Power-On
+### C-16: Gate Driver DESAT Self-Test at Power-On
 
 **Objective:** Verify FSR-16 - the DESAT self-test shall confirm protection circuit function before PWM enable.
 
@@ -394,7 +394,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** A failed DESAT circuit is a latent fault that would prevent short-circuit detection. POST must catch it before operation (latent fault coverage).
 
-#### C-17: Gate Driver UVLO (Simulated Low Supply)
+### C-17: Gate Driver UVLO (Simulated Low Supply)
 
 **Objective:** Verify gate driver UVLO shall prevent operation at insufficient gate drive voltage.
 
@@ -407,7 +407,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Insufficient gate drive causes linear-region IGBT operation and thermal destruction. UVLO forces gate OFF when supply is inadequate.
 
-#### C-18: ECC RAM Single-Bit Error Injection
+### C-18: ECC RAM Single-Bit Error Injection
 
 **Objective:** Verify FSR-20 - ECC RAM shall correct single-bit errors and allow continued operation.
 
@@ -420,7 +420,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Radiation and EMI can corrupt RAM. SECDED ECC must handle single-bit errors transparently without false trips.
 
-#### C-19: ECC RAM Double-Bit Error Injection
+### C-19: ECC RAM Double-Bit Error Injection
 
 **Objective:** Verify FSR-20 - double-bit errors shall trigger safe state (uncorrectable).
 
@@ -433,7 +433,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Double-bit errors are uncorrectable; corrupted data could be a safety-critical variable.
 
-#### C-20: Boot CRC Mismatch
+### C-20: Boot CRC Mismatch
 
 **Objective:** Verify FSR-19 - boot CRC shall prevent operation with corrupted firmware.
 
@@ -446,7 +446,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Corrupted firmware could modify tractive effort mapping, safety thresholds, or fault handling (H-15).
 
-#### C-21: STM32 Supply Brownout - Gradual Vdd Drop
+### C-21: STM32 Supply Brownout - Gradual Vdd Drop
 
 **Objective:** Verify brownout detection (BOR) shall trigger safe state before MCU operation becomes unreliable.
 
@@ -465,7 +465,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** A declining supply can put the MCU in an undefined region with random PWM output. BOR must catch this first.
 
-#### C-22: Brownout Recovery - Power Dip Ride-Through
+### C-22: Brownout Recovery - Power Dip Ride-Through
 
 **Objective:** Verify system behavior during brief power dips and recovery.
 
@@ -484,7 +484,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Real-world power disturbances must produce clean ride-through or clean reset - never an undefined operational state.
 
-#### C-23: +12 V Logic Rail Short to Ground
+### C-23: +12 V Logic Rail Short to Ground
 
 **Objective:** Verify system response when the +12 V logic rail is shorted to ground.
 
@@ -503,7 +503,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** A +12 V short (chafed wiring, failed load, moisture) must fail safely via BOR and/or gate driver UVLO.
 
-#### C-24: +5 V Sensor Rail Short to Ground
+### C-24: +5 V Sensor Rail Short to Ground
 
 **Objective:** Verify system response when the +5 V sensor supply is shorted.
 
@@ -522,7 +522,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** A shorted sensor rail makes all sensors read zero/OOR; the system must recognize fault, not "zero throttle."
 
-#### C-25: +3.3 V MCU Supply Short to Ground
+### C-25: +3.3 V MCU Supply Short to Ground
 
 **Objective:** Verify safe state behavior on MCU supply collapse.
 
@@ -541,7 +541,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** The 3.3 V short is the worst-case supply fault; multiple independent safe-state paths must exist.
 
-#### C-26: Gate Driver +15 V Supply Short
+### C-26: Gate Driver +15 V Supply Short
 
 **Objective:** Verify NCV57100 UVLO response when a +15 V gate drive supply is shorted.
 
@@ -560,7 +560,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Each gate driver has its own isolated +15 V supply; a short must produce FLT + safe state, not phase imbalance.
 
-#### C-27: Gate Driver −9 V Supply Short
+### C-27: Gate Driver −9 V Supply Short
 
 **Objective:** Verify NCV57100 response when the negative gate drive supply is lost/shorted.
 
@@ -573,7 +573,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Loss of the negative rail removes the Miller current return path and risks dv/dt-induced false turn-on.
 
-#### C-28: Phase U Open Circuit (Motor Disconnect)
+### C-28: Phase U Open Circuit (Motor Disconnect)
 
 **Objective:** Verify the system shall detect and respond to an open-circuited motor phase.
 
@@ -593,7 +593,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** FOC cannot maintain control with one phase open; single-phase operation causes severe torque ripple and potential motor damage.
 
-#### C-29: Phase V Open Circuit
+### C-29: Phase V Open Circuit
 
 **Objective:** As C-28 for Phase V.
 
@@ -606,7 +606,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** All three phases shall be independently validated; detection behavior may differ per phase due to FOC coordinate transform dependencies.
 
-#### C-30: Phase W Open Circuit
+### C-30: Phase W Open Circuit
 
 **Objective:** As C-28 for Phase W.
 
@@ -619,7 +619,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** As C-29.
 
-#### C-31: Phase-to-Phase Short (U-V) - Energize-Into-Fault
+### C-31: Phase-to-Phase Short (U-V) - Energize-Into-Fault
 
 **Objective:** Verify DESAT and overcurrent protection respond to a phase-to-phase short circuit.
 
@@ -643,7 +643,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Phase-to-phase short is the most severe inverter fault (H-12). Validates the full chain: DESAT → soft turn-off → FLT → safe state. **WARNING:** even at reduced voltage, fault energy is destructive if protection fails. Remote operation and blast shielding are mandatory.
 
-#### C-32: Phase-to-Phase Short (V-W) - Energize-Into-Fault
+### C-32: Phase-to-Phase Short (V-W) - Energize-Into-Fault
 
 **Objective:** As C-31 for the V-W phase combination.
 
@@ -654,7 +654,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Acceptance Criteria:** As C-31.
 
-#### C-33: Phase-to-Phase Short (U-W) - Energize-Into-Fault
+### C-33: Phase-to-Phase Short (U-W) - Energize-Into-Fault
 
 **Objective:** As C-31 for the U-W phase combination.
 
@@ -667,7 +667,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale (C-31 to C-33):** All three phase-pair combinations shall be independently validated, one pair at a time - never two shorts installed simultaneously.
 
-#### C-34: Phase-to-DC-Rail Short - Energize-Into-Fault
+### C-34: Phase-to-DC-Rail Short - Energize-Into-Fault
 
 **Objective:** Verify protection response when a motor phase is shorted to a DC link rail (DC+ and DC−).
 
@@ -686,7 +686,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Simulates motor winding insulation failure at DC rail potential - a common failure mode (insulation degradation, moisture, mechanical damage). The current path depends on which switch conducts; DESAT or overcurrent monitoring must catch either, for every phase and rail.
 
-#### C-35: DC Link Capacitor Temperature Monitoring
+### C-35: DC Link Capacitor Temperature Monitoring
 
 **Objective:** Verify DC link capacitor temperature sensing and thermal protection.
 
@@ -706,7 +706,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Capacitor lifetime halves every ~10 °C; overtemperature risks venting or capacitance loss.
 
-#### C-36: Bearing Current / Class Y Capacitor Effectiveness
+### C-36: Bearing Current / Class Y Capacitor Effectiveness
 
 **Objective:** Validate that Class Y safety capacitors effectively shunt common-mode bearing currents to ground.
 
@@ -725,7 +725,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** PWM common-mode voltage drives bearing EDM currents; Class Y caps protect the motor bearings. Long-term reliability with a safety consequence (bearing failure at speed).
 
-#### C-39: Flash Bit Rot / Corruption Detection
+### C-39: Flash Bit Rot / Corruption Detection
 
 **Objective:** Verify boot CRC (FSR-19) detects flash corruption from bit rot, EMI, or wear.
 
@@ -744,7 +744,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Flash is subject to bit rot, EMI during write, and wear. FSR-19 prevents operating with untrusted code.
 
-#### C-41: ADC Reference Voltage Drift
+### C-41: ADC Reference Voltage Drift
 
 **Objective:** Verify ADC reference stability and detection of reference drift.
 
@@ -763,7 +763,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Reference drift scales ALL analog readings correlatedly - dangerous because throttle and current sensors misread together. FSR-02 is the primary defense.
 
-#### C-42: SPI Communication Fault (MAX22530 Isolated ADC)
+### C-42: SPI Communication Fault (MAX22530 Isolated ADC)
 
 **Objective:** Verify the system handles SPI communication failures with the isolated voltage measurement ADC.
 
@@ -781,7 +781,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Operating without DC link voltage visibility risks undetected overvoltage.
 
-#### C-43: CAN Bus Off State and Recovery
+### C-43: CAN Bus Off State and Recovery
 
 **Objective:** Verify the system handles CAN bus-off correctly (TEC > 255).
 
@@ -800,7 +800,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Bus-off must be treated as communication loss with safe defaults.
 
-#### C-45: IGBT Thermal Runaway Profile
+### C-45: IGBT Thermal Runaway Profile
 
 **Objective:** Verify thermal protection catches IGBT thermal runaway before T<sub>j,max</sub>.
 
@@ -819,7 +819,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Validates the full thermal protection chain under realistic overload. Derating is pre-fault management; critical threshold crossing produces immediate SSO (Section 2.3).
 
-#### C-49: PWM Deadtime Verification
+### C-49: PWM Deadtime Verification
 
 **Objective:** Verify deadtime is always present between complementary switching edges.
 
@@ -838,7 +838,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Rationale:** Verifies deadtime on the actual gate signals, not just in timer registers. Should be run on every unit.
 
-#### C-50: Isolation Barrier Verification - Applied-Voltage Leakage Method
+### C-50: Isolation Barrier Verification - Applied-Voltage Leakage Method
 
 **Objective:** Verify reinforced isolation between the HV DC link and chassis/logic ground.
 
@@ -866,7 +866,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 System-level tests exercise complete end-to-end fault scenarios with all hardware and software running closed-loop FOC control on the dyno.
 
-#### S-01: Unintended Tractive Effort from Throttle Fault
+### S-01: Unintended Tractive Effort from Throttle Fault
 
 **Objective:** Verify SG-01, FSR-01, FSR-03, FSR-18 - the system shall reject unintended tractive effort when the throttle input is implausible.
 
@@ -886,7 +886,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Highest-severity hazard (H-01). Validates the complete chain from sensor fault through detection to safe state entry.
 
-#### S-02: Unintended Reverse Tractive Effort
+### S-02: Unintended Reverse Tractive Effort
 
 **Objective:** Verify SG-02, FSR-04 - reverse tractive effort shall be rejected when speed > 0.
 
@@ -906,7 +906,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** The two-condition interlock (stationary + selected) prevents inadvertent reverse from software glitch or sensor fault.
 
-#### S-03: Sudden Loss of Tractive Effort - Immediate SSO Timing
+### S-03: Sudden Loss of Tractive Effort - Immediate SSO Timing
 
 **Objective:** Verify SG-03, FSR-05 - on fault, the system shall transition to the torque-free state immediately, within the detection-to-SSO latency budget.
 
@@ -927,7 +927,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** H-03 is sudden loss of tractive effort at speed. Under the v5.0 safe-state philosophy (Section 2.3) the mitigation is latency minimization, not torque shaping: the sooner the system is verifiably torque-free, the sooner the operator's own controls (brakes, steering) are the only acting forces. This test measures the latency budget end-to-end and confirms the absence of unintended torque during the transition.
 
-#### S-04: Loss of Tractive Effort Under High-Load Conditions
+### S-04: Loss of Tractive Effort Under High-Load Conditions
 
 **Objective:** Characterize the torque transition and verify immediate-SSO behavior at high sustained load, providing the drive-boundary data for the profile-level residual-risk assessment.
 
@@ -948,7 +948,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** H-03a (defined in the applicable profile document) concerns loss of tractive effort in an application-specific operating situation. The dyno cannot replicate application-level dynamics (LIMIT-01); what it can and shall verify is that the drive's contribution to that event - the torque transition itself - is clean, immediate, and operating-point-independent. The operator-level consequence is an accepted residual risk documented in the applicable profile and shall be characterized (not "verified safe") by in-application testing before operational use.
 
-#### S-05: Uncommanded Regenerative Braking
+### S-05: Uncommanded Regenerative Braking
 
 **Objective:** Verify SG-05, FSR-06 - uncommanded regenerative braking shall be detected and rejected.
 
@@ -967,7 +967,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** H-05 is unexpected deceleration on a slippery surface. FSR-06 provides the independent monitor.
 
-#### S-06: Full Load Continuous Operation with Thermal Camera Survey
+### S-06: Full Load Continuous Operation with Thermal Camera Survey
 
 **Objective:** Identify all thermal hotspots under sustained full-load operation using infrared thermography.
 
@@ -988,7 +988,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Point sensors cannot reveal poor solder joints, current crowding, or bad heatsink contact. Run on the first production-representative unit and after any hardware revision.
 
-#### S-07: Thermal Cycling - IGBT and DC Link Capacitor (Bench Method)
+### S-07: Thermal Cycling - IGBT and DC Link Capacitor (Bench Method)
 
 **Objective:** Validate thermal protection and mechanical integrity under temperature changes achievable without a chamber.
 
@@ -1007,7 +1007,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Thermal cycling stresses solder joints and substrates via CTE mismatch. This is a screening test; extended cycling (500+ cycles) and controlled −20 °C soak are part of the deferred E-series (E-04–E-06).
 
-#### S-08: Regenerative Braking at Maximum Power
+### S-08: Regenerative Braking at Maximum Power
 
 **Objective:** Verify the regen system handles maximum regen power without overvoltage or instability.
 
@@ -1030,7 +1030,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Max regen is the worst case for H-10 and stresses the H-05 monitor. Field-weakening regen is particularly challenging (back-EMF > bus voltage).
 
-#### S-09: Field Weakening Region Operation
+### S-09: Field Weakening Region Operation
 
 **Objective:** Verify stable operation above base speed.
 
@@ -1049,7 +1049,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Incorrect Id control in field weakening risks overcurrent (H-06) or loss of current control.
 
-#### S-10: Startup Sequence Validation
+### S-10: Startup Sequence Validation
 
 **Objective:** Verify correct sequence from key-on to ready-to-drive.
 
@@ -1070,7 +1070,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Startup transitions from unpowered to HV-active; any fault must prevent READY.
 
-#### S-11: Shutdown Sequence Validation
+### S-11: Shutdown Sequence Validation
 
 **Objective:** Verify safe shutdown from any operating state.
 
@@ -1090,7 +1090,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Incorrect shutdown (DC link not discharged per procedure = shock hazard; PWM active after key-off = unexpected torque) creates immediate danger. HV contactor sequencing is BMS-domain and out of scope. Note: normal operator-intended deceleration is a *control* function (throttle release, FSR-03 rate limit) and is distinct from fault/shutdown response, which is immediate SSO.
 
-#### S-12: Key-Cycle Stress Test
+### S-12: Key-Cycle Stress Test
 
 **Objective:** Verify reliability of startup/shutdown cycling over many repetitions.
 
@@ -1107,7 +1107,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Life-test screening for DC link capacitor, gate-driver supply, connector, and flash wear (infant mortality). HV contactor wear is source-side / OEM-domain and out of scope.
 
-#### S-13: Power Dip Ride-Through
+### S-13: Power Dip Ride-Through
 
 **Objective:** Verify the system survives brief DC link interruptions without unsafe behavior.
 
@@ -1128,7 +1128,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Power interruptions come from loose terminals, contactor bounce, load dump. Validates capacitor sizing and the UV response boundary.
 
-#### S-14: Reverse Tractive Effort at Standstill
+### S-14: Reverse Tractive Effort at Standstill
 
 **Objective:** Verify reverse functions correctly when explicitly requested at standstill.
 
@@ -1147,7 +1147,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Positive test for reverse (complement to S-02).
 
-#### S-15: Overspeed Protection
+### S-15: Overspeed Protection
 
 **Objective:** Verify the system limits maximum motor speed.
 
@@ -1165,7 +1165,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Rotor overspeed risks mechanical burst. The limit must hold even under external forcing (downhill, tow).
 
-#### S-16: Modulation Scheme Transition During Acceleration - Torque Blip
+### S-16: Modulation Scheme Transition During Acceleration - Torque Blip
 
 **Objective:** Verify modulation scheme transitions do not produce perceptible torque disturbances during acceleration. Transition gating logic shall inhibit switches during high di/dt.
 
@@ -1189,7 +1189,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Abrupt torque change of any origin degrades to H-03/H-03a. Bumpless crossfade and di/dt gating prevent transition disturbances from becoming hazards. (This test concerns *control* torque smoothness, not fault response; it is unaffected by the FSR-05 immediate-SSO philosophy.)
 
-#### S-17: Modulation Scheme Transition During Regenerative Braking - Torque Blip
+### S-17: Modulation Scheme Transition During Regenerative Braking - Torque Blip
 
 **Objective:** Verify modulation transitions during regen do not produce torque disturbances; FSR-06 shall not false-trip on legitimate transitions.
 
@@ -1213,7 +1213,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** A badly managed transition during regen feels like uncommanded braking (H-05). FSR-06 must distinguish control transitions from faults.
 
-#### S-18: Hysteresis at Modulation Scheme Boundary - No Jitter
+### S-18: Hysteresis at Modulation Scheme Boundary - No Jitter
 
 **Objective:** Verify hysteresis prevents rapid back-and-forth switching near a scheme boundary.
 
@@ -1234,7 +1234,7 @@ System-level tests exercise complete end-to-end fault scenarios with all hardwar
 
 **Rationale:** Boundary chatter is a chronic H-03 degradation - micro-disturbances eroding control and confidence.
 
-#### S-19: Full Modulation Map Traversal - End-to-End
+### S-19: Full Modulation Map Traversal - End-to-End
 
 **Objective:** Verify the complete automatic modulation map across all regions with no dead zones, wrong selections, or fault trips.
 
@@ -1260,7 +1260,7 @@ Tests referencing a CAN1 source management node (I-01, I-15, and related) apply 
 
 Integration tests validate the interaction between the control module and external systems via CAN and discrete I/O, using CAN simulation.
 
-#### I-01: CAN1 Source Management Node Heartbeat Loss
+### I-01: CAN1 Source Management Node Heartbeat Loss
 
 **Objective:** Verify FSR-17 - loss of the CAN1 source management node (when present) shall trigger safe degradation.
 
@@ -1278,7 +1278,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Operating without source management data risks using a faulted DC source. Validates response to loss of this external node when present.
 
-#### I-02: CAN2 (IO Board) Heartbeat Loss
+### I-02: CAN2 (IO Board) Heartbeat Loss
 
 **Objective:** Verify FSR-17 - IO board CAN loss shall trigger safe-state defaults.
 
@@ -1296,7 +1296,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** The IO board provides real-time safety interlocks; its loss must assume worst-case state.
 
-#### I-03: Simultaneous Throttle + Brake Request
+### I-03: Simultaneous Throttle + Brake Request
 
 **Objective:** Verify SG-01, FSR-01, FSR-18 - brake request shall always override throttle.
 
@@ -1314,7 +1314,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Brake input is the operator's last-resort override. Re-application rate limiting is a control function (unaffected by the immediate-SSO fault philosophy).
 
-#### I-04: HVIL Interruption During Operation
+### I-04: HVIL Interruption During Operation
 
 **Objective:** Verify SG-09, FSR-10 - HVIL interruption shall trigger the VCU-side HV disconnect response.
 
@@ -1333,7 +1333,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** HVIL is the primary HV interlock. The VCU-side obligations are PWM disable and the contactor open request; contactor actuation itself is BMS/OEM-domain. The latch prevents automatic re-energization into a persisting fault.
 
-#### I-05: DC Link Overvoltage (Regen Event)
+### I-05: DC Link Overvoltage (Regen Event)
 
 **Objective:** Verify SG-10, FSR-11 - DC link overvoltage shall be detected and limited.
 
@@ -1350,7 +1350,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Validates both OV thresholds and response times (complements C-10 at the integration level).
 
-#### I-06: Kickstand Down at Speed
+### I-06: Kickstand Down at Speed
 
 **Objective:** Verify safe response to kickstand-down while moving.
 
@@ -1368,7 +1368,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Riding with the kickstand down is dangerous; the interlock must override any throttle position.
 
-#### I-07: Simultaneous Multiple CAN Node Loss
+### I-07: Simultaneous Multiple CAN Node Loss
 
 **Objective:** Verify graceful degradation when multiple external systems fail simultaneously.
 
@@ -1386,7 +1386,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Crash/EMI can kill multiple nodes at once; the most restrictive timeout must dominate.
 
-#### I-08: CAN Bus Fuzzing - Random Frame Injection
+### I-08: CAN Bus Fuzzing - Random Frame Injection
 
 **Objective:** Verify the system ignores or gracefully handles random/corrupted CAN frames.
 
@@ -1405,7 +1405,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Validates input validation and parser robustness against noise, failed nodes, or injection (H-15).
 
-#### I-09: CAN Bus Load Test (95% Utilization)
+### I-09: CAN Bus Load Test (95% Utilization)
 
 **Objective:** Verify correct operation at maximum bus load.
 
@@ -1424,7 +1424,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Bus load spikes during fault storms; critical reception must survive congestion.
 
-#### I-10: CAN Bus Off Recovery
+### I-10: CAN Bus Off Recovery
 
 **Objective:** Verify correct recovery from bus-off.
 
@@ -1443,7 +1443,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Complements C-43 at the integration level.
 
-#### I-11: Invalid/Corrupted CAN Frame Injection
+### I-11: Invalid/Corrupted CAN Frame Injection
 
 **Objective:** Verify handling of valid-ID, semantically invalid data.
 
@@ -1462,7 +1462,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Semantically invalid data passes CRC/ID filters - range, plausibility, and consistency checks are required.
 
-#### I-12: Display Node Failure
+### I-12: Display Node Failure
 
 **Objective:** Verify safe operation when the display node fails.
 
@@ -1480,7 +1480,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Heartbeat handling must distinguish safety-critical nodes (source management, IO) from informational nodes (display).
 
-#### I-13: Charger Node Interaction
+### I-13: Charger Node Interaction
 
 **Objective:** Verify drive-away prevention while charging.
 
@@ -1500,7 +1500,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Driving away connected is a severe hazard; the interlock must be unconditional.
 
-#### I-14: ABS Node Coordination
+### I-14: ABS Node Coordination
 
 **Objective:** Verify correct interaction with ABS during anti-lock events.
 
@@ -1519,7 +1519,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Regen torque can fight ABS slip control; the VCU must yield during ABS events.
 
-#### I-15: Source Management Node Fault Propagation
+### I-15: Source Management Node Fault Propagation
 
 **Objective:** Verify correct VCU response to source management node (e.g., BMS) fault messages, when such a node is present.
 
@@ -1538,7 +1538,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** The source management node is authoritative for DC source safety; a critical fault must never be treated as a warning.
 
-#### I-16: Multi-Node Simultaneous Fault
+### I-16: Multi-Node Simultaneous Fault
 
 **Objective:** Verify deterministic handling of simultaneous multi-node faults.
 
@@ -1557,7 +1557,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Fault handling must be deterministic under compound faults.
 
-#### I-17: CAN Bus Wiring Fault (Short and Open)
+### I-17: CAN Bus Wiring Fault (Short and Open)
 
 **Objective:** Verify response to physical CAN wiring faults.
 
@@ -1577,7 +1577,7 @@ Integration tests validate the interaction between the control module and extern
 
 **Rationale:** Chafing, corrosion, and crash damage are common; communication loss must produce safe state.
 
-#### I-18: Wake/Sleep Cycle Test
+### I-18: Wake/Sleep Cycle Test
 
 **Objective:** Verify correct wake-from-sleep and sleep-entry behavior.
 

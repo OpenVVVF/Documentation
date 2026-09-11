@@ -5,8 +5,8 @@ title: DC Link Thermal Analysis
 product_line: openvvvf
 applies_to:
   - chassis-size-2
-version: "1.3"
-date: "2026-08-23"
+version: "1.4"
+date: "2026-09-10"
 description: DC-link capacitor bank standoff heat-path and thermal resistance analysis for Chassis Size 2.
 nav_order: 242
 normative_refs:
@@ -82,7 +82,7 @@ Total system resistance is the sum of three series components:
 
 ### Geometry constants
 
-- Heat-spreader plate: 6.35 mm (1/4 in) thick aluminium *(HW-C2-PLT-CHSP-B; thickened from 3.18 mm in rev A for better heat dissipation and capacitor height clearance — this halves the spreading resistance compared with v1.2 and earlier, which used 3.18 mm)*
+- Heat-spreader plate: 6.35 mm (1/4 in) thick aluminium *(HW-C2-CHSP-B; thickened from 3.18 mm in rev A for better heat dissipation and capacitor height clearance — this halves the spreading resistance compared with v1.2 and earlier, which used 3.18 mm)*
 - Standoff length: 63 mm (measured from the CAD model, v1.3 - supersedes the earlier 55 mm figure)
 - Number of standoffs: 6, arranged as three go-return pairs in parallel, one pair per phase module (these rods are also the electrical connection between the film bus bar board and the capacitor bank board - see `OV-C2-DD-DCLINK-RIPPLE`)
 - Standoff spacing: assumed ~100 mm centre-to-centre (spreading cell radius $r_{cell} \approx 50$ mm)
@@ -221,7 +221,7 @@ $$\Delta T_{standoff} = \frac{40 \times 0.063}{16 \times 101.6 \times 10^{-6} \t
 | 6 (selected) | 0.517 | 20.7 | 35.0 |
 | 8 | 0.388 | 15.5 | 29.8 |
 
-Six standoffs provides adequate margin; eight would be better but is not required at 40 W.
+Six standoffs provide adequate margin; eight would be better but is not required at 40 W.
 
 ### Effect of length
 
@@ -261,7 +261,8 @@ Six standoffs provides adequate margin; eight would be better but is not require
 | 1.0 | 2026-07-13 | Initial release. |
 | 1.1 | 2026-08-20 | Engineering revision. Added normative reference to `OV-C2-DD-THERMAL`. Flagged the 40 W ripple heat load as an open item: derivation not recorded and the 60-can bank ripple rating at 600 A RMS not yet checked (bank may be ripple-limited; heat load may be higher). New subsection "Plate temperature at the inverter operating points" integrates the v1.1 heatsink surface temperatures from `OV-C2-DD-THERMAL` (plate = $T_s$ + 40.1 K): the plate exceeds the FSR-08 90 °C derate threshold at every full-load point and the 105 °C SSO / capacitor rating at several, making the DC-link plate the binding constraint on the 600 A continuous claim. Assumptions updated accordingly. |
 | 1.2 | 2026-08-20 | Ratings alignment. Conclusion restated against the adopted rating (220 A RMS continuous / 600 A RMS peak for 60 s, `OV-C2-DD-THERMAL` §6.4): at the continuous point the plate sits at 90.0 °C (320 V) / 87.5 °C (140 V), i.e. at or below the FSR-08 derate onset; the 60 s peak produces a bounded excursion to ~92 - 97 °C end-of-peak via the minutes-class plate/heatsink time constant, staying ≥8 K below the 105 °C SSO. The 600 A rows of the plate table are relabeled as 60 s peak duty; 8 kHz marked beyond the clamped envelope. The plate remains the constraint that sets the 220 A continuous figure. |
-| 1.3 | 2026-08-23 | Heat-load scaling subsection added (plate rise vs conducted fraction of the I²-scaled bank loss; 100 %-conduction bounds of ~120 / ~160 °C at the continuous/peak points are physically excluded by can self-convection, making the conducted fraction the key T-05 measurement). Rev-B heat-spreader plate (HW-C2-PLT-CHSP-B, 6.35 mm, thickened from 3.18 mm for better heat dissipation and capacitor height clearance) plus the `OV-C2-DD-THERMAL` v1.3 convention correction (600 A = peak = 424 A RMS) and re-rating. Spreading resistance halves (0.385 → 0.193 K/W); rod length corrected to 63 mm from the CAD model (was 55 mm assumed), raising standoff conduction to 0.517 K/W; net paste-path rise 40.1 → 35.0 K. Operating-point table rebuilt on the v1.3 heatsink surface temperatures (424 A RMS design point). Continuous rating raised to **465 A (330 A RMS)**, set by the electrolytic ripple limit: at the continuous point the plate bound is ≈ 90 °C (320 V, 0.006 K/W heatsink), at the FSR-08 derate onset on this conservative bound, so the plate remains marginal but does not set the rating and plate numbers are informational upper bounds on the capacitor environment per `OV-C2-DD-THERMAL` v1.3 framing. Peak restated as **600 A (424 A RMS) for 60 s**; end-of-peak plate ≈ 90 - 91 °C. Sensitivity tables and the stainless-substitution total recomputed. |
+| 1.3 | 2026-08-23 | Heat-load scaling subsection added (plate rise vs conducted fraction of the I²-scaled bank loss; 100 %-conduction bounds of ~120 / ~160 °C at the continuous/peak points are physically excluded by can self-convection, making the conducted fraction the key T-05 measurement). Rev-B heat-spreader plate (HW-C2-CHSP-B, 6.35 mm, thickened from 3.18 mm for better heat dissipation and capacitor height clearance) plus the `OV-C2-DD-THERMAL` v1.3 convention correction (600 A = peak = 424 A RMS) and re-rating. Spreading resistance halves (0.385 → 0.193 K/W); rod length corrected to 63 mm from the CAD model (was 55 mm assumed), raising standoff conduction to 0.517 K/W; net paste-path rise 40.1 → 35.0 K. Operating-point table rebuilt on the v1.3 heatsink surface temperatures (424 A RMS design point). Continuous rating raised to **465 A (330 A RMS)**, set by the electrolytic ripple limit: at the continuous point the plate bound is ≈ 90 °C (320 V, 0.006 K/W heatsink), at the FSR-08 derate onset on this conservative bound, so the plate remains marginal but does not set the rating and plate numbers are informational upper bounds on the capacitor environment per `OV-C2-DD-THERMAL` v1.3 framing. Peak restated as **600 A (424 A RMS) for 60 s**; end-of-peak plate ≈ 90 - 91 °C. Sensitivity tables and the stainless-substitution total recomputed. |
+| 1.4 | 2026-09-10 | Corrections: heat-spreader plate part number corrected to `HW-C2-CHSP-B` (was `HW-C2-PLT-CHSP-B`, which does not exist in the release manifest); grammar fix in the standoff-quantity note. |
 
 ---
 

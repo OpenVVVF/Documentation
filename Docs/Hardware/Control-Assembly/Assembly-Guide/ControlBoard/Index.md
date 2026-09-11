@@ -97,7 +97,7 @@ As each part or group of parts is placed and soldered, mark it off in the intera
 
 After all soldering is complete, clean flux residue from the board with isopropyl alcohol and lint-free wipes. Inspect each joint under magnification for bridges, cold joints, and insufficient solder. Verify that all polarized parts are correctly oriented and that all connectors are fully seated and correctly oriented.
 
-Pay extra attention to the fine-pitch MCU pins and the isolation areas around the high-voltage interface regions: look for solder bridges, stray balls of solder, and flux residue that could cause leakage or shorts.
+Pay extra attention to the fine-pitch MCU pins: look for solder bridges, stray balls of solder, and flux residue that could cause leakage or shorts. The marked isolation areas around the high-voltage interface regions are on the gate driver board, not the control board; keeping them clean is covered in the gate driver assembly chapter (`OV-CA-AG-02-GD`, "Respect the isolation barrier").
 
 ## Final assembly
 

@@ -100,7 +100,7 @@ The completed board should have:
 
 - All ceramic capacitors soldered on both top and bottom sides.
 - Film capacitors installed with no excess solder on the bottom bus-bar contact patches.
-- Class-Y capacitors formed, soldered, trimmed flush, and reflowed after trimming.
+- Class-Y capacitors formed, soldered, leads trimmed per Step 4, and reflowed after trimming.
 - The connector fully seated and soldered.
 - All flux residue cleaned from the board, especially the bottom bus-bar contact pads.
 

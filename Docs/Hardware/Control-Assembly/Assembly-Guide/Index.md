@@ -34,5 +34,4 @@ The physical build proceeds in roughly this order, and chapters follow it:
 3. Gate driver board population
 4. Control board population
 5. Control module test fit
-6. Power board population
-7. Control module assembly and test
+6. Control module assembly and test (planned, chapter forthcoming)
