@@ -31,7 +31,7 @@ Read the preparation chapter first: it covers the workspace, equipment, and part
 8. [DC-Link Capacitor Module Assembly](8_DC-Link-Capacitor-Module/Index.md) - assembling the DC-link capacitor module from the populated capacitor board, bus bars, and film capacitors.
 9. [DC-Link Capacitor Module Mounting](9_DC-Link-Capacitor-Module-Mounting/Index.md) - mounting the DC-link capacitor module onto the bottom stack and making the bus-bar connections.
 10. [Control Assembly Mounting](10_Control-Assembly-Mounting/Index.md) - mounting the assembled control module into the chassis.
-11. [Gate Drive Wiring Harness](11_Gate-Drive-Wiring-Harness/Index.md) - building the harness connecting the control assembly to the gate driver board.
+11. [Gate Drive and Voltage Sense Wiring Harness](11_Gate-Drive-Wiring-Harness/Index.md) - building the harness connecting the control assembly to the gate driver board, carrying gate-drive and voltage-sense signals.
 12. [Current Sense Wiring Harness](12_Current-Sense-Wiring-Harness/Index.md) - building the harness connecting the phase current sensors to the control assembly.
 13. [Final Control Assembly](13_Final-Control-Assembly/Index.md) - completing the control-side wiring and closing out the control assembly.
 14. [Review Checks](14_Review-Checks/Index.md) - pre-power review: torque witness marks, polarity, insulation, and workmanship inspection.
@@ -54,7 +54,7 @@ The physical build proceeds in roughly this order, and chapters follow it:
 8. DC-link capacitor module assembly
 9. DC-link capacitor module mounting
 10. Control assembly mounting
-11. Gate-drive wiring harness
+11. Gate-drive and voltage-sense wiring harness
 12. Current-sense wiring harness
 13. Final control assembly
 14. Review checks
