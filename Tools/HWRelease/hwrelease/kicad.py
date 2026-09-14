@@ -111,6 +111,14 @@ def export_ibom(pcb: Path, out_html: Path, generator: Path) -> bool:
         "flatpak", "run",
         f"--env=PYTHONPATH={site}",
         "--env=INTERACTIVE_HTML_BOM_NO_DISPLAY=1",
+        # InteractiveHtmlBom's version.py runs `git describe` in its own
+        # directory. The venv lives inside the tagged hardware repo, so that
+        # returns a release tag (e.g. "C2-DCDC-A-10-g342f-*") instead of the
+        # plugin version, and the iBOM page then crashes on
+        # /^v\d+\.\d+/.exec(ibom_version) and renders a blank body. Stop git
+        # from ascending out of the venv so the plugin falls back to its
+        # built-in version string.
+        f"--env=GIT_CEILING_DIRECTORIES={site.parents[2]}",
         "--command=python3", "org.kicad.KiCad",
         str(generator),
         "--no-browser",

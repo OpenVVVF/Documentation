@@ -20,7 +20,8 @@ This is the OpenVVVF documentation and hardware-data hub. It does **not** contai
 2. **docgen** (`Tools/DocGen`) validates frontmatter, resolves `doc_id` references, and assembles product manuals.
 3. **HWRelease** (`Tools/HWRelease`) exports per-board release artifacts (schematic PDF, BOM, gerbers, DRC, STEP, iBOM HTML) from `../InverterGen5` release tags into `Data/Releases/`, indexed by part number in `Data/Releases/manifest.json`. Tag `<chassis-short>-<rev>` (e.g. `C2-B`) scopes and pins a chassis release; tag `<family>-<rev>` for a `release_families` entry in `Config/Products.yaml` (e.g. `C2-DCDC-A`) publishes that family's chassis tree under the family short code (`CHASSIS-C2-DCDC-A`, `Data/Releases/C2-DCDC/A/`).
 4. **KiCad DNP grouping quirk**: KiCad's BOM `--group-by` marks an entire grouped row as DNP if **any** symbol in the group is DNP, so kicad-cli BOM exports must group by `Value,DNP` (not `Value` alone) or BOMManager's parser drops populated rows too. After touching the BOM export, regenerate `Data/Releases/` with `hwrelease update --force`.
-5. Run `pytest` before committing changes to tools.
+5. **iBOM version quirk**: InteractiveHtmlBom's `version.py` runs `git describe` in its own site-packages directory; with the plugin's venv inside the tagged hardware repo, that leaks a hardware release tag (e.g. `C2-DCDC-A-10-g342f-*`) into `pcbdata.ibom_version`, and the iBOM page crashes on its `/^v\d+\.\d+/` regex (blank page, empty component list). HWRelease therefore runs the generator with `GIT_CEILING_DIRECTORIES` set to the venv root (see `export_ibom` in `Tools/HWRelease/hwrelease/kicad.py`).
+6. Run `pytest` before committing changes to tools.
 
 ## Data conventions
 
