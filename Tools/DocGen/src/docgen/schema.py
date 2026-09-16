@@ -53,6 +53,7 @@ ALLOWED_DOCTYPES = {
     "Software Note",
     "Software Plan",
     "Tool Manual",
+    "White Paper",
 }
 
 # Map a doc_id prefix to a canonical top-level directory. Used for warnings only.
@@ -69,6 +70,7 @@ PREFIX_TO_DIR = {
     "OV-SW-": "Software",
     "OV-TEST-": "Safety-and-Compliance/Testing",
     "OV-TOOLS-": "Tools",
+    "OV-WP-": "White-Papers",
 }
 
 

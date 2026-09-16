@@ -15,6 +15,7 @@ The `Docs/` tree has three top-level sections:
    - `Compliance/` - Standards mappings.
    - `Testing/` - Formal test and validation evidence.
 3. **Tools** - Software tools and widgets.
+4. **White-Papers** - Executive-level white papers for sponsors and partners. Custom-designed pages; the HTML design sources, assets, and built PDFs are all committed (see the `.gitignore` exceptions).
 
 Firmware and host-software documentation (formerly `Docs/Software/`) was removed as not yet ready; it will be re-added when the software docs are rewritten.
 
@@ -54,6 +55,7 @@ Use hierarchical, kebab-case IDs:
 - `OV-COMP-*` - Compliance mappings
 - `OV-TEST-*` - Testing
 - `OV-TOOLS-*` - Tools
+- `OV-WP-*` - White Papers
 
 `INDEX` is reserved for the index document of a section or sub-section (e.g. `OV-C2-INDEX`, `OV-C2-DD-INDEX`).
 
@@ -96,6 +98,7 @@ Document maturity is conveyed by `version` plus the `placeholder` flag. There is
 - `Software Note`
 - `Software Plan`
 - `Tool Manual`
+- `White Paper` - executive-level platform overview for sponsors, partners, and reviewers
 
 Avoid free-form `doctype` values. If none of the canonical types fit, propose a new one in `Docs/Agents.md` rather than inventing an ad-hoc value.
 
@@ -114,6 +117,7 @@ Use these ranges for top-level section indices so the sidebar orders consistentl
 | 300–399 | Safety and Compliance (incl. Testing at 340–379) |
 | 400–499 | (reserved; formerly Software) |
 | 600–699 | Tools |
+| 700–799 | White Papers |
 
 Within a section or chassis, choose a consistent scheme that makes the document order obvious. For example, in `Power-Stages/C2/Assembly-Guide/` chapters use sequential values within a local block (guide index 222, chapters 223, 224, ...). The exact numbers matter less than being unique and locally consistent.
 

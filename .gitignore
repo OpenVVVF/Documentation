@@ -52,3 +52,7 @@ site/
 
 # HWRelease temp extraction dirs (deleted after use)
 .hwrelease-tmp-*
+
+# White paper designed sources and PDFs are committed deliverables
+!Docs/White-Papers/**/*.html
+!Docs/White-Papers/**/*.pdf

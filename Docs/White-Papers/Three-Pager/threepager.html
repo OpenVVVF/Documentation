@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OpenVVVF Platform White Paper</title>
+<style>
+/* ============================================================
+   OpenVVVF white-paper design system (shared block, v2)
+   Accent #FC0F27 · navy/graphite · Saira type · Letter pages
+   ============================================================ */
+@font-face { font-family:"Saira"; src:url("Saira-400.ttf") format("truetype"); font-weight:400; font-style:normal; }
+@font-face { font-family:"Saira"; src:url("Saira-600.ttf") format("truetype"); font-weight:600; font-style:normal; }
+@font-face { font-family:"Saira"; src:url("Saira-700.ttf") format("truetype"); font-weight:700; font-style:normal; }
+@font-face { font-family:"Saira"; src:url("Saira-900.ttf") format("truetype"); font-weight:900; font-style:normal; }
+
+:root{
+  --accent:#FC0F27; --accent-dark:#C40D20;
+  --navy:#0E1526; --graphite:#1B2438;
+  --bg:#F7F8FA; --card:#FFFFFF;
+  --ink:#3A4252; --ink-strong:#141A29; --muted:#6E7686;
+  --line:#E2E6EE; --chip:#EEF1F6;
+  --green:#0E9F6E; --amber:#B7791F;
+}
+*{ box-sizing:border-box; margin:0; padding:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ background:#fff; }
+body{ font-family:"Saira",sans-serif; color:var(--ink); font-size:9.5pt; line-height:1.45; }
+@page{ size:Letter; margin:0; }
+.page{ width:8.5in; height:11in; overflow:hidden; position:relative; background:var(--bg);
+       display:flex; flex-direction:column; page-break-after:always; }
+.page:last-child{ page-break-after:auto; }
+.page > *{ flex-shrink:0; }
+
+/* ---------- shared components ---------- */
+.kicker{ font-size:7.5pt; font-weight:700; letter-spacing:2.2px; text-transform:uppercase; color:var(--accent); }
+.kicker::before{ content:""; display:inline-block; width:7px; height:7px; background:var(--accent);
+                 border-radius:2px; margin-right:7px; vertical-align:1px; }
+.kicker.light{ color:#FF5A6C; }
+h2{ font-size:16pt; font-weight:900; color:var(--ink-strong); letter-spacing:-.2px; margin:4px 0 0; }
+.small{ font-size:8pt; color:var(--muted); }
+
+.chip{ display:inline-block; border-radius:999px; padding:2px 10px 3px; font-size:7.5pt; font-weight:700;
+       letter-spacing:.6px; text-transform:uppercase; }
+.chip .dot{ display:inline-block; width:6px; height:6px; border-radius:50%; margin-right:6px; vertical-align:1px; }
+.chip.green{ background:#E7F6F0; color:#0B7A55; border:1px solid #BFE6D7; } .chip.green .dot{ background:var(--green); }
+.chip.amber{ background:#FBF3E4; color:#96650F; border:1px solid #EFDDB4; } .chip.amber .dot{ background:var(--amber); }
+.chip.navy { background:#E9EDF5; color:#27324A; border:1px solid #CDD6E4; } .chip.navy .dot{ background:var(--graphite); }
+.chip.gray { background:#F0F1F4; color:#5A6272; border:1px solid #DDE1E8; } .chip.gray .dot{ background:#98A0AE; }
+.chip.long{ font-size:6.9pt; letter-spacing:.2px; padding:2px 8px 3px; }
+
+/* platform family */
+.spine{ background:var(--navy); color:#fff; border-radius:8px; padding:8px 14px 9px;
+        font-size:8.4pt; font-weight:600; letter-spacing:.2px; }
+.spine .sub{ display:block; margin-top:2px; font-size:7.9pt; font-weight:600; color:rgba(255,255,255,.78);
+             letter-spacing:.15px; }
+.spine b{ font-weight:900; color:#fff; }
+.spine .tag{ color:#FF5A6C; font-weight:700; text-transform:uppercase; letter-spacing:1.6px; font-size:7.2pt;
+             margin-right:10px; }
+.connectors{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:0 6px; }
+.connectors i{ display:block; width:2px; height:11px; background:var(--accent); margin:0 auto; }
+.tiles{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.tile{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px 11px;
+       display:flex; flex-direction:column; }
+.tile h4{ font-size:10.5pt; font-weight:900; color:var(--ink-strong); }
+.tile .spec{ font-size:8.4pt; color:var(--muted); margin:2px 0 4px; }
+.tile .desc{ font-size:8.2pt; line-height:1.4; margin-bottom:8px; }
+.tile .chip{ margin-top:auto; align-self:flex-start; }
+
+/* footer */
+.foot{ margin-top:auto; background:var(--card); border-top:1px solid var(--line);
+       height:.46in; display:flex; align-items:center; padding:0 .62in;
+       font-size:7.6pt; color:var(--muted); font-weight:600; }
+.foot img.word{ height:11.5px; width:auto; margin-right:9px; }
+.foot .mid{ margin-left:auto; letter-spacing:.6px; }
+.foot .pg{ margin-left:auto; font-weight:700; color:var(--ink-strong); }
+.foot .pg b{ color:var(--accent); }
+.foot .mid + .pg{ margin-left:26px; }
+
+/* hero (page 1) */
+.hero{ height:3.0in; position:relative; background:var(--navy); overflow:hidden; }
+.hero img.photo{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 45%; }
+.hero .scrim{ position:absolute; inset:0;
+       background:linear-gradient(180deg, rgba(14,21,38,.88) 0%, rgba(14,21,38,.62) 42%, rgba(14,21,38,.92) 100%); }
+.hero .inner{ position:relative; height:100%; display:flex; flex-direction:column; align-items:center;
+              padding:.38in .62in .3in; }
+.lockup{ display:flex; align-items:center; gap:12px; }
+.lockup img.icon{ width:.42in; height:.42in; border-radius:10px; }
+.lockup img.word{ height:.31in; width:auto; }
+.hero .ident{ margin-top:10px; color:rgba(255,255,255,.94); font-size:11.5pt; font-weight:600; text-align:center;
+              line-height:1.4; text-shadow:0 1px 10px rgba(14,21,38,.65); }
+.hero .ident b{ color:#fff; font-weight:700; white-space:nowrap; }
+.hero .gap{ margin-top:auto; max-width:6.7in; text-align:center; font-size:9.4pt; line-height:1.5;
+            color:rgba(255,255,255,.82); }
+.hero .gap b{ color:#fff; font-weight:700; }
+
+/* annotated stack */
+.stack{ padding:.18in .62in 0; }
+.stack .row{ display:flex; gap:20px; margin-top:10px; align-items:flex-start; }
+.figure{ position:relative; width:4.35in; flex:none; }
+.figure img{ width:100%; display:block; border-radius:10px; border:1px solid var(--line); }
+.figure .callout{ position:absolute; width:19px; height:19px; border-radius:50%; background:var(--accent);
+                  border:2.5px solid #fff; box-shadow:0 1px 5px rgba(14,21,38,.5); color:#fff;
+                  font-size:8.5pt; font-weight:900; text-align:center; line-height:14.5px; }
+.legend{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px; }
+.legend .item{ display:flex; gap:10px; }
+.legend .n{ flex:none; width:19px; height:19px; border-radius:50%; background:var(--accent); color:#fff;
+            font-size:8.5pt; font-weight:900; text-align:center; line-height:19px; margin-top:1px; }
+.legend h5{ font-size:9.4pt; font-weight:900; color:var(--ink-strong); }
+.legend p{ font-size:8.3pt; line-height:1.4; color:var(--ink); }
+.stacknote{ margin-top:10px; display:flex; gap:16px; align-items:center; }
+.stacknote .txt{ flex:1; font-size:8.5pt; line-height:1.48; color:var(--ink); }
+.stacknote .txt b{ color:var(--ink-strong); font-weight:700; }
+.stacknote .inset{ flex:none; width:1.05in; }
+.stacknote .inset img{ width:100%; display:block; border-radius:8px; border:1px solid var(--line); }
+.stacknote .inset .cap{ font-size:7pt; color:var(--muted); margin-top:3px; line-height:1.32; }
+
+/* platform family section wrapper (page 1) */
+.famwrap3{ padding:.16in .62in 0; }
+.famwrap3 .head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
+
+/* stats row */
+.statsrow{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:12px;
+           background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 0; }
+.statsrow .cell{ padding:0 20px; border-left:1px solid var(--line); }
+.statsrow .cell:first-child{ border-left:none; }
+.statsrow b{ display:block; font-size:16.5pt; font-weight:900; color:var(--accent); letter-spacing:-.2px; }
+.statsrow span{ display:block; font-size:8pt; font-weight:600; color:var(--muted); margin-top:3px; line-height:1.35; }
+
+/* evidence page */
+.ev{ padding:.24in .62in 0; }
+.evrow{ display:flex; gap:22px; margin-top:12px; }
+.evleft{ width:3.7in; flex:none; }
+.evleft img.plot{ width:100%; display:block; border-radius:10px; border:1px solid var(--line); background:#fff; }
+.figcap{ font-size:7.8pt; color:var(--muted); margin-top:5px; line-height:1.38; }
+.figcap b{ color:var(--ink-strong); }
+.evleft .anecdote{ margin-top:8px; font-size:8.7pt; line-height:1.48; }
+.evleft .anecdote b{ color:var(--ink-strong); font-weight:700; }
+table.tests{ width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line);
+             border-radius:10px; overflow:hidden; font-size:7.7pt; line-height:1.32; }
+table.tests th{ background:var(--navy); color:#fff; font-size:7pt; font-weight:700; letter-spacing:.9px;
+                text-transform:uppercase; text-align:left; padding:6px 8px; }
+table.tests td{ padding:6px 8px; border-top:1px solid var(--line); vertical-align:top; }
+table.tests tr:first-child td{ border-top:none; }
+table.tests td.t{ font-weight:700; color:var(--ink-strong); }
+.tablenote{ margin-top:7px; font-size:7.8pt; color:var(--muted); line-height:1.42; }
+
+/* safety architecture */
+.safety{ padding:.2in .62in 0; }
+.mcurow{ display:flex; gap:11px; margin-top:8px; align-items:stretch; }
+.mcucard{ flex:1; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:8px 11px 9px; }
+.mcucard h6{ font-size:8.4pt; font-weight:900; color:var(--ink-strong); letter-spacing:.2px; }
+.mcucard h6 span{ color:var(--muted); font-weight:700; }
+.mcucard ul{ margin:4px 0 0; padding:0; list-style:none; }
+.mcucard li{ font-size:7.7pt; line-height:1.34; color:var(--ink); padding-left:11px; position:relative; margin-top:2px; }
+.mcucard li::before{ content:""; position:absolute; left:0; top:4.5px; width:5px; height:5px;
+                     border-radius:1.5px; background:var(--accent); }
+.mcucard.co li::before{ background:var(--graphite); }
+.ssoblock{ flex:none; width:1.58in; background:var(--navy); border-radius:10px; color:#fff;
+           display:flex; flex-direction:column; justify-content:center; padding:9px 12px; }
+.ssoblock .t{ font-size:7pt; font-weight:700; letter-spacing:1.6px; color:#FF5A6C; text-transform:uppercase; }
+.ssoblock .b{ font-size:13pt; font-weight:900; margin-top:2px; }
+.ssoblock .s{ font-size:7.2pt; font-weight:600; color:rgba(255,255,255,.75); margin-top:3px; line-height:1.32; }
+.mcuarr{ flex:none; align-self:center; width:13px; display:flex; justify-content:center; }
+.mcuarr i{ display:block; width:7px; height:7px; border-top:2.5px solid var(--accent);
+           border-right:2.5px solid var(--accent); transform:rotate(45deg); }
+.paths{ display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-top:8px; }
+.path{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:5px 9px 6px;
+       display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
+.path .n{ font-size:7.8pt; font-weight:700; color:var(--ink-strong); }
+.path .t{ font-size:8pt; font-weight:900; color:var(--accent); white-space:nowrap; }
+.safenote{ margin-top:8px; font-size:7.8pt; color:var(--muted); line-height:1.42; }
+.safenote b{ color:var(--ink-strong); font-weight:700; }
+
+/* safety chain */
+.chain{ display:flex; align-items:stretch; gap:0; margin-top:8px; }
+.chain .step{ flex:1; background:var(--card); border:1px solid var(--line); border-radius:10px;
+              padding:7px 9px 8px; }
+.chain .step h6{ font-size:8.4pt; font-weight:900; color:var(--ink-strong); margin-bottom:2px; }
+.chain .step p{ font-size:7.5pt; color:var(--muted); line-height:1.32; }
+.chain .arr{ flex:none; align-self:center; width:14px; display:flex; justify-content:center; }
+.chain .arr i{ display:block; width:7px; height:7px; border-top:2.5px solid var(--accent);
+               border-right:2.5px solid var(--accent); transform:rotate(45deg); }
+.safetyfoot{ display:flex; align-items:center; gap:14px; margin-top:8px; }
+.safetyfoot .line{ flex:1; background:var(--navy); color:#fff; border-radius:10px; padding:10px 16px;
+                   font-size:10.5pt; font-weight:700; letter-spacing:.2px; }
+.safetyfoot .line i{ font-style:normal; color:#FF5A6C; }
+.safetyfoot .qr{ display:flex; align-items:center; gap:10px; background:var(--card);
+                 border:1px solid var(--line); border-radius:10px; padding:7px 12px 7px 7px; }
+.safetyfoot .qr .qimg{ width:.62in; height:.62in; background:#fff; border-radius:6px; padding:3px;
+                       border:1px solid var(--line); }
+.safetyfoot .qr .qimg img{ width:100%; height:100%; display:block; }
+.safetyfoot .qr p{ font-size:7.8pt; font-weight:600; color:var(--ink); line-height:1.32; max-width:1.55in; }
+
+/* page 3 */
+.who{ padding:.34in .62in 0; }
+.who .row{ display:flex; gap:20px; margin-top:14px; }
+.who .lab{ flex:1; }
+.who .lab p{ font-size:9.4pt; line-height:1.58; margin-top:4px; }
+.who .lab p + p{ margin-top:10px; }
+.who .lab b{ color:var(--ink-strong); font-weight:700; }
+.sponcard{ width:2.95in; flex:none; background:var(--card); border:1px solid var(--line); border-radius:12px;
+           padding:14px 18px 16px; align-self:flex-start; }
+.sponcard .lbl{ font-size:6.8pt; font-weight:700; letter-spacing:1.8px; text-transform:uppercase;
+                color:var(--muted); margin-bottom:12px; }
+.sponcard img{ display:block; height:.2in; width:auto; margin-top:11px; }
+.sponcard img:first-of-type{ margin-top:0; }
+.sponcard img.tall{ height:.24in; }
+
+.traj{ padding:.32in .62in 0; }
+.timeline{ display:flex; gap:12px; margin-top:18px; position:relative; }
+.timeline::before{ content:""; position:absolute; left:0; right:0; top:5px; height:2px; background:var(--line); }
+.tnode{ flex:1; position:relative; padding-top:22px; }
+.tnode::before{ content:""; position:absolute; top:0; left:0; width:12px; height:12px; border-radius:50%;
+                background:#fff; border:3px solid var(--accent); }
+.tnode h5{ font-size:9.2pt; font-weight:900; color:var(--ink-strong); margin:7px 0 3px; }
+.tnode p{ font-size:8.1pt; line-height:1.42; color:var(--ink); }
+.renders{ display:flex; gap:14px; margin-top:16px; }
+.render{ flex:1; background:var(--graphite); border-radius:12px; padding:12px;
+         display:flex; flex-direction:column; }
+.render img{ width:100%; display:block; border-radius:8px; }
+.render .cap{ font-size:7.8pt; font-weight:600; color:rgba(255,255,255,.72); margin-top:auto; padding-top:9px;
+              letter-spacing:.3px; }
+.render .cap b{ color:#fff; font-weight:700; }
+.closing{ margin:.3in .62in 0; background:var(--navy); border-radius:12px; padding:19px 20px;
+          text-align:center; }
+.closing p{ color:#fff; font-size:11.5pt; font-weight:700; line-height:1.45; }
+.closing p b{ color:#FF5A6C; font-weight:900; }
+.closing .sub{ margin-top:4px; font-size:8pt; font-weight:600; color:rgba(255,255,255,.65);
+               letter-spacing:.4px; }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 — THE PLATFORM ================= -->
+<div class="page">
+  <section class="hero">
+    <img class="photo" src="c2-hero.png" alt="OpenVVVF Size 2 inverter stack">
+    <div class="scrim"></div>
+    <div class="inner">
+      <div class="lockup">
+        <img class="icon" src="icon.svg" alt="OpenVVVF icon">
+        <img class="word" src="logo-white.png" alt="OpenVVVF">
+      </div>
+      <div class="ident">The open-source, safety-engineered power conversion platform — <b>50&nbsp;kW to 1&nbsp;MW+</b>.</div>
+      <div class="gap">Power electronics underpin electrification — yet above hobby scale, almost none of it is open. <b>Sealed firmware and proprietary hardware lock out the researchers, educators, and small manufacturers</b> who would otherwise build, study, and improve on it. OpenVVVF is the open alternative: one reusable control module plus swappable power stages — motor drive to bidirectional DC-DC, IGBT today, SiC-ready.</div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="kicker">The platform</div>
+    <h2>One control module, a stack of replaceable boards</h2>
+    <div class="row">
+      <div class="figure">
+        <img src="c2-stack-front.png" alt="Chassis Size 2 vertical PCB stack, front view">
+        <div class="callout" style="left:22%; top:19%;">1</div>
+        <div class="callout" style="left:22%; top:56.5%;">2</div>
+        <div class="callout" style="left:22%; top:67.5%;">3</div>
+        <div class="callout" style="left:22%; top:80.5%;">4</div>
+      </div>
+      <div class="legend">
+        <div class="item"><div class="n">1</div><div><h5>DC-link capacitor board</h5><p>Electrolytic cans (heatsunk to the baseplate); film + ceramic caps beneath — MLCCs soldered directly between the IGBT terminals for an ultra-short commutation loop.</p></div></div>
+        <div class="item"><div class="n">2</div><div><h5>IO board</h5><p>USB-B, dual CAN FD, and the expansion socket for application IO.</p></div></div>
+        <div class="item"><div class="n">3</div><div><h5>Control board — dual-MCU</h5><p>Main MCU runs FOC motor control; an independent safety coprocessor monitors safety-critical outputs and can bring the system to a safe state.</p></div></div>
+        <div class="item"><div class="n">4</div><div><h5>Gate-drive board</h5><p>Isolated gate drive and sensing for the three IGBT half-bridges.</p></div></div>
+      </div>
+    </div>
+    <div class="stacknote">
+      <div class="txt">Below the stack, <b>three IGBT half-bridge modules conduction-cool to an aluminum baseplate</b> — no liquid loop on Size 2. The same control module runs every chassis: <b>motor self-commissioning</b> (resistance / inductance calibration for PMSM and induction machines), the <b>RTE Studio</b> model-based workflow — fully open-source, no MATLAB required, with a software-in-the-loop (SIL) pipeline in progress — and the browser-based <b>Telemetry Viewer</b>. The controls program has also benchmarked <b>ADRC and MPCC against the production FOC</b>.</div>
+      <div class="inset">
+        <img src="mlcc-loop-thumb.png" alt="Ceramic MLCC capacitors soldered directly between IGBT terminals">
+        <div class="cap">Ceramic MLCCs between IGBT terminals.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="famwrap3">
+    <div class="head">
+      <div class="kicker">Platform family</div>
+      <div class="small">One control module — four power stages</div>
+    </div>
+    <div class="spine"><span class="tag">Control module</span><b>Dual-MCU control module</b><span class="sub">FOC motor control + independent safety coprocessor &nbsp;·&nbsp; USB-B / dual CAN&nbsp;FD / expansion &nbsp;·&nbsp; RTE Studio + Telemetry Viewer</span></div>
+    <div class="connectors"><i></i><i></i><i></i><i></i></div>
+    <div class="tiles">
+      <div class="tile"><h4>Size 1</h4><div class="spec">~50 kW class inverter</div><div class="desc">Compact chassis for light EVs and lab benches.</div><span class="chip gray"><span class="dot"></span>Early design</span></div>
+      <div class="tile"><h4>Size 2 Inverter</h4><div class="spec">~100 kW &middot; 400 V / 465 A</div><div class="desc">Built and bench-tested; validation under way.</div><span class="chip green"><span class="dot"></span>In validation</span></div>
+      <div class="tile"><h4>Size 2 DC-DC</h4><div class="spec">Charging, storage &amp; microgrids</div><div class="desc">Same inverter blocks, liquid-cooled enclosure.</div><span class="chip amber"><span class="dot"></span>In progress</span></div>
+      <div class="tile"><h4>Size 3</h4><div class="spec">MW class &middot; 900 V / 1400 A</div><div class="desc">All-film DC-link; arc-flash-analyzed enclosure.</div><span class="chip navy long"><span class="dot"></span>Design in progress</span></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <img class="word" src="logo-red.png" alt="OpenVVVF">
+    <span>— Open Power Conversion</span>
+    <span class="mid">docs.openvvvf.org</span>
+    <span class="pg"><b>1</b> / 3</span>
+  </footer>
+</div>
+
+<!-- ================= PAGE 2 — EVIDENCE ================= -->
+<div class="page">
+  <section class="ev">
+    <div class="kicker">Evidence</div>
+    <h2>Built, bench-tested, on the record</h2>
+    <div class="statsrow">
+      <div class="cell"><b>400 V class</b><span>465 A continuous &middot; 600 A peak (60 s) &middot; 150/200/400 V by DC-link selection</span></div>
+      <div class="cell"><b>10</b><span>Formal test reports &middot; every one links its interactive telemetry log</span></div>
+      <div class="cell"><b>PMSM + induction</b><span>Motor self-commissioning, instrument-verified</span></div>
+    </div>
+    <div class="evrow">
+      <div class="evleft">
+        <img class="plot" src="telemetry-180v-bringup.png" alt="Telemetry: phase currents and DC bus voltage over the 180 V bring-up">
+        <div class="figcap"><b>Fig. 1 — 180 V power-stage bring-up.</b> C2 chassis (200 V-class DC-link) driving a TECO MAX-IE3 10 HP induction motor; bus stepped 140&nbsp;/ 150&nbsp;/ 170&nbsp;/ 180&nbsp;V.</div>
+        <p class="anecdote">When the bench supply hit its <b>current limit at ~160 s</b> and the bus collapsed to ~30 V, the controller rode through the dip and <b>resumed stable operation</b> — no reset, no fault. Peak ~38 A; max bus 182.5 V.</p>
+      </div>
+      <div style="flex:1;">
+        <table class="tests">
+          <tr><th style="width:29%">Test campaign</th><th style="width:32%">Setup</th><th>Key result</th></tr>
+          <tr><td class="t">180 V power-stage bring-up</td><td>TECO 10 HP induction motor; bus stepped 140 to 180 V</td><td>200 V-class validated; ~38 A peak; clean fault recovery</td></tr>
+          <tr><td class="t">1-hour no-load endurance</td><td>C2 + induction motor, 120 VDC, ~60 Hz</td><td>60 min continuous, zero faults; thermal baseline</td></tr>
+          <tr><td class="t">180 V reversal stress, 20 min</td><td>&plusmn;60 Hz every ~45 s; passive cooling</td><td>26 reversals, zero faults; max ~41&nbsp;A</td></tr>
+          <tr><td class="t">Self-commissioning accuracy</td><td>Inverter estimates vs. LCR meter; PMSM + induction</td><td>Resistance within &minus;6.5 to +7.3&nbsp;%; inductance +2.4&nbsp;%</td></tr>
+        </table>
+        <p class="tablenote">Six further instrumented calibration reports underpin these results — 10 in all; each links its interactive telemetry log (JSONL). All reports are currently draft and revised in the open.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="safety">
+    <div class="kicker">Safety engineering</div>
+    <h2>Six independent paths to the safe state</h2>
+    <div class="mcurow">
+      <div class="mcucard">
+        <h6>MAIN MCU <span>&middot; STM32H723ZG</span></h6>
+        <ul>
+          <li>FOC motor control &amp; application logic</li>
+          <li>Sensor plausibility checks, fault handling</li>
+          <li>Owns gate-drive supply kill (channel A)</li>
+        </ul>
+      </div>
+      <div class="mcucard co">
+        <h6>SAFETY COPROCESSOR <span>&middot; STM32G474RCTx</span></h6>
+        <ul>
+          <li>Independent ADC monitoring of all safety-critical signals</li>
+          <li>CAN bus snooping &middot; challenge/response watchdog</li>
+          <li>Owns a fully independent kill path — no trust in the main MCU</li>
+        </ul>
+      </div>
+      <div class="mcuarr"><i></i></div>
+      <div class="ssoblock">
+        <div class="t">Safe state</div>
+        <div class="b">SSO</div>
+        <div class="s">Six-switch-open, immediate and hardware-enforced — no software ramp-down</div>
+      </div>
+    </div>
+    <div class="paths">
+      <div class="path"><span class="n">TIM1 hardware break</span><span class="t">&lt;100 ns</span></div>
+      <div class="path"><span class="n">1oo2 gate-drive power kill</span><span class="t">~10 &micro;s</span></div>
+      <div class="path"><span class="n">Shared driver RESET</span><span class="t">&lt;1 &micro;s</span></div>
+      <div class="path"><span class="n">Passive 3.3 V rail-loss pull-down</span><span class="t">no software</span></div>
+      <div class="path"><span class="n">Watchdog-forced main-MCU reset</span><span class="t">~100 ms</span></div>
+      <div class="path"><span class="n">Independent coprocessor kill</span><span class="t">&lt;10 &micro;s</span></div>
+    </div>
+    <p class="safenote"><b>ASIL D design target</b> on the top safety goals via ASIL B(D) + ASIL B(D) decomposition across the two MCUs — ISO 26262 methodology applied as a design input, not a certification claim. Functional-safety roadmap: fault-injection, thermal, and vibration campaigns.</p>
+    <div class="chain">
+      <div class="step"><h6>Hazards</h6><p>17 identified at the torque / power boundary</p></div>
+      <div class="arr"><i></i></div>
+      <div class="step"><h6>HARA</h6><p>Core platform + application profiles; TARA for cybersecurity; FMEA</p></div>
+      <div class="arr"><i></i></div>
+      <div class="step"><h6>Safety requirements</h6><p>15 safety goals &middot; 22 functional safety requirements</p></div>
+      <div class="arr"><i></i></div>
+      <div class="step"><h6>Test plans</h6><p>92-test fault-injection plan; thermal &amp; vibration campaigns planned</p></div>
+      <div class="arr"><i></i></div>
+      <div class="step"><h6>Standards</h6><p>ISO 26262 &amp; IEC 61800-5-2 safe-function mapping</p></div>
+    </div>
+    <div class="safetyfoot">
+      <div class="line">Safety engineered <i>from the silicon to the sheet&nbsp;metal.</i></div>
+      <div class="qr">
+        <div class="qimg"><img src="qr-telemetry.png" alt="QR code: open the 180 V bring-up telemetry log"></div>
+        <p>Scan for the interactive telemetry log — every report links its data.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <img class="word" src="logo-red.png" alt="OpenVVVF">
+    <span>— Open Power Conversion</span>
+    <span class="mid">docs.openvvvf.org</span>
+    <span class="pg"><b>2</b> / 3</span>
+  </footer>
+</div>
+
+<!-- ================= PAGE 3 — WHO & WHERE NEXT ================= -->
+<div class="page">
+  <section class="who">
+    <div class="kicker">Who &amp; where next</div>
+    <h2>A university lab with a megawatt roadmap</h2>
+    <div class="row">
+      <div class="lab">
+        <p><b>OpenVVVF is built in the Smart Power Lab at UC Santa Cruz.</b> The lab's mission is open power electronics: hardware, firmware, and safety engineering that researchers, educators, and small manufacturers can actually study, build, and extend — the groups that sealed proprietary supply chains lock out.</p>
+        <p>Everything the project knows is published as it is learned: schematics and PCB releases, control firmware, hazard and threat analyses, and the raw telemetry behind every test claim. Sponsors and partners make the bench time, fabrication runs, and test campaigns possible.</p>
+      </div>
+      <div class="sponcard">
+        <div class="lbl">Supported by</div>
+        <img src="sponsor-mouser-grey.png" alt="Mouser Electronics">
+        <img src="sponsor-mitsubishi-electric-grey.png" alt="Mitsubishi Electric">
+        <img class="tall" src="sponsor-sendcutsend-grey.png" alt="SendCutSend">
+      </div>
+    </div>
+  </section>
+
+  <section class="traj">
+    <div class="kicker">Trajectory</div>
+    <div class="timeline">
+      <div class="tnode">
+        <span class="chip amber"><span class="dot"></span>In build</span>
+        <h5>Gen 7.1 hardware</h5>
+        <p>Revision of the control-module hardware now in build.</p>
+      </div>
+      <div class="tnode">
+        <span class="chip gray"><span class="dot"></span>Planned</span>
+        <h5>Loaded testing &amp; dyno</h5>
+        <p>Dynamometer campaign on Gen 7.1 takes the platform from no-load validation to rated power.</p>
+      </div>
+      <div class="tnode">
+        <span class="chip amber"><span class="dot"></span>In progress</span>
+        <h5>Zero DSR integration</h5>
+        <p>A Size 2 chassis is being readied for our 2018 Zero DSR electric motorcycle.</p>
+      </div>
+      <div class="tnode">
+        <span class="chip amber"><span class="dot"></span>In progress</span>
+        <h5>Size 1 + Size 2 DC-DC</h5>
+        <p>~50 kW chassis (early design) and a liquid-cooled DC-DC variant for charging, storage, and microgrids.</p>
+      </div>
+      <div class="tnode">
+        <span class="chip navy long"><span class="dot"></span>Design in progress</span>
+        <h5>Size 3 megawatt class</h5>
+        <p>900 V bus, 1400 A, all-film DC-link; modular liquid-cooled enclosure with arc-flash containment analysis.</p>
+      </div>
+    </div>
+    <div class="renders">
+      <div class="render">
+        <img src="dcdc-enclosure-open.png" alt="Size 2 DC-DC converter enclosure, design rendering">
+        <div class="cap"><b>Size 2 DC-DC enclosure</b> — design rendering. Same inverter hardware, liquid-cooled enclosure.</div>
+      </div>
+      <div class="render">
+        <img src="c3-enclosure-open.png" alt="Size 3 megawatt-class enclosure, design rendering">
+        <div class="cap"><b>Size 3 megawatt-class enclosure</b> — design rendering. Modular liquid-cooled bays, arc-flash containment analysis.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <p>Every schematic, line of firmware, safety analysis, and test trace is public at <b>docs.openvvvf.org</b>.</p>
+    <div class="sub">OPEN HARDWARE &middot; OPEN FIRMWARE &middot; OPEN EVIDENCE</div>
+  </section>
+
+  <footer class="foot">
+    <img class="word" src="logo-red.png" alt="OpenVVVF">
+    <span>— Open Power Conversion</span>
+    <span class="mid">docs.openvvvf.org</span>
+    <span class="pg"><b>3</b> / 3</span>
+  </footer>
+</div>
+
+</body>
+</html>

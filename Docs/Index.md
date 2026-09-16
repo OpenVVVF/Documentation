@@ -65,6 +65,15 @@ This site is the single source of truth for OpenVVVF hardware manuals, software 
 </ul>
 </div>
 
+<div class="card">
+<h3><a href="White-Papers/Index.md">White Papers</a></h3>
+<p>Executive-level platform overviews for sponsors and partners, as print-quality PDFs.</p>
+<ul>
+<li><a href="White-Papers/One-Pager/Index.md">Platform One-Pager</a></li>
+<li><a href="White-Papers/Three-Pager/Index.md">Platform White Paper (3-page)</a></li>
+</ul>
+</div>
+
 </div>
 
 ## System architecture
