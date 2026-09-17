@@ -76,15 +76,15 @@ figcaption{ font-size:8.5pt; color:var(--muted); margin-top:.05in; line-height:1
    One-pager layout
    ============================================================ */
 .title{ font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:18.5pt; color:var(--ink2);
-        line-height:1.1; letter-spacing:-.2px; margin:.07in 0 .05in; }
+        line-height:1.1; letter-spacing:-.2px; margin:.06in 0 .04in; }
 .stand{ font-size:9.5pt; color:var(--ink2); line-height:1.45; max-width:7.0in; }
 
-.herofig{ margin-top:.1in; }
-.herofig img{ width:100%; height:1.5in; object-fit:cover; object-position:center 42%; display:block; }
+.herofig{ margin-top:.08in; }
+.herofig img{ width:100%; height:1.42in; object-fit:cover; object-position:center 42%; display:block; }
 
-.statswrap{ margin-top:.08in; }
+.statswrap{ margin-top:.07in; }
 
-.cols3{ display:grid; grid-template-columns:1fr 1fr 1fr; margin-top:.1in; }
+.cols3{ display:grid; grid-template-columns:1fr 1fr 1fr; margin-top:.08in; }
 .cols3 .col{ padding:0 .16in; border-left:.5pt solid var(--hair); }
 .cols3 .col:first-child{ border-left:none; padding-left:0; }
 .cols3 .col:last-child{ padding-right:0; }
@@ -95,14 +95,14 @@ figcaption{ font-size:8.5pt; color:var(--muted); margin-top:.05in; line-height:1
 .cols3 p{ font-size:8.3pt; line-height:1.42; color:var(--body); }
 .cols3 b{ color:var(--ink2); }
 
-.family{ margin-top:.1in; }
+.family{ margin-top:.08in; }
 .family .head{ display:flex; align-items:baseline; justify-content:space-between;
                border-bottom:1pt solid var(--hair); padding-bottom:.07in; }
 .cmbar{ background:var(--panel); border-left:3pt solid var(--accent); padding:.07in .13in;
         margin-top:.08in; font-size:8pt; color:var(--body); line-height:1.45; }
 .cmbar b{ font-family:"Saira",Arial,sans-serif; font-weight:700; color:var(--ink2);
           letter-spacing:.1em; text-transform:uppercase; font-size:8pt; margin-right:8px; }
-.tiles{ display:grid; grid-template-columns:repeat(4,1fr); gap:.14in; margin-top:.1in; }
+.tiles{ display:grid; grid-template-columns:repeat(4,1fr); gap:.14in; margin-top:.08in; }
 .tile{ border:.5pt solid var(--hair); display:flex; flex-direction:column; }
 .tile img{ width:100%; height:.55in; object-fit:cover; display:block; border-bottom:.5pt solid var(--hair); }
 .tile .body{ padding:.06in .09in .08in; flex:1; display:flex; flex-direction:column; }
@@ -110,7 +110,7 @@ figcaption{ font-size:8.5pt; color:var(--muted); margin-top:.05in; line-height:1
 .tile h4{ font-family:"Saira",Arial,sans-serif; font-weight:700; font-size:9.5pt; color:var(--ink2); }
 .tile .line{ font-size:7.6pt; color:var(--muted); line-height:1.3; margin:2px 0 6px; min-height:2.5em; }
 
-.tele{ margin-top:.08in; border:.5pt solid var(--hair); display:flex; align-items:center;
+.tele{ margin-top:.06in; border:.5pt solid var(--hair); display:flex; align-items:center;
        padding:.07in .12in; gap:.14in; }
 .tele img.plot{ height:.66in; width:auto; display:block; border:.5pt solid var(--hair); }
 .tele .txt{ flex:1; }
@@ -121,7 +121,7 @@ figcaption{ font-size:8.5pt; color:var(--muted); margin-top:.05in; line-height:1
            padding:4px; }
 .tele .qr img{ width:100%; height:100%; display:block; }
 
-.sponsors{ margin-top:.06in; display:flex; align-items:center; gap:.18in; }
+.sponsors{ margin-top:.04in; display:flex; align-items:center; gap:.18in; }
 .sponsors .lbl{ font-family:"Saira",Arial,sans-serif; font-size:7pt; font-weight:700;
                 letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
 .sponsors img{ height:.28in; width:auto; display:block; }
@@ -137,52 +137,52 @@ figcaption{ font-size:8.5pt; color:var(--muted); margin-top:.05in; line-height:1
     <div class="dt">White Paper</div>
   </header>
 
-  <h1 class="title">The open, safety-engineered<br>power conversion platform</h1>
-  <p class="stand">One reusable dual-MCU control module. Four power-stage chassis from ~50&nbsp;kW to megawatt class. Motor drive to bidirectional DC-DC — IGBT today, SiC-ready. Every schematic, line of firmware, safety analysis, and test&nbsp;trace&nbsp;published.</p>
+  <h1 class="title">The open, safety-engineered<br>power-conversion platform</h1>
+  <p class="stand">One reusable dual-MCU control module. Four power-stage chassis spanning approximately 50&nbsp;kW to the megawatt class. Motor drives and bidirectional DC-DC conversion, with IGBTs today and SiC-ready designs. Every schematic, line of firmware, safety analysis, and test&nbsp;trace&nbsp;is&nbsp;published.</p>
 
   <figure class="herofig">
     <img src="hero-light.png" alt="OpenVVVF Size 2 control and power stack, front view">
-    <figcaption>The Size 2 control and power stack — built, bench-tested, and under validation.</figcaption>
+    <figcaption>The Size 2 control and power stack is built, bench-tested, and undergoing validation.</figcaption>
   </figure>
 
   <div class="statswrap">
     <div class="stats">
-      <div class="cell"><b>400 V class</b><span>150 / 200 / 400 V by DC-link selection</span></div>
+      <div class="cell"><b>400 V class</b><span>150, 200, or 400 V by DC-link selection</span></div>
       <div class="cell"><b>465 A</b><span>Continuous &middot; 600&nbsp;A peak (60&nbsp;s)</span></div>
       <div class="cell"><b>10</b><span>Published test reports, raw telemetry linked</span></div>
-      <div class="cell long"><b>PMSM + induction</b><span>Motor self-commissioning, instrument-verified</span></div>
+      <div class="cell long"><b>PMSM + induction</b><span>Instrument-verified motor self-commissioning</span></div>
     </div>
   </div>
 
   <div class="cols3">
     <div class="col">
       <h3>Built and bench-tested</h3>
-      <p>Size 2 (~100 kW class) has run a <b>180 V bring-up</b>, a <b>one-hour endurance run</b>, a <b>20-minute reversal stress test</b>, and completed instrument-verified <b>motor self-commissioning</b>. Next: a Size 2 chassis for our 2018 Zero DSR electric motorcycle — integration in progress.</p>
+      <p>Size 2 (approximately 100 kW) has completed a <b>180 V bring-up</b>, a <b>one-hour endurance run</b>, a <b>20-minute reversal stress test</b>, and instrument-verified <b>motor self-commissioning</b>. Next, a Size 2 chassis is being integrated into our 2018 Zero DSR electric motorcycle.</p>
     </div>
     <div class="col">
       <h3>Safety engineered</h3>
-      <p>Dual-MCU architecture with <b>six redundant safe-state pathways</b>. Hazard analysis (HARA) and FMEA with <b>ISO 26262</b> and <b>IEC 61800-5-2</b> mapping — every hazard traces to a safety requirement and a test.</p>
+      <p>Dual-MCU architecture with <b>six redundant safe-state pathways</b>. The hazard analysis (HARA) and FMEA map to <b>ISO 26262</b> and <b>IEC 61800-5-2</b>. Every hazard traces to a safety requirement and a test.</p>
     </div>
     <div class="col">
       <h3>Open everything</h3>
-      <p>Schematics, firmware, the <b>RTE Studio</b> model-based workflow (no MATLAB; <b>alternative control algorithms benchmarked against FOC</b>), safety analyses, and <b>interactive telemetry logs</b> — all&nbsp;public&nbsp;at&nbsp;docs.openvvvf.org.</p>
+      <p>Schematics, firmware, the <b>RTE Studio</b> model-based workflow (no MATLAB; <b>alternative control algorithms benchmarked against FOC</b>), safety analyses, and <b>interactive telemetry logs</b> are all&nbsp;public&nbsp;at&nbsp;docs.openvvvf.org.</p>
     </div>
   </div>
 
   <section class="family">
     <div class="head">
       <div class="kicker">Platform family</div>
-      <div class="graynote">One control module — four power stages</div>
+      <div class="graynote">One control module, four power stages</div>
     </div>
-    <div class="cmbar"><b>Control module</b>Dual-MCU &middot; FOC motor control + independent safety coprocessor &middot; USB-B / dual CAN&nbsp;FD / expansion &middot; RTE Studio + Telemetry Viewer</div>
+    <div class="cmbar"><b>Control module</b>Dual-MCU &middot; FOC motor control + independent safety coprocessor &middot; USB-B, dual CAN&nbsp;FD, and expansion I/O &middot; RTE Studio + Telemetry Viewer</div>
     <div class="tiles">
       <div class="tile">
         <img src="thumb-size1.png" alt="Size 1 chassis, early schematic">
-        <div class="body"><h4>Size 1</h4><div class="line">~50 kW class inverter for light EVs and lab benches</div><div class="status graphite">Early design</div></div>
+        <div class="body"><h4>Size 1</h4><div class="line">&#8776;50 kW class inverter for light EVs and lab benches</div><div class="status graphite">Early design</div></div>
       </div>
       <div class="tile">
         <img src="thumb-size2.png" alt="Size 2 inverter, built hardware">
-        <div class="body"><h4>Size 2 Inverter</h4><div class="line">~100 kW &middot; 400 V / 465 A — built and bench-tested</div><div class="status green">In validation</div></div>
+        <div class="body"><h4>Size 2 inverter</h4><div class="line">&#8776;100 kW &middot; 400 V &middot; 465 A &middot; bench-tested</div><div class="status green">In validation</div></div>
       </div>
       <div class="tile">
         <img src="thumb-dcdc.png" alt="Size 2 DC-DC converter, design rendering">
@@ -190,7 +190,7 @@ figcaption{ font-size:8.5pt; color:var(--muted); margin-top:.05in; line-height:1
       </div>
       <div class="tile">
         <img src="thumb-c3.png" alt="Size 3 megawatt-class enclosure, design rendering">
-        <div class="body"><h4>Size 3</h4><div class="line">Megawatt class &middot; 900 V / 1,400 A &middot; liquid-cooled</div><div class="status graphite">In design</div></div>
+        <div class="body"><h4>Size 3</h4><div class="line">Megawatt class &middot; 900 V &middot; 1,400 A &middot; liquid-cooled</div><div class="status graphite">In design</div></div>
       </div>
     </div>
   </section>
@@ -199,7 +199,7 @@ figcaption{ font-size:8.5pt; color:var(--muted); margin-top:.05in; line-height:1
     <img class="plot" src="telemetry-180v-bringup.png" alt="Telemetry: 180 V bring-up, phase currents and DC bus">
     <div class="txt">
       <h3>Live telemetry, not promises</h3>
-      <p>Test reports publish their interactive data logs — viewable in the browser-based Telemetry Viewer. Scan to open the 180 V bring-up: bus stepped 140 to 180&nbsp;V, ~38&nbsp;A peak, clean recovery from a bench-supply current-limit event.</p>
+      <p>Test reports include interactive logs for the browser-based Telemetry Viewer. Scan to open the 180 V bring-up: 140 to 180&nbsp;V bus steps, approximately 38&nbsp;A peak current, and clean recovery from a supply current-limit event.</p>
     </div>
     <div class="qr"><img src="qr-telemetry.png" alt="QR code: open the 180 V bring-up telemetry log"></div>
   </div>
@@ -213,7 +213,7 @@ figcaption{ font-size:8.5pt; color:var(--muted); margin-top:.05in; line-height:1
 
   <footer class="foot">
     <img src="logo-grey.png" alt="OpenVVVF">
-    <span class="mid">OpenVVVF — Open Power Conversion &middot; docs.openvvvf.org</span>
+    <span class="mid">OpenVVVF &middot; Open Power Conversion &middot; docs.openvvvf.org</span>
     <span class="pg"><b>1</b> / 1</span>
   </footer>
 </div>

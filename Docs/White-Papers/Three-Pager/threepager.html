@@ -133,24 +133,24 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 .tile .line{ font-size:7.6pt; color:var(--muted); line-height:1.3; margin:2px 0 6px; min-height:2.4em; }
 
 /* page 2 */
-.evfig{ margin-top:.08in; }
-.evfig img{ display:block; height:1.82in; width:auto; margin:0 auto; border:.5pt solid var(--hair); }
+.evfig{ margin-top:.07in; }
+.evfig img{ display:block; height:1.68in; width:auto; margin:0 auto; border:.5pt solid var(--hair); }
 .evfig figcaption{ max-width:7.0in; }
-.tablenote{ font-size:7.6pt; color:var(--muted); margin-top:.05in; line-height:1.35; }
-.safety{ margin-top:.1in; }
+.tablenote{ font-size:7.6pt; color:var(--muted); margin-top:.04in; line-height:1.35; }
+.safety{ margin-top:.08in; }
 .safety h2{ font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:14pt; color:var(--ink2);
-            margin:.05in 0 .07in; }
+            margin:.04in 0 .05in; }
 .safety .lead{ font-size:8.8pt; line-height:1.4; color:var(--body); }
 .safety .lead b{ color:var(--ink2); }
-.paths{ margin-top:.07in; border-top:1pt solid var(--hair); display:grid; grid-template-columns:1fr 1fr; column-gap:.3in; }
+.paths{ margin-top:.05in; border-top:1pt solid var(--hair); display:grid; grid-template-columns:1fr 1fr; column-gap:.3in; }
 .path{ display:flex; align-items:baseline; justify-content:space-between; gap:.2in;
-       border-bottom:.5pt solid var(--hair2); padding:.034in 0 .038in; }
+       border-bottom:.5pt solid var(--hair2); padding:.03in 0 .032in; }
 .path .n{ font-size:8.4pt; color:var(--ink2); font-weight:600; }
 .path .t{ font-family:"Saira",Arial,sans-serif; font-size:9pt; font-weight:800; color:var(--accent);
           white-space:nowrap; }
-.asil{ margin-top:.06in; font-size:8pt; color:var(--body); line-height:1.4; }
+.asil{ margin-top:.045in; font-size:8pt; color:var(--body); line-height:1.4; }
 .asil b{ color:var(--ink2); }
-.trace{ display:flex; align-items:stretch; gap:0; margin-top:.07in; }
+.trace{ display:flex; align-items:stretch; gap:0; margin-top:.05in; }
 .trace .box{ flex:1; border:.5pt solid var(--hair); background:#fff; padding:.045in .05in;
              text-align:center; }
 .trace .box b{ display:block; font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:9.5pt;
@@ -159,7 +159,7 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 .trace .arr{ flex:none; align-self:center; width:12px; display:flex; justify-content:center; }
 .trace .arr i{ display:block; width:6px; height:6px; border-top:2px solid var(--accent);
                border-right:2px solid var(--accent); transform:rotate(45deg); }
-.safetycall{ margin-top:.07in; display:flex; align-items:center; }
+.safetycall{ margin-top:.05in; display:flex; align-items:center; }
 .safetycall .line{ flex:1; border-left:3pt solid var(--accent); background:var(--panel);
                    padding:.07in .14in; font-family:"Saira",Arial,sans-serif; font-weight:700;
                    font-size:10.5pt; color:var(--ink2); }
@@ -207,7 +207,7 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 </head>
 <body>
 
-<!-- ================= PAGE 1 — THE PLATFORM ================= -->
+<!-- ================= PAGE 1: THE PLATFORM ================= -->
 <div class="page">
   <div class="topbar"></div>
   <header class="dochead">
@@ -217,7 +217,7 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 
   <div style="margin-top:.22in;"><span class="kicker">The platform</span></div>
   <h1 class="covertitle">One control module. Every power stage.</h1>
-  <p class="stand">Power electronics underpins electrification — yet above hobby scale, almost none of it is open. Sealed firmware and proprietary hardware lock out the researchers, educators, and small manufacturers who would otherwise build, study, and improve on it. OpenVVVF is the open alternative: one reusable control module plus swappable power stages — motor drive to bidirectional DC-DC, IGBT today, SiC-ready.</p>
+  <p class="stand">Power electronics underpins electrification, but above the hobbyist scale, few platforms are open. Sealed firmware and proprietary hardware exclude researchers, educators, and small manufacturers who would otherwise build, study, and improve them. OpenVVVF is the open alternative: one reusable control module with swappable power stages for motor drives and bidirectional DC-DC conversion, using IGBTs today with SiC-ready designs.</p>
 
   <div class="stackrow">
     <figure class="stackfig">
@@ -228,12 +228,12 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
         <div class="mark" style="left:22%; top:67.5%;">3</div>
         <div class="mark" style="left:22%; top:80.5%;">4</div>
       </div>
-      <figcaption><b>Fig. 1</b> — The Size 2 stack, top to bottom: capacitor board, IO board, control board, gate-drive board.</figcaption>
+      <figcaption><b>Fig. 1:</b> The Size 2 stack, top to bottom: capacitor board, I/O board, control board, and gate-drive board.</figcaption>
     </figure>
     <div class="legend">
-      <div class="item"><div class="n">1</div><div><h5>DC-link capacitor board</h5><p>Electrolytic cans thermally bonded to the baseplate; film and ceramic capacitors beneath. Multilayer ceramic capacitors (MLCCs) mount directly between the IGBT terminals — the short commutation loop keeps switching overshoot low, ready for SiC.</p></div></div>
-      <div class="item"><div class="n">2</div><div><h5>IO board</h5><p>USB-B, dual CAN FD, and an expansion socket for application IO.</p></div></div>
-      <div class="item"><div class="n">3</div><div><h5>Control board — dual-MCU</h5><p>FOC motor control on the main MCU; an independent safety coprocessor monitors every safety-critical signal and can bring the system to a safe state.</p></div></div>
+      <div class="item"><div class="n">1</div><div><h5>DC-link capacitor board</h5><p>Electrolytic cans are thermally bonded to the baseplate, with film and ceramic capacitors beneath. Multilayer ceramic capacitors (MLCCs) mount directly between the IGBT terminals. The short commutation loop limits switching overshoot and supports a future transition to SiC.</p></div></div>
+      <div class="item"><div class="n">2</div><div><h5>I/O board</h5><p>USB-B, dual CAN FD, and an expansion socket for application I/O.</p></div></div>
+      <div class="item"><div class="n">3</div><div><h5>Control board, dual-MCU</h5><p>FOC motor control runs on the main MCU. An independent safety coprocessor monitors every safety-critical signal and can bring the system to a safe state.</p></div></div>
       <div class="item"><div class="n">4</div><div><h5>Gate-drive board</h5><p>Isolated gate drive and sensing for the three IGBT half-bridges.</p></div></div>
     </div>
   </div>
@@ -241,30 +241,30 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
   <div class="softrow">
     <div class="txt">
       <div class="kicker">Cooling</div>
-      <p><b>Three IGBT half-bridge modules conduction-cool to an aluminum baseplate — no liquid loop on Size&nbsp;2.</b></p>
+      <p><b>Three IGBT half-bridge modules are conduction-cooled through an aluminum baseplate. Size&nbsp;2 requires no liquid-cooling loop.</b></p>
       <div class="kicker" style="margin-top:.1in;">Software and workflow</div>
-      <p>The same control module runs every chassis: motor self-commissioning (resistance and inductance calibration for PMSM and induction machines), the RTE Studio model-based workflow — fully open-source, no MATLAB required, with a software-in-the-loop pipeline in progress — and the browser-based Telemetry Viewer. The controls program has benchmarked ADRC (active disturbance rejection control) and MPCC (model predictive current control) against the production FOC controller.</p>
+      <p>The same control module runs every chassis. It supports motor self-commissioning for PMSM and induction machines, the open-source RTE Studio model-based workflow, and the browser-based Telemetry Viewer. RTE Studio requires no MATLAB; a software-in-the-loop pipeline is in progress. The controls program has benchmarked ADRC (active disturbance rejection control) and MPCC (model predictive current control) against the production FOC controller.</p>
     </div>
     <figure class="mlccfig">
       <img src="mlcc-highlight.png" alt="Ceramic MLCC capacitors soldered directly between IGBT terminals">
-      <figcaption><b>Fig. 2</b> — Ceramic capacitors between the IGBT terminals — the commutation loop measures a few millimeters.</figcaption>
+      <figcaption><b>Fig. 2:</b> Ceramic capacitors between the IGBT terminals. The commutation loop measures only a few millimeters.</figcaption>
     </figure>
   </div>
 
   <section class="family">
     <div class="head">
       <div class="kicker">Platform family</div>
-      <div class="graynote">One control module — four power stages</div>
+      <div class="graynote">One control module, four power stages</div>
     </div>
-    <div class="cmbar"><b>Control module</b>Dual-MCU &middot; FOC motor control + independent safety coprocessor &middot; USB-B / dual CAN&nbsp;FD / expansion &middot; RTE Studio + Telemetry Viewer</div>
+    <div class="cmbar"><b>Control module</b>Dual-MCU &middot; FOC motor control + independent safety coprocessor &middot; USB-B, dual CAN&nbsp;FD, and expansion I/O &middot; RTE Studio + Telemetry Viewer</div>
     <div class="tiles">
       <div class="tile">
         <img src="thumb-size1.png" alt="Size 1 chassis, early schematic">
-        <div class="body"><h4>Size 1</h4><div class="line">~50 kW class inverter for light EVs and lab benches</div><div class="status graphite">Early design</div></div>
+        <div class="body"><h4>Size 1</h4><div class="line">&#8776;50 kW class inverter for light EVs and lab benches</div><div class="status graphite">Early design</div></div>
       </div>
       <div class="tile">
         <img src="thumb-size2.png" alt="Size 2 inverter, built hardware">
-        <div class="body"><h4>Size 2 Inverter</h4><div class="line">~100 kW &middot; 400 V / 465 A — built and bench-tested</div><div class="status green">In validation</div></div>
+        <div class="body"><h4>Size 2 inverter</h4><div class="line">&#8776;100 kW &middot; 400 V &middot; 465 A &middot; bench-tested</div><div class="status green">In validation</div></div>
       </div>
       <div class="tile">
         <img src="thumb-dcdc.png" alt="Size 2 DC-DC converter, design rendering">
@@ -272,19 +272,19 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
       </div>
       <div class="tile">
         <img src="thumb-c3.png" alt="Size 3 megawatt-class enclosure, design rendering">
-        <div class="body"><h4>Size 3</h4><div class="line">Megawatt class &middot; 900 V / 1,400 A &middot; liquid-cooled; arc-flash containment analysis in progress</div><div class="status graphite">In design</div></div>
+        <div class="body"><h4>Size 3</h4><div class="line">Megawatt class &middot; 900 V &middot; 1,400 A &middot; liquid-cooled; arc-flash containment analysis in progress</div><div class="status graphite">In design</div></div>
       </div>
     </div>
   </section>
 
   <footer class="foot">
     <img src="logo-grey.png" alt="OpenVVVF">
-    <span class="mid">OpenVVVF — Open Power Conversion &middot; docs.openvvvf.org</span>
+    <span class="mid">OpenVVVF &middot; Open Power Conversion &middot; docs.openvvvf.org</span>
     <span class="pg"><b>1</b> / 3</span>
   </footer>
 </div>
 
-<!-- ================= PAGE 2 — EVIDENCE ================= -->
+<!-- ================= PAGE 2: EVIDENCE ================= -->
 <div class="page">
   <div class="pagehead">
     <div class="kicker">Evidence</div>
@@ -293,31 +293,31 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 
   <div style="margin-top:.12in;">
     <div class="stats">
-      <div class="cell"><b>400 V class</b><span>150 / 200 / 400 V by DC-link selection</span></div>
+      <div class="cell"><b>400 V class</b><span>150, 200, or 400 V by DC-link selection</span></div>
       <div class="cell"><b>465 A</b><span>Continuous &middot; 600&nbsp;A peak (60&nbsp;s)</span></div>
       <div class="cell"><b>10</b><span>Published test reports, raw telemetry linked</span></div>
-      <div class="cell long"><b>PMSM + induction</b><span>Motor self-commissioning, instrument-verified</span></div>
+      <div class="cell long"><b>PMSM + induction</b><span>Instrument-verified motor self-commissioning</span></div>
     </div>
   </div>
 
   <figure class="evfig">
     <img src="telemetry-180v-bringup.png" alt="Telemetry: phase currents and DC bus voltage over the 180 V bring-up">
-    <figcaption><b>Fig. 3</b> — 180 V power-stage bring-up: Size 2 chassis (200 V-class DC link) driving a TECO MAX-IE3 10 HP induction motor, bus stepped 140 / 150 / 170 / 180 V. When the bench supply hit its current limit at ~160 s the controller recovered cleanly once the bench-supply current limit was raised — no reset, no fault. Peak phase current ~38 A; maximum bus 182.5 V.</figcaption>
+    <figcaption><b>Fig. 3:</b> 180 V power-stage bring-up. A Size 2 chassis (200 V-class DC link) drove a TECO MAX-IE3 10 HP induction motor as the bus stepped through 140, 150, 170, and 180 V. At approximately 160 s, the supply reached its current limit; after the limit was raised, the controller recovered without a reset or fault. Peak phase current was approximately 38 A; maximum bus voltage was 182.5 V.</figcaption>
   </figure>
 
-  <table class="tests" style="margin-top:.09in;">
+  <table class="tests" style="margin-top:.07in;">
     <tr><th style="width:24%">Test campaign</th><th style="width:34%">Setup</th><th>Key result</th></tr>
-    <tr><td class="t">180 V power-stage bring-up</td><td>TECO 10 HP induction motor; bus stepped 140 to 180 V</td><td>200 V-class operation confirmed; ~38 A peak; clean fault recovery</td></tr>
-    <tr><td class="t">1-hour no-load endurance</td><td>Size 2 + induction motor, 120 V DC, ~60 Hz</td><td>60 min continuous, zero faults; thermal baseline</td></tr>
-    <tr><td class="t">180 V reversal stress, 20 min</td><td>&plusmn;60 Hz every ~45 s; passive cooling</td><td>26 reversals, zero faults; max ~41&nbsp;A</td></tr>
-    <tr><td class="t">Self-commissioning accuracy</td><td>Inverter estimates vs. LCR meter; PMSM + induction</td><td>Resistance within &minus;6.5 to +7.3&nbsp;%; inductance within +2.4&nbsp;%</td></tr>
+    <tr><td class="t">180 V power-stage bring-up</td><td>TECO 10 HP induction motor; bus stepped from 140 to 180 V</td><td>200 V-class operation confirmed; &#8776;38 A peak; clean fault recovery</td></tr>
+    <tr><td class="t">One-hour no-load endurance</td><td>Size 2 + induction motor; 120 V DC; &#8776;60 Hz</td><td>60 minutes of continuous operation; zero faults; thermal baseline established</td></tr>
+    <tr><td class="t">20-minute reversal stress at 180 V</td><td>&plusmn;60 Hz every &#8776;45 s; passive cooling</td><td>26 reversals; zero faults; &#8776;41&nbsp;A maximum</td></tr>
+    <tr><td class="t">Self-commissioning accuracy</td><td>Inverter estimates versus LCR meter; PMSM + induction</td><td>Resistance error from &minus;6.5 to +7.3&nbsp;%; inductance error of +2.4&nbsp;%</td></tr>
   </table>
-  <p class="tablenote">Six further instrumented calibration reports underpin these results — ten reports in all, published with raw telemetry and revised in the open as validation continues.</p>
+  <p class="tablenote">Six additional instrumented calibration reports support these results. All ten reports include raw telemetry and are revised publicly as validation continues.</p>
 
   <section class="safety">
     <div class="kicker">Safety engineering</div>
     <h2>Six independent paths to the safe state</h2>
-    <p class="lead">The control module is dual-MCU by design. The main MCU (<b>STM32H723ZG</b>) runs FOC motor control, plausibility checks, and fault handling. The safety coprocessor (<b>STM32G474RCTx</b>) independently monitors every safety-critical signal, cross-checks both CAN buses, and runs a challenge/response watchdog — either processor can force the safe state.</p>
+    <p class="lead">The control module is dual-MCU by design. The main MCU (<b>STM32H723ZG</b>) runs FOC motor control, plausibility checks, and fault handling. The safety coprocessor (<b>STM32G474RCTx</b>) independently monitors every safety-critical signal, cross-checks both CAN buses, and runs a challenge-response watchdog. Either processor can force the safe state.</p>
     <div class="paths">
       <div class="path"><span class="n">Hardware PWM break (TIM1)</span><span class="t">&lt;100 ns</span></div>
       <div class="path"><span class="n">Shared driver RESET</span><span class="t">&lt;1 &micro;s</span></div>
@@ -326,7 +326,7 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
       <div class="path"><span class="n">Watchdog-forced main-MCU reset</span><span class="t">~100 ms</span></div>
       <div class="path"><span class="n">Passive 3.3 V rail-loss pull-down</span><span class="t">passive, no software</span></div>
     </div>
-    <p class="asil"><b>ASIL D design target</b> on the top safety goals via ASIL B(D) decomposition — two independent ASIL B channels satisfying an ASIL D goal. ISO 26262 methodology applied as a design input, not a certification claim. Functional-safety roadmap: fault-injection, thermal, and vibration campaigns.</p>
+    <p class="asil"><b>ASIL D design target</b> for the highest safety goals, using ASIL B(D) decomposition: two independent ASIL B channels satisfy an ASIL D goal. ISO 26262 methodology is applied as a design input, not presented as a certification claim. The functional-safety roadmap includes fault-injection, thermal, and vibration campaigns.</p>
     <div class="trace">
       <div class="box"><b>17</b><span>hazards identified</span></div>
       <div class="arr"><i></i></div>
@@ -345,22 +345,22 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 
   <footer class="foot">
     <img src="logo-grey.png" alt="OpenVVVF">
-    <span class="mid">OpenVVVF — Open Power Conversion &middot; docs.openvvvf.org</span>
+    <span class="mid">OpenVVVF &middot; Open Power Conversion &middot; docs.openvvvf.org</span>
     <span class="pg"><b>2</b> / 3</span>
   </footer>
 </div>
 
-<!-- ================= PAGE 3 — WHO & WHERE NEXT ================= -->
+<!-- ================= PAGE 3: TEAM AND ROADMAP ================= -->
 <div class="page">
   <div class="pagehead">
-    <div class="kicker">Who &amp; where next</div>
+    <div class="kicker">Who we are and what comes next</div>
     <h1>A university lab with a megawatt roadmap</h1>
   </div>
 
   <div class="whorow">
     <div class="lab">
-      <p><b>OpenVVVF is built in the Smart Power Lab at UC Santa Cruz.</b> The lab's mission is open power electronics: hardware, firmware, and safety engineering published so others can study, build, and extend it.</p>
-      <p>Everything the project knows is published as it is learned: schematics and PCB releases, control firmware, hazard and threat analyses, and the raw telemetry behind every test claim. Sponsors and partners make the bench time, fabrication runs, and test campaigns possible.</p>
+      <p><b>OpenVVVF is built in the Smart Power Lab at UC Santa Cruz.</b> The lab's mission is to advance open power electronics by publishing hardware, firmware, and safety engineering that others can study, build, and extend.</p>
+      <p>The team publishes what it learns: schematics and PCB releases, control firmware, hazard and threat analyses, and the raw telemetry behind every test claim. Sponsors and partners provide the resources for bench time, fabrication runs, and test campaigns.</p>
     </div>
     <div class="sponcard">
       <div class="lbl">Supported by</div>
@@ -374,14 +374,14 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
     <div class="kicker">Trajectory</div>
     <div class="timeline">
       <div class="tnode">
-        <div class="status amber">In build</div>
+        <div class="status amber">In development</div>
         <h5>Next control-module revision (Gen 7.1)</h5>
         <p>Hardware revision of the dual-MCU control module.</p>
       </div>
       <div class="tnode">
         <div class="status graphite">Planned</div>
-        <h5>Loaded testing and dyno</h5>
-        <p>Dynamometer campaign on Gen 7.1 takes the platform from no-load validation to rated power.</p>
+        <h5>Loaded and dynamometer testing</h5>
+        <p>Dynamometer testing of Gen 7.1 will take the platform from no-load validation to rated power.</p>
       </div>
       <div class="tnode">
         <div class="status amber">In progress</div>
@@ -391,12 +391,12 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
       <div class="tnode">
         <div class="status amber">In progress</div>
         <h5>Size 1 + Size 2 DC-DC</h5>
-        <p>~50 kW chassis in early design; a liquid-cooled bidirectional DC-DC variant for charging, storage, and microgrids.</p>
+        <p>An approximately 50 kW chassis is in early design, along with a liquid-cooled bidirectional DC-DC variant for charging, storage, and microgrids.</p>
       </div>
       <div class="tnode">
         <div class="status graphite">In design</div>
-        <h5>Size 3 megawatt class</h5>
-        <p>900 V bus, 1,400 A, all-film DC-link; modular liquid-cooled enclosure with arc-flash containment analysis.</p>
+        <h5>Size 3 megawatt-class platform</h5>
+        <p>The platform targets a 900 V bus and 1,400 A, with an all-film DC link and a modular liquid-cooled enclosure. Arc-flash containment analysis is in progress.</p>
       </div>
     </div>
   </section>
@@ -404,11 +404,11 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
   <div class="renders">
     <figure>
       <img src="dcdc-enclosure-open-light.png" alt="Size 2 DC-DC converter enclosure, design rendering">
-      <figcaption><b>Size 2 DC-DC enclosure</b> — design rendering. Reuses the Size 2 power stage and control module in a liquid-cooled enclosure.</figcaption>
+      <figcaption><b>Size 2 DC-DC enclosure:</b> Design rendering. Reuses the Size 2 power stage and control module in a liquid-cooled enclosure.</figcaption>
     </figure>
     <figure>
       <img src="c3-enclosure-open-light.png" alt="Size 3 megawatt-class enclosure, design rendering">
-      <figcaption><b>Size 3 megawatt-class enclosure</b> — design rendering. Modular liquid-cooled bays, arc-flash containment analysis.</figcaption>
+      <figcaption><b>Size 3 megawatt-class enclosure:</b> Design rendering. The enclosure features modular liquid-cooled bays; arc-flash containment analysis is in progress.</figcaption>
     </figure>
   </div>
 
@@ -419,7 +419,7 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 
   <footer class="foot">
     <img src="logo-grey.png" alt="OpenVVVF">
-    <span class="mid">OpenVVVF — Open Power Conversion &middot; docs.openvvvf.org</span>
+    <span class="mid">OpenVVVF &middot; Open Power Conversion &middot; docs.openvvvf.org</span>
     <span class="pg"><b>3</b> / 3</span>
   </footer>
 </div>

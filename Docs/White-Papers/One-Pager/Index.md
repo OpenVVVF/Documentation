@@ -11,7 +11,7 @@ nav_order: 701
 
 # OpenVVVF Platform One-Pager
 
-A single-page executive overview of the OpenVVVF open power-conversion platform: the Size 2 bench-tested chassis, the dual-MCU safety architecture, the four-member platform family from ~50 kW to megawatt class, and links into the interactive telemetry evidence behind the test claims.
+A single-page executive overview of the OpenVVVF open power-conversion platform: the bench-tested Size 2 chassis, the dual-MCU safety architecture, the four-member platform family spanning approximately 50 kW to the megawatt class, and links to the interactive telemetry supporting the test claims.
 
 [![OpenVVVF one-page white paper preview](preview.png)](OpenVVVF-OnePager.pdf)
 
