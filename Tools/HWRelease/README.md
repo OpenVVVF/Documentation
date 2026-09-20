@@ -127,6 +127,14 @@ mech parts. A chassis with no vendor BOMs and no mech parts is skipped.
   `Value,DNP` (not `Value` alone) to keep populated rows separate. Do not
   "simplify" this back; after changing the BOM export, regenerate
   `Data/Releases/` with `hwrelease update --force`.
+- **InteractiveHtmlBom DNP quirk**: CLI generation must export a KiCad XML
+  netlist from the schematic, pass it through `--extra-data-file`, and select
+  `--dnp-field kicad_dnp`. Without both iBOM options, DNP footprints are
+  presented as ordinary placement rows and the viewer's "DNP outlined" toggle
+  does nothing. The schematic is deliberately used as the same source of truth
+  as the purchasing BOM; PCB DNP attributes can be stale. PCB fields are only
+  used as a fallback for a board that has no matching schematic. Keep the
+  regression tests in `tests/test_kicad.py` when changing the iBOM command.
 
 ## Tests
 

@@ -5,9 +5,11 @@ Mirrors the export commands used by the hardware repo's BOMManager
 KiCad runs via flatpak (org.kicad.KiCad) with a plain ``kicad-cli`` fallback.
 """
 
+import contextlib
 import shutil
 import subprocess
 import sys
+import tempfile
 import zipfile
 from pathlib import Path
 from typing import List, Optional
@@ -48,6 +50,15 @@ def export_bom(sch: Path, out_csv: Path) -> bool:
         "-o", str(out_csv),
     ])
     return r.returncode == 0 and out_csv.is_file()
+
+
+def export_netlist(sch: Path, out_xml: Path) -> bool:
+    """Export schematic data for iBOM fields, including native KiCad DNP."""
+    r = kicad([
+        "sch", "export", "netlist", str(sch),
+        "--format", "kicadxml", "-o", str(out_xml),
+    ])
+    return r.returncode == 0 and out_xml.is_file()
 
 
 def export_gerber_zip(pcb: Path, out_zip: Path) -> bool:
@@ -104,34 +115,51 @@ def find_ibom_generator(search_roots: List[Path]) -> Optional[Path]:
 
 def export_ibom(pcb: Path, out_html: Path, generator: Path) -> bool:
     """Generate the interactive assembly BOM HTML for a board."""
+    schematic = pcb.with_suffix(".kicad_sch")
     site = generator.parent.parent
     out_html.parent.mkdir(parents=True, exist_ok=True)
     dest_dir = out_html.parent
-    cmd = [
-        "flatpak", "run",
-        f"--env=PYTHONPATH={site}",
-        "--env=INTERACTIVE_HTML_BOM_NO_DISPLAY=1",
-        # InteractiveHtmlBom's version.py runs `git describe` in its own
-        # directory. The venv lives inside the tagged hardware repo, so that
-        # returns a release tag (e.g. "C2-DCDC-A-10-g342f-*") instead of the
-        # plugin version, and the iBOM page then crashes on
-        # /^v\d+\.\d+/.exec(ibom_version) and renders a blank body. Stop git
-        # from ascending out of the venv so the plugin falls back to its
-        # built-in version string.
-        f"--env=GIT_CEILING_DIRECTORIES={site.parents[2]}",
-        "--command=python3", "org.kicad.KiCad",
-        str(generator),
-        "--no-browser",
-        "--dest-dir", str(dest_dir),
-        "--name-format", "%f",
-        str(pcb),
-    ]
-    try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
-    except FileNotFoundError:
-        print("  flatpak not found; iBOM needs KiCad (flatpak) on this machine.",
-              file=sys.stderr)
-        return False
+    # Keep the temporary netlist beside the checked-out board so the KiCad
+    # flatpak can read it. The schematic is the BOM source of truth; PCB DNP
+    # attributes can be stale or intentionally different from it.
+    with contextlib.ExitStack() as stack:
+        extra_data = pcb
+        if schematic.is_file():
+            temp_dir = stack.enter_context(tempfile.TemporaryDirectory(
+                prefix=f".{pcb.stem}-ibom-", dir=pcb.parent))
+            extra_data = Path(temp_dir) / f"{pcb.stem}.xml"
+            if not export_netlist(schematic, extra_data):
+                return False
+        cmd = [
+            "flatpak", "run",
+            f"--env=PYTHONPATH={site}",
+            "--env=INTERACTIVE_HTML_BOM_NO_DISPLAY=1",
+            # InteractiveHtmlBom's version.py runs `git describe` in its own
+            # directory. The venv lives inside the tagged hardware repo, so that
+            # returns a release tag (e.g. "C2-DCDC-A-10-g342f-*") instead of the
+            # plugin version, and the iBOM page then crashes on
+            # /^v\d+\.\d+/.exec(ibom_version) and renders a blank body. Stop git
+            # from ascending out of the venv so the plugin falls back to its
+            # built-in version string.
+            f"--env=GIT_CEILING_DIRECTORIES={site.parents[2]}",
+            "--command=python3", "org.kicad.KiCad",
+            str(generator),
+            "--no-browser",
+            "--dest-dir", str(dest_dir),
+            "--name-format", "%f",
+            # InteractiveHtmlBom only applies native DNP when extra-field data
+            # is loaded and its synthetic field is selected explicitly. Prefer
+            # the schematic netlist; board-only projects fall back to the PCB.
+            "--extra-data-file", str(extra_data),
+            "--dnp-field", "kicad_dnp",
+            str(pcb),
+        ]
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
+        except FileNotFoundError:
+            print("  flatpak not found; iBOM needs KiCad (flatpak) on this machine.",
+                  file=sys.stderr)
+            return False
     made = dest_dir / f"{pcb.stem}.html"
     if result.returncode != 0 or not made.is_file():
         tail = (result.stderr or result.stdout).strip().splitlines()[-1:]

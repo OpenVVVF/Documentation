@@ -5,8 +5,10 @@ flatpak's python with our venv on PYTHONPATH. Falls back to a host python
 when pcbnew is available there.
 """
 
+import contextlib
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 from .context import Context
@@ -26,24 +28,53 @@ def _generator_script() -> Path:
 
 def build_ibom(pcb_path: Path, out_dir: Path) -> bool:
     """Generate <Board>.html interactive assembly BOM. Returns True on success."""
+    schematic = pcb_path.with_suffix(".kicad_sch")
     script = _generator_script()
     site = script.parent.parent
     out_dir.mkdir(parents=True, exist_ok=True)
-    cmd = [
-        "flatpak", "run",
-        f"--env=PYTHONPATH={site}",
-        "--command=python3", "org.kicad.KiCad",
-        str(script),
-        "--no-browser",
-        "--dest-dir", str(out_dir),
-        "--name-format", "%f",
-        str(pcb_path),
-    ]
-    try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
-    except FileNotFoundError:
-        print("  flatpak not found; iBOM needs KiCad (flatpak) on this machine.", file=sys.stderr)
-        return False
+    with contextlib.ExitStack() as stack:
+        extra_data = pcb_path
+        if schematic.is_file():
+            temp_dir = stack.enter_context(tempfile.TemporaryDirectory(
+                prefix=f".{pcb_path.stem}-ibom-", dir=pcb_path.parent))
+            extra_data = Path(temp_dir) / f"{pcb_path.stem}.xml"
+            netlist_cmd = [
+                "flatpak", "run", "--command=kicad-cli", "org.kicad.KiCad",
+                "sch", "export", "netlist", str(schematic),
+                "--format", "kicadxml", "-o", str(extra_data),
+            ]
+            try:
+                netlist_result = subprocess.run(
+                    netlist_cmd, capture_output=True, text=True, timeout=600)
+            except FileNotFoundError:
+                print("  flatpak not found; iBOM needs KiCad (flatpak) on this machine.",
+                      file=sys.stderr)
+                return False
+            if netlist_result.returncode != 0 or not extra_data.is_file():
+                tail = (netlist_result.stderr or netlist_result.stdout).strip().splitlines()[-1:]
+                print(f"  iBOM netlist failed for {pcb_path.stem}: {tail}", file=sys.stderr)
+                return False
+
+        cmd = [
+            "flatpak", "run",
+            f"--env=PYTHONPATH={site}",
+            "--command=python3", "org.kicad.KiCad",
+            str(script),
+            "--no-browser",
+            "--dest-dir", str(out_dir),
+            "--name-format", "%f",
+            # Prefer the schematic netlist so the viewer and purchasing BOM
+            # share a DNP source of truth; board-only projects use PCB fields.
+            "--extra-data-file", str(extra_data),
+            "--dnp-field", "kicad_dnp",
+            str(pcb_path),
+        ]
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+        except FileNotFoundError:
+            print("  flatpak not found; iBOM needs KiCad (flatpak) on this machine.",
+                  file=sys.stderr)
+            return False
     out_html = out_dir / f"{pcb_path.stem}.html"
     if result.returncode != 0 or not out_html.is_file():
         tail = (result.stderr or result.stdout).strip().splitlines()[-1:]
