@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Rebuild the OpenVVVF sponsor white papers (PDF + raster previews).
+# Rebuild the OpenVVVF sponsorship materials (PDF + raster previews).
 # Usage: Docs/White-Papers/build.sh
 set -euo pipefail
 

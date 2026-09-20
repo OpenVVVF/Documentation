@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>OpenVVVF Partnership Brief</title>
+<title>OpenVVVF Sponsorship Brief</title>
 <style>
 /* ============================================================
-   OpenVVVF white-paper design system (shared block, v3)
-   Docgen print language elevated to white-paper register:
+   OpenVVVF sponsorship-material design system (shared block, v4)
+   Print language:
    white pages, square corners, red accent, Saira + Arial
    ============================================================ */
 @font-face { font-family:"Saira"; src:url("Saira-700.ttf") format("truetype"); font-weight:700; font-style:normal; }
@@ -23,15 +23,15 @@ html,body{ background:#fff; }
 body{ font-family:Arial,"Helvetica Neue",Helvetica,sans-serif; color:var(--body); font-size:10pt; line-height:1.55; }
 @page{ size:Letter; margin:0; }
 .page{ width:8.5in; height:11in; overflow:hidden; position:relative; background:#fff;
-       padding:.75in .7in .8in; page-break-after:always; }
+       padding:.7in .7in .67in; page-break-after:always; }
 .page:last-child{ page-break-after:auto; }
 
 .topbar{ position:absolute; top:0; left:0; right:0; height:.45cm; background:var(--accent); }
 
 /* document header (cover style) */
 .dochead{ display:flex; align-items:center; justify-content:space-between;
-          border-bottom:.75pt solid var(--hair2); padding-bottom:.1in; }
-.dochead img{ height:.3in; width:auto; display:block; }
+          border-bottom:.75pt solid var(--hair2); padding-bottom:.09in; }
+.dochead img{ height:.29in; width:auto; display:block; }
 .dochead .dt{ font-family:"Saira",Arial,sans-serif; font-weight:700; font-size:11pt; color:var(--accent);
               text-transform:uppercase; letter-spacing:.18em; }
 
@@ -40,19 +40,19 @@ body{ font-family:Arial,"Helvetica Neue",Helvetica,sans-serif; color:var(--body)
 .graynote{ font-size:8pt; color:var(--muted); }
 
 /* content-page heading (docgen style) */
-.pagehead{ border-bottom:1pt solid var(--hair); padding-bottom:.08in; }
+.pagehead{ border-bottom:1pt solid var(--hair); padding-bottom:.09in; margin-bottom:.15in; }
 .pagehead h1{ font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:19pt; color:var(--ink2);
               line-height:1.1; letter-spacing:-.2px; margin:.06in 0 0; }
 .pagehead .kicker{ margin-bottom:2px; }
 
 /* stats: ruled strip, not chips */
 .stats{ display:flex; border-top:1pt solid var(--hair); border-bottom:1pt solid var(--hair); }
-.stats .cell{ flex:1; padding:.08in .13in .09in; border-left:.5pt solid var(--hair); }
+.stats .cell{ flex:1; padding:.06in .13in .065in; border-left:.5pt solid var(--hair); }
 .stats .cell:first-child{ border-left:none; padding-left:0; }
 .stats .cell.long{ flex:1.28; }
-.stats b{ display:block; font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:13.5pt;
+.stats b{ display:block; font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:12.5pt;
           color:var(--accent); letter-spacing:-.1px; line-height:1.1; }
-.stats span{ display:block; font-size:7.6pt; color:var(--muted); margin-top:2px; line-height:1.3; }
+.stats span{ display:block; font-size:7.4pt; color:var(--muted); margin-top:2px; line-height:1.25; }
 
 /* status label: tiny colored square + gray uppercase */
 .status{ font-family:"Saira",Arial,sans-serif; font-size:6.8pt; font-weight:700; letter-spacing:.12em;
@@ -78,7 +78,8 @@ table.tests th, table.tests td{ border:.5pt solid var(--hair); padding:.04in .08
 table.tests td.t{ font-weight:700; color:var(--ink2); }
 
 /* page number */
-.foot{ position:absolute; right:.7in; bottom:.38in; font-size:8pt; color:var(--muted); }
+.foot{ position:absolute; left:.7in; right:.7in; bottom:.25in;
+       font-size:8pt; color:var(--muted); text-align:right; }
 .foot .pg{ font-family:"Saira",Arial,sans-serif; font-weight:700; color:var(--body); }
 .foot .pg b{ color:var(--accent); font-weight:800; }
 
@@ -87,10 +88,11 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
    ============================================================ */
 
 /* page 1 */
-.covertitle{ font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:19pt; color:var(--ink2);
-             line-height:1.12; letter-spacing:-.2px; margin:.12in 0 .07in; }
+.coverkicker{ margin-top:.18in; }
+.covertitle{ font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:20pt; color:var(--ink2);
+             line-height:1.08; letter-spacing:-.2px; margin:.055in 0 .075in; }
 .stand{ font-size:9.5pt; color:var(--ink2); line-height:1.45; }
-.stackrow{ display:flex; gap:.22in; margin-top:.1in; align-items:flex-start; }
+.stackrow{ display:flex; gap:.22in; margin-top:.12in; align-items:flex-start; }
 .stackfig{ flex:none; width:3.95in; }
 .stackfig .ph{ position:relative; }
 .stackfig img{ width:100%; display:block; border:.5pt solid var(--hair); }
@@ -105,7 +107,7 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
             text-align:center; line-height:16px; margin-top:1px; }
 .legend h5{ font-family:"Saira",Arial,sans-serif; font-size:9.5pt; font-weight:700; color:var(--ink2); }
 .legend p{ font-size:7.7pt; line-height:1.32; color:var(--body); margin-top:1px; }
-.softrow{ display:flex; gap:.22in; margin-top:.12in; align-items:flex-start; }
+.softrow{ display:flex; gap:.22in; margin-top:.14in; align-items:flex-start; }
 .softrow .txt{ flex:1; }
 .softrow .txt p{ font-size:8.4pt; line-height:1.42; margin-bottom:.07in; }
 .softrow .txt b{ color:var(--ink2); }
@@ -114,13 +116,17 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 .mlccfig{ flex:none; width:1.35in; }
 .mlccfig img{ width:100%; display:block; border:.5pt solid var(--hair); }
 
-.family{ margin-top:.08in; }
+.family{ margin-top:.13in; }
 .family .head{ display:flex; align-items:baseline; justify-content:space-between;
                border-bottom:1pt solid var(--hair); padding-bottom:.06in; }
-.cmbar{ background:var(--panel); border-left:3pt solid var(--accent); padding:.06in .13in;
-        margin-top:.09in; font-size:8pt; color:var(--body); line-height:1.45; }
-.cmbar b{ font-family:"Saira",Arial,sans-serif; font-weight:700; color:var(--ink2);
-          letter-spacing:.1em; text-transform:uppercase; font-size:8pt; margin-right:8px; }
+.cmbar{ background:var(--panel); border-left:3pt solid var(--accent); margin-top:.09in;
+        display:grid; grid-template-columns:1fr 1.18fr; }
+.cmbar .archblock{ padding:.045in .13in .05in; min-width:0; }
+.cmbar .archblock + .archblock{ border-left:.5pt solid var(--hair); }
+.cmbar b{ display:block; font-family:"Saira",Arial,sans-serif; font-weight:700; color:var(--ink2);
+          letter-spacing:.1em; text-transform:uppercase; font-size:7.2pt; line-height:1.1;
+          margin-bottom:2px; }
+.cmbar span{ display:block; font-size:7.6pt; color:var(--body); line-height:1.2; white-space:nowrap; }
 .tiles{ display:grid; grid-template-columns:repeat(4,1fr); gap:.14in; margin-top:.1in; }
 .tile{ border:.5pt solid var(--hair); display:flex; flex-direction:column; }
 .tile img{ width:100%; height:.46in; object-fit:cover; display:block; border-bottom:.5pt solid var(--hair); }
@@ -130,11 +136,18 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 .tile .line{ font-size:7.6pt; color:var(--muted); line-height:1.3; margin:2px 0 6px; min-height:2.4em; }
 
 /* page 2 */
-.evfig{ margin-top:.07in; }
-.evfig img{ display:block; height:1.68in; width:auto; margin:0 auto; border:.5pt solid var(--hair); }
-.evfig figcaption{ max-width:7.0in; }
+.evrow{ display:grid; grid-template-columns:3.85in 1fr; gap:.22in; margin-top:.12in; align-items:center; }
+.evfig img{ display:block; width:100%; height:auto; border:.5pt solid var(--hair); }
+.evfig figcaption{ font-size:7.6pt; line-height:1.3; }
+.telecopy h3{ font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:12pt;
+              line-height:1.15; color:var(--ink2); margin-bottom:.04in; }
+.telecopy p{ font-size:8.2pt; line-height:1.4; }
+.telecopy .scan{ display:flex; align-items:center; gap:.1in; margin-top:.09in; }
+.telecopy .scan img{ flex:none; width:.68in; height:.68in; padding:3px; background:#fff;
+                     border:.5pt solid var(--hair); }
+.telecopy .scan span{ font-size:7.7pt; line-height:1.35; color:var(--muted); }
 .tablenote{ font-size:7.6pt; color:var(--muted); margin-top:.04in; line-height:1.35; }
-.safety{ margin-top:.08in; }
+.safety{ margin-top:.13in; }
 .safety h2{ font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:14pt; color:var(--ink2);
             margin:.04in 0 .05in; }
 .safety .lead{ font-size:8.8pt; line-height:1.4; color:var(--body); }
@@ -166,21 +179,18 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
                        padding:3px; }
 .safetycall .qr .qimg img{ width:100%; height:100%; display:block; }
 .safetycall .qr p{ font-size:7.8pt; color:var(--body); line-height:1.35; max-width:1.55in; margin:0; }
+.page2 .evrow{ margin-top:.1in; }
+.page2 table.tests{ margin-top:.05in !important; }
+.page2 .safety{ margin-top:.1in; }
+.page2 .safety h2{ margin:.03in 0 .04in; }
+.page2 .safetycall .line{ padding:.055in .14in; }
 
 /* page 3 */
-.whorow{ display:flex; gap:.26in; margin-top:.18in; }
-.whorow .lab{ flex:1; }
-.whorow .lab p{ font-size:9.4pt; line-height:1.55; margin-bottom:.12in; }
-.whorow .lab b{ color:var(--ink2); }
-.sponcard{ flex:none; width:2.55in; border:.5pt solid var(--hair); padding:.14in .18in; align-self:flex-start; }
-.sponcard .lbl{ font-family:"Saira",Arial,sans-serif; font-size:7pt; font-weight:700;
-                letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-bottom:.1in; }
-.sponcard img{ display:block; height:.28in; width:auto; margin-top:.13in; }
-.sponcard img:first-of-type{ margin-top:0; }
-.sponcard img.tall{ height:.31in; }
+.labintro p{ font-size:9.3pt; line-height:1.5; }
+.labintro b{ color:var(--ink2); }
 
-.traj{ margin-top:.26in; }
-.timeline{ display:flex; gap:.16in; margin-top:.2in; position:relative; }
+.traj{ margin-top:.2in; }
+.timeline{ display:flex; gap:.16in; margin-top:.15in; position:relative; }
 .timeline::before{ content:""; position:absolute; left:0; right:0; top:4px; height:1pt; background:var(--hair); }
 .tnode{ flex:1; position:relative; padding-top:.24in; }
 .tnode::before{ content:""; position:absolute; top:0; left:0; width:9px; height:9px;
@@ -188,18 +198,54 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 .tnode h5{ font-family:"Saira",Arial,sans-serif; font-size:9.3pt; font-weight:700; color:var(--ink2);
            margin:6px 0 3px; min-height:2.3em; }
 .tnode p{ font-size:8pt; line-height:1.42; color:var(--body); }
+.preferred{ margin-top:.08in; border-top:3pt solid var(--accent); background:var(--panel);
+            padding:.1in .14in; display:grid; grid-template-columns:1.65in 1fr; gap:.18in; }
+.preferred .kind{ font-family:"Saira",Arial,sans-serif; font-size:6.8pt; font-weight:700;
+                  letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+.preferred h5{ font-family:"Saira",Arial,sans-serif; font-size:10.5pt; font-weight:800;
+               line-height:1.3; color:var(--ink2); margin-top:.035in; }
+.preferred p{ font-size:8.2pt; line-height:1.42; color:var(--body); }
+.supportgrid{ display:grid; grid-template-columns:repeat(2,1fr); gap:.24in; margin-top:.12in; }
+.supportcard{ border-top:3pt solid var(--accent); padding-top:.08in; }
+.supportcard .kind{ font-family:"Saira",Arial,sans-serif; font-size:6.8pt; font-weight:700;
+                    letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.supportcard h5{ font-family:"Saira",Arial,sans-serif; font-size:9.5pt; font-weight:700;
+                 line-height:1.35; color:var(--ink2); margin:.04in 0 .035in; }
+.supportcard p{ font-size:7.9pt; line-height:1.42; color:var(--body); }
+.processnote{ margin-top:.1in; background:var(--panel); border-left:3pt solid var(--accent);
+              padding:.075in .12in; font-size:8.2pt; line-height:1.4; }
+.processnote b{ color:var(--ink2); }
+.nextwork{ margin-top:.14in; background:var(--panel); border-left:3pt solid var(--accent);
+           padding:.085in .12in; font-size:8.2pt; line-height:1.4; }
+.nextwork b{ font-family:"Saira",Arial,sans-serif; color:var(--ink2); margin-right:7px; }
 
-.renders{ display:flex; gap:.2in; margin-top:.24in; }
+.renders{ display:flex; gap:.2in; margin-top:.2in; }
 .renders figure{ flex:1; }
 .renders img{ width:100%; height:1.85in; object-fit:cover; display:block; border:.5pt solid var(--hair); }
 
-.closing{ margin-top:.26in; border-left:3pt solid var(--accent); background:var(--panel);
-          padding:.16in .2in; }
-.closing p{ font-family:"Saira",Arial,sans-serif; font-weight:700; font-size:11.5pt; color:var(--ink2);
-            line-height:1.4; }
-.closing p b{ color:var(--accent); font-weight:800; }
-.closing .sub{ margin-top:4px; font-family:"Saira",Arial,sans-serif; font-size:7.4pt; font-weight:700;
-               letter-spacing:.14em; color:var(--muted); }
+.sponsorask{ position:absolute; left:.7in; right:.7in; bottom:.65in;
+             border-left:3pt solid var(--accent); background:var(--panel);
+             padding:.1in .14in; display:flex; align-items:center; gap:.2in; }
+.sponsorask .copy{ flex:1; }
+.sponsorask h3{ font-family:"Saira",Arial,sans-serif; font-weight:800; font-size:10.5pt;
+                line-height:1.25; color:var(--ink2); margin:.025in 0 .025in; }
+.sponsorask p{ font-size:7.8pt; line-height:1.35; }
+.sponsors{ flex:none; width:2.55in; display:flex; align-items:center; justify-content:flex-end;
+           flex-wrap:wrap; gap:.08in .14in; }
+.sponsors .lbl{ font-family:"Saira",Arial,sans-serif; font-size:7pt; font-weight:700;
+                letter-spacing:.15em; text-transform:uppercase; color:var(--muted); width:100%; text-align:right; }
+.sponsors img{ height:.22in; width:auto; max-width:.75in; object-fit:contain; display:block; }
+.sponsors img.tall{ height:.25in; }
+.page3 .labintro{ margin-top:.06in; }
+.page3 .pagehead{ margin-bottom:.22in; }
+.page3 .labintro p{ font-size:9.5pt; line-height:1.55; }
+.page3 .renders{ margin-top:.27in; }
+.page3 .renders img{ height:2.65in; object-fit:contain; background:var(--panel); }
+.page3 .nextwork{ margin-top:.2in; padding:.1in .14in; }
+.page3 .traj{ margin-top:.31in; }
+.page3 .preferred{ margin-top:.08in; }
+.page3 .supportgrid{ margin-top:.12in; }
+.page3 .processnote{ margin-top:.14in; padding:.1in .14in; }
 </style>
 </head>
 <body>
@@ -209,12 +255,12 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
   <div class="topbar"></div>
   <header class="dochead">
     <img src="logo-red.png" alt="OpenVVVF">
-    <div class="dt">Partnership Brief</div>
+    <div class="dt">Sponsorship Brief</div>
   </header>
 
-  <div style="margin-top:.22in;"><span class="kicker">The platform</span></div>
-  <h1 class="covertitle">One control module. Every power stage.</h1>
-  <p class="stand">Power electronics underpins electrification, but above the hobbyist scale, few platforms are open. Sealed firmware and proprietary hardware exclude researchers, educators, and small manufacturers who would otherwise build, study, and improve them. OpenVVVF is the open alternative: one reusable control module with swappable power stages for motor drives and bidirectional DC-DC conversion, using IGBTs today with SiC-ready designs.</p>
+  <div class="coverkicker"><span class="kicker">The platform</span></div>
+  <h1 class="covertitle">The open, safety-engineered<br>power-conversion platform</h1>
+  <p class="stand">Developed in the Smart Power Lab at UC Santa Cruz, OpenVVVF is built on a bench-tested dual-MCU control architecture. A reusable control module connects to swappable power stages from approximately 50&nbsp;kW to the megawatt class for motor drives and DC/DC conversion, with SiC-ready designs and a common software workflow.</p>
 
   <div class="stackrow">
     <figure class="stackfig">
@@ -228,9 +274,9 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
       <figcaption><b>Fig. 1:</b> The Size 2 stack, top to bottom: capacitor board, I/O board, control board, and gate-drive board.</figcaption>
     </figure>
     <div class="legend">
-      <div class="item"><div class="n">1</div><div><h5>DC-link capacitor board</h5><p>Electrolytic cans are thermally bonded to the baseplate, with film and ceramic capacitors beneath. Multilayer ceramic capacitors (MLCCs) mount directly between the IGBT terminals. The short commutation loop limits switching overshoot and supports a future transition to SiC.</p></div></div>
+      <div class="item"><div class="n">1</div><div><h5>DC-link capacitor board</h5><p>Electrolytic, film, and ceramic capacitors form a compact DC link. MLCCs mounted directly between the IGBT terminals shorten the commutation loop, limit switching overshoot, and support a future transition to SiC.</p></div></div>
       <div class="item"><div class="n">2</div><div><h5>I/O board</h5><p>USB-B, dual CAN FD, and an expansion socket for application I/O.</p></div></div>
-      <div class="item"><div class="n">3</div><div><h5>Control board, dual-MCU</h5><p>FOC motor control runs on the main MCU. An independent safety coprocessor monitors every safety-critical signal and can bring the system to a safe state.</p></div></div>
+      <div class="item"><div class="n">3</div><div><h5>Control board, dual-MCU</h5><p>The main MCU runs FOC motor control. An independent safety coprocessor monitors critical signals and can bring the system to a safe state.</p></div></div>
       <div class="item"><div class="n">4</div><div><h5>Gate-drive board</h5><p>Isolated gate drive and sensing for the three IGBT half-bridges.</p></div></div>
     </div>
   </div>
@@ -238,9 +284,9 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
   <div class="softrow">
     <div class="txt">
       <div class="kicker">Cooling</div>
-      <p><b>Three IGBT half-bridge modules are conduction-cooled through an aluminum baseplate. Size&nbsp;2 requires no liquid-cooling loop.</b></p>
-      <div class="kicker" style="margin-top:.1in;">Software and workflow</div>
-      <p>The same control module runs every chassis. It supports motor self-commissioning for PMSM and induction machines, the open-source RTE Studio model-based workflow, and the browser-based Telemetry Viewer. RTE Studio requires no MATLAB; a software-in-the-loop pipeline is in progress. The controls program has benchmarked ADRC (active disturbance rejection control) and MPCC (model predictive current control) against the production FOC controller.</p>
+      <p><b>Three IGBT half-bridge modules are conduction-cooled through an aluminum baseplate, with no liquid-cooling loop.</b> The same chassis also provides a path to future motorcycle testing.</p>
+      <div class="kicker" style="margin-top:.1in;">Software and open workflow</div>
+      <p>The same control core is intended to run across power stages. It supports self-commissioning for PMSM and induction machines, the open-source RTE Studio model-based workflow, and the browser-based Telemetry Viewer. Schematics, firmware, safety analyses, assembly data, and test evidence are public at docs.openvvvf.org.</p>
     </div>
     <figure class="mlccfig">
       <img src="mlcc-highlight.png" alt="Ceramic MLCC capacitors soldered directly between IGBT terminals">
@@ -250,26 +296,29 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 
   <section class="family">
     <div class="head">
-      <div class="kicker">Platform family</div>
-      <div class="graynote">One control module, four power stages</div>
+      <div class="kicker">Modular power architecture</div>
+      <div class="graynote">Reusable control, scalable power stages</div>
     </div>
-    <div class="cmbar"><b>Control module</b>Dual-MCU &middot; FOC motor control + independent safety coprocessor &middot; USB-B, dual CAN&nbsp;FD, and expansion I/O &middot; RTE Studio + Telemetry Viewer</div>
+    <div class="cmbar">
+      <div class="archblock"><b>Control module</b><span>Dual-MCU control &middot; FOC &middot; independent safety</span></div>
+      <div class="archblock"><b>Power stage</b><span>Gate-driver boards &middot; capacitor boards &middot; IGBT or SiC modules</span></div>
+    </div>
     <div class="tiles">
       <div class="tile">
-        <img src="thumb-size1.png" alt="Size 1 chassis, early schematic">
-        <div class="body"><h4>Size 1</h4><div class="line">&#8776;50 kW class inverter for light EVs and lab benches</div><div class="status graphite">Early design</div></div>
+        <img src="thumb-size1.png" alt="Size 1 power-stage concept">
+        <div class="body"><h4>Size 1</h4><div class="line">Approximately 50 kW class for light EVs and scalable designs</div><div class="status graphite">Early design</div></div>
       </div>
       <div class="tile">
         <img src="thumb-size2.png" alt="Size 2 inverter, built hardware">
-        <div class="body"><h4>Size 2 inverter</h4><div class="line">&#8776;100 kW &middot; 400 V &middot; 465 A &middot; bench-tested</div><div class="status green">In validation</div></div>
+        <div class="body"><h4>Size 2 inverter</h4><div class="line">200–450 V class &middot; 465 A continuous design rating</div><div class="status green">Implemented, under test</div></div>
       </div>
       <div class="tile">
         <img src="thumb-dcdc.png" alt="Size 2 DC-DC converter, design rendering">
-        <div class="body"><h4>Size 2 DC-DC</h4><div class="line">Bidirectional DC-DC for charging, storage, and microgrids</div><div class="status amber">In progress</div></div>
+        <div class="body"><h4>Size 2 DC/DC</h4><div class="line">15 kW &middot; 450 V class &middot; reuses Size 2 boards and power stage</div><div class="status green">Released design</div></div>
       </div>
       <div class="tile">
         <img src="thumb-c3.png" alt="Size 3 megawatt-class enclosure, design rendering">
-        <div class="body"><h4>Size 3</h4><div class="line">Megawatt class &middot; 900 V &middot; 1,400 A &middot; liquid-cooled; arc-flash containment analysis in progress</div><div class="status graphite">In design</div></div>
+        <div class="body"><h4>Size 3</h4><div class="line">Up to 1,200 V &middot; 1,400 A &middot; modular liquid-cooled enclosure</div><div class="status amber">In development</div></div>
       </div>
     </div>
   </section>
@@ -280,25 +329,32 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 </div>
 
 <!-- ================= PAGE 2: EVIDENCE ================= -->
-<div class="page">
+<div class="page page2">
   <div class="pagehead">
     <div class="kicker">Evidence</div>
     <h1>Bench-tested, on the record</h1>
   </div>
 
-  <div style="margin-top:.12in;">
+  <div>
     <div class="stats">
-      <div class="cell"><b>400 V class</b><span>150, 200, or 400 V by DC-link selection</span></div>
-      <div class="cell"><b>465 A</b><span>Continuous &middot; 600&nbsp;A peak (60&nbsp;s)</span></div>
+      <div class="cell"><b>200–450 V</b><span>Size 2 DC-bus class by capacitor selection</span></div>
+      <div class="cell"><b>465 A</b><span>Continuous design rating &middot; 600&nbsp;A peak (60&nbsp;s)</span></div>
       <div class="cell"><b>10</b><span>Published test reports, raw telemetry linked</span></div>
       <div class="cell long"><b>PMSM + induction</b><span>Instrument-verified motor self-commissioning</span></div>
     </div>
   </div>
 
-  <figure class="evfig">
-    <img src="telemetry-180v-bringup.png" alt="Telemetry: phase currents and DC bus voltage over the 180 V bring-up">
-    <figcaption><b>Fig. 3:</b> 180 V power-stage bring-up. A Size 2 chassis (200 V-class DC link) drove a TECO MAX-IE3 10 HP induction motor as the bus stepped through 140, 150, 170, and 180 V. At approximately 160 s, the supply reached its current limit; after the limit was raised, the controller recovered without a reset or fault. Peak phase current was approximately 38 A; maximum bus voltage was 182.5 V.</figcaption>
-  </figure>
+  <div class="evrow">
+    <figure class="evfig">
+      <img src="telemetry-180v-bringup.png" alt="Telemetry: phase currents and DC bus voltage over the 180 V bring-up">
+      <figcaption><b>Fig. 3:</b> The 180 V bring-up stepped the bus through 140, 150, 170, and 180 V. Maximum bus voltage was 182.5 V.</figcaption>
+    </figure>
+    <div class="telecopy">
+      <h3>Live telemetry, not promises</h3>
+      <p>The Size 2 chassis drove a 10 HP induction motor, reached approximately 38 A peak phase current, and recovered cleanly from a bench-supply current-limit event. All ten published reports link raw logs for the browser-based Telemetry Viewer.</p>
+      <div class="scan"><img src="qr-telemetry.png" alt="QR code for the 180 V bring-up telemetry"><span>Scan to open the 180 V bring-up and interactive telemetry.</span></div>
+    </div>
+  </div>
 
   <table class="tests" style="margin-top:.07in;">
     <tr><th style="width:24%">Test campaign</th><th style="width:34%">Setup</th><th>Key result</th></tr>
@@ -321,7 +377,7 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
       <div class="path"><span class="n">Watchdog-forced main-MCU reset</span><span class="t">~100 ms</span></div>
       <div class="path"><span class="n">Passive 3.3 V rail-loss pull-down</span><span class="t">passive, no software</span></div>
     </div>
-    <p class="asil"><b>ASIL D design target</b> for the highest safety goals, using ASIL B(D) decomposition: two independent ASIL B channels satisfy an ASIL D goal. ISO 26262 methodology is applied as a design input, not presented as a certification claim. The functional-safety roadmap includes fault-injection, thermal, and vibration campaigns.</p>
+    <p class="asil"><b>Highest-goal safety design target:</b> the architecture applies ASIL B(D) decomposition, using two independent ASIL B channels to address an ASIL D goal. ISO 26262 methodology is a design input, not a certification claim. The functional-safety roadmap includes fault-injection, thermal, and vibration campaigns.</p>
     <div class="trace">
       <div class="box"><b>17</b><span>hazards identified</span></div>
       <div class="arr"><i></i></div>
@@ -344,70 +400,62 @@ table.tests td.t{ font-weight:700; color:var(--ink2); }
 </div>
 
 <!-- ================= PAGE 3: TEAM AND ROADMAP ================= -->
-<div class="page">
+<div class="page page3">
   <div class="pagehead">
-    <div class="kicker">Who we are and what comes next</div>
-    <h1>A university lab with a megawatt roadmap</h1>
+    <div class="kicker">Smart Power Lab at UC Santa Cruz</div>
+    <h1>Help move OpenVVVF forward</h1>
   </div>
 
-  <div class="whorow">
-    <div class="lab">
-      <p><b>OpenVVVF is built in the Smart Power Lab at UC Santa Cruz.</b> The lab's mission is to advance open power electronics by publishing hardware, firmware, and safety engineering that others can study, build, and extend.</p>
-      <p>The team publishes what it learns: schematics and PCB releases, control firmware, hazard and threat analyses, and the raw telemetry behind every test claim. Sponsors and partners provide the resources for bench time, fabrication runs, and test campaigns.</p>
-    </div>
-    <div class="sponcard">
-      <div class="lbl">Supported by</div>
-      <img src="sponsor-mouser.png" alt="Mouser Electronics">
-      <img src="sponsor-mitsubishi-electric.png" alt="Mitsubishi Electric">
-      <img class="tall" src="sponsor-sendcutsend.png" alt="SendCutSend">
-    </div>
+  <div class="labintro">
+    <p><b>OpenVVVF is developed in the Smart Power Lab at UC Santa Cruz.</b> The lab publishes hardware, firmware, safety engineering, assembly data, and test evidence openly so others can study, build, and extend the platform.</p>
   </div>
-
-  <section class="traj">
-    <div class="kicker">Trajectory</div>
-    <div class="timeline">
-      <div class="tnode">
-        <div class="status amber">In development</div>
-        <h5>Next control-module revision (Gen 7.1)</h5>
-        <p>Hardware revision of the dual-MCU control module.</p>
-      </div>
-      <div class="tnode">
-        <div class="status graphite">Planned</div>
-        <h5>Loaded and dynamometer testing</h5>
-        <p>Dynamometer testing of Gen 7.1 will take the platform from no-load validation to rated power.</p>
-      </div>
-      <div class="tnode">
-        <div class="status amber">In progress</div>
-        <h5>Zero DSR integration</h5>
-        <p>A Size 2 chassis is being readied for our 2018 Zero DSR electric motorcycle.</p>
-      </div>
-      <div class="tnode">
-        <div class="status amber">In progress</div>
-        <h5>Size 1 + Size 2 DC-DC</h5>
-        <p>An approximately 50 kW chassis is in early design, along with a liquid-cooled bidirectional DC-DC variant for charging, storage, and microgrids.</p>
-      </div>
-      <div class="tnode">
-        <div class="status graphite">In design</div>
-        <h5>Size 3 megawatt-class platform</h5>
-        <p>The platform targets a 900 V bus and 1,400 A, with an all-film DC link and a modular liquid-cooled enclosure. Arc-flash containment analysis is in progress.</p>
-      </div>
-    </div>
-  </section>
 
   <div class="renders">
     <figure>
       <img src="dcdc-enclosure-open-light.png" alt="Size 2 DC-DC converter enclosure, design rendering">
-      <figcaption><b>Size 2 DC-DC enclosure:</b> Design rendering. Reuses the Size 2 power stage and control module in a liquid-cooled enclosure.</figcaption>
+      <figcaption><b>Size 2 DC/DC module:</b> Released design rendering. The 15 kW converter reuses the Size 2 PCBs and power stage; orderable BOMs are available.</figcaption>
     </figure>
     <figure>
       <img src="c3-enclosure-open-light.png" alt="Size 3 megawatt-class enclosure, design rendering">
-      <figcaption><b>Size 3 megawatt-class enclosure:</b> Design rendering. The enclosure features modular liquid-cooled bays; arc-flash containment analysis is in progress.</figcaption>
+      <figcaption><b>Size 3 high-power enclosure:</b> Design rendering. The up-to-1,200 V, 1,400 A concept uses modular liquid-cooled bays; arc-flash containment analysis is in progress.</figcaption>
     </figure>
   </div>
 
-  <div class="closing">
-    <p>Every schematic, line of firmware, safety analysis, and test trace is public at <b>docs.openvvvf.org</b>.</p>
-    <div class="sub">OPEN HARDWARE &middot; OPEN FIRMWARE &middot; OPEN EVIDENCE</div>
+  <div class="nextwork"><b>Next engineering work</b>Gen 7.1 hardware &middot; loaded testing &middot; modular DC/DC conversion &middot; reusable gate-driver and capacitor boards</div>
+
+  <section class="traj">
+    <div class="kicker">Ways to help</div>
+    <div class="preferred">
+      <div><div class="kind">Preferred for ongoing development</div><h5>Research gift</h5></div>
+      <p>For supporters who want the lab to keep developing OpenVVVF without a sponsor-defined statement of work. A gift through UC Santa Cruz can support student research time, components, fabrication, instruments, and testing where the team needs them most. The lab can confirm the correct designation.</p>
+    </div>
+    <div class="supportgrid">
+      <div class="supportcard">
+        <div class="kind">A defined project</div>
+        <h5>Sponsored research</h5>
+        <p>Funds a specific piece of work with an agreed scope, budget, schedule, and deliverables.</p>
+      </div>
+      <div class="supportcard">
+        <div class="kind">Equipment or services</div>
+        <h5>In-kind support</h5>
+        <p>Power modules, components, fabrication, instruments, equipment loans, dynamometer time, or other test access.</p>
+      </div>
+    </div>
+    <div class="processnote"><b>Not sure which fits?</b> Start with the Smart Power Lab contacts below. The lab can confirm the right gift designation or bring in the appropriate UC Santa Cruz contact for sponsored research or equipment.</div>
+  </section>
+
+  <div class="sponsorask">
+    <div class="copy">
+      <div class="kicker">Support the Smart Power Lab</div>
+      <h3>Smart Power Lab contacts</h3>
+      <p>Lab contacts: Keith Corzine, Keith@corzine.net / corzine@ucsc.edu; Leila Parsa, lparsa@ucsc.edu. University coordination: be-dev@ucsc.edu.</p>
+    </div>
+    <div class="sponsors">
+      <span class="lbl">Current supporters</span>
+      <img src="sponsor-mouser.png" alt="Mouser Electronics">
+      <img src="sponsor-mitsubishi-electric.png" alt="Mitsubishi Electric">
+      <img class="tall" src="sponsor-sendcutsend.png" alt="SendCutSend">
+    </div>
   </div>
 
   <footer class="foot">

@@ -1,19 +1,19 @@
 ---
 doctype: White Paper
 doc_id: OV-WP-ONEPAGER
-title: OpenVVVF Platform Overview
+title: OpenVVVF Overview
 product_line: openvvvf
-version: "0.1"
-date: "2026-09-15"
-description: Single-page overview of the OpenVVVF open power-conversion platform, bench testing, and safety engineering.
+version: "1.1"
+date: "2026-09-17"
+description: Single-page overview of the Smart Power Lab's bench-tested OpenVVVF control architecture, swappable power stages from 10 kW upward, test evidence, and support pathways.
 nav_order: 701
 ---
 
-# OpenVVVF Platform Overview
+# OpenVVVF Overview
 
-A single-page overview of the OpenVVVF open power-conversion platform: the bench-tested Size 2 chassis, the dual-MCU safety architecture, the four-member platform family spanning approximately 50 kW to the megawatt class, and links to the interactive telemetry supporting the test claims.
+A single-page overview of OpenVVVF in the Smart Power Lab at UC Santa Cruz: a bench-tested dual-MCU control architecture, swappable power stages from 10 kW to the megawatt class, public test evidence, safety engineering, and university-administered support pathways.
 
-[![OpenVVVF platform overview preview](preview.png)](OpenVVVF-OnePager.pdf)
+[![OpenVVVF overview preview](preview.png)](OpenVVVF-OnePager.pdf)
 
 - [Download the PDF (US Letter, 1 page)](OpenVVVF-OnePager.pdf)
 - Design source: [onepager.html](onepager.html)
