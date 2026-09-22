@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.2"
-date: "2026-08-13"
+version: "0.3"
+date: "2026-09-22"
 description: Hardware test reports and validation evidence.
 nav_order: 341
 ---
@@ -34,6 +34,7 @@ Electrical, thermal, mechanical, and environmental test records.
 ## Gen7 hardware
 
 - [Gen7 Board Temperature Sensor Validation](Gen7-Temp-Sensor-Validation/Index.md) - first Gen7 test record; validates the three board NTC temperature channels against a thermal imager under a torch-applied gradient.
+- [Low-Power Regen 100 A Phase-Current Endurance (No Cooling)](Low-Power-Regen-100A-No-Cooling/Index.md) - 22-minute continuous regen at −100 A q-axis current on a dynamometer-spun induction machine with the bare power stage (no heatsink, no fan); peak board temp 80.4 °C.
 
 ## Cross-cutting
 
