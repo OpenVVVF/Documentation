@@ -8,7 +8,7 @@ applies_to:
   - chassis-size-2
 version: "0.2"
 date: "2026-09-22"
-description: Gen7 size 2 regenerative run at a nominal 50 V bus and 200 A q-axis command, analyzed through the first 79 °C inverter NTC reading with heatsink contact gap and no thermal interface material.
+description: Gen7 size 2 regenerative run at a nominal 50 V bus and 200 A q-axis command, analyzed through the first 79 °C baseplate NTC (TS2) reading with heatsink contact gap and no thermal interface material.
 test_id: 13
 nav_order: 362
 normative_refs:
@@ -17,7 +17,7 @@ normative_refs:
 
 # 200 A Regen to 79 °C — Gen7 Size 2
 
-This report covers the first portion of a regenerative dynamometer run on Gen7 size 2 hardware. The inverter was commanded in 25 A steps to 200 A q-axis current, then held there until inverter temperature sensor 2 first reached 79 °C. The selected analysis interval ends at **t = 619.492 s**, 9 min 15 s after the 200 A command. Over the 200 A hold to that point, the logged DC link received about 3.14 kW on average, or approximately 0.485 kWh total.
+This report covers the first portion of a regenerative dynamometer run on Gen7 size 2 hardware. The inverter was commanded in 25 A steps to 200 A q-axis current, then held there until baseplate temperature sensor TS2 (`temp_inv2_c`) first reached 79 °C. The selected analysis interval ends at **t = 619.492 s**, 9 min 15 s after the 200 A command. Over the 200 A hold to that point, the logged DC link received about 3.14 kW on average, or approximately 0.485 kWh total.
 
 A heatsink was fitted for this run, unlike the 100 A test, but no thermal interface material was used. The phase leads tilted the heatsink backward and left a gap at the thermal interface. The temperatures here describe that as-tested assembly and do not establish heatsink performance with correct contact.
 
@@ -56,8 +56,8 @@ A heatsink was fitted for this run, unlike the 100 A test, but no thermal interf
 
 1. Enabled the inverter and allowed the dynamometer to bring the coupled machine to operating speed.
 2. Increased `IqVar` in the recorded 25 A steps through 200 A.
-3. Held the 200 A command while logging telemetry and observing the inverter temperatures.
-4. Split this report at the first `temp_inv2_c` sample at or above 79 °C, at t = 619.492 s. The remainder of the same source recording is analyzed in the OTP report.
+3. Held the 200 A command while logging telemetry and observing the baseplate NTCs.
+4. Split this report at the first `temp_inv2_c` (TS2) sample at or above 79 °C, at t = 619.492 s. The remainder of the same source recording is analyzed in the OTP report.
 
 ## Electrical results
 
@@ -78,10 +78,10 @@ During the 200 A interval to the split, measured bus voltage averaged 58.1 V and
 
 ## Thermal results
 
-At the selected split point, `temp_inv2_c` first crossed 79 °C. Temperatures rose from the initial NTC readings as follows:
+At the selected split point, `temp_inv2_c` (baseplate TS2) first crossed 79 °C. Temperatures rose from the initial NTC readings as follows:
 
-- **Inverter temp 1:** 34.5 °C → 76.7 °C at the split.
-- **Inverter temp 2:** 37.6 °C → 79.0 °C at the split.
+- **Baseplate TS1** (`temp_inv1_c`): 34.5 °C → 76.7 °C at the split.
+- **Baseplate TS2** (`temp_inv2_c`): 37.6 °C → 79.0 °C at the split.
 
 The TI250 photos show exterior spot readings of 42.1 °C, 32.9 °C, and 39.2 °C. These are individual crosshair measurements on auto-scaled thermal images and are not a full surface-temperature survey.
 
@@ -95,7 +95,7 @@ The TI250 photos show exterior spot readings of 42.1 °C, 32.9 °C, and 39.2 °C
 
 ## Telemetry overview
 
-![Telemetry through the first 79 °C reading: Iq, DC-link power, inverter NTCs, and bus voltage](Telemetry-Overview.png)
+![Telemetry through the first 79 °C reading: Iq, DC-link power, baseplate NTCs, and bus voltage](Telemetry-Overview.png)
 
 > **Open split telemetry:** [View the run through 79 °C in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Low-Power-Regen-200A-Gen7-Size2/regen-200a-to-79c.jsonl#s=cg_iq_a:left)
 
@@ -106,7 +106,7 @@ The TI250 photos show exterior spot readings of 42.1 °C, 32.9 °C, and 39.2 °C
 - The telemetry is continuous across the split. It does not show `IqVar` being set to zero at 79 °C; the current remains at the 200 A command until the OTP trip described in the companion report.
 - The logged bus averaged 58.1 V under regeneration, although the bench supply was set for nominal 50 V.
 - The heatsink gap and absent thermal interface material prevent this run from establishing the thermal performance of a correctly mounted heatsink.
-- `temp_inv3_c` and `temp_motor_c` are unpopulated in this recording.
+- `temp_inv3_c` (TS3) and `temp_motor_c` are unpopulated in this recording.
 
 ## Conclusion
 
