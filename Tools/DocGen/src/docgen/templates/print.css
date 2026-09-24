@@ -53,9 +53,9 @@
   }
 
   /*
-   * Cover page. Fills the full A4 content area (25.3cm at 2.4cm/2cm
-   * top/bottom margins) and paints above the fixed .print-footer so the cover stays
-   * free of running elements.
+   * Cover page. Fills the full content area of the @page paper (Letter:
+   * 27.94cm − 2.4cm − 2cm = 23.54cm) and paints above the fixed
+   * .print-footer so the cover stays free of running elements.
    */
   .print-cover {
     position: relative;
@@ -64,7 +64,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 25.3cm;
+    height: 23.54cm;
     padding: 0;
     margin: 0;
     page-break-after: always;
@@ -349,6 +349,10 @@
     display: table-header-group;
   }
 
+  .doc-pdf-link {
+    display: none;
+  }
+
   .content th,
   .content td {
     padding: 0.25cm 0.35cm;
@@ -483,7 +487,7 @@
   /* Page setup. Running headers and footers (rules, doc title/id, logo,
      page number) are stamped onto the PDF by docgen, not rendered via CSS. */
   @page {
-    size: A4;
+    size: letter;
     margin: 2.4cm 1.8cm 2cm 1.8cm;
   }
 

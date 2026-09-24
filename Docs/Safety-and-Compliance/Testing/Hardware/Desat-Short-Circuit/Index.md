@@ -50,6 +50,7 @@ Per methodology §1, adapted for a fault-injection bench:
 - **Machine:** [FILL: machine and its thermal limit, if the fault leg is machine-coupled rather than bench-shorted].
 - **Instrumentation:** high-sample-rate oscilloscope on DESAT pin, gate-emitter, and FLT lines (differential, rated for the bus class); RTE Studio telemetry; TI250-class imager for post-event inspection.
 - **Safety:** a hard short on an energized inverter stores destructive energy. All personnel safety interlocks (emergency stop, discharge path, exclusion zone, PPE) must be documented before the first shot; the supply current limit and ≤140 V cap are mandatory preconditions; verify DC-link discharge to a safe voltage before touching the fixture between shots.
+- **DC-link capacitance (transfer-critical):** the DC-link capacitors are the fault energy source — E ≈ ½·C·V². Record total capacitance and bus voltage for every shot. Results do **not** transfer to another voltage class or a significantly different capacitance without re-validation or an explicit energy-bound argument (methodology, "Component stress by archetype").
 
 ## Procedure
 

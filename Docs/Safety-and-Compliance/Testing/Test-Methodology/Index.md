@@ -64,6 +64,20 @@ All calculated from logged FOC quantities with the **peak-amplitude convention**
 
 **E. Electrical quality** — oscilloscope capture of phase currents during a hold (correctly rated probes), bus regulation quality, and the §3 calculated block.
 
+### Component stress by archetype (evidence transfer)
+
+A result transfers across component revisions, capacitance values, or voltage classes only for components the test does not electrically stress. Every report must state which components were stressed; the transfer decision then follows this table:
+
+| Archetype | Electrically stressed | DC-link capacitors stressed? |
+|-----------|----------------------|------------------------------|
+| A steady-state / C endurance | IGBTs (conduction + switching), DC-link caps (ripple current), busbar links, NTCs | **Yes** — mildly (ripple heating; visible on the imager cap-bank pass). Transfers only within the same voltage class and similar ripple; the 450 V campaign re-validates caps for that class |
+| B burst / capability | Same as A, short-duration, high peak | Yes — high ripple during the burst |
+| D protection, control-chain injections (SSO latency, encoder loss, overcurrent watchdog, loss-of-regen, externally-heated thermal thresholds) run at low, current-limited bus | Control logic, gate-drive chain, sensing paths; the bus is steady DC | **No** — caps see near-DC conditions at ≤60 V current-limited. Results transfer without cap re-testing, provided the report records the low-power precondition |
+| D protection, short-circuit / DESAT (energize-into-fault) | IGBTs, gate drivers, and **the caps themselves as the fault energy source** | **Yes — critically.** Fault energy ≈ ½·C·V² bounds di/dt and deposited energy. Does **not** transfer across voltage class or significant capacitance change without re-validation or an energy-bound calculation |
+| D protection, DC-link OV/UV | Bus sensing + protection logic; OV overshoot dynamics depend on total C | **Partially** — logic thresholds transfer; dynamic behavior (OV overshoot, UV ride-through) requires production-representative capacitance in the loop |
+
+Where capacitors are not stressed, one sentence in the report suffices (e.g. "DC-link capacitors not stressed: current-limited bus at ≤60 V, negligible ripple"). Where they are stressed — short-circuit tests and any new voltage class — capacitance and voltage must be recorded and the energy or ripple argument made explicitly.
+
 ## 5. Required evidence package (every power test)
 
 1. Test Report under `Docs/Safety-and-Compliance/Testing/Hardware/` with sections: Test setup, Test conditions (table), Procedure, Electrical results, Thermal results, Telemetry overview, Observations, Conclusion, Artifacts.

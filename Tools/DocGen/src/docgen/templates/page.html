@@ -176,7 +176,7 @@
       }});
 
       // Show PDF download buttons only if the PDF files actually exist
-      ['pdf-download-button', 'manual-download-button'].forEach(function (id) {{
+      ['pdf-download-button', 'manual-download-button', 'doc-pdf-link'].forEach(function (id) {{
         var link = document.getElementById(id);
         if (!link || !link.href || link.href.indexOf('.pdf') === -1) return;
         try {{

@@ -204,6 +204,33 @@ a:hover {
   font-size: 0.9em;
 }
 
+/* In-content download link in the frontmatter summary row: always in the
+   document flow at the top of the page, so it is discoverable on mobile
+   where the header button is easy to miss. */
+.doc-pdf-link {
+  display: none; /* revealed by the page.html existence check */
+  float: right;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.doc-pdf-link::before {
+  content: "↓";
+  font-size: 0.9em;
+}
+
+.doc-pdf-link:hover {
+  filter: brightness(1.1);
+  color: #fff;
+}
+
 .tool-button {
   display: inline-flex;
   align-items: center;

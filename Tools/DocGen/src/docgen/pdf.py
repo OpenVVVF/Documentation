@@ -12,8 +12,8 @@ from typing import Optional
 from .frontmatter import Document, load_docs
 from .site import _is_menu_only, template_dir, url_path
 
-# A4 page geometry matching the @page rule in print.css (2.4cm/2cm top/bottom,
-# 1.8cm left/right margins).
+# US Letter page geometry matching the @page rule in print.css (2.4cm/2cm top/bottom,
+# 1.8cm left/right margins; margins are paper-size independent).
 _MARGIN_X = 1.8 * 28.3465  # left/right margin in pt
 _LINE_Y = 2.0 * 28.3465 - 8  # footer divider, just below the content area
 _TEXT_Y = _LINE_Y - 22  # footer baseline, roughly centered in the bottom margin

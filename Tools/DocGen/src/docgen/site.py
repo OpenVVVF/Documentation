@@ -212,7 +212,7 @@ def _apply_callout_classes(html: str) -> str:
     return html
 
 
-def frontmatter_table(doc: Document) -> str:
+def frontmatter_table(doc: Document, pdf_url: str = "") -> str:
     """Render document frontmatter as a collapsible metadata panel."""
     if not doc.frontmatter:
         return ""
@@ -248,9 +248,19 @@ def frontmatter_table(doc: Document) -> str:
     ]
     summary = " · ".join(str(b) for b in summary_bits if b is not None)
 
+    # Prominent in-content PDF download link, revealed by the same
+    # HEAD-existence check as the header button (see page.html). Placed in
+    # the summary row so it is visible on mobile without opening the panel.
+    pdf_link = (
+        f'<a class="doc-pdf-link" id="doc-pdf-link" href="{pdf_url}" '
+        'download title="Download this document as PDF">Download PDF</a>'
+        if pdf_url
+        else ""
+    )
+
     return (
         '<details class="frontmatter">'
-        f'<summary><span class="frontmatter-summary">{summary}</span></summary>'
+        f'<summary><span class="frontmatter-summary">{summary}</span>{pdf_link}</summary>'
         '<table>'
         + "".join(rows)
         + "</table></details>"
@@ -769,9 +779,11 @@ def build_site(docs_dir: Path, output_dir: Path) -> None:
         if doc.doc_id == "OV-DOCS-INDEX" or _is_menu_only(doc):
             continue
         body = md_to_html(doc.body)
-        fm = frontmatter_table(doc)
         output_path = output_dir / doc.url_path
         output_path.parent.mkdir(parents=True, exist_ok=True)
+        fm = frontmatter_table(
+            doc, f"{rel_root(output_path, output_dir)}pdfs/{doc.doc_id}.pdf"
+        )
         title = doc.title or doc.path.stem
         html = render_page(
             title=title,
