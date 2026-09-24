@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
+version: "0.2"
 date: "2026-09-22"
 description: Twenty-two-minute continuous regenerative braking at a 100 A q-axis current step on a dynamometer-spun machine, run with the bare C2 power stage (no heatsink, no fan) to prove phase-current endurance and capture thermals.
 test_id: 12
@@ -143,6 +143,7 @@ Thermal imager spot readings on the exterior (all taken during the −100 A hold
 
 - No faults, trips, or resets at any point; the current loop held −100 A for the full 22 minutes without intervention.
 - This is deliberately a *current* stress, not a *power* stress: at 52 VDC the bus sees only ~6 A even at 100 A phase current. It verifies conduction paths, current sensing, and gate drive at rated phase current with essentially no cooling infrastructure.
+- Machine-terminal power is not quoted for this run: P = (3/2)(vd·id + vq·iq) from this session's logged dq voltages does not reconcile with DC-link power — the implied ≈0.7 kW of inverter dissipation is inconsistent with a bare stack plateauing at 80.4 °C. The dq-voltage calculation reconciles in firmware build `855dbcee90d611cb` and is reported from the 400 A run onward.
 - Shaft speed sagged from ~280 to ~263 RPM as regen torque loaded the dynamometer's speed control.
 - The `temp_inv3_c` and `temp_motor_c` channels were unpopulated (null) for this build.
 - Interior NTCs read ~10–15 °C above the hottest exterior imager spots — expected, as the sensors sit inside the stack next to the dissipating devices.

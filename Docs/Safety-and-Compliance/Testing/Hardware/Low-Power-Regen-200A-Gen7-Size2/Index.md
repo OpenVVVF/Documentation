@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.2"
+version: "0.3"
 date: "2026-09-22"
 description: Gen7 size 2 regenerative run at a nominal 50 V bus and 200 A q-axis command, analyzed through the first 79 °C baseplate NTC (TS2) reading with heatsink contact gap and no thermal interface material.
 test_id: 13
@@ -105,6 +105,7 @@ The TI250 photos show exterior spot readings of 42.1 °C, 32.9 °C, and 39.2 °C
 - No fault state is recorded before the split point.
 - The telemetry is continuous across the split. It does not show `IqVar` being set to zero at 79 °C; the current remains at the 200 A command until the OTP trip described in the companion report.
 - The logged bus averaged 58.1 V under regeneration, although the bench supply was set for nominal 50 V.
+- Machine-terminal power is not quoted for this run: P = (3/2)(vd·id + vq·iq) from this session's logged dq voltages (firmware build `cd4d65f5c2181738`) does not reconcile with DC-link power — it would imply ≈3 kW of inverter dissipation, which the observed temperature rise (44 K in 10 minutes on the dry-mounted heatsink) rules out. The dq-voltage calculation reconciles in the later build `855dbcee90d611cb` and is reported from the 400 A run onward.
 - The heatsink gap and absent thermal interface material prevent this run from establishing the thermal performance of a correctly mounted heatsink.
 - `temp_inv3_c` (TS3) and `temp_motor_c` are unpopulated in this recording.
 

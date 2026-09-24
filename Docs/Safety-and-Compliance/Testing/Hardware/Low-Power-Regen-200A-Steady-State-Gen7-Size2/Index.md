@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.3"
+version: "0.4"
 date: "2026-09-23"
 description: One-hour steady-state regenerative run on the thermally-pasted Gen7 size 2 assembly, holding 200 A q-axis current against a PMSM spun at ~470 RPM on the dynamometer. Only ~1 kW returned to the DC link (bus ~145 V), so the full 200 A of phase-current stress ran at low power; baseplate NTCs plateaued at 44.4 / 44.0 °C against a 22.5 °C ambient, validating the thermal-paste interface rework after the 450 A run's overtemperature trip.
 test_id: 17
@@ -46,6 +46,11 @@ Result: baseplate TS1 plateaued at **44.4 °C** and TS2 at **44.0 °C** against 
 | Average Iq over hold | 199.9 A (max 208 A) |
 | DC-link power | 949 W average, 1.36 kW peak |
 | Regen energy into DC link | ≈0.865 kWh |
+| Machine terminal real power P | −0.94 kW mean (generating; calculated from logged `cg_vd_v`/`cg_vq_v`/`cg_id_a`/`cg_iq_a`) |
+| Machine reactive power Q | ≈0.71 kvar mean (machine magnetizing demand; quoted as magnitude — sign follows the logged dq frame) |
+| Machine apparent power \|S\| | 1.18 kVA mean |
+| Power factor (calculated) | 0.80 |
+| Inverter efficiency (calculated) | ≈100% at the ~1 kW scale (telemetry offsets dominate at this level) |
 | Ambient (operator-recorded) | 22.5 °C |
 | Baseplate NTC at steady state | TS1 44.4 °C, TS2 44.0 °C (ΔT ≈ 22 K) |
 
@@ -64,6 +69,7 @@ The hold was electrically uneventful, which is the point of a steady-state therm
 - **Bus:** 144.7 V average, 143.4–145.6 V — the supply held the bus with no clamp hardware in the loop.
 - **DC link:** 6.6 A average, 949 W average (1.36 kW peak) — the low shaft speed limits back-EMF, so most of the phase-current work dissipates in the windings and switchgear rather than returning as bus power.
 - **Protection:** `gate_fault` = 0 for the entire hold, `cg_vlimit_scale` = 1.000 throughout, no desaturation or overcurrent events after startup.
+- **Machine-terminal power (calculated):** from the logged dq quantities (peak-amplitude convention, P = (3/2)(vd·id + vq·iq), Q = (3/2)(vq·id − vd·iq)), the machine delivered **0.94 kW mean** while drawing **≈0.71 kvar** of magnetizing reactive power (quoted as magnitude) — 1.18 kVA, **power factor ≈ 0.80**. Machine-terminal and DC-link power agree within ~1% — **calculated inverter efficiency ≈ 100%** at this ~1 kW level, where telemetry offsets dominate the difference.
 
 ## Thermal results
 
@@ -89,7 +95,7 @@ The baseplate curve (telemetry overview below) is a clean single-pole rise to eq
 
 ## Telemetry overview
 
-![Full session: Iq, DC-link power, baseplate NTCs with 22.5 °C ambient reference, and bus voltage](Telemetry-Overview.png)
+![Full session: Iq, DC-link power, machine-terminal P and Q, baseplate NTCs with 22.5 °C ambient reference, and bus voltage](Telemetry-Overview.png)
 
 > **Open full session:** [View the run in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Low-Power-Regen-200A-Steady-State-Gen7-Size2/c2-200v-200a-steady-state-decimated.jsonl#s=cg_iq_a:left)
 

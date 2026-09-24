@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.3"
-date: "2026-09-22"
+version: "0.4"
+date: "2026-09-24"
 description: Hardware test reports and validation evidence.
 nav_order: 341
 ---
@@ -41,6 +41,7 @@ Electrical, thermal, mechanical, and environmental test records.
 - [450 A / 13 kW Regen — Gen7 Size 2](Low-Power-Regen-450A-Gen7-Size2/Index.md) - 450 A q-axis regen at 2,000 RPM shaft speed, 12.8 kW average returned to the DC link, sustained 78 s until the inverter overtemperature protection tripped at ~80 °C baseplate as designed.
 - [200 A Regen Steady-State Thermal Test — Gen7 Size 2](Low-Power-Regen-200A-Steady-State-Gen7-Size2/Index.md) - 54.7-minute continuous 200 A regen on the thermally-pasted assembly; baseplate plateaued at 44.4 / 44.0 °C against 22.5 °C ambient, validating the interface rework.
 - [200 A Motoring Steady-State Thermal Test — Gen7 Size 2](Low-Power-Motoring-200A-Steady-State-Gen7-Size2/Index.md) - motoring-direction counterpart: 42-minute 200 A positive-torque hold drawing 2.46 kW, baseplate plateau 43.6 / 43.5 °C in cooler night ambient — same rise over ambient as regen, completing bidirectional 200 A continuous-duty validation.
+- [300 A Regen Steady-State Thermal Test — Gen7 Size 2](Low-Power-Regen-300A-Steady-State-Gen7-Size2/Index.md) - 22.9-minute continuous 300 A regen at ~2,600 RPM returning 11.7 kW to a 150 V-clamped bus; baseplate reached effective steady state at 63.2 / 61.7 °C (~39 K over ambient). Stopped because the Zero ZF75-10 machine hit 86 °C on the thermal imager, not due to any inverter limit or fault.
 
 ## Cross-cutting
 

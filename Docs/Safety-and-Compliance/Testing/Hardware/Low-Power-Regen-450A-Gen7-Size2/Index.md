@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
+version: "0.2"
 date: "2026-09-23"
 description: Gen7 size 2 regenerative run at 2,000 RPM shaft speed stepping to a 450 A q-axis command with a Chroma load bank clamping the bus at 150 V, returning about 13 kW to the DC link. Sustained 78 s at 450 A until the inverter overtemperature protection tripped at about 80 °C baseplate during the commanded stop, matching the behavior in the 200 A OTP report. Also resolves the 400 A report's unexplained phase-current spikes as Tektronix current-clamp (150 A rated) saturation.
 test_id: 16
@@ -44,6 +44,11 @@ This run also closes the open item from the 400 A report: the phase-current "spi
 | Peak phase current | 470 A |
 | Peak / average DC-link power | 13.4 kW / 12.8 kW during the 450 A hold |
 | Regen energy into DC link | ≈0.283 kWh to the trip |
+| Machine terminal real power P | −13.41 kW mean during the 450 A hold (generating; calculated from logged `cg_vd_v`/`cg_vq_v`/`cg_id_a`/`cg_iq_a`) |
+| Machine reactive power Q | ≈7.2 kvar mean (machine magnetizing demand; quoted as magnitude — sign follows the logged dq frame) |
+| Machine apparent power \|S\| | 15.23 kVA mean |
+| Power factor (calculated) | 0.881 during the hold |
+| Inverter efficiency (calculated) | ≈95% (12.80 kW DC-link ÷ 13.41 kW machine-terminal) |
 | Baseplate NTC at trip | TS1 80.1 °C, TS2 75.5 °C (peak logged 81.2 / 76.5 °C, post-trip lag) |
 | OT trip | `FAULT` at t = 164.3 s, flags `0x04000000` (`OvertemperatureInverter`), during the slew-limited stop |
 
@@ -72,6 +77,8 @@ Per-command statistics from the full-rate telemetry log (Pdc = DC-link power, Id
 
 At 2,000 RPM the back-EMF is higher than in the 400 A run, so the same 150 V clamp accepted ~85 A of DC-link current instead of ~56 A — that is where the 13 kW came from. Current control remained clean throughout: `cg_vlimit_scale` = 1.000 for the entire session (all clamping external), raw and filtered Iq tracked, and no gate faults occurred. The only fault was the overtemperature trip itself.
 
+- **Machine-terminal power (calculated):** from the logged dq quantities (peak-amplitude convention, P = (3/2)(vd·id + vq·iq), Q = (3/2)(vq·id − vd·iq)), the machine delivered **13.41 kW mean** during the hold while drawing **≈7.2 kvar** of magnetizing reactive power (quoted as magnitude) — 15.23 kVA, **power factor ≈ 0.881**. The 0.61 kW between machine output and the 12.80 kW reaching the DC link is the inverter's own dissipation — **calculated inverter efficiency ≈ 95%** — which is exactly what drove the dry-mounted baseplate to the 80 °C trip in 78 s.
+
 ## Thermal results and OT trip
 
 Baseplate temperatures rose steeply under 13 kW with no thermal interface work (the assembly was still the dry-mounted setup of the previous sessions):
@@ -87,7 +94,7 @@ The 400 A report closed with an unexplained oscilloscope observation: narrow rep
 
 ## Telemetry overview
 
-![Full session: Iq, DC-link power, baseplate NTCs, and bus voltage](Telemetry-Overview.png)
+![Full session: Iq, DC-link power, machine-terminal P and Q, baseplate NTCs, and bus voltage](Telemetry-Overview.png)
 
 > **Open full session:** [View the run in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Low-Power-Regen-450A-Gen7-Size2/450a-regen-decimated.jsonl#s=cg_iq_a:left)
 

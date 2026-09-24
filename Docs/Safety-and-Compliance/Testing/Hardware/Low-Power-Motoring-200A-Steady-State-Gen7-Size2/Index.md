@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
+version: "0.2"
 date: "2026-09-23"
 description: Motoring-direction counterpart to the 200 A steady-state regen test, same thermally-pasted Gen7 size 2 assembly and same evening. The inverter applied 200 A of positive torque current to the dynamometer-coupled PMSM for 42 minutes, drawing 2.46 kW from the ~145 V DC link. Baseplate NTCs plateaued at 43.6 / 43.5 °C — about 0.9 K below the regen run's plateau, tracking the cooler night ambient rather than any directional difference.
 test_id: 18
@@ -46,6 +46,11 @@ The steady-state plateau came in at **43.6 °C (TS1) / 43.5 °C (TS2)** — abou
 | Average Iq over hold | −199.9 A |
 | DC-link power | −2.46 kW average (supply sourcing; −2.72 kW max draw) |
 | Energy drawn from DC link | ≈1.72 kWh |
+| Machine terminal real power P | +2.51 kW mean (motoring; delivered to the machine — calculated from logged `cg_vd_v`/`cg_vq_v`/`cg_id_a`/`cg_iq_a`) |
+| Machine reactive power Q | ≈0.57 kvar mean (machine magnetizing demand; quoted as magnitude — sign follows the logged dq frame) |
+| Machine apparent power \|S\| | 2.58 kVA mean |
+| Power factor (calculated) | 0.972 |
+| Inverter efficiency (calculated) | ≈100% at the 2.5 kW scale (telemetry offsets dominate at this level) |
 | Ambient | not logged; ~0.9 K cooler than the regen run per operator (night-cooled building) |
 | Baseplate NTC at steady state | TS1 43.6 °C, TS2 43.5 °C |
 
@@ -62,6 +67,7 @@ The steady-state plateau came in at **43.6 °C (TS1) / 43.5 °C (TS2)** — abou
 - **Bus:** 144.6 V average, rock steady with no clamp hardware involved.
 - **Protection:** `gate_fault` = 0 for the entire session, `cg_vlimit_scale` = 1.000 throughout, no overcurrent events.
 - The motoring current waveforms on the oscilloscope are clean sine waves — a useful contrast against the 400 A run's clamp-saturation artifacts, with appropriately rated measurement in the loop this time.
+- **Machine-terminal power (calculated):** from the logged dq quantities (peak-amplitude convention, P = (3/2)(vd·id + vq·iq), Q = (3/2)(vq·id − vd·iq)), the machine absorbed **2.51 kW mean** while drawing **≈0.57 kvar** of magnetizing reactive power (quoted as magnitude) — 2.58 kVA, **power factor ≈ 0.972**. Machine-terminal power and the 2.46 kW DC-link draw agree within ~2% — **calculated inverter efficiency ≈ 100%** at this power, where telemetry offsets dominate the difference.
 
 ## Thermal results
 
@@ -82,7 +88,7 @@ The steady-state plateau came in at **43.6 °C (TS1) / 43.5 °C (TS2)** — abou
 
 ## Telemetry overview
 
-![Full session: Iq, DC-link power (negative = motoring), baseplate NTCs, and bus voltage](Telemetry-Overview.png)
+![Full session: Iq, DC-link power (negative = motoring), machine-terminal P and Q, baseplate NTCs, and bus voltage](Telemetry-Overview.png)
 
 > **Open full session:** [View the run in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Low-Power-Motoring-200A-Steady-State-Gen7-Size2/c2-200v-200a-positive-torque-steady-state-decimated.jsonl#s=cg_iq_a:left)
 

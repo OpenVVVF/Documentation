@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.2"
+version: "0.3"
 date: "2026-09-23"
 description: First Gen7 size 2 regenerative run at a 400 A q-axis command, using a Chroma DC load bank to clamp the bus at 150 V because the Sorensen supply sinks only about 50 A of regen. Hardware met every target. The apparent phase-current "spikes" observed on the oscilloscope at 400 A were subsequently attributed to the Tektronix current clamps (rated 150 A) saturating at the measured current — a measurement artifact, resolved in the follow-up 450 A report.
 test_id: 15
@@ -47,6 +47,10 @@ During the 400 A holds, narrow repetitive spikes were observed on the oscillosco
 | Peak phase current | 415 A |
 | Peak DC-link power | 8.78 kW |
 | Regen energy into DC link | ≈0.117 kWh total (0.034 kWh + 0.083 kWh across the two holds) |
+| Machine terminal real power P | −8.39 kW (hold 1) / −7.52 kW (hold 2, Iq mean 356 A) — calculated from logged `cg_vd_v`/`cg_vq_v`/`cg_id_a`/`cg_iq_a` |
+| Machine reactive power Q | ≈5.0 / 4.3 kvar (hold 1 / 2; machine magnetizing demand, quoted as magnitude) |
+| Power factor (calculated) | 0.86 / 0.88 (hold 1 / 2) |
+| Inverter efficiency (calculated) | ≈100% in both holds (telemetry-resolution limited at this power) |
 | Peak baseplate NTC | 63.9 °C (TS1), 59.5 °C (TS2) |
 | DC-link current | ~54–58 A during the holds (supply at sink limit; Chroma absorbs the rest) |
 
@@ -81,6 +85,8 @@ Per-command statistics from the full-rate telemetry log (Pdc = DC-link power, Id
 
 The bus voltage told the clamp story directly: it stayed at 74.3–74.8 V through the 150 A step, began climbing at 175 A (74.3–82.3 V), and rose stepwise to the Chroma clamp (142.5–150.4 V at the 375 A step), then held 149.6–151.8 V through both 400 A holds. Above ~150 A of regen the logged DC-link current pinned at ~54–58 A — the Sorensen at its sink limit — while the power increase showed up entirely as bus voltage until the Chroma clamp took over. The modulator voltage limiter never engaged (`cg_vlimit_scale` = 1.000 for the entire session); all clamping was external. Current control tracked cleanly: raw and filtered Iq agree, and hold 2 averaged 357.5 A only because its window includes the ~8 s, ~50 A/s slew-limited ramp from the `IqVar 400` re-application to full current.
 
+- **Machine-terminal power (calculated):** from the logged dq quantities (peak-amplitude convention, P = (3/2)(vd·id + vq·iq), Q = (3/2)(vq·id − vd·iq)). Hold 1: the machine delivered **8.39 kW** while drawing **≈5.0 kvar** (9.74 kVA, **PF ≈ 0.86**); hold 2: **7.52 kW** and **≈4.3 kvar** (8.67 kVA, **PF ≈ 0.88**). Machine-terminal and DC-link power agree within ~0.3% in both holds — **calculated inverter efficiency ≈ 100%**, telemetry-resolution limited at this power (the same calculation shows ≈95% at 13 kW in the 450 A run, where the loss is larger than the measurement offsets).
+
 ![Phase currents on the oscilloscope at 400 A; the apparent spikes near the waveform peaks were later attributed to the 150 A-rated Tektronix current clamps saturating](Oscilloscope-Phase-Currents.jpg)
 
 ![Zoomed timebase: the apparent spikes and distorted edges were current-clamp saturation artifacts, not inverter behavior](Oscilloscope-Phase-Current-Zoom.jpg)
@@ -106,7 +112,7 @@ No further investigation of the inverter is required on this observation; future
 
 ## Telemetry overview
 
-![Full session: Iq, DC-link power, baseplate NTCs, and bus voltage](Telemetry-Overview.png)
+![Full session: Iq, DC-link power, machine-terminal P and Q, baseplate NTCs, and bus voltage](Telemetry-Overview.png)
 
 > **Open full session:** [View the run in the Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Low-Power-Regen-400A-Gen7-Size2/400a-regen-decimated.jsonl#s=cg_iq_a:left)
 
