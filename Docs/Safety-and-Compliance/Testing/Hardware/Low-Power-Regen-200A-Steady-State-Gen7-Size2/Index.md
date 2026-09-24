@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
+version: "0.2"
 date: "2026-09-23"
 description: One-hour steady-state regenerative run on the thermally-pasted Gen7 size 2 assembly, holding 200 A q-axis current against a PMSM spun at ~470 RPM on the dynamometer. Only ~1 kW returned to the DC link (bus ~145 V), so the full 200 A of phase-current stress ran at low power; baseplate NTCs plateaued at 44.4 / 44.0 °C against a 22.5 °C ambient, validating the thermal-paste interface rework after the 450 A run's overtemperature trip.
 test_id: 17
@@ -24,7 +24,7 @@ Result: baseplate TS1 plateaued at **44.4 °C** and TS2 at **44.0 °C** against 
 
 ## Test setup
 
-- **DUT:** OpenVVVF Gen7 size 2 (C2) power stage, remounted to its heatsink/plate with thermal paste; firmware `foc_demo` graph (hash `855dbcee90d611cb`).
+- **DUT:** OpenVVVF Gen7 size 2 (C2) power stage, remounted to its heatsink/plate with thermal paste; firmware `foc_demo` graph (hash `855dbcee90d611cb`), OpenVVVF/RTE commit `5b529e2` ("fix gen7 current feedback and voltage control with bounded capture diagnostics").
 - **Machine:** PMSM/IPM (FRAM config: 10 poles, R = 0.0121 Ω) coupled to the Sierra CP Engineering dynamometer at approximately −470 RPM mechanical (~−2,340 RPM electrical) during the hold.
 - **DC supply:** Sorensen bench supply holding ~145 V on the bus. DC-link current stayed ~7 A, far below the supply's ~50 A regen sink limit, so no external load bank was needed.
 - **Instrumentation:** RTE Studio telemetry, Klein Tools TI250 thermal imager (photos below, taken once the baseplate had reached steady state).
@@ -39,7 +39,7 @@ Result: baseplate TS1 plateaued at **44.4 °C** and TS2 at **44.0 °C** against 
 
 | Parameter | Value |
 |-----------|-------|
-| Hardware | Gen7 size 2 (C2), pasted interface; firmware `foc_demo` hash `855dbcee90d611cb` |
+| Hardware | Gen7 size 2 (C2), pasted interface; firmware `foc_demo` hash `855dbcee90d611cb`, RTE commit `5b529e2` |
 | Machine | PMSM/IPM, 10 poles, ~−470 RPM mech during hold |
 | Bus | ~144.7 V average (143.4–145.6 V) |
 | Current command | `IqVar` jogs at ±10–40 A, then 200 A for 54.7 min |
