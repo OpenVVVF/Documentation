@@ -96,7 +96,7 @@ The 400 A report closed with an unexplained oscilloscope observation: narrow rep
 - Raising shaft speed to 2,000 RPM lifted regen power at the same 150 V clamp from 8.8 kW (400 A run) to 13 kW — DC-link current scales with available mechanical power, not with the clamp voltage alone.
 - The Chroma clamp plus ~145 V supply setpoint meant the clamp engaged from ~300 A onward, earlier in the staircase than in the 400 A run.
 - The overtemperature protection tripped *during* a commanded stop because the slew-limited decay (~50 A/s) leaves hundreds of amps flowing for seconds while the baseplate is still heating. Stopping earlier is the lever — the protection itself worked as designed.
-- This session predates the planned re-run with thermal paste on the power stage; the paste re-run is expected to move the time-to-trip substantially.
+- This session predates the thermal-paste rework of the power stage. The pasted assembly was subsequently validated at 200 A steady state — baseplate plateau 44.4 / 44.0 °C against 22.5 °C ambient — in [OV-TEST-HW-REGEN-200A-STEADY-STATE-GEN7-SIZE2](../Low-Power-Regen-200A-Steady-State-Gen7-Size2/Index.md).
 
 ## Conclusion
 
