@@ -61,6 +61,17 @@ Use hierarchical, kebab-case IDs:
 
 `INDEX` is reserved for the index document of a section or sub-section (e.g. `OV-C2-INDEX`, `OV-C2-DD-INDEX`).
 
+### Test-report naming convention (hardware power/thermal series)
+
+Test Report doc_ids use `OV-TEST-HW-<MODE>-<CURRENT>-<CONDITIONS>[-GEN7-SIZE2]`:
+
+- `<MODE>`: `REGEN`, `MOTORING`, `THERMAL-OTP`, or the hardware domain (`INDUCTION`, `PMSM`, `GEN7-TEMP`) for non-power-run reports.
+- `<CURRENT>`: peak/hold q-axis current, e.g. `200A`, `300A`.
+- `<CONDITIONS>`: `STEADY-STATE`, `NO-COOLING`, etc. (omit for one-shot characterization runs).
+- `-GEN7-SIZE2` suffix: mandatory for runs on the Gen7 size 2 (C2) assembly; omitted only for pre-Gen7 hardware (e.g. `OV-TEST-HW-REGEN-100A-NO-COOLING` on the C2-class bare stack).
+
+Folder names follow the same tokens in kebab-case with an optional `Low-Power-` series prefix. Deviations require a note in the report's Observations. New reports must follow `Tools`/methodology references in [OV-TEST-METHODOLOGY](../../Safety-and-Compliance/Testing/Test-Methodology/Index.md).
+
 ## Frontmatter schema
 
 Every `Index.md` must begin with YAML frontmatter. Required and optional fields:

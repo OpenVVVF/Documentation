@@ -1,6 +1,6 @@
 ---
 doctype: Test Report
-doc_id: OV-TEST-HW-LOW-POWER-REGEN-100A
+doc_id: OV-TEST-HW-REGEN-100A-NO-COOLING
 title: Low-Power Regen 100 A Phase-Current Endurance (No Cooling)
 product_line: openvvvf
 applies_to:

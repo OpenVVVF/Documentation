@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.4"
-date: "2026-09-22"
+version: "0.5"
+date: "2026-09-24"
 description: Formal test reports and validation evidence for OpenVVVF hardware, firmware, and integration.
 nav_order: 340
 ---
@@ -15,6 +15,8 @@ nav_order: 340
 # Testing and Validation
 
 This section contains formal test records and validation evidence. Each document is evidence that a specific feature, requirement, or hazard mitigation was exercised.
+
+All hardware power tests follow the shared definitions and evidence requirements of the [Hardware Test Methodology](Test-Methodology/Index.md) — steady-state criteria, calculated quantities (P/Q/PF/efficiency), reconciliation rules, and naming.
 
 ## Test evidence dashboard
 
@@ -34,6 +36,13 @@ This section contains formal test records and validation evidence. Each document
 | 10 | Motor Self-Commissioning Accuracy Report | PMSM + Induction | draft | motor self-commissioning / calibration routine | [Report](Hardware/Motor-Self-Commissioning-Accuracy/Index.md) |
 | 11 | Gen7 Board Temperature Sensor Validation | - | draft | board temperature sensing / ADC measurement chain (OV-TEST-HW-GEN7-TEMP-NTC-VALIDATION) | [Report](Hardware/Gen7-Temp-Sensor-Validation/Index.md) |
 | 12 | Low-Power Regen 100 A Phase-Current Endurance (No Cooling) | Induction | draft | high-current regen endurance / phase-current capability at low DC-bus voltage (no cooling) | [Report](Hardware/Low-Power-Regen-100A-No-Cooling/Index.md) |
+| 13 | 200 A Regen to 79 °C — Gen7 Size 2 | Induction | draft | high-current regen staircase; thermal rise with dry heatsink interface | [Report](Hardware/Low-Power-Regen-200A-Gen7-Size2/Index.md) |
+| 14 | Thermal OTP Trip — 200 A Regen, Gen7 Size 2 | Induction | draft | overtemperature protection chain validation (trip at ~80 °C baseplate) | [Report](Hardware/Thermal-OTP-200A-Gen7-Size2/Index.md) |
+| 15 | Initial 400 A Regen Test — Gen7 Size 2 | Induction | draft | 400 A phase-current capability with bus clamp; current-clamp saturation identified as measurement artifact | [Report](Hardware/Low-Power-Regen-400A-Gen7-Size2/Index.md) |
+| 16 | 450 A / 13 kW Regen — Gen7 Size 2 | Induction | draft | 450 A phase-current capability at ~150 V clamp; OT trip reproduced | [Report](Hardware/Low-Power-Regen-450A-Gen7-Size2/Index.md) |
+| 17 | 200 A Regen Steady-State Thermal Test — Gen7 Size 2 | PMSM | draft | continuous-duty validation of the thermally-pasted interface (54.7 min, plateau 44.4/44.0 °C) | [Report](Hardware/Low-Power-Regen-200A-Steady-State-Gen7-Size2/Index.md) |
+| 18 | 200 A Motoring Steady-State Thermal Test — Gen7 Size 2 | PMSM | draft | motoring-direction counterpart of test 17 (42 min, plateau 43.6/43.5 °C) | [Report](Hardware/Low-Power-Motoring-200A-Steady-State-Gen7-Size2/Index.md) |
+| 19 | 300 A Regen Steady-State Thermal Test — Gen7 Size 2 | PMSM | draft | 300 A continuous regen at ~2,600 RPM (22.9 min, 11.7 kW, plateau 63.2/61.7 °C; stopped on machine limit) | [Report](Hardware/Low-Power-Regen-300A-Steady-State-Gen7-Size2/Index.md) |
 
 These reports validate the calibration routines on the C2 test fixture. The same routines are used on all OpenVVVF chassis; add a new report only when a different motor or harness is introduced.
 
