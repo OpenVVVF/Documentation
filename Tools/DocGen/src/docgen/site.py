@@ -631,6 +631,7 @@ def copy_assets(doc: Document, docs_dir: Path, output_dir: Path) -> None:
         ".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp", ".pdf",
         ".txt", ".csv", ".json", ".jsonl", ".html",
         ".js", ".wasm", ".css", ".md",
+        ".mp4", ".webm",
     }
     for root, dirs, files in os.walk(src_dir):
         root_path = Path(root)
