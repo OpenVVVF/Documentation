@@ -40,6 +40,7 @@ Electrical, thermal, mechanical, and environmental test records.
 - [Initial 400 A Regen Test — Gen7 Size 2](Low-Power-Regen-400A-Gen7-Size2/Index.md) - first 400 A q-axis regen run with a Chroma load bank clamping the bus at 150 V (Sorensen regen sink ~50 A); 8.78 kW peak; apparent phase-current spikes later attributed to 150 A-rated Tektronix current clamps saturating (measurement artifact).
 - [450 A / 13 kW Regen — Gen7 Size 2](Low-Power-Regen-450A-Gen7-Size2/Index.md) - 450 A q-axis regen at 2,000 RPM shaft speed, 12.8 kW average returned to the DC link, sustained 78 s until the inverter overtemperature protection tripped at ~80 °C baseplate as designed.
 - [200 A Regen Steady-State Thermal Test — Gen7 Size 2](Low-Power-Regen-200A-Steady-State-Gen7-Size2/Index.md) - 54.7-minute continuous 200 A regen on the thermally-pasted assembly; baseplate plateaued at 44.4 / 44.0 °C against 22.5 °C ambient, validating the interface rework.
+- [200 A Motoring Steady-State Thermal Test — Gen7 Size 2](Low-Power-Motoring-200A-Steady-State-Gen7-Size2/Index.md) - motoring-direction counterpart: 42-minute 200 A positive-torque hold drawing 2.46 kW, baseplate plateau 43.6 / 43.5 °C in cooler night ambient — same rise over ambient as regen, completing bidirectional 200 A continuous-duty validation.
 
 ## Cross-cutting
 
