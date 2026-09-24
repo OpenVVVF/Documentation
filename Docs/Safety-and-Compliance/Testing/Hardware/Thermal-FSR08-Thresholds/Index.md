@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
+version: "0.2"
 date: "2026-09-24"
 description: Verifies the FSR-08 temperature chain with applied heat — derate at 90 °C and safe state at 105 °C on the capacitor channel — reconciling the ~80 °C trip seen in earlier firmware builds.
 nav_order: 372
@@ -21,6 +21,8 @@ normative_refs:
 # Thermal Derate and SSO Threshold Verification (FSR-08)
 
 This plan follows Thermal Test Plan T-06 in [OV-TEST-THERMAL-PLAN](../../Thermal-Test-Plan/Index.md); here the stimulus is real applied heat (hot plate / controlled heat source) rather than chamber air, so each NTC channel can be swept through its configured threshold independently and without power conversion. It applies the standard definitions of [OV-TEST-METHODOLOGY](../../Test-Methodology/Index.md) and follows the status vocabulary and evidence framework of [OV-TEST-FAULT-INJECTION](../../Fault-Injection-Test-Plan/Index.md). Methodology archetype: **D — protection validation** (one protection chain exercised deliberately; the DUT must respond; a non-response is a fail).
+
+**Existing evidence claimed (no reheating of the actuation path):** the over-temperature *actuation chain* — IGBT baseplate NTC → firmware detection → `OvertemperatureInverter` FAULT → immediate gate cut — is already demonstrated in-circuit while switching, at full phase current, by [OV-TEST-HW-THERMAL-OTP-200A-GEN7-SIZE2](../Thermal-OTP-200A-Gen7-Size2/Index.md) (test 14) and [OV-TEST-HW-REGEN-450A-GEN7-SIZE2](../Low-Power-Regen-450A-Gen7-Size2/Index.md) (test 16). Those reports are claimed as the actuation artifact in [OV-TEST-COVERAGE](../../Test-Coverage-Checklist/Index.md). This run therefore uses **no power switching and does not re-verify actuation under load**; external heat exists only to reach the temperatures and channels power testing cannot reach without damaging the DUT — the 90 °C derate region (tripped straight through it), the 105 °C capacitor-channel SSO (cap bank peaked at ~63 °C in the power runs), and the 100 °C module hard cap.
 
 ## Purpose & safety traceability
 
@@ -39,7 +41,7 @@ This test **complements and reconciles** earlier evidence: firmware builds under
 
 - **DUT:** Gen7 control module + C2 power stage, [FILL: DUT variant — hardware revision, thermal interface state (paste lot/thickness or "dry"), firmware graph + hash].
 - **Coverage:** the chassis/bus-class variants of the methodology variant matrix ([OV-TEST-METHODOLOGY](../../Test-Methodology/Index.md) §6); execution-specific parameters are placeholders pending campaign definition — [FILL: per-channel configured thresholds from ECC read-back].
-- **Out of scope:** power-run thermal characterization (covered by the power/thermal hold series), NTC accuracy correlation (T-01 through T-03 in OV-TEST-THERMAL-PLAN), and any endurance claim — this test validates protection thresholds only.
+- **Out of scope:** power-run thermal characterization (covered by the power/thermal hold series), **SSO actuation under load (covered by tests 14/16, claimed in OV-TEST-COVERAGE — this run does not rehearse it)**, NTC accuracy correlation (T-01 through T-03 in OV-TEST-THERMAL-PLAN), and any endurance claim — this test validates protection thresholds only.
 
 ## Bench setup & preconditions
 
