@@ -6,9 +6,9 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
+version: "0.2"
 date: "2026-09-23"
-description: First Gen7 size 2 regenerative run at a 400 A q-axis command, using a Chroma DC load bank to clamp the bus at 150 V because the Sorensen supply sinks only about 50 A of regen. Hardware met every target, but anomalous phase-current spikes observed on the oscilloscope at 400 A remain unexplained, so the test was stopped and is recorded as passed-but-not-understood pending investigation.
+description: First Gen7 size 2 regenerative run at a 400 A q-axis command, using a Chroma DC load bank to clamp the bus at 150 V because the Sorensen supply sinks only about 50 A of regen. Hardware met every target. The apparent phase-current "spikes" observed on the oscilloscope at 400 A were subsequently attributed to the Tektronix current clamps (rated 150 A) saturating at the measured current — a measurement artifact, resolved in the follow-up 450 A report.
 test_id: 15
 nav_order: 364
 normative_refs:
@@ -20,7 +20,7 @@ normative_refs:
 
 This report extends the Gen7 size 2 regenerative staircase of [OV-TEST-HW-REGEN-200A-GEN7-SIZE2](../Low-Power-Regen-200A-Gen7-Size2/Index.md) from 200 A to a 400 A q-axis command. The limiting facility for high-current regen is the DC bus: the Sorensen bench supply can sink only about 50 A back into the grid, so above roughly 150 A of regen the bus voltage runs away. For this run a Chroma DC electronic load bank was connected across the DC link in constant-voltage mode at 150 V to absorb everything the supply cannot sink. The inverter was commanded in steps from 25 A to 400 A and held at 400 A twice, returning up to 8.8 kW to the DC link.
 
-During the 400 A holds, narrow repetitive spikes were observed on the oscilloscope phase-current traces that were not present at lower currents. Telemetry shows clean control, no faults, and a solid 150 V clamp, so the anomaly is visible only in the analog captures and its cause is undetermined. The test was stopped for this reason. **Hardware passed every target; the observation is unexplained and remains under investigation.**
+During the 400 A holds, narrow repetitive spikes were observed on the oscilloscope phase-current traces that were not present at lower currents. Telemetry shows clean control, no faults, and a solid 150 V clamp, so the anomaly is visible only in the analog captures and its cause is undetermined. The test was stopped for this reason. **Hardware passed every target; the spike observation is resolved below — it was the oscilloscope current clamps saturating, not the inverter.**
 
 ## Test setup
 
@@ -81,9 +81,9 @@ Per-command statistics from the full-rate telemetry log (Pdc = DC-link power, Id
 
 The bus voltage told the clamp story directly: it stayed at 74.3–74.8 V through the 150 A step, began climbing at 175 A (74.3–82.3 V), and rose stepwise to the Chroma clamp (142.5–150.4 V at the 375 A step), then held 149.6–151.8 V through both 400 A holds. Above ~150 A of regen the logged DC-link current pinned at ~54–58 A — the Sorensen at its sink limit — while the power increase showed up entirely as bus voltage until the Chroma clamp took over. The modulator voltage limiter never engaged (`cg_vlimit_scale` = 1.000 for the entire session); all clamping was external. Current control tracked cleanly: raw and filtered Iq agree, and hold 2 averaged 357.5 A only because its window includes the ~8 s, ~50 A/s slew-limited ramp from the `IqVar 400` re-application to full current.
 
-![Phase currents on the oscilloscope at 400 A, showing the anomalous spikes near the waveform peaks](Oscilloscope-Phase-Currents.jpg)
+![Phase currents on the oscilloscope at 400 A; the apparent spikes near the waveform peaks were later attributed to the 150 A-rated Tektronix current clamps saturating](Oscilloscope-Phase-Currents.jpg)
 
-![Zoomed timebase: spikes and heavy switching-frequency content on the phase currents](Oscilloscope-Phase-Current-Zoom.jpg)
+![Zoomed timebase: the apparent spikes and distorted edges were current-clamp saturation artifacts, not inverter behavior](Oscilloscope-Phase-Current-Zoom.jpg)
 
 ## Thermal results
 
@@ -95,14 +95,14 @@ Temperatures were benign for the full session:
 
 ## Current-spike observation
 
-During the first 400 A hold, the oscilloscope showed narrow, repetitive spikes superimposed on the phase-current waveforms, concentrated near the current peaks (photos above); they were not observed at lower currents. The zoomed capture additionally shows heavy switching-frequency ringing content on the traces.
+**Resolved — measurement artifact, not an inverter anomaly.** During the first 400 A hold, the oscilloscope showed narrow, repetitive spikes superimposed on the phase-current waveforms, concentrated near the current peaks (photos above); they were not observed at lower currents. The cause, established during the follow-up 450 A run, is the **measurement channel**: the Tektronix current clamps are rated at 150 A and clipped/saturated at the 400 A phase currents, producing exactly this kind of spiked, distorted trace. See [OV-TEST-HW-REGEN-450A-GEN7-SIZE2](../Low-Power-Regen-450A-Gen7-Size2/Index.md) for the follow-up run and resolution note.
 
-What the telemetry does and does not say:
+The telemetry evidence from this session is consistent with that conclusion:
 
-- The ~56 Hz telemetry publish rate cannot resolve the anomaly: the electrical frequency is ~123 Hz, so per-sample phase-current values are aliased by design. No spike signature is expected in, or visible in, the log.
-- Everything else is clean: all 19,012 current samples valid (`cg_sample_valid`), `gate_fault` = 0 for the entire session, no desaturation events, `cg_vlimit_scale` = 1.000 throughout, the bus sat solidly on the 150 V clamp, and Iq tracking was tight in both holds.
+- The ~56 Hz telemetry publish rate cannot resolve waveform-scale spikes: the electrical frequency is ~123 Hz, so per-sample phase-current values are aliased by design.
+- Everything is clean: all 19,012 current samples valid (`cg_sample_valid`), `gate_fault` = 0 for the entire session, no desaturation events, `cg_vlimit_scale` = 1.000 throughout, the bus sat solidly on the 150 V clamp, and Iq tracking was tight in both holds — none of which would be expected if the spikes were a power-stage or control phenomenon.
 
-Because the spikes are only observable in the analog domain, this report does not assign a cause. Directions for the follow-up investigation: capture the spikes at high bandwidth (oscilloscope waveform save, or the firmware's burst current-sampling node) and correlate them against Iq level, bus voltage, and Chroma CV-loop behavior at the 150 V clamp; repeat with a second probe/ground arrangement to rule a measurement artifact in or out; and check DC-link capacitor/divider behavior at the clamp before any repeat run.
+No further investigation of the inverter is required on this observation; future sessions should use current transducers rated for the measured current.
 
 ## Telemetry overview
 
@@ -120,7 +120,7 @@ Because the spikes are only observable in the analog domain, this report does no
 
 ## Conclusion
 
-**Pass — with an open investigation.** Gen7 size 2 hardware sustained a 400 A q-axis regenerative command — 415 A peak phase current, 8.78 kW peak DC-link power, ≈0.117 kWh returned — with the bus clamped at 150 V by the added Chroma load bank, no gate or control faults, and baseplate temperatures below 64 °C. However, the repetitive phase-current spikes observed on the oscilloscope at 400 A are real, unexplained, and were the reason the test was stopped. Further high-current regen testing should wait until the spikes are captured at bandwidth and their cause is understood.
+**Pass.** Gen7 size 2 hardware sustained a 400 A q-axis regenerative command — 415 A peak phase current, 8.78 kW peak DC-link power, ≈0.117 kWh returned — with the bus clamped at 150 V by the added Chroma load bank, no gate or control faults, and baseplate temperatures below 64 °C. The repetitive phase-current spikes observed on the oscilloscope at 400 A were subsequently determined to be the 150 A-rated Tektronix current clamps saturating at the measured current — a measurement artifact, not an inverter anomaly (see the [450 A follow-up report](../Low-Power-Regen-450A-Gen7-Size2/Index.md)).
 
 ## Artifacts
 
