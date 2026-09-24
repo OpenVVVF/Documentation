@@ -9,7 +9,7 @@ applies_to:
 version: "0.1"
 date: "2026-09-24"
 description: Exercises the SG-12/SG-14 short-circuit protection by energizing the inverter into a pre-faulted phase at ≤140 V and verifying DESAT detection <2 µs, soft turn-off, FLT routing to both MCUs, and safe state.
-nav_order: 375
+nav_order: 388
 placeholder: true
 normative_refs:
   - OV-TEST-METHODOLOGY

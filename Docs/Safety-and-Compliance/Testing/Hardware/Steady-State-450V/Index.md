@@ -9,7 +9,7 @@ applies_to:
 version: "0.1"
 date: "2026-09-24"
 description: "Fill-in campaign plan for continuous-duty thermal validation of the 450 V class: staircase and steady-state holds mirroring the 200 V campaign (tests 17–19), per the methodology variant matrix."
-nav_order: 376
+nav_order: 389
 placeholder: true
 normative_refs:
   - OV-TEST-METHODOLOGY

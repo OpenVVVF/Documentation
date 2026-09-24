@@ -9,7 +9,7 @@ applies_to:
 version: "0.2"
 date: "2026-09-24"
 description: Maps every HARA safety goal (OV-SAF-HARA-CORE v5.10, motorcycle profile v1.8) to its validation evidence and gaps. Completed power/thermal tests (7–19) are indexed by safety goal; every remaining gap names the required test and, where a plan stub exists, its doc_id. The working checklist for deciding what to test next.
-nav_order: 344
+nav_order: 381
 normative_refs:
   - OV-TEST-INDEX
   - OV-TEST-METHODOLOGY

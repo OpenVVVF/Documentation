@@ -9,7 +9,7 @@ applies_to:
 version: "0.1"
 date: "2026-09-24"
 description: Validates SG-10 bus-voltage protection — regen disable on OV warning, safe state within 50 ms on critical OV, and defined UV behavior (FSR-21 thresholds currently undefined — this test records them).
-nav_order: 374
+nav_order: 387
 placeholder: true
 normative_refs:
   - OV-TEST-METHODOLOGY

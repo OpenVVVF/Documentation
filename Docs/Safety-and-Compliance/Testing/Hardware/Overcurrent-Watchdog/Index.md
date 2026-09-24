@@ -9,7 +9,7 @@ applies_to:
 version: "0.1"
 date: "2026-09-24"
 description: Validates the SG-06 over-torque chain — analog-watchdog overcurrent detection within 10 µs and safe state within 100 ms at >110 % of calibrated max torque current.
-nav_order: 371
+nav_order: 384
 placeholder: true
 normative_refs:
   - OV-TEST-METHODOLOGY

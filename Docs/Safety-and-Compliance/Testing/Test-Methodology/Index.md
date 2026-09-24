@@ -9,7 +9,7 @@ applies_to:
 version: "0.1"
 date: "2026-09-24"
 description: Standard definitions, methods, and documentation requirements for OpenVVVF power-stage hardware tests (thermal, electrical, endurance, and protection validation). All hardware test reports and test plans must use these definitions so results are comparable across runs, machines, and chassis variants. Methodology is aligned with EN 50155-style endurance practice where applicable.
-nav_order: 343
+nav_order: 380
 normative_refs:
   - OV-TEST-INDEX
   - OV-TEST-HW-INDEX

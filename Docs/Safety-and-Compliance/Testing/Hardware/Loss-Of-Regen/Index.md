@@ -9,7 +9,7 @@ applies_to:
 version: "0.1"
 date: "2026-09-24"
 description: "Exercises the SG-04 loss-of-regen monitoring path (HARA GAP-TEST-01): regen must be detected as unavailable, the operator informed, and friction brakes remain the independent fallback."
-nav_order: 370
+nav_order: 383
 placeholder: true
 normative_refs:
   - OV-TEST-METHODOLOGY

@@ -9,7 +9,7 @@ applies_to:
 version: "0.1"
 date: "2026-09-24"
 description: "Validates SG-08: loss of rotor position feedback while spinning must be detected and reach safe state within 100 ms (target <50 ms per LIMIT-04)."
-nav_order: 373
+nav_order: 386
 placeholder: true
 normative_refs:
   - OV-TEST-METHODOLOGY

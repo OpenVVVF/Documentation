@@ -9,7 +9,7 @@ applies_to:
 version: "0.1"
 date: "2026-09-24"
 description: Measures fault-detection-to-six-switch-open latency for each independent SSO pathway against the 200 ms budget, the first hardware test targeting SG-03/SG-13.
-nav_order: 369
+nav_order: 382
 placeholder: true
 normative_refs:
   - OV-TEST-METHODOLOGY

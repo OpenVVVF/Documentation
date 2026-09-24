@@ -133,7 +133,7 @@ Use these ranges for top-level section indices so the sidebar orders consistentl
 | 10–99 | Hardware |
 | 100–199 | Control Assembly |
 | 200–299 | Power Stages |
-| 300–399 | Safety and Compliance (incl. Testing at 340–379) |
+| 300–399 | Safety and Compliance (incl. Testing at 340–379; test plans and stubs extend into 380–399 as the 340–379 block fills) |
 | 400–499 | (reserved; formerly Software) |
 | 600–699 | Tools |
 

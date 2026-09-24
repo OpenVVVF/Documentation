@@ -9,7 +9,7 @@ applies_to:
 version: "0.2"
 date: "2026-09-24"
 description: Verifies the FSR-08 temperature chain with applied heat — derate at 90 °C and safe state at 105 °C on the capacitor channel — reconciling the ~80 °C trip seen in earlier firmware builds.
-nav_order: 372
+nav_order: 385
 placeholder: true
 normative_refs:
   - OV-TEST-METHODOLOGY
