@@ -5,6 +5,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import Optional
 
@@ -126,16 +127,21 @@ def html_to_pdf(
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     url = html_path.resolve().as_uri()
-    cmd = [
-        chromium_path,
-        "--headless",
-        "--disable-gpu",
-        "--no-pdf-header-footer",
-        "--run-all-compositor-stages-before-draw",
-        f"--print-to-pdf={output_path}",
-        url,
-    ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    # A fresh user-data dir per run: Chromium's default profile caches
+    # stylesheets on disk, so repeated runs could otherwise print with a
+    # stale print.css after the site is rebuilt.
+    with tempfile.TemporaryDirectory(prefix="docgen-pdf-") as profile:
+        cmd = [
+            chromium_path,
+            "--headless",
+            "--disable-gpu",
+            "--no-pdf-header-footer",
+            "--run-all-compositor-stages-before-draw",
+            f"--user-data-dir={profile}",
+            f"--print-to-pdf={output_path}",
+            url,
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         raise RuntimeError(
             f"Chromium failed to generate PDF (exit {result.returncode}):\n"

@@ -326,14 +326,23 @@
     content: "";
   }
 
-  /* Tables */
+  /* Tables: long tables must be allowed to break across pages (a table
+     taller than one page would otherwise be clipped with a scrollbar in
+     the print rendering); rows stay intact and thead repeats. The screen
+     stylesheet blockifies tables below a 900px viewport so they scroll
+     horizontally — that media query also matches A4 print width, so the
+     table layout and wrapping must be restored here or every PDF table
+     would carry a scrollbar and nowrap cells. */
   .content table {
     width: 100%;
     border-collapse: collapse;
     margin: 0.5cm 0;
     font-size: 10pt;
-    page-break-inside: avoid;
-    break-inside: avoid;
+    page-break-inside: auto;
+    break-inside: auto;
+    display: table;
+    overflow: visible;
+    max-width: none;
   }
 
   .content thead {
@@ -346,6 +355,10 @@
     border: 0.5pt solid #d1d5db;
     text-align: left;
     vertical-align: top;
+    white-space: normal;
+    /* Long unbroken values (hashes, code spans) must wrap instead of
+       overflowing the printable width, which otherwise prints a scrollbar. */
+    overflow-wrap: anywhere;
   }
 
   .content th {
