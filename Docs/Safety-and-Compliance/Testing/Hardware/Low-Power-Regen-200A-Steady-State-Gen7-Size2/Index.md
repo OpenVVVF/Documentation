@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.2"
+version: "0.3"
 date: "2026-09-23"
 description: One-hour steady-state regenerative run on the thermally-pasted Gen7 size 2 assembly, holding 200 A q-axis current against a PMSM spun at ~470 RPM on the dynamometer. Only ~1 kW returned to the DC link (bus ~145 V), so the full 200 A of phase-current stress ran at low power; baseplate NTCs plateaued at 44.4 / 44.0 °C against a 22.5 °C ambient, validating the thermal-paste interface rework after the 450 A run's overtemperature trip.
 test_id: 17
@@ -27,7 +27,7 @@ Result: baseplate TS1 plateaued at **44.4 °C** and TS2 at **44.0 °C** against 
 - **DUT:** OpenVVVF Gen7 size 2 (C2) power stage, remounted to its heatsink/plate with thermal paste; firmware `foc_demo` graph (hash `855dbcee90d611cb`), OpenVVVF/RTE commit `5b529e2` ("fix gen7 current feedback and voltage control with bounded capture diagnostics").
 - **Machine:** PMSM/IPM (FRAM config: 10 poles, R = 0.0121 Ω) coupled to the Sierra CP Engineering dynamometer at approximately −470 RPM mechanical (~−2,340 RPM electrical) during the hold.
 - **DC supply:** Sorensen bench supply holding ~145 V on the bus. DC-link current stayed ~7 A, far below the supply's ~50 A regen sink limit, so no external load bank was needed.
-- **Instrumentation:** RTE Studio telemetry, Klein Tools TI250 thermal imager (photos below, taken once the baseplate had reached steady state).
+- **Instrumentation:** RTE Studio telemetry, Klein Tools TI250 thermal imager (photos below, taken once the baseplate had reached steady state), and a ~2-minute bench video of the run including the thermal-imager passes ([Steady-State-Run-Video.mp4](Steady-State-Run-Video.mp4), 1080p, transcoded from the phone original).
 
 ![Bench overview with the C2 assembly on the dynamometer](Bench-Setup.jpg)
 
@@ -108,6 +108,7 @@ The baseplate curve (telemetry overview below) is a clean single-pole rise to eq
 
 - [Decimated telemetry log (JSONL, 1 sample/s, frames merged)](c2-200v-200a-steady-state-decimated.jsonl) — [open in Telemetry Viewer](../../../../Tools/OpenVVVF-Telemetry-Viewer/telemetry-viewer.html?file=../../Safety-and-Compliance/Testing/Hardware/Low-Power-Regen-200A-Steady-State-Gen7-Size2/c2-200v-200a-steady-state-decimated.jsonl#s=cg_iq_a:left)
 - [Telemetry overview plot](Telemetry-Overview.png)
+- [Session video (MP4, ~2 min, 1080p)](Steady-State-Run-Video.mp4) — bench view of the run including the thermal-imager passes
 - [Full source telemetry log](c2-200v-200a-steady-state.jsonl), retained for traceability
 - Photos: [bench setup](Bench-Setup.jpg), [power stage detail](Power-Stage-Detail.jpg), [power stage on heatsink](Power-Stage-Heatsink.jpg), [control board detail](Control-Board-Detail.jpg), [inverter side view](Inverter-Side-View.jpg), [clamp hardware detail](Clamp-Hardware-Detail.jpg), [chassis view](Chassis-View.jpg)
 - Thermal images: [view 1](Thermal-01.jpg), [view 2](Thermal-02.jpg), [view 3](Thermal-03.jpg), [view 4](Thermal-04.jpg), [view 5](Thermal-05.jpg), [view 6](Thermal-06.jpg)
