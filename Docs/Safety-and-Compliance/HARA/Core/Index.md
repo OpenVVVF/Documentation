@@ -7,8 +7,8 @@ applies_to:
   - openvvvf-control-module
 mcus: STM32H723ZG + STM32G474RCTx
 temp: −40 °C to +85 °C
-version: "5.10"
-date: "2026-09-10"
+version: "5.13"
+date: "2026-09-26"
 description: Platform hazard analysis, safety goals, and functional safety requirements for the dual-MCU control module; fault-injection validation is defined in OV-TEST-FAULT-INJECTION.
 nav_order: 311
 normative_refs:
@@ -17,6 +17,32 @@ normative_refs:
 ---
 
 # Introduction
+
+> **Gen7 firmware status (2026-09-26):** The dual-MCU hardware and its gate-power
+> paths exist, but the coprocessor safety functions described below are design
+> requirements, not verified firmware capabilities. The current RTE coprocessor
+> safety kernel defaults its gate-power permission off. It can arm after a
+> limited power-feedback check and two changing edges on the main MCU's PD8
+> heartbeat. It latches gate-power off on heartbeat loss, shared gate fault,
+> or power-feedback loss. This is not the specified challenge/response watchdog
+> or complete POST. Independent ADC, CAN, PWM, thermal, and encoder monitoring
+> on the coprocessor remain open. The G474 now reports its fault state to the
+> H7 over the bridged USART3 link, and the H7 can request a guarded clear over
+> PD9/PC13. This is source implementation awaiting hardware validation.
+> Statements elsewhere in this HARA that
+> call these functions "implemented" or "covered" describe the intended
+> architecture and must not be used as implementation or test evidence. See
+> `RTE/Images/Gen7FW/CoProcessor/Safety/README.md` for source status.
+
+> **Interim bench policy:** With no throttle attached, throttle plausibility
+> and CAN loss, plus DC-link undervoltage, are warnings. Encoder loss during actuation, watchdog loss,
+> overcurrent, overvoltage, and ECC errors are shutdown faults. The main image
+> uses 500 A phase-current and 190 V DC-link limits. This is an interim
+> implementation choice and does not amend the requirements or acceptance
+> criteria below. The H7 observes DC-link voltage; the G474 has no direct
+> DC-link voltage pin in the checked Chassis2 schematic. Hardware timing,
+> calibration, and fault-injection evidence are still required before claiming
+> protection of the 600 A IGBT module and 200 V capacitors.
 
 ## Document Set - Core Platform and Application Profiles
 
@@ -39,10 +65,10 @@ Rationale for the split: the malfunctioning behaviors of a 3-phase traction inve
 >
 > - **ASIL ratings are targets** derived from the HARA process. They represent the assessed risk level of identified hazardous events, **not a claim that the design has been verified or certified to meet those ASILs**.
 > - **The system described is not ISO 26262 compliant**, nor compliant with IEC 61508, IEC 61800-5-2, or the EN 5012x railway series. Full compliance would require: complete product development per the applicable standard's product-development parts, hardware architectural metrics (e.g., SPFM ≥ 90% for ASIL B, ≥ 97% for ASIL C, ≥ 99% for ASIL D; LFM ≥ 60% for ASIL B, ≥ 80% for ASIL C, ≥ 90% for ASIL D), dependent failure analysis (DFA), software tool qualification, verification and validation testing (including fault injection), configuration management, change control, and independent safety assessment. **None of these have been completed.**
-> - The hardware implements a **dual-MCU architecture**: STM32H723ZG main MCU + STM32G474RCTx safety coprocessor. The coprocessor provides independent ADC monitoring of all safety-critical signals, 1oo2 gate drive power kill, challenge/response watchdog, independent CAN bus snooping, and bidirectional NRST. This makes **ASIL D achievable for SG-01 and SG-13 via ASIL B(D) + ASIL B(D) decomposition**.
+> - The hardware implements a **dual-MCU architecture**: STM32H723ZG main MCU + STM32G474RCTx safety coprocessor. Independent ADC monitoring, 1oo2 gate drive power kill, challenge/response watchdog, independent CAN bus snooping, and bidirectional NRST are design targets. The coprocessor firmware does not yet provide the independent monitoring needed to substantiate the proposed ASIL B(D) + ASIL B(D) decomposition for SG-01 and SG-13.
 > - The gate driver ICs (onsemi NCV57100) are **automotive-qualified (AEC-Q100)** but are **not ISO 26262 safety elements**. No safety manual, FMEDA, or ASIL claim is available from the manufacturer. Internal protections (DESAT, anti-shoot-through, UVLO) provide hardware-level risk reduction but cannot be claimed as ASIL-rated safety mechanisms without additional justification.
 > - **Software Test Library (STL) limitation:** This project uses ST's publicly available X-CUBE-CLASSB library (IEC 60730-1 Class B certified). The ISO 26262-certified Class D STL (X-CUBE-STL) requires an NDA and is not available for open-source use. The following ASIL process gaps result: no FMEDA/SPFM/LFM metrics derived for this hardware configuration; no ISO 26262 software tool qualification (compiler, static analysis); no fault injection testing campaign with coverage evidence; no independent safety assessment. ASIL decomposition using the Class B STL is a design and educational exercise only.
-> - The firmware is **architecturally complete**. Field-Oriented Control (FOC) is implemented. Safety mechanisms (tractive effort plausibility checking, immediate safe-state transition, boot CRC, challenge/response watchdog) are specified in this document; their implementation status is tracked in Sections 8 and 11.
+> - Field-Oriented Control (FOC) is implemented in the main image. Safety mechanisms (tractive effort plausibility checking, immediate safe-state transition, boot CRC, challenge/response watchdog) are specified here; the coprocessor implementation is incomplete as described in the Gen7 firmware status note above.
 > - This HARA and its accompanying Fault Injection Test Plan are **living design-input documents** intended to guide development and establish a safety engineering baseline. They do not constitute a product safety case, compliance certification, or warranty of fitness for any purpose.
 >
 > This is an **open-source traction inverter** project. The documentation is published in the interest of transparency. Users bear full responsibility for evaluating the suitability of this design for their specific application, risk tolerance, and applicable regulatory requirements.
@@ -564,3 +590,6 @@ Note: the Cincon EC7BW-110S12 DC/DC converter resides on the IO side and is **ex
 | 5.8 | 2026-08-13 | Fault-injection test plan extracted to OV-TEST-FAULT-INJECTION (standalone document under Testing/); Section 10 replaced by a reference to the standalone plan. |
 | 5.9 | 2026-09-10 | Fixed dangling reference to HARA annexes in the Risk Assessment Methodology section: S/E/C ratings are now stated as assigned in the application profile documents (e.g. `OV-SAF-HARA-PROF-MOTO`), reflecting the v5.1 document-set split. |
 | 5.10 | 2026-09-10 | Consistency fixes, no technical change: (1) ISO 26262-5 hardware architectural metric targets corrected in the Compliance Statement - SPFM ≥ 99% and LFM ≥ 90% are the ASIL D targets (the previously cited 97%/80% figures are the ASIL C targets; the ASIL C values are now listed alongside B and D); (2) Table 3 limitation cell for external system loss (CAN) aligned with FSR-17 - IO board heartbeat loss applies safe-state defaults (brake pressed, kickstand down) with tractive effort restricted to zero (commanded zero torque), not immediate SSO; (3) stray blank lines splitting the Document History table removed (formatting). |
+| 5.11 | 2026-09-26 | Added explicit Gen7 firmware status: dual-MCU architecture is present, but the coprocessor's independent safety monitors and inter-MCU watchdog are not implemented or verified. The initial safety kernel inhibits gate power pending POST and watchdog implementation. Clarified that architecture capability statements do not constitute implementation evidence. |
+| 5.12 | 2026-09-26 | Recorded the interim bench fault policy and revised firmware status after adding the PD8/PB9 heartbeat and automatic series-switch arming. Kept full POST, independent sensing, challenge/response watchdog, and hardware fault-injection as open evidence. |
+| 5.13 | 2026-09-26 | Added source status for G474-to-H7 fault reporting, processor-labeled diagnostics, and guarded clear requests over PD9/PC13. Hardware validation remains open. |
