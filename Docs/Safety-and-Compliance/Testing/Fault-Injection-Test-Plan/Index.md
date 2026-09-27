@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "1.1"
-date: "2026-08-20"
+version: "1.2"
+date: "2026-09-25"
 description: Safety-mechanism validation by fault injection across component, system, and integration levels; exercises the control module and the C2 power stage as one test article. Extracted from the HARA Core document.
 nav_order: 371
 normative_refs:
@@ -49,12 +49,12 @@ The following vocabulary shall be used consistently for every test and requireme
 | **Executable** | All required equipment and facilities are available; the test can be run in the current campaign. |
 | **Conditional** | Executable subject to a stated minor prerequisite (e.g., a small LV bench supply). |
 | **Deferred** | Cannot be executed with available equipment or facilities; scheduled for a future campaign or external lab. |
-| **Executed** | Test has been run; raw evidence (telemetry, video, scope captures) recorded per Test Records and Evidence. |
+| **Executed** | Test has been run; raw evidence (telemetry, scope captures) recorded per Test Records and Evidence. |
 | **Verified** | Executed, passed, and reviewed; evidence reference entered in the traceability matrices. |
 
 ### Statement on Execution Records
 
-> This section **defines** the fault injection test plan and acceptance criteria. Test execution records, measured results, telemetry logs, and video/scope evidence shall be maintained separately in the OpenVVVF verification evidence repository and summarized in the OpenVVVF Verification Report(s). This document shall be updated only to reflect changes to the plan itself. As of this revision, all tests are **Defined**; none are **Executed** or **Verified**.
+> This section **defines** the fault injection test plan and acceptance criteria. Test execution records, measured results, telemetry logs, and scope-capture evidence shall be maintained separately in the OpenVVVF verification evidence repository and summarized in the OpenVVVF Verification Report(s). This document shall be updated only to reflect changes to the plan itself. As of this revision, all tests are **Defined**; none are **Executed** or **Verified**.
 
 ## Test Environment
 
@@ -77,7 +77,6 @@ The following equipment is **available** for the current campaign. Tests requiri
 | **Thermal camera** | Infrared camera | Full-load thermal survey (S-06), hotspot identification, post-short inspection |
 | **Heat gun** | Localized heating of NTC sensors | C-08, C-35 (simulated over-temperature) |
 | **RTE (Real Time Examiner)** | Host tool connected via CAN or debug interface | Internal variable monitoring, tractive effort commands, fault status |
-| **Video recording** | Camera(s) covering DUT, scope screen, and test area | Evidence capture for every test (Test Records and Evidence) |
 
 ### Equipment Not Available (Drives Deferred Status)
 
@@ -93,11 +92,11 @@ The following equipment is **available** for the current campaign. Tests requiri
 
 Every executed test shall produce the following evidence artifacts:
 
-1. **Telemetry log** - RTE/CAN capture of internal variables, fault status, and tractive effort commands for the full test duration.
-2. **Video recording** - continuous video covering the DUT, the oscilloscope screen, and the test area, narrated with the procedure step being performed.
+1. **Test report** - the written execution record (procedure as run, measured values, pass/fail against acceptance criteria), filed per the evidence framework defined in this document's introduction.
+2. **Telemetry log** - RTE/CAN capture of internal variables, fault status, and tractive effort commands for the full test duration.
 3. **Scope captures** - saved waveforms for every timing-critical measurement (PWM disable, DESAT response, deadtime, etc.).
 
-Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15_run2_2026-08-14_60V.mp4`, with the telemetry log and scope captures sharing the same base name. Evidence references shall be entered into the per-test **Evidence** field and the traceability matrices (Safety Goal Traceability) upon execution. Evidence shall be published alongside this document in the project repository.
+Naming convention: `<TestID>_run<N>_<YYYY-MM-DD>_<condition>.<ext>`, e.g., `C-15_run2_2026-08-14_60V.csv`, with the telemetry log and scope captures sharing the same base name. Evidence references shall be entered into the per-test **Evidence** field and the traceability matrices (Safety Goal Traceability) upon execution. Evidence shall be published alongside this document in the project repository. Video recording is not required evidence; where the operator chooses to record video or photos, they are supplementary artifacts and shall not be cited as required evidence in the traceability matrices.
 
 ## Test Status Summary
 
@@ -125,7 +124,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 **Method note - throttle simulation:** For C-01 through C-04 and S-01, the dual throttle potentiometer wipers shall be simulated by two programmable DC supplies (0–5 V, common ground with the DUT). This permits precise, repeatable discrepancy, drift, short-to-rail, and short-to-ground injection. This method simulates the wiper signal only; it does not exercise ratiometric behavior against the sensor 5 V rail (rail faults are covered separately by C-24). At least one test in the campaign (C-05) shall use the real mechanical throttle assembly including the end-travel limit switch so the end-to-end path through the physical connector is exercised.
 
-**Method note - manual fault injection:** Open-circuit faults shall be injected by physically disconnecting the relevant wire or connector during operation (no relay rig is used in this campaign). Gradual-drift faults shall be injected by ramping or stepping the simulating DC supply. Actual injection timing shall be captured from the telemetry record and video; exact repeatability of the injection instant is not required.
+**Method note - manual fault injection:** Open-circuit faults shall be injected by physically disconnecting the relevant wire or connector during operation (no relay rig is used in this campaign). Gradual-drift faults shall be injected by ramping or stepping the simulating DC supply. Actual injection timing shall be captured from the telemetry record and scope captures; exact repeatability of the injection instant is not required.
 
 ### C-01: Tractive Effort Control Potentiometer 1 Open Circuit
 
@@ -632,7 +631,7 @@ Counts: **75 Defined-Executable, 4 Defined-Conditional (C-21, C-22, C-24, C-25 -
 
 1. De-energize the system. Confirm DC link fully discharged per the pre-charge/discharge protocol.
 2. Bolt a low-inductance short between Phase U and Phase V leads. Verify continuity with DMM.
-3. Install blast shield. Establish remote supply activation. Clear personnel from the test area. Start video and telemetry recording.
+3. Install blast shield. Establish remote supply activation. Clear personnel from the test area. Start telemetry recording and arm the scope capture.
 4. Confirm DESAT self-test (C-16) passed on the same day. **If C-16 has not been run within 24 hours, do not proceed.**
 5. Energize the DC link at 50 V with the supply current limit set low. Command a single PWM pulse / minimal duty on the shorted phases.
 6. Measure DESAT response time (<2 us target), peak current, and soft turn-off on the scope.
@@ -1836,5 +1835,5 @@ The campaign follows **progressive validation**: non-destructive tests first, po
 
 > **Safety Warning for Phase Short Tests (C-31 through C-34)**
 >
-> Phase short tests are **inherently destructive if protection fails**. Even at reduced voltage, fault currents of 1000+ A are possible. Mandatory precautions: (1) blast shield around the DUT; (2) remote activation of the DC supply - no manual connection of a live circuit; shorts are bolted on de-energized only; (3) supply current limit set to the minimum practical value; (4) fire suppression present; (5) no personnel in the test area during energization; (6) video recording for post-test analysis; (7) DESAT self-test (C-16) shall have passed within 24 hours before any short test; (8) voltage stepping: 50 V first, increase only after verified protection operation and inspection at each step; (9) C-50 isolation re-verification after the short series.
+> Phase short tests are **inherently destructive if protection fails**. Even at reduced voltage, fault currents of 1000+ A are possible. Mandatory precautions: (1) blast shield around the DUT; (2) remote activation of the DC supply - no manual connection of a live circuit; shorts are bolted on de-energized only; (3) supply current limit set to the minimum practical value; (4) fire suppression present; (5) no personnel in the test area during energization; (6) high-speed scope captures retained for post-test analysis; (7) DESAT self-test (C-16) shall have passed within 24 hours before any short test; (8) voltage stepping: 50 V first, increase only after verified protection operation and inspection at each step; (9) C-50 isolation re-verification after the short series.
 

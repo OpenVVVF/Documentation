@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.5"
-date: "2026-09-24"
+version: "0.9"
+date: "2026-09-26"
 description: Formal test reports and validation evidence for OpenVVVF hardware, firmware, and integration.
 nav_order: 340
 ---
@@ -43,6 +43,10 @@ All hardware power tests follow the shared definitions and evidence requirements
 | 17 | 200 A Regen Steady-State Thermal Test — Gen7 Size 2 | PMSM | draft | continuous-duty validation of the thermally-pasted interface (54.7 min, plateau 44.4/44.0 °C) | [Report](Hardware/Low-Power-Regen-200A-Steady-State-Gen7-Size2/Index.md) |
 | 18 | 200 A Motoring Steady-State Thermal Test — Gen7 Size 2 | PMSM | draft | motoring-direction counterpart of test 17 (42 min, plateau 43.6/43.5 °C) | [Report](Hardware/Low-Power-Motoring-200A-Steady-State-Gen7-Size2/Index.md) |
 | 19 | 300 A Regen Steady-State Thermal Test — Gen7 Size 2 | PMSM | draft | 300 A continuous regen at ~2,600 RPM (22.9 min, 11.7 kW, plateau 63.2/61.7 °C; stopped on machine limit) | [Report](Hardware/Low-Power-Regen-300A-Steady-State-Gen7-Size2/Index.md) |
+| 20 | SSO Pathway Latency — Gen7 Size 2, Low Bus | PMSM | draft | fault→six-switch-open latency (SG-03/SG-13, FSR-05): gate-driver fault ≤10 ms bound; ADC watchdog ISR break, bounded 30.3 A trip; physical pathways deferred | [Report](Hardware/SSO-Latency-Gen7-Size2/Index.md) |
+| 21 | SSO Gate-Drive Kill Pathways — Gen7 Size 2, Low Bus | PMSM | draft | Path 2a gate-power kill + Path 4 reset assertion (SG-03/SG-13, FSR-05): as-found no detection, gate-loss + TorqueLoss detectors added, retested to pass (flags ≤0.3 s) | [Report](Hardware/SSO-GateKill-Gen7-Size2/Index.md) |
+| 22 | Over-Torque Watchdog — 55 A Trip, Locked Rotor, Gen7 Size 2 | PMSM | draft | SG-06/FSR-07: 110 %-of-calibrated-max over-torque chain implemented fix-forward; trip at 55.0 A vs 50 A max, 3× repeatable, SSO ≈0.6 ms, derived AWD backstop | [Report](Hardware/Overcurrent-Watchdog-55A-Gen7-Size2/Index.md) |
+| 23 | Rotor Feedback Loss Detection — Gen7 Size 2, Low Bus | PMSM | draft | SG-08/FSR-09: hard sin/cos disconnect at −2190 RPM → SSO µs–10 ms via all-channel AWD; blind-start defect fixed (start refusal), Critical EncoderLoss chain added; layered detection documented | [Report](Hardware/Encoder-Loss-Gen7-Size2/Index.md) |
 
 These reports validate the calibration routines on the C2 test fixture. The same routines are used on all OpenVVVF chassis; add a new report only when a different motor or harness is introduced.
 
