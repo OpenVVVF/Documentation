@@ -6,7 +6,7 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.9"
+version: "1.0"
 date: "2026-09-26"
 description: Formal test reports and validation evidence for OpenVVVF hardware, firmware, and integration.
 nav_order: 340
@@ -47,6 +47,7 @@ All hardware power tests follow the shared definitions and evidence requirements
 | 21 | SSO Gate-Drive Kill Pathways — Gen7 Size 2, Low Bus | PMSM | draft | Path 2a gate-power kill + Path 4 reset assertion (SG-03/SG-13, FSR-05): as-found no detection, gate-loss + TorqueLoss detectors added, retested to pass (flags ≤0.3 s) | [Report](Hardware/SSO-GateKill-Gen7-Size2/Index.md) |
 | 22 | Over-Torque Watchdog — 55 A Trip, Locked Rotor, Gen7 Size 2 | PMSM | draft | SG-06/FSR-07: 110 %-of-calibrated-max over-torque chain implemented fix-forward; trip at 55.0 A vs 50 A max, 3× repeatable, SSO ≈0.6 ms, derived AWD backstop | [Report](Hardware/Overcurrent-Watchdog-55A-Gen7-Size2/Index.md) |
 | 23 | Rotor Feedback Loss Detection — Gen7 Size 2, Low Bus | PMSM | draft | SG-08/FSR-09: hard sin/cos disconnect at −2190 RPM → SSO µs–10 ms via all-channel AWD; blind-start defect fixed (start refusal), Critical EncoderLoss chain added; layered detection documented | [Report](Hardware/Encoder-Loss-Gen7-Size2/Index.md) |
+| 24 | DC-Link OV/UV Protection — Threshold Injection, Gen7 Size 2 | PMSM | draft | SG-10/FSR-11/FSR-21: all four transitions validated at 49 V by threshold injection; OV-warning regen-disable + UV derate implemented fix-forward; critical OV/UV SSO ≪50 ms; FSR-21 candidate thresholds recorded | [Report](Hardware/DCLink-OVUV-Gen7-Size2/Index.md) |
 
 These reports validate the calibration routines on the C2 test fixture. The same routines are used on all OpenVVVF chassis; add a new report only when a different motor or harness is introduced.
 
