@@ -74,7 +74,17 @@ One JSON file describes the whole run. Example skeleton:
 |---|---|---|---|
 | `test` | object | — | test metadata for the intro/outro/watermark |
 | `brand` | object | — | branding switches and sponsor list |
-| `session` | string | required | path to a runtime-session JSONL (config-relative) |
+| `session` | string | required | path to a runtime-session JSONL (config-relative); see "Compressed session paths" below |
+
+#### Compressed session paths
+
+`session` may point at the plain export or at a compressed copy:
+`*.jsonl` (plain), `*.jsonl.gz` (gzip), and `*.jsonl.zst` (zstd, the
+format `Data/Tests/<DOM>-<Slug>/raw/` archives use). `.zst` files are
+streamed through the `zstd` CLI (`zstd -dc --long=31`), which must be
+on the PATH — no extra Python packages are needed. All formats are
+decompressed line by line, so loading a large archive costs no more
+memory than the plain file.
 | `video` | object | required | `duration` (s) of the output main segment; `offset` = telemetry time at video t=0 |
 | `fps` | number | 15 | panel + card frame rate |
 | `layout` | object | required | canvas and placement, see below |

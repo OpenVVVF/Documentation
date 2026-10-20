@@ -4,10 +4,97 @@ Loads an RTE runtime-session JSONL export into per-signal (t, v) arrays
 and provides nearest / median-window resampling onto an arbitrary time
 grid. All channels are cleaned (non-finite dropped, optional validity
 predicate, optional abs clamp) before use.
+
+Session paths may point at the plain .jsonl export or at a compressed
+copy: .jsonl.gz (gzip streaming) and .jsonl.zst (decompressed through
+the `zstd` CLI, since the repo policy stores raw sessions as
+`zstd -19 --long=31` output). Everything is streamed line by line;
+no file is ever read fully into memory.
 """
+import gzip
+import io
 import json
+import subprocess
 
 import numpy as np
+
+
+def _open_session(path):
+    """Return a streaming text reader for a .jsonl / .jsonl.gz / .jsonl.zst
+    session file. The returned context manager yields a line iterator.
+
+    For .zst the `zstd` CLI must be on PATH; the stream is piped through
+    `zstd -dc --long=31` (the --long window the repo archive policy uses).
+    Raises a clear RuntimeError if the CLI is missing or decompression
+    fails (corrupt file, unsupported window, ...).
+    """
+    path = str(path)
+    if path.endswith(".zst"):
+        try:
+            proc = subprocess.Popen(
+                ["zstd", "-dc", "--long=31", "--", path],
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            )
+        except OSError as exc:
+            raise RuntimeError(
+                f"cannot read {path}: the `zstd` CLI is required to "
+                f"decompress .zst sessions but could not be executed ({exc})"
+            ) from exc
+
+        proc_err = None
+
+        class _ZstdStream:
+            def __enter__(self):
+                fh = io.TextIOWrapper(proc.stdout, encoding="utf-8")
+                self._fh = fh
+                return fh
+
+            def __exit__(self, exc_type, exc, tb):
+                nonlocal proc_err
+                try:
+                    self._fh.close()
+                except BrokenPipeError:
+                    pass
+                finally:
+                    if proc.stdout is not None and not proc.stdout.closed:
+                        proc.stdout.close()
+                    proc_err = proc.stderr.read().decode(
+                        "utf-8", "replace").strip()
+                    code = proc.wait()
+                    proc.stderr.close()
+                if exc_type is None and code != 0:
+                    raise RuntimeError(
+                        f"zstd failed to decompress {path} "
+                        f"(exit {code}): {proc_err or 'no stderr output'}. "
+                        f"The file may be corrupt or use a --long window "
+                        f"unsupported by this zstd build."
+                    )
+                return False
+
+        return _ZstdStream()
+
+    if path.endswith(".gz"):
+        gz = gzip.open(path, "rb")
+        reader = io.TextIOWrapper(gz, encoding="utf-8")
+
+        class _GzipStream:
+            def __enter__(self):
+                return reader
+
+            def __exit__(self, exc_type, exc, tb):
+                reader.close()
+                # Mid-stream gzip corruption surfaces during iteration
+                # (BadGzipFile / EOFError), not on close.
+                if exc_type is not None and isinstance(
+                        exc, (gzip.BadGzipFile, EOFError)):
+                    raise RuntimeError(
+                        f"gzip failed to decompress {path}: {exc}. "
+                        f"The file may be corrupt.") from exc
+                return False
+
+        return _GzipStream()
+
+    return open(path, encoding="utf-8")
 
 
 class Session:
@@ -22,7 +109,7 @@ class Session:
         raw = {}
         started = None
         last_t = 0.0
-        with open(path) as fh:
+        with _open_session(path) as fh:
             for line in fh:
                 d = json.loads(line)
                 ty = d.get("type")

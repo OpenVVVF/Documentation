@@ -56,3 +56,9 @@ site/
 # White paper designed sources and PDFs are committed deliverables
 !Docs/White-Papers/**/*.html
 !Docs/White-Papers/**/*.pdf
+
+# Test bulk evidence: videos and caches stay local (telemetry exports commit as .zst)
+Data/Tests/**/video/
+Data/Tests/**/*.mp4
+Data/Tests/**/_brand_cache/
+Data/Tests/**/*.jsonl.gz

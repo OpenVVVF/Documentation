@@ -15,7 +15,7 @@
   "intro_s": 5.0,
   "outro_s": 4.0
  },
- "session": "raw/runtime-session-2026-10-17T01-16-37.122Z-1ed2dc74.jsonl",
+ "session": "raw/runtime-session-2026-10-17T01-16-37.122Z-1ed2dc74.jsonl.zst",
  "video": {
   "duration": 728.05,
   "offset": 30.18

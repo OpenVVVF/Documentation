@@ -4,6 +4,18 @@ import pytest
 from telemetry_overlay.telemetry import Session
 
 
+def _assert_same_signals(a, b):
+    assert a.names() == b.names()
+    assert a.started_at_utc == b.started_at_utc
+    np.testing.assert_allclose(a.duration, b.duration)
+    for name in a.names():
+        ta, va = a.signals[name]
+        tb, vb = b.signals[name]
+        assert len(ta) == len(tb)
+        np.testing.assert_allclose(ta, tb, rtol=0, atol=1e-12)
+        np.testing.assert_allclose(va, vb, rtol=1e-9, atol=1e-12)
+
+
 def test_load(session_file):
     s = Session(session_file)
     assert s.started_at_utc == "2026-10-16T18:17:05Z"
@@ -49,3 +61,50 @@ def test_resample_empty():
     grid = np.array([0.0, 1.0])
     out = Session.resample_nearest((np.array([]), np.array([])), grid)
     np.testing.assert_array_equal(out, [0.0, 0.0])
+
+
+def test_load_gzip(session_file, tmp_path):
+    import gzip
+
+    gz_path = tmp_path / "session.jsonl.gz"
+    with gz_path.open("wb") as raw:
+        with gzip.GzipFile(fileobj=raw, mode="wb") as gz:
+            gz.write(session_file.read_bytes())
+    s_gz = Session(gz_path)
+    s_plain = Session(session_file)
+    _assert_same_signals(s_gz, s_plain)
+    # spot-check per-signal count / first / last
+    tg, vg = s_gz.signals["display_speed_mph"]
+    assert len(vg) == 4
+    np.testing.assert_allclose([vg[0], vg[-1]], [0.0, 31.0])
+
+
+def test_load_zstd(session_file, tmp_path):
+    import shutil
+    import subprocess
+
+    if shutil.which("zstd") is None:
+        pytest.skip("zstd CLI not on PATH")
+    zst_path = tmp_path / "session.jsonl.zst"
+    with zst_path.open("wb") as out:
+        res = subprocess.run(
+            ["zstd", "-19", "--long=31", "-c", "--", str(session_file)],
+            stdout=out, stderr=subprocess.PIPE)
+        assert res.returncode == 0, res.stderr
+    s_zst = Session(zst_path)
+    s_plain = Session(session_file)
+    _assert_same_signals(s_zst, s_plain)
+    tt, vt = s_zst.signals["thr_a_norm"]
+    assert len(vt) == 4
+    np.testing.assert_allclose([vt[0], vt[-1]], [0.0, 0.8])
+
+
+def test_zstd_corrupt_errors_clearly(tmp_path):
+    import shutil
+
+    if shutil.which("zstd") is None:
+        pytest.skip("zstd CLI not on PATH")
+    bad = tmp_path / "broken.jsonl.zst"
+    bad.write_bytes(b"this is not a zstd frame at all")
+    with pytest.raises(RuntimeError, match="zstd failed to decompress"):
+        Session(bad)
