@@ -1,0 +1,101 @@
+{
+  "file": "/home/aidan/Documents/RTEApp/captures/phone-rides/2026-10-19/runtime-session-2026-10-19T10-01-39.716Z-7e350b5f.jsonl",
+  "bytes": 263123489,
+  "sha256": "94ac53509ed43c87902bad66fcdda62e2f23000e9e5033adf2f7cd0e662c7490",
+  "physical_lines": 2083906,
+  "blank_lines": 0,
+  "record_counts": {
+    "session_start": 1,
+    "signal_definition": 69818,
+    "telemetry": 1998482,
+    "state": 15599,
+    "command": 2,
+    "console": 3,
+    "session_end": 1
+  },
+  "json_or_timestamp_errors": [],
+  "unknown_record_types": [],
+  "ends_in_newline": true,
+  "duration_s": 442.773,
+  "clean_session_end": true,
+  "final_stats": {
+    "rx_hz": 182.0,
+    "rx_bytes_per_second": 45867.0,
+    "good_frames": 88591,
+    "bad_frames": 0,
+    "reject_crc": 0,
+    "reject_header": 0,
+    "reject_length": 0,
+    "reject_payload_parse": 0,
+    "reject_unknown_id": 2554,
+    "last_sequence": 248922,
+    "suspended": false
+  },
+  "summary_mismatches": [],
+  "command_examples": [
+    {
+      "t": 204.267,
+      "text": "precharge start",
+      "sent": true,
+      "source": "android"
+    },
+    {
+      "t": 214.763,
+      "text": "control start",
+      "sent": true,
+      "source": "android"
+    }
+  ],
+  "fault_record_examples": [],
+  "legacy_g4_query_examples": [],
+  "numeric_signals": 131,
+  "numeric_samples": 1998482,
+  "null_samples_by_signal": {
+    "temp_motor_c": 442
+  },
+  "undefined_numeric_signals": [],
+  "distinct_logged_frame_blocks": 88538,
+  "sequence_span_frames": 90665,
+  "sequence_wraps": 0,
+  "sequence_resets": 0,
+  "sequence_jump_count": 3,
+  "unrepresented_sequence_frames": 2127,
+  "accepted_frames_without_logged_events": 53,
+  "minimum_missing_frames_from_span": 2074,
+  "sequence_jump_examples": [
+    {
+      "t": 0.088,
+      "previous_seq": 158258,
+      "sequence": 160354,
+      "unrepresented_frames": 2095
+    },
+    {
+      "t": 0.121,
+      "previous_seq": 160354,
+      "sequence": 160371,
+      "unrepresented_frames": 16
+    },
+    {
+      "t": 0.171,
+      "previous_seq": 160371,
+      "sequence": 160388,
+      "unrepresented_frames": 16
+    }
+  ],
+  "host_gaps_over_250ms": 0,
+  "largest_host_gaps": [],
+  "device_gaps_over_250ms": 1,
+  "largest_device_gaps": [
+    {
+      "t": 0.088,
+      "gap_s": 9.942
+    }
+  ],
+  "embedded_json": {
+    "fw_manifest": {
+      "valid": 40,
+      "invalid": 0,
+      "errors": []
+    }
+  }
+}

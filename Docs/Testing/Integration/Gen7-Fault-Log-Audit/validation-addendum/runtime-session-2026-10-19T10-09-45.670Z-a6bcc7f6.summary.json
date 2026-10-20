@@ -1,0 +1,83 @@
+{
+  "file": "/home/aidan/Documents/RTEApp/captures/phone-rides/2026-10-19/runtime-session-2026-10-19T10-09-45.670Z-a6bcc7f6.jsonl",
+  "bytes": 559729881,
+  "sha256": "00b5aa5cdf8161cf4a3fa1f331bdcb02937b18e8199fd4b66c2a103eeb5eec37",
+  "physical_lines": 4422558,
+  "blank_lines": 0,
+  "record_counts": {
+    "session_start": 1,
+    "signal_definition": 128059,
+    "telemetry": 4265905,
+    "state": 28589,
+    "command": 1,
+    "console": 2,
+    "session_end": 1
+  },
+  "json_or_timestamp_errors": [],
+  "unknown_record_types": [],
+  "ends_in_newline": true,
+  "duration_s": 812.139,
+  "clean_session_end": true,
+  "final_stats": {
+    "rx_hz": 210.0,
+    "rx_bytes_per_second": 37124.0,
+    "good_frames": 155237,
+    "bad_frames": 0,
+    "reject_crc": 0,
+    "reject_header": 0,
+    "reject_length": 0,
+    "reject_payload_parse": 0,
+    "reject_unknown_id": 2409,
+    "last_sequence": 412371,
+    "suspended": false
+  },
+  "summary_mismatches": [],
+  "command_examples": [
+    {
+      "t": 730.653,
+      "text": "control stop",
+      "sent": true,
+      "source": "android"
+    }
+  ],
+  "fault_record_examples": [],
+  "legacy_g4_query_examples": [],
+  "numeric_signals": 131,
+  "numeric_samples": 4265905,
+  "null_samples_by_signal": {
+    "temp_motor_c": 810
+  },
+  "undefined_numeric_signals": [],
+  "distinct_logged_frame_blocks": 155221,
+  "sequence_span_frames": 155704,
+  "sequence_wraps": 0,
+  "sequence_resets": 0,
+  "sequence_jump_count": 1,
+  "unrepresented_sequence_frames": 483,
+  "accepted_frames_without_logged_events": 16,
+  "minimum_missing_frames_from_span": 467,
+  "sequence_jump_examples": [
+    {
+      "t": 0.026,
+      "previous_seq": 256668,
+      "sequence": 257152,
+      "unrepresented_frames": 483
+    }
+  ],
+  "host_gaps_over_250ms": 0,
+  "largest_host_gaps": [],
+  "device_gaps_over_250ms": 1,
+  "largest_device_gaps": [
+    {
+      "t": 0.026,
+      "gap_s": 2.533
+    }
+  ],
+  "embedded_json": {
+    "fw_manifest": {
+      "valid": 76,
+      "invalid": 0,
+      "errors": []
+    }
+  }
+}

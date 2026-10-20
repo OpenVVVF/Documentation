@@ -1,0 +1,137 @@
+{
+  "file": "/home/aidan/Documents/RTEApp/captures/phone-rides/2026-10-19/runtime-session-2026-10-19T10-56-50.375Z-17521eb9.jsonl",
+  "bytes": 48474252,
+  "sha256": "ff74718ed9b838b56a55e84905b5f75c46ff41bc282b257f63006536d7ea146a",
+  "physical_lines": 381635,
+  "blank_lines": 0,
+  "record_counts": {
+    "session_start": 1,
+    "signal_definition": 16216,
+    "telemetry": 361786,
+    "state": 3628,
+    "command": 1,
+    "console": 2,
+    "session_end": 1
+  },
+  "json_or_timestamp_errors": [],
+  "unknown_record_types": [],
+  "ends_in_newline": true,
+  "duration_s": 102.721,
+  "clean_session_end": true,
+  "final_stats": {
+    "rx_hz": 199.0,
+    "rx_bytes_per_second": 33548.0,
+    "good_frames": 21608,
+    "bad_frames": 1,
+    "reject_crc": 0,
+    "reject_header": 1,
+    "reject_length": 0,
+    "reject_payload_parse": 0,
+    "reject_unknown_id": 4260,
+    "last_sequence": 840600,
+    "suspended": false
+  },
+  "summary_mismatches": [],
+  "command_examples": [
+    {
+      "t": 5.992,
+      "text": "control stop",
+      "sent": true,
+      "source": "android"
+    }
+  ],
+  "fault_record_examples": [],
+  "legacy_g4_query_examples": [],
+  "numeric_signals": 131,
+  "numeric_samples": 361786,
+  "null_samples_by_signal": {
+    "temp_motor_c": 102
+  },
+  "undefined_numeric_signals": [],
+  "distinct_logged_frame_blocks": 21554,
+  "sequence_span_frames": 22247,
+  "sequence_wraps": 0,
+  "sequence_resets": 0,
+  "sequence_jump_count": 19,
+  "unrepresented_sequence_frames": 693,
+  "accepted_frames_without_logged_events": 54,
+  "minimum_missing_frames_from_span": 639,
+  "sequence_jump_examples": [
+    {
+      "t": 0.031,
+      "previous_seq": 818354,
+      "sequence": 819010,
+      "unrepresented_frames": 655
+    },
+    {
+      "t": 0.047,
+      "previous_seq": 819021,
+      "sequence": 819025,
+      "unrepresented_frames": 3
+    },
+    {
+      "t": 0.097,
+      "previous_seq": 819036,
+      "sequence": 819040,
+      "unrepresented_frames": 3
+    },
+    {
+      "t": 0.164,
+      "previous_seq": 819050,
+      "sequence": 819054,
+      "unrepresented_frames": 3
+    },
+    {
+      "t": 0.215,
+      "previous_seq": 819061,
+      "sequence": 819065,
+      "unrepresented_frames": 3
+    },
+    {
+      "t": 0.254,
+      "previous_seq": 819068,
+      "sequence": 819072,
+      "unrepresented_frames": 3
+    },
+    {
+      "t": 0.031,
+      "previous_seq": 819011,
+      "sequence": 819014,
+      "unrepresented_frames": 2
+    },
+    {
+      "t": 0.043,
+      "previous_seq": 819015,
+      "sequence": 819018,
+      "unrepresented_frames": 2
+    },
+    {
+      "t": 0.043,
+      "previous_seq": 819018,
+      "sequence": 819021,
+      "unrepresented_frames": 2
+    },
+    {
+      "t": 0.047,
+      "previous_seq": 819026,
+      "sequence": 819029,
+      "unrepresented_frames": 2
+    }
+  ],
+  "host_gaps_over_250ms": 0,
+  "largest_host_gaps": [],
+  "device_gaps_over_250ms": 1,
+  "largest_device_gaps": [
+    {
+      "t": 0.031,
+      "gap_s": 3.232
+    }
+  ],
+  "embedded_json": {
+    "fw_manifest": {
+      "valid": 9,
+      "invalid": 0,
+      "errors": []
+    }
+  }
+}

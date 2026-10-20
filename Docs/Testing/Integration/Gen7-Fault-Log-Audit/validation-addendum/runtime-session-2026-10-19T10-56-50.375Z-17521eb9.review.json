@@ -1,0 +1,1262 @@
+{
+  "file": "runtime-session-2026-10-19T10-56-50.375Z-17521eb9.jsonl",
+  "started_at_utc": "2026-10-19T10:56:50.375000+00:00",
+  "ended_at_utc": "2026-10-19T10:58:33.096000+00:00",
+  "started_local": "2026-10-19T03:56:50.375000-07:00",
+  "duration_s": 102.721,
+  "sha256_matches_transfer": true,
+  "initial_cached_definition_records": 0,
+  "first_frame": {
+    "t": 0.018,
+    "sequence": 818354,
+    "device_time_us": 4073796000
+  },
+  "last_frame": [
+    840600,
+    4179754000
+  ],
+  "first_boot_uptime": {
+    "t": 1.338,
+    "uptime_ms": 4078413.0
+  },
+  "last_boot_uptime": {
+    "t": 102.338,
+    "uptime_ms": 4179422.0
+  },
+  "frame_jumps": [
+    {
+      "t": 0.031,
+      "unrepresented_frames": 655,
+      "device_gap_s": 3.232
+    },
+    {
+      "t": 0.031,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.016
+    },
+    {
+      "t": 0.043,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.015
+    },
+    {
+      "t": 0.043,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.016
+    },
+    {
+      "t": 0.047,
+      "unrepresented_frames": 3,
+      "device_gap_s": 0.02
+    },
+    {
+      "t": 0.047,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.016
+    },
+    {
+      "t": 0.06,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.015
+    },
+    {
+      "t": 0.077,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.016
+    },
+    {
+      "t": 0.097,
+      "unrepresented_frames": 3,
+      "device_gap_s": 0.02
+    },
+    {
+      "t": 0.107,
+      "unrepresented_frames": 1,
+      "device_gap_s": 0.005
+    },
+    {
+      "t": 0.127,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.015
+    },
+    {
+      "t": 0.144,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.015
+    },
+    {
+      "t": 0.164,
+      "unrepresented_frames": 3,
+      "device_gap_s": 0.02
+    },
+    {
+      "t": 0.178,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.016
+    },
+    {
+      "t": 0.19,
+      "unrepresented_frames": 1,
+      "device_gap_s": 0.01
+    },
+    {
+      "t": 0.215,
+      "unrepresented_frames": 3,
+      "device_gap_s": 0.02
+    },
+    {
+      "t": 0.233,
+      "unrepresented_frames": 2,
+      "device_gap_s": 0.016
+    },
+    {
+      "t": 0.254,
+      "unrepresented_frames": 3,
+      "device_gap_s": 0.02
+    },
+    {
+      "t": 0.258,
+      "unrepresented_frames": 1,
+      "device_gap_s": 0.005
+    }
+  ],
+  "fault_history": [
+    {
+      "sequence": 1,
+      "boot": 1,
+      "uptime_ms": 2408,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 1,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=1 boot=1 ms=2408 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=1 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 6.626,
+      "last_t": 100.898,
+      "publications": 14
+    },
+    {
+      "sequence": 2,
+      "boot": 1,
+      "uptime_ms": 2403,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 12,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 3,
+        "age_ms": 51,
+        "trip_reason": 4294967295,
+        "trip_inputs": 4294967295
+      },
+      "raw": "v=1 seq=2 boot=1 ms=2403 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=12 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000003,00000033,FFFFFFFF,FFFFFFFF",
+      "first_t": 6.38,
+      "last_t": 100.648,
+      "publications": 14
+    },
+    {
+      "sequence": 3,
+      "boot": 1,
+      "uptime_ms": 50370,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 17,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 3,
+        "age_ms": 208,
+        "trip_reason": 4,
+        "trip_inputs": 9
+      },
+      "raw": "v=1 seq=3 boot=1 ms=50370 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=17 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000003,000000D0,00000004,00000009",
+      "first_t": 6.127,
+      "last_t": 100.397,
+      "publications": 14
+    },
+    {
+      "sequence": 4,
+      "boot": 1,
+      "uptime_ms": 676587,
+      "source": "PhaseOvercurrent",
+      "reason": 4,
+      "reason_text": "software overcurrent",
+      "severity": 2,
+      "exception": 34,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 1,
+      "kind": 2,
+      "evidence": {
+        "iu_a": 2218.97,
+        "iv_a": -1114.08,
+        "limit_a": 1100.0,
+        "iw_a": -1104.89,
+        "iq_a": -2807.99,
+        "id_a": -627.599
+      },
+      "raw": "v=1 seq=4 boot=1 ms=676587 source=PhaseOvercurrent reason=4:software overcurrent severity=2 exception=34 bdtr=02001CC1 ccer=00000000 gate=1 kind=2 fields=iu_a,iv_a,limit_a,iw_a,iq_a,id_a values=2218.97,-1114.08,1100,-1104.89,-2807.99,-627.599",
+      "first_t": 5.88,
+      "last_t": 100.148,
+      "publications": 14
+    },
+    {
+      "sequence": 5,
+      "boot": 2,
+      "uptime_ms": 2282,
+      "source": "RamEcc",
+      "reason": 54,
+      "reason_text": "RAM ECC status or IRQ",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 4,
+      "kind": 15,
+      "evidence": {
+        "monitor": 9,
+        "sr": 2,
+        "far": 0,
+        "fdrl": 3932340402,
+        "fdrh": 0,
+        "fecr": 96
+      },
+      "raw": "v=1 seq=5 boot=2 ms=2282 source=RamEcc reason=54:RAM ECC status or IRQ severity=2 exception=0 bdtr=02001CC1 ccer=00000000 gate=4 kind=15 fields=monitor,sr,far,fdrl,fdrh,fecr values=00000009,00000002,00000000,EA62C0B2,00000000,00000060",
+      "first_t": 5.629,
+      "last_t": 99.898,
+      "publications": 14
+    },
+    {
+      "sequence": 6,
+      "boot": 2,
+      "uptime_ms": 2291,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 12,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 3,
+        "age_ms": 50,
+        "trip_reason": 4294967295,
+        "trip_inputs": 4294967295
+      },
+      "raw": "v=1 seq=6 boot=2 ms=2291 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=12 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000003,00000032,FFFFFFFF,FFFFFFFF",
+      "first_t": 5.38,
+      "last_t": 99.645,
+      "publications": 14
+    },
+    {
+      "sequence": 7,
+      "boot": 2,
+      "uptime_ms": 2785,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 17,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 3,
+        "age_ms": 38,
+        "trip_reason": 4,
+        "trip_inputs": 9
+      },
+      "raw": "v=1 seq=7 boot=2 ms=2785 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=17 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000003,00000026,00000004,00000009",
+      "first_t": 5.132,
+      "last_t": 99.399,
+      "publications": 14
+    },
+    {
+      "sequence": 8,
+      "boot": 3,
+      "uptime_ms": 2397,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 1,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=8 boot=3 ms=2397 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=1 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 4.876,
+      "last_t": 99.149,
+      "publications": 14
+    },
+    {
+      "sequence": 9,
+      "boot": 3,
+      "uptime_ms": 2394,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 12,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 3,
+        "age_ms": 50,
+        "trip_reason": 4294967295,
+        "trip_inputs": 4294967295
+      },
+      "raw": "v=1 seq=9 boot=3 ms=2394 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=12 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000003,00000032,FFFFFFFF,FFFFFFFF",
+      "first_t": 4.624,
+      "last_t": 98.897,
+      "publications": 14
+    },
+    {
+      "sequence": 10,
+      "boot": 3,
+      "uptime_ms": 2394,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 17,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 3,
+        "age_ms": 326,
+        "trip_reason": 4,
+        "trip_inputs": 9
+      },
+      "raw": "v=1 seq=10 boot=3 ms=2394 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=17 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000003,00000146,00000004,00000009",
+      "first_t": 4.369,
+      "last_t": 98.652,
+      "publications": 14
+    },
+    {
+      "sequence": 11,
+      "boot": 3,
+      "uptime_ms": 158006,
+      "source": "PhaseOvercurrent",
+      "reason": 4,
+      "reason_text": "software overcurrent",
+      "severity": 2,
+      "exception": 34,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 1,
+      "kind": 2,
+      "evidence": {
+        "iu_a": 2281.6,
+        "iv_a": -1144.19,
+        "limit_a": 1100.0,
+        "iw_a": -1137.42,
+        "iq_a": -2848.31,
+        "id_a": -782.0
+      },
+      "raw": "v=1 seq=11 boot=3 ms=158006 source=PhaseOvercurrent reason=4:software overcurrent severity=2 exception=34 bdtr=02001CC1 ccer=00000000 gate=1 kind=2 fields=iu_a,iv_a,limit_a,iw_a,iq_a,id_a values=2281.6,-1144.19,1100,-1137.42,-2848.31,-782",
+      "first_t": 4.122,
+      "last_t": 98.397,
+      "publications": 14
+    },
+    {
+      "sequence": 12,
+      "boot": 4,
+      "uptime_ms": 2296,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 5,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=12 boot=4 ms=2296 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=5 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 3.871,
+      "last_t": 98.147,
+      "publications": 14
+    },
+    {
+      "sequence": 13,
+      "boot": 5,
+      "uptime_ms": 2399,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 5,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=13 boot=5 ms=2399 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=5 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 3.622,
+      "last_t": 97.894,
+      "publications": 14
+    },
+    {
+      "sequence": 14,
+      "boot": 6,
+      "uptime_ms": 2396,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 5,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=14 boot=6 ms=2396 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=5 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 3.37,
+      "last_t": 97.645,
+      "publications": 14
+    },
+    {
+      "sequence": 15,
+      "boot": 6,
+      "uptime_ms": 370559,
+      "source": "DcLinkCurrentFeedback",
+      "reason": 62,
+      "reason_text": "DC-link current uncalibrated, invalid or stale",
+      "severity": 2,
+      "exception": 41,
+      "pwm_bdtr": 33594561,
+      "pwm_ccer": 1365,
+      "gate_inputs": 7,
+      "kind": 14,
+      "evidence": {
+        "current_a": -0.487298,
+        "age_ms": 4.0,
+        "calibrated": 1.0,
+        "valid": 0.0,
+        "iq_a": -0.422369,
+        "iq_request_a": 0.0
+      },
+      "raw": "v=1 seq=15 boot=6 ms=370559 source=DcLinkCurrentFeedback reason=62:DC-link current uncalibrated, invalid or stale severity=2 exception=41 bdtr=02009CC1 ccer=00000555 gate=7 kind=14 fields=current_a,age_ms,calibrated,valid,iq_a,iq_request_a values=-0.487298,4,1,0,-0.422369,0",
+      "first_t": 3.12,
+      "last_t": 97.398,
+      "publications": 14
+    },
+    {
+      "sequence": 16,
+      "boot": 6,
+      "uptime_ms": 370565,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 12,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 9,
+        "age_ms": 50,
+        "trip_reason": 4294967295,
+        "trip_inputs": 4294967295
+      },
+      "raw": "v=1 seq=16 boot=6 ms=370565 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=12 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000009,00000032,FFFFFFFF,FFFFFFFF",
+      "first_t": 2.869,
+      "last_t": 97.143,
+      "publications": 14
+    },
+    {
+      "sequence": 17,
+      "boot": 6,
+      "uptime_ms": 370565,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 17,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 9,
+        "age_ms": 76,
+        "trip_reason": 4,
+        "trip_inputs": 8
+      },
+      "raw": "v=1 seq=17 boot=6 ms=370565 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=17 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000009,0000004C,00000004,00000008",
+      "first_t": 2.622,
+      "last_t": 96.896,
+      "publications": 14
+    },
+    {
+      "sequence": 18,
+      "boot": 7,
+      "uptime_ms": 2409,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 1,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1899,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=18 boot=7 ms=2409 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=1 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000076B,00100080,00000000",
+      "first_t": 2.366,
+      "last_t": 96.648,
+      "publications": 14
+    },
+    {
+      "sequence": 19,
+      "boot": 7,
+      "uptime_ms": 2405,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 12,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 9,
+        "age_ms": 50,
+        "trip_reason": 4294967295,
+        "trip_inputs": 4294967295
+      },
+      "raw": "v=1 seq=19 boot=7 ms=2405 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=12 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000009,00000032,FFFFFFFF,FFFFFFFF",
+      "first_t": 2.113,
+      "last_t": 96.398,
+      "publications": 14
+    },
+    {
+      "sequence": 20,
+      "boot": 7,
+      "uptime_ms": 2591,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 17,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 9,
+        "age_ms": 151,
+        "trip_reason": 4,
+        "trip_inputs": 8
+      },
+      "raw": "v=1 seq=20 boot=7 ms=2591 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=17 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000009,00000097,00000004,00000008",
+      "first_t": 1.865,
+      "last_t": 96.146,
+      "publications": 14
+    },
+    {
+      "sequence": 21,
+      "boot": 8,
+      "uptime_ms": 2407,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 1,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=21 boot=8 ms=2407 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=1 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 1.612,
+      "last_t": 95.897,
+      "publications": 14
+    },
+    {
+      "sequence": 22,
+      "boot": 8,
+      "uptime_ms": 2407,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 12,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 9,
+        "age_ms": 50,
+        "trip_reason": 4294967295,
+        "trip_inputs": 4294967295
+      },
+      "raw": "v=1 seq=22 boot=8 ms=2407 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=12 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000009,00000032,FFFFFFFF,FFFFFFFF",
+      "first_t": 1.358,
+      "last_t": 95.648,
+      "publications": 14
+    },
+    {
+      "sequence": 23,
+      "boot": 8,
+      "uptime_ms": 2407,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 17,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 9,
+        "age_ms": 321,
+        "trip_reason": 4,
+        "trip_inputs": 8
+      },
+      "raw": "v=1 seq=23 boot=8 ms=2407 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=17 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,00000009,00000141,00000004,00000008",
+      "first_t": 1.109,
+      "last_t": 102.65,
+      "publications": 15
+    },
+    {
+      "sequence": 24,
+      "boot": 9,
+      "uptime_ms": 2307,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 5,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=24 boot=9 ms=2307 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=5 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 0.856,
+      "last_t": 102.397,
+      "publications": 15
+    },
+    {
+      "sequence": 25,
+      "boot": 10,
+      "uptime_ms": 2400,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 5,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=25 boot=10 ms=2400 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=5 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 0.606,
+      "last_t": 102.149,
+      "publications": 15
+    },
+    {
+      "sequence": 26,
+      "boot": 11,
+      "uptime_ms": 2408,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 5,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=26 boot=11 ms=2408 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=5 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 0.36,
+      "last_t": 101.897,
+      "publications": 15
+    },
+    {
+      "sequence": 27,
+      "boot": 12,
+      "uptime_ms": 2403,
+      "source": "CanErrorPassive",
+      "reason": 14,
+      "reason_text": "FDCAN error-passive",
+      "severity": 0,
+      "exception": 35,
+      "pwm_bdtr": 33561793,
+      "pwm_ccer": 0,
+      "gate_inputs": 5,
+      "kind": 9,
+      "evidence": {
+        "peripheral": 1073782784,
+        "error": 0,
+        "interrupts": 8388608,
+        "psr": 1915,
+        "ecr": 1048704,
+        "reserved": 0
+      },
+      "raw": "v=1 seq=27 boot=12 ms=2403 source=CanErrorPassive reason=14:FDCAN error-passive severity=0 exception=35 bdtr=02001CC1 ccer=00000000 gate=5 kind=9 fields=peripheral,error,interrupts,psr,ecr,reserved values=4000A000,00000000,00800000,0000077B,00100080,00000000",
+      "first_t": 7.376,
+      "last_t": 101.65,
+      "publications": 14
+    },
+    {
+      "sequence": 28,
+      "boot": 12,
+      "uptime_ms": 3464552,
+      "source": "PhaseOvercurrent",
+      "reason": 4,
+      "reason_text": "software overcurrent",
+      "severity": 2,
+      "exception": 34,
+      "pwm_bdtr": 33594561,
+      "pwm_ccer": 1365,
+      "gate_inputs": 7,
+      "kind": 2,
+      "evidence": {
+        "iu_a": -179.192,
+        "iv_a": 1191.07,
+        "limit_a": 1100.0,
+        "iw_a": -1011.88,
+        "iq_a": 1255.77,
+        "id_a": -160.673
+      },
+      "raw": "v=1 seq=28 boot=12 ms=3464552 source=PhaseOvercurrent reason=4:software overcurrent severity=2 exception=34 bdtr=02009CC1 ccer=00000555 gate=7 kind=2 fields=iu_a,iv_a,limit_a,iw_a,iq_a,id_a values=-179.192,1191.07,1100,-1011.88,1255.77,-160.673",
+      "first_t": 7.13,
+      "last_t": 101.401,
+      "publications": 14
+    },
+    {
+      "sequence": 29,
+      "boot": 12,
+      "uptime_ms": 3464556,
+      "source": "CoprocessorSafety",
+      "reason": 56,
+      "reason_text": "coprocessor safety fault latched",
+      "severity": 2,
+      "exception": 0,
+      "pwm_bdtr": 4294967295,
+      "pwm_ccer": 4294967295,
+      "gate_inputs": 4294967295,
+      "kind": 12,
+      "evidence": {
+        "flags": 4,
+        "state": 3,
+        "generation": 12,
+        "age_ms": 50,
+        "trip_reason": 4294967295,
+        "trip_inputs": 4294967295
+      },
+      "raw": "v=1 seq=29 boot=12 ms=3464556 source=CoprocessorSafety reason=56:coprocessor safety fault latched severity=2 exception=0 bdtr=FFFFFFFF ccer=FFFFFFFF gate=FFFFFFFF kind=12 fields=flags,state,generation,age_ms,trip_reason,trip_inputs values=00000004,00000003,0000000C,00000032,FFFFFFFF,FFFFFFFF",
+      "first_t": 0.365,
+      "last_t": 102.654,
+      "publications": 424
+    }
+  ],
+  "unparsed_fault_text": [],
+  "event_changes": [
+    {
+      "type": "numeric_change",
+      "t": 0.049,
+      "signal": "coprocessor_trip_reason",
+      "value": -1.0,
+      "device_time_us": 4077127000,
+      "frame_sequence": 819030
+    },
+    {
+      "type": "numeric_change",
+      "t": 0.049,
+      "signal": "coprocessor_trip_inputs",
+      "value": -1.0,
+      "device_time_us": 4077127000,
+      "frame_sequence": 819030
+    },
+    {
+      "type": "state",
+      "t": 0.113,
+      "signal": "coprocessor_fault_names",
+      "value": "none",
+      "device_time_us": 4077189000,
+      "frame_sequence": 819043
+    },
+    {
+      "type": "state",
+      "t": 0.113,
+      "signal": "coprocessor_safety_state",
+      "value": "ARMED",
+      "device_time_us": 4077189000,
+      "frame_sequence": 819043
+    },
+    {
+      "type": "state",
+      "t": 0.339,
+      "signal": "main_fault_flags_hex",
+      "value": "0x00000000",
+      "device_time_us": 4077419000,
+      "frame_sequence": 819090
+    },
+    {
+      "type": "state",
+      "t": 0.339,
+      "signal": "main_fault_names",
+      "value": "none",
+      "device_time_us": 4077419000,
+      "frame_sequence": 819090
+    },
+    {
+      "type": "numeric_change",
+      "t": 0.544,
+      "signal": "gate_power_enabled",
+      "value": 1.0,
+      "device_time_us": 4077626000,
+      "frame_sequence": 819132
+    },
+    {
+      "type": "numeric_change",
+      "t": 0.544,
+      "signal": "coprocessor_report_generation",
+      "value": 16.0,
+      "device_time_us": 4077626000,
+      "frame_sequence": 819132
+    },
+    {
+      "type": "numeric_change",
+      "t": 0.733,
+      "signal": "gate_reset_asserted",
+      "value": 0.0,
+      "device_time_us": 4077815000,
+      "frame_sequence": 819171
+    },
+    {
+      "type": "numeric_change",
+      "t": 0.733,
+      "signal": "main_outputs_enabled",
+      "value": 1.0,
+      "device_time_us": 4077815000,
+      "frame_sequence": 819171
+    },
+    {
+      "type": "numeric_change",
+      "t": 0.778,
+      "signal": "fault_log_count",
+      "value": 29.0,
+      "device_time_us": 4077861000,
+      "frame_sequence": 819180
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.041,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4078122000,
+      "frame_sequence": 819234
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.047,
+      "signal": "enc_rejects",
+      "value": 0.0,
+      "device_time_us": 4078128000,
+      "frame_sequence": 819235
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.047,
+      "signal": "cg_sample_valid",
+      "value": 1.0,
+      "device_time_us": 4078128000,
+      "frame_sequence": 819235
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.047,
+      "signal": "gate_fault",
+      "value": 0.0,
+      "device_time_us": 4078128000,
+      "frame_sequence": 819235
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.257,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4078341000,
+      "frame_sequence": 819278
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.28,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4078363000,
+      "frame_sequence": 819283
+    },
+    {
+      "type": "state",
+      "t": 1.338,
+      "signal": "boot_state",
+      "value": "ready",
+      "device_time_us": 4078419000,
+      "frame_sequence": 819294
+    },
+    {
+      "type": "state",
+      "t": 1.338,
+      "signal": "control_state",
+      "value": "RUNNING",
+      "device_time_us": 4078419000,
+      "frame_sequence": 819294
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.386,
+      "signal": "pwm_moe",
+      "value": 1.0,
+      "device_time_us": 4078467000,
+      "frame_sequence": 819303
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.519,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4078601000,
+      "frame_sequence": 819331
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.539,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4078622000,
+      "frame_sequence": 819335
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.545,
+      "signal": "gate_ready",
+      "value": 1.0,
+      "device_time_us": 4078627000,
+      "frame_sequence": 819336
+    },
+    {
+      "type": "numeric_change",
+      "t": 1.734,
+      "signal": "control_outputs_enabled",
+      "value": 1.0,
+      "device_time_us": 4078816000,
+      "frame_sequence": 819375
+    },
+    {
+      "type": "state",
+      "t": 1.834,
+      "signal": "fw_graph_hash",
+      "value": "84929517e9ee5331",
+      "device_time_us": 4078915000,
+      "frame_sequence": 819394
+    },
+    {
+      "type": "numeric_change",
+      "t": 2.099,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4079181000,
+      "frame_sequence": 819448
+    },
+    {
+      "type": "numeric_change",
+      "t": 2.122,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4079202000,
+      "frame_sequence": 819453
+    },
+    {
+      "type": "numeric_change",
+      "t": 2.237,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4079320000,
+      "frame_sequence": 819477
+    },
+    {
+      "type": "numeric_change",
+      "t": 2.258,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4079341000,
+      "frame_sequence": 819481
+    },
+    {
+      "type": "numeric_change",
+      "t": 2.598,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4079681000,
+      "frame_sequence": 819551
+    },
+    {
+      "type": "numeric_change",
+      "t": 2.625,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4079704000,
+      "frame_sequence": 819555
+    },
+    {
+      "type": "numeric_change",
+      "t": 2.857,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4079941000,
+      "frame_sequence": 819604
+    },
+    {
+      "type": "numeric_change",
+      "t": 2.881,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4079963000,
+      "frame_sequence": 819608
+    },
+    {
+      "type": "numeric_change",
+      "t": 3.098,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4080180000,
+      "frame_sequence": 819653
+    },
+    {
+      "type": "numeric_change",
+      "t": 3.127,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4080203000,
+      "frame_sequence": 819658
+    },
+    {
+      "type": "numeric_change",
+      "t": 3.537,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4080620000,
+      "frame_sequence": 819742
+    },
+    {
+      "type": "numeric_change",
+      "t": 3.558,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4080641000,
+      "frame_sequence": 819746
+    },
+    {
+      "type": "numeric_change",
+      "t": 4.523,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4081603000,
+      "frame_sequence": 819941
+    },
+    {
+      "type": "numeric_change",
+      "t": 4.542,
+      "signal": "cg_dclink_valid",
+      "value": 0.0,
+      "device_time_us": 4081624000,
+      "frame_sequence": 819945
+    },
+    {
+      "type": "command",
+      "t": 5.992,
+      "received_t": 5.99,
+      "source": "android",
+      "text": "control stop",
+      "sent": true
+    },
+    {
+      "type": "numeric_change",
+      "t": 6.013,
+      "signal": "gate_reset_asserted",
+      "value": 1.0,
+      "device_time_us": 4083084000,
+      "frame_sequence": 820242
+    },
+    {
+      "type": "numeric_change",
+      "t": 6.013,
+      "signal": "main_outputs_enabled",
+      "value": 0.0,
+      "device_time_us": 4083084000,
+      "frame_sequence": 820242
+    },
+    {
+      "type": "numeric_change",
+      "t": 6.013,
+      "signal": "control_outputs_enabled",
+      "value": 0.0,
+      "device_time_us": 4083084000,
+      "frame_sequence": 820242
+    },
+    {
+      "type": "state",
+      "t": 6.013,
+      "signal": "control_state",
+      "value": "IDLE",
+      "device_time_us": 4083084000,
+      "frame_sequence": 820242
+    },
+    {
+      "type": "console",
+      "t": 6.013,
+      "sequence": 30843,
+      "text": "[SUP] STOPPED"
+    },
+    {
+      "type": "console",
+      "t": 6.013,
+      "sequence": 30845,
+      "text": "[SHELL] control stopped: MAIN motor control (RTE graph)"
+    },
+    {
+      "type": "numeric_change",
+      "t": 6.02,
+      "signal": "cg_dclink_valid",
+      "value": 1.0,
+      "device_time_us": 4083104000,
+      "frame_sequence": 820246
+    },
+    {
+      "type": "numeric_change",
+      "t": 6.339,
+      "signal": "pwm_moe",
+      "value": 0.0,
+      "device_time_us": 4083422000,
+      "frame_sequence": 820314
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "previous": "runtime-session-2026-10-19T10-01-39.716Z-7e350b5f.jsonl",
+    "next": "runtime-session-2026-10-19T10-09-45.670Z-a6bcc7f6.jsonl",
+    "wall_time_gap_s": 43.181,
+    "previous_last_frame": [
+      248922,
+      1208979000
+    ],
+    "next_first_frame": {
+      "t": 0.01,
+      "sequence": 256668,
+      "device_time_us": 1249625000
+    }
+  },
+  {
+    "previous": "runtime-session-2026-10-19T10-09-45.670Z-a6bcc7f6.jsonl",
+    "next": "runtime-session-2026-10-19T10-44-50.484Z-a2e60235.jsonl",
+    "wall_time_gap_s": 1292.675,
+    "previous_last_frame": [
+      412371,
+      2064409000
+    ],
+    "next_first_frame": {
+      "t": 0.012,
+      "sequence": 676791,
+      "device_time_us": 3357157000
+    }
+  },
+  {
+    "previous": "runtime-session-2026-10-19T10-44-50.484Z-a2e60235.jsonl",
+    "next": "runtime-session-2026-10-19T10-56-50.375Z-17521eb9.jsonl",
+    "wall_time_gap_s": 225.93,
+    "previous_last_frame": [
+      774259,
+      3851081000
+    ],
+    "next_first_frame": {
+      "t": 0.018,
+      "sequence": 818354,
+      "device_time_us": 4073796000
+    }
+  }
+]

@@ -1,0 +1,101 @@
+{
+  "file": "/home/aidan/Documents/RTEApp/captures/phone-rides/2026-10-19/runtime-session-2026-10-19T10-44-50.484Z-a2e60235.jsonl",
+  "bytes": 348449705,
+  "sha256": "bb092634b863a25f4d21db062338564db69ca48d1810741e91c867ec5de1c8d4",
+  "physical_lines": 2752794,
+  "blank_lines": 0,
+  "record_counts": {
+    "session_start": 1,
+    "signal_definition": 78001,
+    "telemetry": 2657299,
+    "state": 17462,
+    "console": 24,
+    "command": 6,
+    "session_end": 1
+  },
+  "json_or_timestamp_errors": [],
+  "unknown_record_types": [],
+  "ends_in_newline": true,
+  "duration_s": 493.961,
+  "clean_session_end": true,
+  "final_stats": {
+    "rx_hz": 194.0,
+    "rx_bytes_per_second": 50129.0,
+    "good_frames": 97469,
+    "bad_frames": 0,
+    "reject_crc": 0,
+    "reject_header": 0,
+    "reject_length": 0,
+    "reject_payload_parse": 0,
+    "reject_unknown_id": 0,
+    "last_sequence": 774259,
+    "suspended": false
+  },
+  "summary_mismatches": [],
+  "command_examples": [
+    {
+      "t": 187.11,
+      "text": "fault clear all",
+      "sent": true,
+      "source": "android"
+    },
+    {
+      "t": 189.72,
+      "text": "control start",
+      "sent": true,
+      "source": "android"
+    },
+    {
+      "t": 198.184,
+      "text": "fault clear all",
+      "sent": true,
+      "source": "android"
+    },
+    {
+      "t": 202.62,
+      "text": "control stop",
+      "sent": true,
+      "source": "android"
+    },
+    {
+      "t": 205.992,
+      "text": "fault clear all",
+      "sent": true,
+      "source": "android"
+    },
+    {
+      "t": 210.427,
+      "text": "control start",
+      "sent": true,
+      "source": "android"
+    }
+  ],
+  "fault_record_examples": [],
+  "legacy_g4_query_examples": [],
+  "numeric_signals": 131,
+  "numeric_samples": 2657299,
+  "null_samples_by_signal": {
+    "temp_motor_c": 493
+  },
+  "undefined_numeric_signals": [],
+  "distinct_logged_frame_blocks": 97469,
+  "sequence_span_frames": 97469,
+  "sequence_wraps": 0,
+  "sequence_resets": 0,
+  "sequence_jump_count": 0,
+  "unrepresented_sequence_frames": 0,
+  "accepted_frames_without_logged_events": 0,
+  "minimum_missing_frames_from_span": 0,
+  "sequence_jump_examples": [],
+  "host_gaps_over_250ms": 0,
+  "largest_host_gaps": [],
+  "device_gaps_over_250ms": 0,
+  "largest_device_gaps": [],
+  "embedded_json": {
+    "fw_manifest": {
+      "valid": 46,
+      "invalid": 0,
+      "errors": []
+    }
+  }
+}

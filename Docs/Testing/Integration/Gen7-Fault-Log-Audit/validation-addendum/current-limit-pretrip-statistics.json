@@ -1,0 +1,70 @@
+{
+  "source": "runtime-session-2026-10-19T10-44-50.484Z-a2e60235.jsonl",
+  "interval_s": [
+    107.2,
+    107.39
+  ],
+  "caveat": "Statistics of published samples; not a control-rate waveform or time-weighted mean.",
+  "signals": {
+    "cg_iq_ref_a": {
+      "samples": 10,
+      "min": 894.954833984375,
+      "max": 900.0,
+      "mean": 898.3443237304688
+    },
+    "cg_iq_effective_a": {
+      "samples": 10,
+      "min": 894.954833984375,
+      "max": 900.0,
+      "mean": 898.3443237304688
+    },
+    "cg_iq_a": {
+      "samples": 33,
+      "min": 845.3336791992188,
+      "max": 942.683837890625,
+      "mean": 899.9191968513258
+    },
+    "cg_iq_raw_a": {
+      "samples": 33,
+      "min": 839.775146484375,
+      "max": 988.257080078125,
+      "mean": 907.6530410304214
+    },
+    "cg_id_a": {
+      "samples": 33,
+      "min": -32.488319396972656,
+      "max": 40.93623733520508,
+      "mean": 8.866529681465842
+    },
+    "cg_id_raw_a": {
+      "samples": 33,
+      "min": -39.85218048095703,
+      "max": 72.07942199707031,
+      "mean": 12.23531003409263
+    },
+    "cg_vlimit_scale": {
+      "latest_before_window": [
+        103.675,
+        1.0
+      ]
+    },
+    "cg_voltage_guard_active": {
+      "latest_before_window": [
+        103.973,
+        0.0
+      ]
+    },
+    "cg_sample_age_us": {
+      "samples": 33,
+      "min": 24.15818214416504,
+      "max": 24.700000762939453,
+      "mean": 24.583967208862305
+    },
+    "GapTicks": {
+      "samples": 33,
+      "min": 13924.0,
+      "max": 20674.0,
+      "mean": 16741.515151515152
+    }
+  }
+}
