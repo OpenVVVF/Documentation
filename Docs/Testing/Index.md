@@ -41,6 +41,7 @@ These reports validate the calibration routines on the C2 test fixture. The same
 |---------|------|------------------|--------|-------|--------|
 | 11 | Zero DSR Road Test - First Vehicle Telemetry | Zero DSR 2018 + Gen7 control board | draft | on-vehicle drive-cycle validation | [Report](Integration/Zero-DSR-Road-Test/Index.md) |
 | 12 | Zero DSR Road Test 2 - Sponsor Telemetry Overlay Video | Zero DSR 2018 + Gen7 control board | draft | telemetry/video fusion demonstration | [Report](Integration/Zero-DSR-Road-Test-2/Index.md) |
+| 13 | Gen7 Persisted Fault Log Download and Audit | Zero DSR 2018 + Gen7 control board | draft | persisted fault-log retrieval; post-incident diagnostic workflow | [Report](Integration/Gen7-Fault-Log-Audit/Index.md) |
 
 ### Safety-mechanism validation
 

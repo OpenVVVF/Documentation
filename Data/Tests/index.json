@@ -134,6 +134,17 @@
       "description": "Second on-vehicle run on the Zero DSR, captured both as live telemetry and as a helmet-camera video; the two were fused into a branded F1-style telemetry overlay video for sponsor review.",
       "report_path": "Docs/Testing/Integration/Zero-DSR-Road-Test-2/Index.md",
       "data_path": "Data/Tests/INT-Zero-DSR-Road-Test-2"
+    },
+    {
+      "test_id": 13,
+      "doc_id": "OV-TEST-INT-FAULT-LOG-AUDIT",
+      "domain": "Integration",
+      "slug": "Gen7-Fault-Log-Audit",
+      "title": "Gen7 Persisted Fault Log Download and Audit",
+      "date": "2026-10-19",
+      "description": "First full download of the Gen7 control board's reboot-persisted in-memory fault log after the first two road rides; 29 records across 12 boots expose three recurring failure modes plus two one-off records, and confirm the log's intended post-incident retrieval workflow.",
+      "report_path": "Docs/Testing/Integration/Gen7-Fault-Log-Audit/Index.md",
+      "data_path": "Data/Tests/INT-Gen7-Fault-Log-Audit"
     }
   ]
 }
