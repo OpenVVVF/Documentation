@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.1"
-date: "2026-08-08"
+version: "0.2"
+date: "2026-10-19"
 description: Portal to OpenVVVF product documentation, hardware manuals, software targets, safety analyses, and validation evidence.
 nav_order: 0
 ---
@@ -28,7 +28,7 @@ This site is the single source of truth for OpenVVVF hardware manuals, software 
 <li><strong>New users</strong> - read the overview, architecture, and glossary sections on this page first.</li>
 <li><strong>Installers / Technicians</strong> - start with <a href="Hardware/Power-Stages/Index.md">Power Stages</a> to choose the correct chassis, then open its integration or assembly guide.</li>
 <li><strong>Developers</strong> - see the <a href="Hardware/Control-Assembly/Index.md">Control Assembly</a> docs. Firmware and host-software documentation is being rewritten and will be published later.</li>
-<li><strong>Safety / Compliance Reviewers</strong> - begin with the <a href="Safety-and-Compliance/HARA/Core/Index.md">HARA Core</a>, <a href="Safety-and-Compliance/Compliance/Index.md">Compliance</a>, and <a href="Safety-and-Compliance/Testing/Index.md">Testing & Validation</a> docs.</li>
+<li><strong>Safety / Compliance Reviewers</strong> - begin with the <a href="Safety-and-Compliance/HARA/Core/Index.md">HARA Core</a>, <a href="Safety-and-Compliance/Compliance/Index.md">Compliance</a>, and <a href="Testing/Index.md">Testing & Validation</a> docs.</li>
 </ul>
 </div>
 
@@ -47,13 +47,21 @@ This site is the single source of truth for OpenVVVF hardware manuals, software 
 
 <div class="card">
 <h3><a href="Safety-and-Compliance/Index.md">Safety and Compliance</a></h3>
-<p>Hazard analyses, threat analyses, standards mappings, and validation evidence.</p>
+<p>Hazard analyses, threat analyses, and standards mappings.</p>
 <ul>
 <li><a href="Safety-and-Compliance/HARA/Core/Index.md">HARA Core</a></li>
 <li><a href="Safety-and-Compliance/HARA/Application-Profiles/Motorcycle/Index.md">Motorcycle Application Profile</a></li>
 <li><a href="Safety-and-Compliance/TARA/Index.md">TARA</a></li>
 <li><a href="Safety-and-Compliance/Compliance/Index.md">Compliance</a></li>
-<li><a href="Safety-and-Compliance/Testing/Index.md">Testing &amp; Validation</a></li>
+</ul>
+</div>
+
+<div class="card">
+<h3><a href="Testing/Index.md">Testing and Validation</a></h3>
+<p>Formal test reports and validation evidence for hardware, firmware, and integration.</p>
+<ul>
+<li><a href="Testing/Hardware/Index.md">Hardware Tests</a></li>
+<li><a href="Testing/Fault-Injection-Test-Plan/Index.md">Fault-Injection Test Plan</a></li>
 </ul>
 </div>
 

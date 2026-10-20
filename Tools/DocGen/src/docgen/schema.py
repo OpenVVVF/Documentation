@@ -68,7 +68,7 @@ PREFIX_TO_DIR = {
     "OV-SAF-": "Safety-and-Compliance",
     "OV-COMP-": "Safety-and-Compliance/Compliance",
     "OV-SW-": "Software",
-    "OV-TEST-": "Safety-and-Compliance/Testing",
+    "OV-TEST-": "Testing",
     "OV-TOOLS-": "Tools",
     "OV-WP-": "White-Papers",
 }
@@ -113,9 +113,9 @@ def _prefix_for_path(rel_path: Path) -> Optional[str]:
     if top == "Safety-and-Compliance":
         if len(parts) > 1 and parts[1] == "Compliance":
             return "OV-COMP-"
-        if len(parts) > 1 and parts[1] == "Testing":
-            return "OV-TEST-"
         return "OV-SAF-"
+    if top == "Testing":
+        return "OV-TEST-"
     if top == "Software":
         return "OV-SW-"
     if top == "Tools":

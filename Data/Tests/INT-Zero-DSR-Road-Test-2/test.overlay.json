@@ -1,0 +1,318 @@
+{
+ "test": {
+  "number": "012",
+  "title": "ZERO DSR ROAD TEST 2",
+  "description": "Gen7 control board in a Zero DSR 2018: F1-style telemetry overlay from live inverter capture, for sponsor review. Tracked test evidence in the OpenVVVF Documentation repo under Docs/Testing.",
+  "date": "2026-10-16"
+ },
+ "brand": {
+  "watermark": true,
+  "sponsors": [
+   "mitsubishi-electric",
+   "mouser",
+   "scs"
+  ],
+  "intro_s": 5.0,
+  "outro_s": 4.0
+ },
+ "session": "raw/runtime-session-2026-10-17T01-16-37.122Z-1ed2dc74.jsonl",
+ "video": {
+  "duration": 728.05,
+  "offset": 30.18
+ },
+ "fps": 15,
+ "layout": {
+  "canvas_w": 1920,
+  "canvas_h": 1080,
+  "video_width": 608,
+  "video_height": 1080,
+  "panels": [
+   {
+    "file": "left.mp4",
+    "x": 40
+   },
+   {
+    "file": "right.mp4",
+    "x": 1304
+   }
+  ]
+ },
+ "signals": {
+  "rpm": {
+   "source": "display_motor_rpm",
+   "resample": "nearest"
+  },
+  "mph": {
+   "source": "display_speed_mph",
+   "resample": "nearest"
+  },
+  "thr": {
+   "source": "thr_a_norm",
+   "resample": "median",
+   "win": 0.1,
+   "clip": [
+    0,
+    1
+   ]
+  },
+  "iq": {
+   "source": "cg_iq_a",
+   "resample": "median",
+   "abs": true
+  },
+  "pwr_kw": {
+   "source": "dclink_p_w",
+   "resample": "median",
+   "win": 0.05,
+   "scale": -0.001
+  },
+  "soc": {
+   "source": "display_soc_pct",
+   "resample": "nearest"
+  },
+  "vdc": {
+   "source": "cg_vdc_v",
+   "resample": "nearest"
+  },
+  "ba": {
+   "source": "bms_pack_a",
+   "resample": "nearest",
+   "valid": "lambda v: v < 1000"
+  },
+  "t1": {
+   "source": "temp_inv1_c",
+   "resample": "nearest"
+  },
+  "t2": {
+   "source": "temp_inv2_c",
+   "resample": "nearest"
+  },
+  "t3": {
+   "source": "temp_inv3_c",
+   "resample": "nearest"
+  }
+ },
+ "panels": {
+  "left": {
+   "panel_width": 576,
+   "panel_height": 1080,
+   "widgets": [
+    {
+     "type": "header",
+     "y": 22,
+     "title": "TRENDS \u00b7 60s",
+     "show_dot": false
+    },
+    {
+     "type": "graphs",
+     "y": 75,
+     "h": 180,
+     "window_s": 60,
+     "gap": 16,
+     "graphs": [
+      {
+       "signal": "mph",
+       "label": "SPEED mph",
+       "color": [
+        120,
+        200,
+        255
+       ],
+       "min": 0,
+       "max": "auto"
+      }
+     ]
+    },
+    {
+     "type": "graphs",
+     "y": 275,
+     "h": 180,
+     "window_s": 60,
+     "gap": 16,
+     "graphs": [
+      {
+       "signal": "pwr_kw",
+       "label": "POWER kW",
+       "color": "amber",
+       "min": -5,
+       "max": "auto"
+      }
+     ]
+    },
+    {
+     "type": "graphs",
+     "y": 475,
+     "h": 180,
+     "window_s": 60,
+     "gap": 16,
+     "graphs": [
+      {
+       "signal": "thr",
+       "label": "THROTTLE",
+       "color": "green",
+       "min": 0,
+       "max": 1
+      }
+     ]
+    },
+    {
+     "type": "graphs",
+     "y": 675,
+     "h": 180,
+     "window_s": 60,
+     "gap": 16,
+     "graphs": [
+      {
+       "signal": "iq",
+       "label": "PHASE A",
+       "color": [
+        200,
+        220,
+        60
+       ],
+       "min": 0,
+       "max": "auto"
+      }
+     ]
+    },
+    {
+     "type": "graphs",
+     "y": 875,
+     "h": 180,
+     "window_s": 60,
+     "gap": 16,
+     "graphs": [
+      {
+       "signal": "rpm",
+       "label": "MOTOR rpm",
+       "color": "red",
+       "min": 0,
+       "max": "auto"
+      }
+     ]
+    }
+   ]
+  },
+  "right": {
+   "panel_width": 576,
+   "panel_height": 1080,
+   "widgets": [
+    {
+     "type": "header",
+     "y": 22,
+     "logo_height": 34,
+     "show_dot": false
+    },
+    {
+     "type": "bigvalue",
+     "y": 80,
+     "signal": "mph",
+     "label": "SPEED",
+     "unit": "mph",
+     "size": 150
+    },
+    {
+     "type": "bigvalue",
+     "y": 290,
+     "signal": "rpm",
+     "label": "MOTOR",
+     "unit": "rpm",
+     "size": 62,
+     "value_drop": 26,
+     "unit_drop": 40,
+     "color_thresholds": {
+      "2800": "red"
+     }
+    },
+    {
+     "type": "bar",
+     "y": 400,
+     "signal": "rpm",
+     "label": "",
+     "max": 3200,
+     "value_show": false,
+     "color": "red",
+     "segments": [
+      2800
+     ]
+    },
+    {
+     "type": "bar",
+     "y": 480,
+     "signal": "thr",
+     "label": "THROTTLE",
+     "max": 1,
+     "value_scale": 100,
+     "value_format": "{:.0f}%",
+     "color": "green"
+    },
+    {
+     "type": "bar",
+     "y": 580,
+     "signal": "pwr_kw",
+     "label": "DC POWER",
+     "max": "auto",
+     "value_format": "{:.1f} kW",
+     "color": "amber",
+     "zero_center": true,
+     "neg_color": "cyan"
+    },
+    {
+     "type": "bar",
+     "y": 680,
+     "signal": "soc",
+     "label": "STATE OF CHARGE",
+     "max": 100,
+     "value_format": "{:.0f}%",
+     "color": [
+      120,
+      200,
+      255
+     ]
+    },
+    {
+     "type": "statsrow",
+     "y": 790,
+     "items": [
+      {
+       "label": "DC BUS",
+       "signal": "vdc",
+       "format": "{:.0f} V"
+      },
+      {
+       "label": "BATT",
+       "signal": "ba",
+       "format": "{:.0f} A"
+      },
+      {
+       "label": "PHASE",
+       "signal": "iq",
+       "format": "{:.0f} A"
+      }
+     ]
+    },
+    {
+     "type": "tempbars",
+     "y": 880,
+     "label": "INVERTER TEMP",
+     "signals": [
+      "t1",
+      "t2",
+      "t3"
+     ],
+     "names": [
+      "INV1",
+      "INV2",
+      "INV3"
+     ],
+     "max": 80,
+     "color_thresholds": {
+      "55": "orange",
+      "65": "red"
+     }
+    }
+   ]
+  }
+ },
+ "timeline": []
+}

@@ -9,13 +9,16 @@ The `Docs/` tree has three top-level sections:
 1. **Hardware** - Physical OpenVVVF hardware.
    - `Control-Assembly/` - The reusable inverter control module.
    - `Power-Stages/` - Chassis/inverter assemblies (currently `C2/`).
-2. **Safety-and-Compliance** - Cross-cutting safety, standards, and validation docs.
+2. **Safety-and-Compliance** - Cross-cutting safety, standards, and validation-trace analyses.
    - `HARA/` - Hazard analyses.
    - `TARA/` - Threat analyses.
    - `Compliance/` - Standards mappings.
-   - `Testing/` - Formal test and validation evidence.
-3. **Tools** - Software tools and widgets.
-4. **White-Papers** - Executive-level white papers for sponsors and partners. Custom-designed pages; the HTML design sources, assets, and built PDFs are all committed (see the `.gitignore` exceptions).
+3. **Testing** - Formal test and validation evidence.
+   - `Hardware/` - Physical hardware is the DUT.
+   - `Firmware/` - Firmware logic is the DUT without physical fault injection.
+   - `Integration/` - Combined-system tests.
+4. **Tools** - Software tools and widgets.
+5. **White-Papers** - Executive-level white papers for sponsors and partners. Custom-designed pages; the HTML design sources, assets, and built PDFs are all committed (see the `.gitignore` exceptions).
 
 Firmware and host-software documentation (formerly `Docs/Software/`) was removed as not yet ready; it will be re-added when the software docs are rewritten.
 
@@ -114,7 +117,8 @@ Use these ranges for top-level section indices so the sidebar orders consistentl
 | 10–99 | Hardware |
 | 100–199 | Control Assembly |
 | 200–299 | Power Stages |
-| 300–399 | Safety and Compliance (incl. Testing at 340–379) |
+| 300–339 | Safety and Compliance |
+| 340–379 | Testing (top-level; formerly under Safety and Compliance) |
 | 400–499 | (reserved; formerly Software) |
 | 600–699 | Tools |
 | 700–799 | White Papers |

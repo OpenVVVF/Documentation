@@ -6,8 +6,8 @@ product_line: openvvvf
 applies_to:
   - openvvvf-control-module
   - chassis-size-2
-version: "0.2"
-date: "2026-08-17"
+version: "0.3"
+date: "2026-10-19"
 description: Documentation for OpenVVVF support tools and widgets.
 nav_order: 600
 normative_refs:
@@ -44,6 +44,11 @@ This section documents the support tools and widgets that go with OpenVVVF hardw
 <div class="card">
 <h3><a href="HWRelease-System/Index.md">HWRelease System</a></h3>
 <p>How hardware releases flow from InverterGen5 tags into the tools — architecture and conventions.</p>
+</div>
+
+<div class="card">
+<h3><a href="TelemetryOverlay/Index.md">Telemetry Overlay</a></h3>
+<p>Renders branded telemetry overlays onto run videos for test evidence. Under development.</p>
 </div>
 
 </div>

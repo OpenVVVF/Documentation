@@ -1,0 +1,139 @@
+{
+  "schema_version": 2,
+  "generated_by": "Data/Tests/rebuild_index.py",
+  "source_of_truth": "Docs/Testing/**/Index.md frontmatter",
+  "tests": [
+    {
+      "test_id": 1,
+      "doc_id": "OV-TEST-HW-MOTOR-RES-CAL",
+      "domain": "Hardware",
+      "slug": "Resistance",
+      "title": "PMSM Resistance Calibration Validation",
+      "date": "2026-08-08",
+      "description": "Validation of the inverter motor-resistance calibration routine against a bench LCR reference.",
+      "report_path": "Docs/Testing/Hardware/PMSM-Motor-Calibration/Resistance/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 2,
+      "doc_id": "OV-TEST-HW-MOTOR-IND-CAL",
+      "domain": "Hardware",
+      "slug": "Inductance",
+      "title": "PMSM Inductance Calibration Validation",
+      "date": "2026-08-08",
+      "description": "Validation of the inverter motor-inductance calibration routine against a bench LCR reference.",
+      "report_path": "Docs/Testing/Hardware/PMSM-Motor-Calibration/Inductance/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 3,
+      "doc_id": "OV-TEST-HW-RESISTOR-SANITY",
+      "domain": "Hardware",
+      "slug": "Resistor-Sanity-Check",
+      "title": "Power Resistor Sanity Check",
+      "date": "2026-08-08",
+      "description": "Sanity check of the resistance calibration routine using a known power-resistor load.",
+      "report_path": "Docs/Testing/Hardware/PMSM-Motor-Calibration/Resistor-Sanity-Check/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 4,
+      "doc_id": "OV-TEST-HW-INDUCTION-TESTBED",
+      "domain": "Hardware",
+      "slug": "Testbed",
+      "title": "Induction Motor Testbed",
+      "date": "2026-08-08",
+      "description": "Base documentation for the TECO MAX-IE3 induction motor testbed used for calibration validation.",
+      "report_path": "Docs/Testing/Hardware/Induction-Motor-Calibration/Testbed/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 5,
+      "doc_id": "OV-TEST-HW-INDUCTION-RES-CAL",
+      "domain": "Hardware",
+      "slug": "Resistance",
+      "title": "Induction Motor Resistance Calibration Validation",
+      "date": "2026-08-08",
+      "description": "Validation of the inverter motor-resistance calibration routine on a TECO MAX-IE3 induction motor.",
+      "report_path": "Docs/Testing/Hardware/Induction-Motor-Calibration/Resistance/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 6,
+      "doc_id": "OV-TEST-HW-INDUCTION-IND-CAL",
+      "domain": "Hardware",
+      "slug": "Inductance",
+      "title": "Inductance Calibration Validation",
+      "date": "2026-08-09",
+      "description": "Validation of the inverter motor-inductance calibration routine on a TECO MAX-IE3 induction motor.",
+      "report_path": "Docs/Testing/Hardware/Induction-Motor-Calibration/Inductance/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 7,
+      "doc_id": "OV-TEST-HW-INDUCTION-NOLOAD-1H",
+      "domain": "Hardware",
+      "slug": "Induction-Motor-No-Load-Test",
+      "title": "Induction Motor 1-Hour No-Load Test",
+      "date": "2026-08-09",
+      "description": "One-hour no-load run of the TECO MAX-IE3 induction motor at 120 VDC to establish a gate-driver and system thermal baseline.",
+      "report_path": "Docs/Testing/Hardware/Induction-Motor-No-Load-Test/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 8,
+      "doc_id": "OV-TEST-HW-INDUCTION-180V-BRINGUP",
+      "domain": "Hardware",
+      "slug": "Induction-Motor-180V-Bringup",
+      "title": "Induction Motor 180 V Power Stage Bring-up",
+      "date": "2026-08-09",
+      "description": "Bring-up run of the C2 power stage with 200 V capacitors, driving the TECO MAX-IE3 induction motor up to 180 VDC bus.",
+      "report_path": "Docs/Testing/Hardware/Induction-Motor-180V-Bringup/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 9,
+      "doc_id": "OV-TEST-HW-INDUCTION-180V-REVERSAL",
+      "domain": "Hardware",
+      "slug": "Induction-Motor-180V-Reversal",
+      "title": "Induction Motor 180 V 20-Minute Reversal Test",
+      "date": "2026-08-09",
+      "description": "Repeated forward/reverse direction changes at 180 VDC and \u00b160 Hz on the TECO MAX-IE3 induction motor to stress-test switching and current control.",
+      "report_path": "Docs/Testing/Hardware/Induction-Motor-180V-Reversal/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 10,
+      "doc_id": "OV-TEST-HW-SELF-COMMISSIONING",
+      "domain": "Hardware",
+      "slug": "Motor-Self-Commissioning-Accuracy",
+      "title": "Motor Self-Commissioning Accuracy Report",
+      "date": "2026-08-13",
+      "description": "Aggregated accuracy evidence for the motor self-commissioning routine, comparing its resistance and inductance estimates against instrumented bench references.",
+      "report_path": "Docs/Testing/Hardware/Motor-Self-Commissioning-Accuracy/Index.md",
+      "data_path": null
+    },
+    {
+      "test_id": 11,
+      "doc_id": "OV-TEST-INT-ZERO-DSR-ROAD",
+      "domain": "Integration",
+      "slug": "Zero-DSR-Road-Test",
+      "title": "Zero DSR 2018 Road Test - First Vehicle Telemetry",
+      "date": "2026-10-19",
+      "description": "First on-vehicle telemetry from the Gen7 control board driving a 2018 Zero DSR - a 34.9-minute, 14.4-mile road run with full drive-cycle logging and no faults.",
+      "report_path": "Docs/Testing/Integration/Zero-DSR-Road-Test/Index.md",
+      "data_path": "Data/Tests/INT-Zero-DSR-Road-Test"
+    },
+    {
+      "test_id": 12,
+      "doc_id": "OV-TEST-INT-ZERO-DSR-ROAD-2",
+      "domain": "Integration",
+      "slug": "Zero-DSR-Road-Test-2",
+      "title": "Zero DSR 2018 Road Test 2 - Sponsor Telemetry Overlay Video",
+      "date": "2026-10-19",
+      "description": "Second on-vehicle run on the Zero DSR, captured both as live telemetry and as a helmet-camera video; the two were fused into a branded F1-style telemetry overlay video for sponsor review.",
+      "report_path": "Docs/Testing/Integration/Zero-DSR-Road-Test-2/Index.md",
+      "data_path": "Data/Tests/INT-Zero-DSR-Road-Test-2"
+    }
+  ]
+}
